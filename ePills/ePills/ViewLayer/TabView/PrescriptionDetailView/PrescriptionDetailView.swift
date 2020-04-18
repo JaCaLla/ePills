@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  PrescriptionDetailView.swift
 //  ePills
 //
 //  Created by Javier Calatrava on 18/04/2020.
@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct PrescriptionDetailView: View {
     var body: some View {
-        Text("Hello, World!")
+        Text("PrescriptionDetailView")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct PrescriptionDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        PrescriptionDetailView()
     }
 }
