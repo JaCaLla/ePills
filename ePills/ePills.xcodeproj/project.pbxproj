@@ -11,12 +11,20 @@
 		3617ECEE8974CC1955656F55 /* Pods_ePillsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E35F4D39E48EFB14C6CC183B /* Pods_ePillsTests.framework */; };
 		5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB014244B0F3F00F162EB /* AppDelegate.swift */; };
 		5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */; };
-		5E6AB019244B0F3F00F162EB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB018244B0F3F00F162EB /* ContentView.swift */; };
+		5E6AB019244B0F3F00F162EB /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB018244B0F3F00F162EB /* MainTabView.swift */; };
 		5E6AB01B244B0F4200F162EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6AB01A244B0F4200F162EB /* Assets.xcassets */; };
 		5E6AB01E244B0F4200F162EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6AB01D244B0F4200F162EB /* Preview Assets.xcassets */; };
 		5E6AB021244B0F4200F162EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E6AB01F244B0F4200F162EB /* LaunchScreen.storyboard */; };
 		5E6AB02C244B0F4200F162EB /* ePillsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB02B244B0F4200F162EB /* ePillsTests.swift */; };
 		5E6AB03B244B14CC00F162EB /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB03A244B14CC00F162EB /* R.generated.swift */; };
+		5E6AB03E244B245F00F162EB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB03D244B245F00F162EB /* HomeView.swift */; };
+		5E6AB040244B366B00F162EB /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB03F244B366B00F162EB /* HomeVM.swift */; };
+		5E6AB044244B455500F162EB /* FirstPrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB043244B455500F162EB /* FirstPrescriptionView.swift */; };
+		5E6AB047244B4F5E00F162EB /* PrescriptionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB046244B4F5E00F162EB /* PrescriptionDetailView.swift */; };
+		5E6AB04A244B60A800F162EB /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB049244B60A800F162EB /* BackgroundView.swift */; };
+		5E6AB04E244BA32200F162EB /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB04D244BA32200F162EB /* MessageView.swift */; };
+		5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */; };
+		5E6AB052244BA75300F162EB /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +41,7 @@
 		5E6AB011244B0F3F00F162EB /* ePills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ePills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6AB014244B0F3F00F162EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5E6AB018244B0F3F00F162EB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5E6AB018244B0F3F00F162EB /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		5E6AB01A244B0F4200F162EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E6AB01D244B0F4200F162EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5E6AB020244B0F4200F162EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -42,6 +50,14 @@
 		5E6AB02B244B0F4200F162EB /* ePillsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ePillsTests.swift; sourceTree = "<group>"; };
 		5E6AB02D244B0F4200F162EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E6AB03A244B14CC00F162EB /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		5E6AB03D244B245F00F162EB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5E6AB03F244B366B00F162EB /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
+		5E6AB043244B455500F162EB /* FirstPrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPrescriptionView.swift; sourceTree = "<group>"; };
+		5E6AB046244B4F5E00F162EB /* PrescriptionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionDetailView.swift; sourceTree = "<group>"; };
+		5E6AB049244B60A800F162EB /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		5E6AB04D244BA32200F162EB /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPrescriptionView.swift; sourceTree = "<group>"; };
+		5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		7AD86EE5D26121AE773DBB92 /* Pods_ePills.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ePills.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC7044343D9321A4692F525 /* Pods-ePills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ePills.debug.xcconfig"; path = "Target Support Files/Pods-ePills/Pods-ePills.debug.xcconfig"; sourceTree = "<group>"; };
 		C555405584D4D9493D9D5A52 /* Pods-ePillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ePillsTests.release.xcconfig"; path = "Target Support Files/Pods-ePillsTests/Pods-ePillsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -105,8 +121,6 @@
 				5E6AB037244B139500F162EB /* ViewLayer */,
 				5E6AB014244B0F3F00F162EB /* AppDelegate.swift */,
 				5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */,
-				5E6AB018244B0F3F00F162EB /* ContentView.swift */,
-				5E6AB01A244B0F4200F162EB /* Assets.xcassets */,
 				5E6AB01F244B0F4200F162EB /* LaunchScreen.storyboard */,
 				5E6AB022244B0F4200F162EB /* Info.plist */,
 				5E6AB01C244B0F4200F162EB /* Preview Content */,
@@ -134,6 +148,8 @@
 		5E6AB037244B139500F162EB /* ViewLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5E6AB048244B609600F162EB /* Common */,
+				5E6AB03C244B201B00F162EB /* TabView */,
 				5E6AB038244B13A100F162EB /* Resources */,
 			);
 			path = ViewLayer;
@@ -142,6 +158,7 @@
 		5E6AB038244B13A100F162EB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5E6AB01A244B0F4200F162EB /* Assets.xcassets */,
 				5E6AB039244B13AA00F162EB /* R.Swift */,
 			);
 			path = Resources;
@@ -153,6 +170,53 @@
 				5E6AB03A244B14CC00F162EB /* R.generated.swift */,
 			);
 			path = R.Swift;
+			sourceTree = "<group>";
+		};
+		5E6AB03C244B201B00F162EB /* TabView */ = {
+			isa = PBXGroup;
+			children = (
+				5E6AB045244B4EF300F162EB /* PrescriptionDetailView */,
+				5E6AB042244B43CC00F162EB /* FirstPrescriptionView */,
+				5E6AB041244B42F900F162EB /* HomeView */,
+				5E6AB018244B0F3F00F162EB /* MainTabView.swift */,
+			);
+			path = TabView;
+			sourceTree = "<group>";
+		};
+		5E6AB041244B42F900F162EB /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				5E6AB03D244B245F00F162EB /* HomeView.swift */,
+				5E6AB03F244B366B00F162EB /* HomeVM.swift */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		5E6AB042244B43CC00F162EB /* FirstPrescriptionView */ = {
+			isa = PBXGroup;
+			children = (
+				5E6AB043244B455500F162EB /* FirstPrescriptionView.swift */,
+				5E6AB04D244BA32200F162EB /* MessageView.swift */,
+				5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */,
+			);
+			path = FirstPrescriptionView;
+			sourceTree = "<group>";
+		};
+		5E6AB045244B4EF300F162EB /* PrescriptionDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				5E6AB046244B4F5E00F162EB /* PrescriptionDetailView.swift */,
+			);
+			path = PrescriptionDetailView;
+			sourceTree = "<group>";
+		};
+		5E6AB048244B609600F162EB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				5E6AB049244B60A800F162EB /* BackgroundView.swift */,
+				5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		A8DE4281F0637BB071D32214 /* Pods */ = {
@@ -174,11 +238,11 @@
 			buildConfigurationList = 5E6AB030244B0F4200F162EB /* Build configuration list for PBXNativeTarget "ePills" */;
 			buildPhases = (
 				E12C4D0ACCAD4E140F3C7BCD /* [CP] Check Pods Manifest.lock */,
+				5E6AB036244B135300F162EB /* R.Swift */,
 				5E6AB00D244B0F3F00F162EB /* Sources */,
 				5E6AB00E244B0F3F00F162EB /* Frameworks */,
 				5E6AB00F244B0F3F00F162EB /* Resources */,
 				34D4CFE3C0F2A9BEE8FC4F50 /* [CP] Embed Pods Frameworks */,
-				5E6AB036244B135300F162EB /* R.Swift */,
 			);
 			buildRules = (
 			);
@@ -353,10 +417,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E6AB04A244B60A800F162EB /* BackgroundView.swift in Sources */,
+				5E6AB044244B455500F162EB /* FirstPrescriptionView.swift in Sources */,
+				5E6AB052244BA75300F162EB /* NavigationBarModifier.swift in Sources */,
 				5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */,
+				5E6AB03E244B245F00F162EB /* HomeView.swift in Sources */,
+				5E6AB04E244BA32200F162EB /* MessageView.swift in Sources */,
 				5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */,
-				5E6AB019244B0F3F00F162EB /* ContentView.swift in Sources */,
+				5E6AB040244B366B00F162EB /* HomeVM.swift in Sources */,
+				5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */,
+				5E6AB019244B0F3F00F162EB /* MainTabView.swift in Sources */,
 				5E6AB03B244B14CC00F162EB /* R.generated.swift in Sources */,
+				5E6AB047244B4F5E00F162EB /* PrescriptionDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

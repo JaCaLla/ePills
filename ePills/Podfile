@@ -9,13 +9,13 @@ target 'ePills' do
   #pod 'SVProgressHUD'
   
   # Pod for persistence
-  pod 'RealmSwift'
+  #pod 'RealmSwift'
   
   # Pods for resources
   pod 'R.swift', '~> 5.0.3'
 
   # Pods for Networking
-  pod 'Alamofire', '~> 4.8.2'
+  #pod 'Alamofire', '~> 4.8.2'
 
   target 'ePillsTests' do
     inherit! :search_paths
