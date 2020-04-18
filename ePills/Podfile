@@ -1,0 +1,25 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'ePills' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for UI
+  #pod 'SVProgressHUD'
+  
+  # Pod for persistence
+  pod 'RealmSwift'
+  
+  # Pods for resources
+  pod 'R.swift', '~> 5.0.3'
+
+  # Pods for Networking
+  pod 'Alamofire', '~> 4.8.2'
+
+  target 'ePillsTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
