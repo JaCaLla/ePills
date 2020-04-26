@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+
+"first_prescription_title" = "Add";
+"first_prescription_title_msg_add" = "Press + for adding your first prescription";
+
+"prescription_form_title" = "Prescription form";
+"prescription_form_section_medicine" = "Medicine";
+"prescription_form_section_medicine_name" = "Name";
+"prescription_form_section_medicine_units_box" = "Units box";
+"prescription_form_section_administration" = "Administration";
+"prescription_form_section_administration_units_dose" = "Units dose";
+"prescription_form_err_name_empty" = "Medicine name cannot be empty";
+"prescription_form_err_name_minimum" = "Medicine name must be a word with more than 5 characters";
+"prescription_form_err_name_maximum" = "Medicine name can not be longer than 20 characters";
+"prescription_form_err_units_box_empty" = "Units box name cannot be empty";
+"prescription_form_err_units_box_maximum" = "Units prescription can not be greater than 99 units per box";
+"prescription_form_err_units_dose_empty" = "Units prescription can not be empty";
+"prescription_form_err_units_dose_maximum" = "Units prescription can not be greater than 99 units per box";
+
+"prescription_form_interval_list_hour" = "Hour";
+"prescription_form_interval_list_hours" = "Hours";
+"prescription_form_interval_list_day" = "Day";

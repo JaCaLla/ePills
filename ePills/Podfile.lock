@@ -1,20 +1,24 @@
 PODS:
+  - FLEX (4.1.1)
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
 
 DEPENDENCIES:
+  - FLEX
   - R.swift (~> 5.0.3)
 
 SPEC REPOS:
   trunk:
+    - FLEX
     - R.swift
     - R.swift.Library
 
 SPEC CHECKSUMS:
+  FLEX: 81096107977a09836eb440173010ceeef01105d6
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
 
-PODFILE CHECKSUM: 392b9c34406b7507b680e6be5b78bd3c5b71a9a2
+PODFILE CHECKSUM: dc9e79879e23997bfc9b46e361ccecf5e3f6e148
 
 COCOAPODS: 1.8.3
