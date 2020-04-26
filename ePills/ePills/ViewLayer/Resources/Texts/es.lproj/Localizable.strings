@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+
+"first_prescription_title" = "Añadir";
+
+"prescription_form_interval_list_hour" = "Hora";
+"prescription_form_interval_list_hours" = "Horas";
+"prescription_form_interval_list_day" = "Día";

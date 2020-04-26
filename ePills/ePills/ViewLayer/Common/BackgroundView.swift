@@ -10,11 +10,13 @@ import SwiftUI
 
 struct BackgroundView: View {
     var body: some View {
+        GeometryReader { geometry in
         Image("background")
             .resizable()
-            //.padding(-40.0)
+            .padding(.top, 40.0)
             .scaledToFill()
         .edgesIgnoringSafeArea(.all)
+        }
     }
 }
 
@@ -27,8 +29,12 @@ struct BackgroundView_Previews: PreviewProvider {
                 .previewDisplayName("iPhone SE")
 
             BackgroundView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
+            .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+            .previewDisplayName("iPhone 8")
+            
+            BackgroundView()
+            .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+            .previewDisplayName("iPhone XS Max")
         }
     }
 }

@@ -11,20 +11,38 @@
 		3617ECEE8974CC1955656F55 /* Pods_ePillsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E35F4D39E48EFB14C6CC183B /* Pods_ePillsTests.framework */; };
 		5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB014244B0F3F00F162EB /* AppDelegate.swift */; };
 		5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */; };
-		5E6AB019244B0F3F00F162EB /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB018244B0F3F00F162EB /* MainTabView.swift */; };
 		5E6AB01B244B0F4200F162EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6AB01A244B0F4200F162EB /* Assets.xcassets */; };
 		5E6AB01E244B0F4200F162EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6AB01D244B0F4200F162EB /* Preview Assets.xcassets */; };
 		5E6AB021244B0F4200F162EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E6AB01F244B0F4200F162EB /* LaunchScreen.storyboard */; };
-		5E6AB02C244B0F4200F162EB /* ePillsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB02B244B0F4200F162EB /* ePillsTests.swift */; };
-		5E6AB03B244B14CC00F162EB /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB03A244B14CC00F162EB /* R.generated.swift */; };
-		5E6AB03E244B245F00F162EB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB03D244B245F00F162EB /* HomeView.swift */; };
-		5E6AB040244B366B00F162EB /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB03F244B366B00F162EB /* HomeVM.swift */; };
-		5E6AB044244B455500F162EB /* FirstPrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB043244B455500F162EB /* FirstPrescriptionView.swift */; };
-		5E6AB047244B4F5E00F162EB /* PrescriptionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB046244B4F5E00F162EB /* PrescriptionDetailView.swift */; };
+		5E6AB03E244B245F00F162EB /* FirstPrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB03D244B245F00F162EB /* FirstPrescriptionView.swift */; };
+		5E6AB047244B4F5E00F162EB /* PrescriptionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB046244B4F5E00F162EB /* PrescriptionFormView.swift */; };
 		5E6AB04A244B60A800F162EB /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB049244B60A800F162EB /* BackgroundView.swift */; };
 		5E6AB04E244BA32200F162EB /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB04D244BA32200F162EB /* MessageView.swift */; };
 		5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */; };
 		5E6AB052244BA75300F162EB /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */; };
+		5EBBAA502450A08E00CD2B5E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */; };
+		5EBBAA542450C76300CD2B5E /* PrescriptionFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */; };
+		5EBBAA562450C86500CD2B5E /* PrescriptionFormVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */; };
+		5ED44B342452061D00081B36 /* TextFieldWithValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B332452061D00081B36 /* TextFieldWithValidatorCell.swift */; };
+		5ED44B362452C7A500081B36 /* SelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B352452C7A500081B36 /* SelectorCell.swift */; };
+		5ED44B3824532EAE00081B36 /* AcceptButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B3724532EAE00081B36 /* AcceptButtonCell.swift */; };
+		5ED44B3C2453401700081B36 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5ED44B3E2453401700081B36 /* Localizable.strings */; };
+		5ED44B44245352AC00081B36 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B43245352AC00081B36 /* R.generated.swift */; };
+		5ED44B46245353EE00081B36 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B45245353EE00081B36 /* StringExtension.swift */; };
+		5ED44B49245366C800081B36 /* PrescriptionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B48245366C800081B36 /* PrescriptionInteractor.swift */; };
+		5ED44B4C2454158500081B36 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B4B2454158500081B36 /* DataManager.swift */; };
+		5ED44B502454165D00081B36 /* Presprciption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B4F2454165D00081B36 /* Presprciption.swift */; };
+		5ED44B532454180300081B36 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B522454180300081B36 /* Interval.swift */; };
+		5ED44B5824542F3F00081B36 /* HomePrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */; };
+		5ED44B5A2454541000081B36 /* HomePrescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B592454541000081B36 /* HomePrescriptionVC.swift */; };
+		5EFE81022454C12800D44F53 /* PrescriptionFormVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81012454C12800D44F53 /* PrescriptionFormVMTests.swift */; };
+		5EFE81062454CDE400D44F53 /* DataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81052454CDE400D44F53 /* DataManagerMock.swift */; };
+		5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81082454CF6D00D44F53 /* DataManagerTests.swift */; };
+		5EFE810C2454D13D00D44F53 /* Resetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE810B2454D13D00D44F53 /* Resetable.swift */; };
+		5EFE810E2454F0AF00D44F53 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE810D2454F0AF00D44F53 /* BundleExtension.swift */; };
+		5EFF2156244F57BE00B77AE9 /* FirstPrescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF2155244F57BE00B77AE9 /* FirstPrescriptionVC.swift */; };
+		5EFF2159244F5DD100B77AE9 /* HomeCoorindator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF2158244F5DD100B77AE9 /* HomeCoorindator.swift */; };
+		5EFF2160244F9ACE00B77AE9 /* DebugManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF215F244F9ACE00B77AE9 /* DebugManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,23 +59,43 @@
 		5E6AB011244B0F3F00F162EB /* ePills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ePills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6AB014244B0F3F00F162EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5E6AB018244B0F3F00F162EB /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		5E6AB01A244B0F4200F162EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E6AB01D244B0F4200F162EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5E6AB020244B0F4200F162EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E6AB022244B0F4200F162EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E6AB027244B0F4200F162EB /* ePillsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ePillsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E6AB02B244B0F4200F162EB /* ePillsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ePillsTests.swift; sourceTree = "<group>"; };
 		5E6AB02D244B0F4200F162EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5E6AB03A244B14CC00F162EB /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
-		5E6AB03D244B245F00F162EB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		5E6AB03F244B366B00F162EB /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
-		5E6AB043244B455500F162EB /* FirstPrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPrescriptionView.swift; sourceTree = "<group>"; };
-		5E6AB046244B4F5E00F162EB /* PrescriptionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionDetailView.swift; sourceTree = "<group>"; };
+		5E6AB03D244B245F00F162EB /* FirstPrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPrescriptionView.swift; sourceTree = "<group>"; };
+		5E6AB046244B4F5E00F162EB /* PrescriptionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormView.swift; sourceTree = "<group>"; };
 		5E6AB049244B60A800F162EB /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		5E6AB04D244BA32200F162EB /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPrescriptionView.swift; sourceTree = "<group>"; };
 		5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
+		5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVC.swift; sourceTree = "<group>"; };
+		5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVM.swift; sourceTree = "<group>"; };
+		5ED44B332452061D00081B36 /* TextFieldWithValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithValidatorCell.swift; sourceTree = "<group>"; };
+		5ED44B352452C7A500081B36 /* SelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorCell.swift; sourceTree = "<group>"; };
+		5ED44B3724532EAE00081B36 /* AcceptButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptButtonCell.swift; sourceTree = "<group>"; };
+		5ED44B3D2453401700081B36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5ED44B3F245342CF00081B36 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5ED44B40245342CF00081B36 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5ED44B43245352AC00081B36 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ViewLayer/Resources/R.Swift/R.generated.swift; sourceTree = SOURCE_ROOT; };
+		5ED44B45245353EE00081B36 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		5ED44B48245366C800081B36 /* PrescriptionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionInteractor.swift; sourceTree = "<group>"; };
+		5ED44B4B2454158500081B36 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		5ED44B4F2454165D00081B36 /* Presprciption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presprciption.swift; sourceTree = "<group>"; };
+		5ED44B522454180300081B36 /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
+		5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionView.swift; sourceTree = "<group>"; };
+		5ED44B592454541000081B36 /* HomePrescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionVC.swift; sourceTree = "<group>"; };
+		5EFE81012454C12800D44F53 /* PrescriptionFormVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVMTests.swift; sourceTree = "<group>"; };
+		5EFE81052454CDE400D44F53 /* DataManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerMock.swift; sourceTree = "<group>"; };
+		5EFE81082454CF6D00D44F53 /* DataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
+		5EFE810B2454D13D00D44F53 /* Resetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resetable.swift; sourceTree = "<group>"; };
+		5EFE810D2454F0AF00D44F53 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
+		5EFF2155244F57BE00B77AE9 /* FirstPrescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPrescriptionVC.swift; sourceTree = "<group>"; };
+		5EFF2158244F5DD100B77AE9 /* HomeCoorindator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoorindator.swift; sourceTree = "<group>"; };
+		5EFF215F244F9ACE00B77AE9 /* DebugManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugManager.swift; sourceTree = "<group>"; };
 		7AD86EE5D26121AE773DBB92 /* Pods_ePills.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ePills.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC7044343D9321A4692F525 /* Pods-ePills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ePills.debug.xcconfig"; path = "Target Support Files/Pods-ePills/Pods-ePills.debug.xcconfig"; sourceTree = "<group>"; };
 		C555405584D4D9493D9D5A52 /* Pods-ePillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ePillsTests.release.xcconfig"; path = "Target Support Files/Pods-ePillsTests/Pods-ePillsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				5E6AB037244B139500F162EB /* ViewLayer */,
+				5EFF2157244F5CE100B77AE9 /* DomainLayer */,
+				5ED44B4A2454154F00081B36 /* DataLayer */,
 				5E6AB014244B0F3F00F162EB /* AppDelegate.swift */,
 				5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */,
 				5E6AB01F244B0F4200F162EB /* LaunchScreen.storyboard */,
@@ -139,7 +179,9 @@
 		5E6AB02A244B0F4200F162EB /* ePillsTests */ = {
 			isa = PBXGroup;
 			children = (
-				5E6AB02B244B0F4200F162EB /* ePillsTests.swift */,
+				5EFE81032454CDAA00D44F53 /* Mocks */,
+				5EFE81072454CEB200D44F53 /* DataLayer */,
+				5EFE80FF2454BD3300D44F53 /* ViewLayer */,
 				5E6AB02D244B0F4200F162EB /* Info.plist */,
 			);
 			path = ePillsTests;
@@ -148,6 +190,8 @@
 		5E6AB037244B139500F162EB /* ViewLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5ED44B5B245458D100081B36 /* Controllers */,
+				5EFF215A244F97F800B77AE9 /* Extensions */,
 				5E6AB048244B609600F162EB /* Common */,
 				5E6AB03C244B201B00F162EB /* TabView */,
 				5E6AB038244B13A100F162EB /* Resources */,
@@ -158,6 +202,7 @@
 		5E6AB038244B13A100F162EB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5ED44B3924533E0200081B36 /* Texts */,
 				5E6AB01A244B0F4200F162EB /* Assets.xcassets */,
 				5E6AB039244B13AA00F162EB /* R.Swift */,
 			);
@@ -167,7 +212,7 @@
 		5E6AB039244B13AA00F162EB /* R.Swift */ = {
 			isa = PBXGroup;
 			children = (
-				5E6AB03A244B14CC00F162EB /* R.generated.swift */,
+				5ED44B43245352AC00081B36 /* R.generated.swift */,
 			);
 			path = R.Swift;
 			sourceTree = "<group>";
@@ -175,10 +220,7 @@
 		5E6AB03C244B201B00F162EB /* TabView */ = {
 			isa = PBXGroup;
 			children = (
-				5E6AB045244B4EF300F162EB /* PrescriptionDetailView */,
-				5E6AB042244B43CC00F162EB /* FirstPrescriptionView */,
 				5E6AB041244B42F900F162EB /* HomeView */,
-				5E6AB018244B0F3F00F162EB /* MainTabView.swift */,
 			);
 			path = TabView;
 			sourceTree = "<group>";
@@ -186,28 +228,29 @@
 		5E6AB041244B42F900F162EB /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
-				5E6AB03D244B245F00F162EB /* HomeView.swift */,
-				5E6AB03F244B366B00F162EB /* HomeVM.swift */,
+				5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */,
+				5ED44B5424542EED00081B36 /* HomePrescriptionView */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
 		};
-		5E6AB042244B43CC00F162EB /* FirstPrescriptionView */ = {
+		5E6AB042244B43CC00F162EB /* FirstPrescription */ = {
 			isa = PBXGroup;
 			children = (
-				5E6AB043244B455500F162EB /* FirstPrescriptionView.swift */,
-				5E6AB04D244BA32200F162EB /* MessageView.swift */,
-				5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */,
+				5ED44B5C24545E7C00081B36 /* FirstPrescriptionView */,
+				5EFF2155244F57BE00B77AE9 /* FirstPrescriptionVC.swift */,
 			);
-			path = FirstPrescriptionView;
+			path = FirstPrescription;
 			sourceTree = "<group>";
 		};
-		5E6AB045244B4EF300F162EB /* PrescriptionDetailView */ = {
+		5E6AB045244B4EF300F162EB /* PrescriptionForm */ = {
 			isa = PBXGroup;
 			children = (
-				5E6AB046244B4F5E00F162EB /* PrescriptionDetailView.swift */,
+				5ED44B51245416A900081B36 /* PrescriptionFormView */,
+				5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */,
+				5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */,
 			);
-			path = PrescriptionDetailView;
+			path = PrescriptionForm;
 			sourceTree = "<group>";
 		};
 		5E6AB048244B609600F162EB /* Common */ = {
@@ -217,6 +260,163 @@
 				5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		5ED44B3924533E0200081B36 /* Texts */ = {
+			isa = PBXGroup;
+			children = (
+				5ED44B3E2453401700081B36 /* Localizable.strings */,
+			);
+			path = Texts;
+			sourceTree = "<group>";
+		};
+		5ED44B472453669400081B36 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				5ED44B48245366C800081B36 /* PrescriptionInteractor.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		5ED44B4A2454154F00081B36 /* DataLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5EFE810A2454D11B00D44F53 /* Protocols */,
+				5ED44B4D245415C100081B36 /* Models */,
+				5ED44B4B2454158500081B36 /* DataManager.swift */,
+			);
+			path = DataLayer;
+			sourceTree = "<group>";
+		};
+		5ED44B4D245415C100081B36 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5ED44B4F2454165D00081B36 /* Presprciption.swift */,
+				5ED44B522454180300081B36 /* Interval.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5ED44B51245416A900081B36 /* PrescriptionFormView */ = {
+			isa = PBXGroup;
+			children = (
+				5E6AB046244B4F5E00F162EB /* PrescriptionFormView.swift */,
+				5ED44B332452061D00081B36 /* TextFieldWithValidatorCell.swift */,
+				5ED44B3724532EAE00081B36 /* AcceptButtonCell.swift */,
+				5ED44B352452C7A500081B36 /* SelectorCell.swift */,
+			);
+			path = PrescriptionFormView;
+			sourceTree = "<group>";
+		};
+		5ED44B5424542EED00081B36 /* HomePrescriptionView */ = {
+			isa = PBXGroup;
+			children = (
+				5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */,
+				5ED44B592454541000081B36 /* HomePrescriptionVC.swift */,
+			);
+			path = HomePrescriptionView;
+			sourceTree = "<group>";
+		};
+		5ED44B5B245458D100081B36 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5E6AB045244B4EF300F162EB /* PrescriptionForm */,
+				5E6AB042244B43CC00F162EB /* FirstPrescription */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5ED44B5C24545E7C00081B36 /* FirstPrescriptionView */ = {
+			isa = PBXGroup;
+			children = (
+				5E6AB04D244BA32200F162EB /* MessageView.swift */,
+				5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */,
+				5E6AB03D244B245F00F162EB /* FirstPrescriptionView.swift */,
+			);
+			path = FirstPrescriptionView;
+			sourceTree = "<group>";
+		};
+		5EFE80FF2454BD3300D44F53 /* ViewLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5EFE81002454BE6400D44F53 /* PrescriptionForm */,
+			);
+			path = ViewLayer;
+			sourceTree = "<group>";
+		};
+		5EFE81002454BE6400D44F53 /* PrescriptionForm */ = {
+			isa = PBXGroup;
+			children = (
+				5EFE81012454C12800D44F53 /* PrescriptionFormVMTests.swift */,
+			);
+			path = PrescriptionForm;
+			sourceTree = "<group>";
+		};
+		5EFE81032454CDAA00D44F53 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				5EFE81042454CDB700D44F53 /* DataLayer */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		5EFE81042454CDB700D44F53 /* DataLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5EFE81052454CDE400D44F53 /* DataManagerMock.swift */,
+			);
+			path = DataLayer;
+			sourceTree = "<group>";
+		};
+		5EFE81072454CEB200D44F53 /* DataLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5EFE81082454CF6D00D44F53 /* DataManagerTests.swift */,
+			);
+			path = DataLayer;
+			sourceTree = "<group>";
+		};
+		5EFE810A2454D11B00D44F53 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5EFE810B2454D13D00D44F53 /* Resetable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5EFF2157244F5CE100B77AE9 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5ED44B472453669400081B36 /* Interactors */,
+				5EFF215E244F9A7600B77AE9 /* Managers */,
+				5EFF215D244F99F400B77AE9 /* Coordinators */,
+			);
+			path = DomainLayer;
+			sourceTree = "<group>";
+		};
+		5EFF215A244F97F800B77AE9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5ED44B45245353EE00081B36 /* StringExtension.swift */,
+				5EFE810D2454F0AF00D44F53 /* BundleExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5EFF215D244F99F400B77AE9 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				5EFF2158244F5DD100B77AE9 /* HomeCoorindator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		5EFF215E244F9A7600B77AE9 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5EFF215F244F9ACE00B77AE9 /* DebugManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		A8DE4281F0637BB071D32214 /* Pods */ = {
@@ -298,6 +498,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 5E6AB008244B0F3F00F162EB;
 			productRefGroup = 5E6AB012244B0F3F00F162EB /* Products */;
@@ -316,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E6AB021244B0F4200F162EB /* LaunchScreen.storyboard in Resources */,
+				5ED44B3C2453401700081B36 /* Localizable.strings in Resources */,
 				5E6AB01E244B0F4200F162EB /* Preview Assets.xcassets in Resources */,
 				5E6AB01B244B0F4200F162EB /* Assets.xcassets in Resources */,
 			);
@@ -378,15 +580,17 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
 			);
 			name = R.Swift;
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				$SRCROOT/ViewLayer/Resources/R.Swift/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \">>>>>>>>>>>>>>>> R.Swift >>>>>>>>>>>>>>>>>>>>>>\"\ntouch \"$SRCROOT/ViewLayer/Resources/R.Swift/R.generated.swift\"\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/ViewLayer/Resources/R.Swift/R.generated.swift\"\nls \"$SRCROOT/ViewLayer/Resources/R.Swift/R.generated.swift\"\necho \"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\"\n";
+			shellScript = "echo \">>>>>>>>>>>>>>>> R.Swift >>>>>>>>>>>>>>>>>>>>>>\"\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/ViewLayer/Resources/R.Swift/R.generated.swift\"\n#ls -la \"$SRCROOT/ViewLayer/R.generated.swift\"\necho \"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\"\n";
 		};
 		E12C4D0ACCAD4E140F3C7BCD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -417,18 +621,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ED44B5824542F3F00081B36 /* HomePrescriptionView.swift in Sources */,
+				5ED44B362452C7A500081B36 /* SelectorCell.swift in Sources */,
+				5EFE810E2454F0AF00D44F53 /* BundleExtension.swift in Sources */,
 				5E6AB04A244B60A800F162EB /* BackgroundView.swift in Sources */,
-				5E6AB044244B455500F162EB /* FirstPrescriptionView.swift in Sources */,
+				5ED44B49245366C800081B36 /* PrescriptionInteractor.swift in Sources */,
+				5EBBAA562450C86500CD2B5E /* PrescriptionFormVM.swift in Sources */,
+				5ED44B4C2454158500081B36 /* DataManager.swift in Sources */,
+				5EBBAA542450C76300CD2B5E /* PrescriptionFormVC.swift in Sources */,
 				5E6AB052244BA75300F162EB /* NavigationBarModifier.swift in Sources */,
+				5ED44B502454165D00081B36 /* Presprciption.swift in Sources */,
+				5EBBAA502450A08E00CD2B5E /* TabBarController.swift in Sources */,
+				5ED44B44245352AC00081B36 /* R.generated.swift in Sources */,
+				5EFE810C2454D13D00D44F53 /* Resetable.swift in Sources */,
+				5ED44B5A2454541000081B36 /* HomePrescriptionVC.swift in Sources */,
+				5ED44B46245353EE00081B36 /* StringExtension.swift in Sources */,
 				5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */,
-				5E6AB03E244B245F00F162EB /* HomeView.swift in Sources */,
+				5E6AB03E244B245F00F162EB /* FirstPrescriptionView.swift in Sources */,
 				5E6AB04E244BA32200F162EB /* MessageView.swift in Sources */,
+				5EFF2160244F9ACE00B77AE9 /* DebugManager.swift in Sources */,
 				5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */,
-				5E6AB040244B366B00F162EB /* HomeVM.swift in Sources */,
+				5ED44B3824532EAE00081B36 /* AcceptButtonCell.swift in Sources */,
 				5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */,
-				5E6AB019244B0F3F00F162EB /* MainTabView.swift in Sources */,
-				5E6AB03B244B14CC00F162EB /* R.generated.swift in Sources */,
-				5E6AB047244B4F5E00F162EB /* PrescriptionDetailView.swift in Sources */,
+				5ED44B532454180300081B36 /* Interval.swift in Sources */,
+				5EFF2159244F5DD100B77AE9 /* HomeCoorindator.swift in Sources */,
+				5EFF2156244F57BE00B77AE9 /* FirstPrescriptionVC.swift in Sources */,
+				5ED44B342452061D00081B36 /* TextFieldWithValidatorCell.swift in Sources */,
+				5E6AB047244B4F5E00F162EB /* PrescriptionFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +655,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E6AB02C244B0F4200F162EB /* ePillsTests.swift in Sources */,
+				5EFE81022454C12800D44F53 /* PrescriptionFormVMTests.swift in Sources */,
+				5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */,
+				5EFE81062454CDE400D44F53 /* DataManagerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,8 +676,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				5E6AB020244B0F4200F162EB /* Base */,
+				5ED44B3F245342CF00081B36 /* es */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		5ED44B3E2453401700081B36 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5ED44B3D2453401700081B36 /* en */,
+				5ED44B40245342CF00081B36 /* es */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -466,6 +697,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -526,6 +758,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
