@@ -7,18 +7,40 @@
 //
 
 import Foundation
+import Combine
+
 protocol PrescriptionInteractorProtocol {
-    func getPrecriptionInterval() -> [Interval]
+  //  func getPrecriptionInterval() -> [Interval]
+        func add(prescription: Prescription)
 }
 
 
 final class PrescriptionInteractor {
     
+    // MARK: - Read only attributes
+     private(set) var dataManager: DataManagerProtocol
+    
+    // MARK: - Private attributes
+    @Published private(set) var prescriptions: [Prescription] = []
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(dataManager: DataManagerProtocol) {
+       self.dataManager = dataManager
+        self.dataManager.getPrescriptions()
+            .sink { prescriptions in
+            self.prescriptions = prescriptions
+                print("Interactor \(self.prescriptions.count)")
+        }.store(in: &cancellables)
+    }
 }
 
 // MARK: - PrescriptionInteractorProtocol
 extension PrescriptionInteractor: PrescriptionInteractorProtocol {
-    func getPrecriptionInterval() -> [Interval] {
-        return []
+//    func getPrecriptionInterval() -> [Interval] {
+//        return []
+//    }
+    
+    func add(prescription: Prescription) {
+        dataManager.add(prescription: prescription)
     }
 }

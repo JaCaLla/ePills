@@ -11,19 +11,19 @@ import Combine
 
 struct PrescriptionFormView: View {
 
-    // MARK: - Publishers
-    var onDismissPublisher: AnyPublisher<Void, Never> {
-        return onAddDismissInternalPublisher.eraseToAnyPublisher()
-    }
-    private var onAddDismissInternalPublisher = PassthroughSubject<Void, Never>()
+//    // MARK: - Publishers
+//    var onAddedPrescriptionPublisher: AnyPublisher<Void, Never> {
+//        return onAddedPrescriptionInternalPublisher.eraseToAnyPublisher()
+//    }
+//    private var onAddedPrescriptionInternalPublisher = PassthroughSubject<Void, Never>()
     
     // MARK: - Public Attributes
-    @ObservedObject var viewModel: PrescriptionFormVM = PrescriptionFormVM(dataManager: DataManager.shared)
-    var coordinator: HomeCoordinator
+    @ObservedObject var viewModel: PrescriptionFormVM //= PrescriptionFormVM(/*dataManager: DataManager.shared*/)
+  //  var coordinator: FirstPresciptionCoordinator
     
-    init(viewModel: PrescriptionFormVM = PrescriptionFormVM(dataManager: DataManager.shared), coordinator: HomeCoordinator) {
+    init(viewModel: PrescriptionFormVM /*= PrescriptionFormVM()*//*, coordinator: FirstPresciptionCoordinator*/) {
         self.viewModel = viewModel
-        self.coordinator = coordinator
+   //     self.coordinator = coordinator
     }
 
     // MARK: - View
@@ -80,7 +80,7 @@ struct PrescriptionFormView: View {
                 if isValidForm() {
                     AcceptButtonCell {
                         self.viewModel.save()
-                        self.onAddDismissInternalPublisher.send()
+//                        self.onAddedPrescriptionInternalPublisher.send()
                     }
                 }
                 Spacer()
@@ -99,8 +99,8 @@ struct PrescriptionFormView: View {
 
 struct PrescriptionDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PrescriptionFormView(viewModel: PrescriptionFormVM(dataManager: DataManager.shared),
-                             coordinator: HomeCoordinator())
+        PrescriptionFormView(viewModel: PrescriptionFormVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared)/*,
+                                                           coordinator: FirstPresciptionCoordinator()*/))
     }
 }
 

@@ -10,7 +10,9 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    let coordinator:HomeCoordinator
+    var homeCoordinator:HomeCoordinator = HomeCoordinator()
+    let homeNavigationController: UINavigationController = UINavigationController()
+     let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +21,9 @@ class TabBarController: UITabBarController {
         self.setupView()
     }
     
-    init(coordinator:HomeCoordinator) {
+    init(/*coordinator:HomeCoordinator*/) {
         
-        self.coordinator = coordinator
+//        self.homeCoordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,19 +32,26 @@ class TabBarController: UITabBarController {
     }
     
     private func setupView() {
-     
-        let homePrescriptionView = HomePrescriptionView(coordinator: self.coordinator)
+
+      
+        print("Tab:\(interactor.prescriptions.count)")
+        let homePrescriptionVM = HomePrescriptionVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared), coordinator: self.homeCoordinator)
+        let homePrescriptionView = HomePrescriptionView(viewModel: homePrescriptionVM)
         let homeVC = HomePrescriptionVC(rootView: homePrescriptionView)//HomePrescriptionVC(rootView: prescriptionFormView)
         homeVC.title = "_Home"
         homeVC.view.backgroundColor = UIColor.blue
         homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
+
+        homeNavigationController.viewControllers = [homeVC]
+//
         let setupVC = UIViewController()
         setupVC.title = "_Setup"
         setupVC.view.backgroundColor = UIColor.orange
         setupVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-        
-        let controllers = [homeVC, setupVC]
-        self.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+       // self.homeCoordinator = HomeCoordinator()
+        let controllers = [homeCoordinator.start(),
+                           setupVC]
+        self.viewControllers = controllers//.map { UINavigationController(rootViewController: $0)}
        
     }
 

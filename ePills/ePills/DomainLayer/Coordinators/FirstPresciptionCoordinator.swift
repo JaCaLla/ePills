@@ -11,10 +11,10 @@ import UIKit
 import SwiftUI
 import Combine
 
-final public class HomeCoordinator {
+final public class FirstPresciptionCoordinator {
 
     // MARK: - Publishers
-    var onChangeRootVCPublisher: AnyPublisher<UIViewController, Never> {
+    var onFinishedPublisher: AnyPublisher<UIViewController, Never> {
         return onUIViewControllerInternalPublisher.eraseToAnyPublisher()
     }
     private var onUIViewControllerInternalPublisher = PassthroughSubject<UIViewController, Never>()
@@ -39,14 +39,20 @@ final public class HomeCoordinator {
 
     // MARK: - Private/Internal
     fileprivate func presentPrescriptionForm(homeView: FirstPrescriptionView) {
-        let prescriptionFormView = PrescriptionFormView(coordinator: self)
-        let prescriptionFormVC = PrescriptionFormVC(rootView: prescriptionFormView)
-        prescriptionFormVC.view.backgroundColor = UIColor.yellow
-        prescriptionFormVC.hidesBottomBarWhenPushed = true
-        prescriptionFormView.onDismissPublisher.sink {
-            let tabBarC = TabBarController(coordinator: self)
-            self.onUIViewControllerInternalPublisher.send(tabBarC)
+        let prescriptionFormVM = PrescriptionFormVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared)/*,
+                                                    coordinator: self*/)
+        prescriptionFormVM.onDismissPublisher.sink {
+                        let tabBarC = TabBarController(/*coordinator: self*/)
+                        self.onUIViewControllerInternalPublisher.send(tabBarC)
         }.store(in: &onDismissIssueSubscription)
+        let prescriptionFormView = PrescriptionFormView(viewModel: prescriptionFormVM)
+        let prescriptionFormVC = PrescriptionFormVC(rootView: prescriptionFormView)
+       
+        prescriptionFormVC.hidesBottomBarWhenPushed = true
+//        prescriptionFormView.onAddedPrescriptionPublisher.sink {
+//            let tabBarC = TabBarController(/*coordinator: self*/)
+//            self.onUIViewControllerInternalPublisher.send(tabBarC)
+//        }.store(in: &onDismissIssueSubscription)
         self.navitationController.pushViewController(prescriptionFormVC, animated: true)
     }
 }

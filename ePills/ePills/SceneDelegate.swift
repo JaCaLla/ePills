@@ -13,7 +13,7 @@ import Combine
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let homeCoordinator = HomeCoordinator()
+    let firstPresciptionCoordinator = FirstPresciptionCoordinator()
     
     private var onChangeRootVCSubscription = Set<AnyCancellable>()
 
@@ -26,10 +26,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
 
-            window.rootViewController = homeCoordinator.start()//TabBarController()
+            window.rootViewController = firstPresciptionCoordinator.start()//TabBarController()
             
-            homeCoordinator.onChangeRootVCPublisher.sink { vc in
-                 window.rootViewController = vc
+            firstPresciptionCoordinator.onFinishedPublisher.sink { vc in
+                 window.rootViewController = TabBarController()//vc
                 self.window = window
                  window.makeKeyAndVisible()
             }.store(in: &onChangeRootVCSubscription)
