@@ -30,7 +30,7 @@ final public class FirstPresciptionCoordinator {
     func start() -> UIViewController {
         let homeView = FirstPrescriptionView( coordinator: self)
         let firstPrescriptionVC = FirstPrescriptionVC(rootView: homeView)
-        homeView.onAddFirstPublisher.sink {
+        homeView.onAddFirstPrescriptionPublisher.sink {
             self.presentPrescriptionForm(homeView: homeView)
         }.store(in: &onAddFirstSubscription)
         navitationController.viewControllers = [firstPrescriptionVC];

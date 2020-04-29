@@ -8,51 +8,16 @@
 
 import SwiftUI
 
-struct PageControl: UIViewRepresentable {
-    var numberOfPages: Int
-    @Binding var currentPage: Int
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    func makeUIView(context: Context) -> UIPageControl {
-        let control = UIPageControl()
-        control.numberOfPages = numberOfPages
-        control.pageIndicatorTintColor = UIColor.lightGray
-        control.currentPageIndicatorTintColor = UIColor.darkGray
-        control.addTarget(
-            context.coordinator,
-            action: #selector(Coordinator.updateCurrentPage(sender:)),
-            for: .valueChanged)
-
-        return control
-    }
-
-    func updateUIView(_ uiView: UIPageControl, context: Context) {
-        uiView.numberOfPages = numberOfPages
-        uiView.currentPage = currentPage
-        print("\(uiView.currentPage)/\(uiView.numberOfPages)")
-    }
-
-    class Coordinator: NSObject {
-        var control: PageControl
-
-        init(_ control: PageControl) {
-            self.control = control
-        }
-        @objc
-        func updateCurrentPage(sender: UIPageControl) {
-            control.currentPage = sender.currentPage
-        }
-    }
-}
-
 struct PageView<Page: View>: View {
-    var viewControllers: [UIHostingController<Page>] = [] //Esto ha de ser un binding.....!!
+    var viewControllers: [UIHostingController<Page>] = []
     @State var currentPage = 0
     init(_ views: [Page]) {
-        self.viewControllers = views.map { UIHostingController(rootView: $0) }
-        print(" self.viewControllers.count: \(self.viewControllers.count)")
+        self.viewControllers = views.map {
+            let hostingController = UIHostingController(rootView: $0)
+            hostingController.view.backgroundColor = UIColor.clear
+            hostingController.view.isOpaque = false
+            return hostingController
+        }
     }
 
     var body: some View {
@@ -64,7 +29,6 @@ struct PageView<Page: View>: View {
 }
 
 struct PageViewController: UIViewControllerRepresentable {
-   // var controllers: [UIViewController]
     var controllers: [UIViewController]
     @Binding var currentPage: Int
 
@@ -135,6 +99,44 @@ struct PageViewController: UIViewControllerRepresentable {
                 let index = parent.controllers.firstIndex(of: visibleViewController) {
                 parent.currentPage = index
             }
+        }
+    }
+}
+
+struct PageControl: UIViewRepresentable {
+    var numberOfPages: Int
+    @Binding var currentPage: Int
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    func makeUIView(context: Context) -> UIPageControl {
+        let control = UIPageControl()
+        control.numberOfPages = numberOfPages
+        control.pageIndicatorTintColor = UIColor.lightGray
+        control.currentPageIndicatorTintColor = UIColor.darkGray
+        control.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.updateCurrentPage(sender:)),
+            for: .valueChanged)
+
+        return control
+    }
+
+    func updateUIView(_ uiView: UIPageControl, context: Context) {
+        uiView.numberOfPages = numberOfPages
+        uiView.currentPage = currentPage
+    }
+
+    class Coordinator: NSObject {
+        var control: PageControl
+
+        init(_ control: PageControl) {
+            self.control = control
+        }
+        @objc
+        func updateCurrentPage(sender: UIPageControl) {
+            control.currentPage = sender.currentPage
         }
     }
 }

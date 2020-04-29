@@ -19,33 +19,30 @@ public final class HomePrescriptionVM: ObservableObject {
     private var view: HomePrescriptionView?
 
     // MARK: - Private attributes
-    private var interactor: PrescriptionInteractor //= PrescriptionInteractor(dataManager: DataManager.shared)
+    private var interactor: PrescriptionInteractor
     private var homeCoordinator: HomeCoordinator
 
     // MARK: - Publishers
     private var cancellables = Set<AnyCancellable>()
     @Published var prescriptions: [Prescription] = []
+    @Published var dosePrescription: Prescription? {
+        didSet {
+            print("todo")
+        }
+    }
 
-    init(interactor: PrescriptionInteractor,
-         coordinator: HomeCoordinator) {
+    init(interactor: PrescriptionInteractor = PrescriptionInteractor(),
+         homeCoordinator: HomeCoordinator) {
         self.interactor = interactor
-        
-        self.homeCoordinator = coordinator
+        self.homeCoordinator = homeCoordinator
         interactor.$prescriptions
             .assign(to: \.prescriptions, on: self)
             .store(in: &cancellables)
-        print("HomePrescriptionVM \(self.interactor.prescriptions.count)")
     }
     
     func addPrescription() {
          self.homeCoordinator.presentPrescriptionForm(interactor: self.interactor)
     }
-//    func set(view: HomePrescriptionView) {
-//        self.view = view
-//        self.view?.onAddPrescriptionPublisher.sink {
-//            self.homeCoordinator.presentPrescriptionForm(interactor: self.interactor)
-//        }.store(in: &cancellables)
-//    }
 }
 
 

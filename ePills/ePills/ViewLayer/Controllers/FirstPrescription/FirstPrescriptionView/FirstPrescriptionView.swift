@@ -11,10 +11,10 @@ import Combine
 struct FirstPrescriptionView: View {
 
     // MARK: - Publishers
-    var onAddFirstPublisher: AnyPublisher<Void, Never> {
-        return onAddFirstInternalPublisher.eraseToAnyPublisher()
+    var onAddFirstPrescriptionPublisher: AnyPublisher<Void, Never> {
+        return onAddFirstPrescriptionSubject.eraseToAnyPublisher()
     }
-    private var onAddFirstInternalPublisher = PassthroughSubject<Void, Never>()
+    private var onAddFirstPrescriptionSubject = PassthroughSubject<Void, Never>()
 
     // MARK: - Public Attributes
     var coordinator: FirstPresciptionCoordinator
@@ -38,7 +38,7 @@ struct FirstPrescriptionView: View {
                 ZStack {
                     EmptyView()
                 }.onAppear() {
-                    self.onAddFirstInternalPublisher.send()
+                    self.onAddFirstPrescriptionSubject.send()
                 }
             }
         }//.onAppear {

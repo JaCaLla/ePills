@@ -24,12 +24,11 @@ final class PrescriptionInteractor {
     @Published private(set) var prescriptions: [Prescription] = []
     private var cancellables = Set<AnyCancellable>()
     
-    init(dataManager: DataManagerProtocol) {
+    init(dataManager: DataManagerProtocol = DataManager.shared) {
        self.dataManager = dataManager
         self.dataManager.getPrescriptions()
             .sink { prescriptions in
             self.prescriptions = prescriptions
-                print("Interactor \(self.prescriptions.count)")
         }.store(in: &cancellables)
     }
 }

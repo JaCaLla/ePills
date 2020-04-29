@@ -21,12 +21,13 @@ public final class HomeCoordinator {
      private var onDismissIssueSubscription = Set<AnyCancellable>()
 
     func start() -> UIViewController {
-        let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
-        let homePrescriptionVM = HomePrescriptionVM(interactor: interactor, coordinator: self)
+        let homePrescriptionVM = HomePrescriptionVM( homeCoordinator: self)
         let homePrescriptionView = HomePrescriptionView(viewModel: homePrescriptionVM)
         let homePrescriptionVC = HomePrescriptionVC(rootView: homePrescriptionView)
         homePrescriptionVC.title = "_Home"
-        homePrescriptionVC.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
+        homePrescriptionVC.tabBarItem = UITabBarItem(title: "_Home",
+                                                     image: UIImage(systemName: "plus.rectangle"),
+                                                     tag: 0)
 
         navitationController.viewControllers = [homePrescriptionVC]
         return navitationController
