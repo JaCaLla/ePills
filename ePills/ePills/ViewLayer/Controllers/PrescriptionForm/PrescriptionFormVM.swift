@@ -16,19 +16,26 @@ protocol PrescriptionFormVMProtocol {
 
 public final class PrescriptionFormVM: ObservableObject {
 
+    // MARK: - Publishers
+    var onDismissPublisher: AnyPublisher<Void, Never> {
+            return onDismissSubject.eraseToAnyPublisher()
+    }
+    private var onDismissSubject = PassthroughSubject<Void, Never>()
+    
     @Published var name: String = ""
     @Published var unitsBox: String = ""
     @Published var selectedIntervalIndex = Interval(hours: 8, label: "8 Hours")
     @Published var unitsDose: String = "1"
 
     // MARK: - Private attributes
-    var interactor: PrescriptionInteractorProtocol = PrescriptionInteractor()
-    var dataManager: DataManagerProtocol
+    var interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(dataManager: DataManager.shared)
+    //var firstPresciptionCoordinator: FirstPresciptionCoordinator
+//    var dataManager: DataManagerProtocol
 
-    init(interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(),
-         dataManager: DataManagerProtocol) {
+    init(interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(dataManager: DataManager.shared)/*,
+          coordinator: FirstPresciptionCoordinator*/) {
         self.interactor = interactor
-        self.dataManager = dataManager
+   //     self.firstPresciptionCoordinator = coordinator
     }
 
 
@@ -37,10 +44,12 @@ public final class PrescriptionFormVM: ObservableObject {
 extension PrescriptionFormVM: PrescriptionFormVMProtocol {
     func save() {
         let prescription = Prescription(name: self.name,
-                                        unitsBox: self.unitsBox,
-                                        selectedIntervalIndex: self.selectedIntervalIndex,
-                                        unitsDose: self.unitsDose)
-        dataManager.add(prescription: prescription)
+                                        unitsBox: Int(self.unitsBox) ?? -1,
+                                        interval: self.selectedIntervalIndex,
+                                        unitsDose: Int(self.unitsDose) ?? -1)
+      //  dataManager.add(prescription: prescription)
+        interactor.add(prescription: prescription)
+        onDismissSubject.send()
     }
 
     func getIntervals() -> [Interval] {

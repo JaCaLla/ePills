@@ -11,13 +11,13 @@ import Combine
 struct FirstPrescriptionView: View {
 
     // MARK: - Publishers
-    var onAddFirstPublisher: AnyPublisher<Void, Never> {
-        return onAddFirstInternalPublisher.eraseToAnyPublisher()
+    var onAddFirstPrescriptionPublisher: AnyPublisher<Void, Never> {
+        return onAddFirstPrescriptionSubject.eraseToAnyPublisher()
     }
-    private var onAddFirstInternalPublisher = PassthroughSubject<Void, Never>()
+    private var onAddFirstPrescriptionSubject = PassthroughSubject<Void, Never>()
 
     // MARK: - Public Attributes
-    var coordinator: HomeCoordinator
+    var coordinator: FirstPresciptionCoordinator
 
     // MARK: - View
     @State var onAddFirstPrescription: Bool = false
@@ -38,7 +38,7 @@ struct FirstPrescriptionView: View {
                 ZStack {
                     EmptyView()
                 }.onAppear() {
-                    self.onAddFirstInternalPublisher.send()
+                    self.onAddFirstPrescriptionSubject.send()
                 }
             }
         }//.onAppear {
@@ -46,7 +46,7 @@ struct FirstPrescriptionView: View {
 //        }
     }
 
-    init (/*viewModel: HomeVM = HomeVM(),*/ coordinator: HomeCoordinator = HomeCoordinator()) {
+    init (/*viewModel: HomeVM = HomeVM(),*/ coordinator: FirstPresciptionCoordinator = FirstPresciptionCoordinator()) {
       //  self.viewModel = viewModel
         self.coordinator = coordinator
     }
@@ -56,15 +56,15 @@ struct FirstPrescriptionView_Previews: PreviewProvider {
     static var previews: some View {
 
         Group {
-            FirstPrescriptionView( coordinator: HomeCoordinator())
+            FirstPrescriptionView( coordinator: FirstPresciptionCoordinator())
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
                 .previewDisplayName("iPhone SE")
 
-            FirstPrescriptionView(coordinator: HomeCoordinator())
+            FirstPrescriptionView(coordinator: FirstPresciptionCoordinator())
                 .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
                 .previewDisplayName("iPhone 8")
 
-            FirstPrescriptionView( coordinator: HomeCoordinator())
+            FirstPrescriptionView( coordinator: FirstPresciptionCoordinator())
                 .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
                 .previewDisplayName("iPhone XS Max")
         }

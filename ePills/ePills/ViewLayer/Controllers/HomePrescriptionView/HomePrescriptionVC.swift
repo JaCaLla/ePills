@@ -10,5 +10,5 @@ import Foundation
 import SwiftUI
 
 class HomePrescriptionVC: UIHostingController<HomePrescriptionView> {
-
+    
 }
