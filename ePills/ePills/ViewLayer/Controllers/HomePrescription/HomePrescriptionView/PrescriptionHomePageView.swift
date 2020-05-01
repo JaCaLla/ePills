@@ -19,7 +19,8 @@ struct PrescriptionHomePageView: View {
 
     var prescription: Prescription
     @Binding var dosePrescription: Prescription?
-    //  @Binding var takeDose: Prescription
+    @Binding var onRemovingPrescription: Bool
+    @Binding var currentPrescription: Prescription
     var body: some View {
         VStack {
             HStack(alignment: .center) {
@@ -28,6 +29,14 @@ struct PrescriptionHomePageView: View {
                     .foregroundColor(Color(R.color.colorWhite.name))
                     .padding(.leading)
                 Spacer()
+                Image(systemName: "minus.rectangle")
+                    .font(Font.system(size: 20).bold())
+                    .foregroundColor(Color.white)
+                .padding()
+                    .onTapGesture {
+                        self.onRemovingPrescription = true
+                        self.currentPrescription = self.prescription
+                }
             }.frame(height: 50)
                 .background(Color(R.color.colorGray50Semi.name))
            
@@ -38,20 +47,23 @@ struct PrescriptionHomePageView: View {
                     .foregroundColor(Color.white)
                     .onTapGesture {
                         self.dosePrescription = self.prescription
-                        //  self.onAddFirstPrescriptionSubject.send(self.prescription)
                 }
                 Spacer()
             }.frame(height: 200)
                 .background(Color.green)
-                
-            Spacer().background(Color.yellow)
+            Spacer()
         }
 
     }
 
-    init(prescription: Prescription, dosePrescription: Binding<Prescription?>) {
+    init(prescription: Prescription,
+         dosePrescription: Binding<Prescription?>,
+         isRemovingPrescription: Binding<Bool>,
+          curentPrescription: Binding<Prescription>) {
         self.prescription = prescription
         self._dosePrescription = dosePrescription
+        self._onRemovingPrescription = isRemovingPrescription
+        self._currentPrescription =  curentPrescription
     }
 }
 
@@ -63,7 +75,10 @@ struct PrescriptionHomePageView_Previews: PreviewProvider {
                                         interval: Interval(hours: 8, label: "Every 8 hours"),
                                         unitsDose: 2)
         return ZStack {
-            PrescriptionHomePageView(prescription: prescription, dosePrescription: .constant(nil))
+            PrescriptionHomePageView(prescription: prescription,
+                                     dosePrescription: .constant(nil),
+                                     isRemovingPrescription: .constant(false),
+                                     curentPrescription: .constant(prescription))
         }
 
     }

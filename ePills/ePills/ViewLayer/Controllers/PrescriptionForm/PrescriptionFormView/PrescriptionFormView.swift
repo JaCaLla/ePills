@@ -84,7 +84,7 @@ struct PrescriptionFormView: View {
                     }
                 }
                 Spacer()
-            }
+            }.padding(.top, 20)
         }.navigationBarTitle(Text(R.string.localizable.prescription_form_title.key.localized))
     }
     

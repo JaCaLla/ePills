@@ -10,14 +10,16 @@ import SwiftUI
 
 struct PageView<Page: View>: View {
     var viewControllers: [UIHostingController<Page>] = []
-    @State var currentPage = 0
-    init(_ views: [Page]) {
+    //@State var currentPage = 0
+    @Binding var currentPage:Int
+    init(_ views: [Page], currentPage: Binding<Int>) {
         self.viewControllers = views.map {
             let hostingController = UIHostingController(rootView: $0)
             hostingController.view.backgroundColor = UIColor.clear
             hostingController.view.isOpaque = false
             return hostingController
         }
+        self._currentPage = currentPage
     }
 
     var body: some View {
@@ -38,10 +40,10 @@ struct PageViewController: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> UIPageViewController {
         let pageViewController = UIPageViewController(
-            transitionStyle: .scroll,
+            transitionStyle: 	.scroll,
             navigationOrientation: .horizontal)
-        pageViewController.dataSource = context.coordinator
-        pageViewController.delegate = context.coordinator
+//        pageViewController.dataSource = context.coordinator
+//        pageViewController.delegate = context.coordinator
 
         return pageViewController
     }
@@ -50,7 +52,14 @@ struct PageViewController: UIViewControllerRepresentable {
          guard !self.controllers.isEmpty else { return }
         print("updateUIViewController \(controllers.count)")
         context.coordinator.parent.controllers = self.controllers
-        pageViewController.setViewControllers([controllers[currentPage]], direction: .forward, animated: true)
+        let pageToRefresh = currentPage >= controllers.count ? 0 : currentPage
+        
+        pageViewController.dataSource = controllers.count > 1 ? context.coordinator : nil
+        pageViewController.delegate = context.coordinator
+        
+        pageViewController.setViewControllers([controllers[pageToRefresh]],
+                                              direction: .forward,
+                                              animated: false)
     }
 
     class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -63,7 +72,7 @@ struct PageViewController: UIViewControllerRepresentable {
         func pageViewController(
             _ pageViewController: UIPageViewController,
             viewControllerBefore viewController: UIViewController) -> UIViewController? {
-            print("viewControllerBefore \(parent.controllers.count)")
+            //print("viewControllerBefore \(parent.controllers.count)")
             guard parent.controllers.count > 1 else {
                 return nil
             }
@@ -71,7 +80,8 @@ struct PageViewController: UIViewControllerRepresentable {
                 return nil
             }
             if index == 0 {
-                return parent.controllers.last
+               // return parent.controllers.last
+                return  nil//parent.controllers[0]
             }
             return parent.controllers[index - 1]
         }
@@ -79,7 +89,7 @@ struct PageViewController: UIViewControllerRepresentable {
         func pageViewController(
             _ pageViewController: UIPageViewController,
             viewControllerAfter viewController: UIViewController) -> UIViewController? {
-            print("viewControllerAfter \(parent.controllers.count)")
+           // print("viewControllerAfter \(parent.controllers.count)")
             guard parent.controllers.count > 1 else {
                 return nil
                 
@@ -88,7 +98,7 @@ struct PageViewController: UIViewControllerRepresentable {
                 return nil
             }
             if index + 1 == parent.controllers.count {
-                return parent.controllers.first
+                return nil//parent.controllers.first
             }
             return parent.controllers[index + 1]
         }

@@ -17,7 +17,7 @@ struct FirstPrescriptionView: View {
     private var onAddFirstPrescriptionSubject = PassthroughSubject<Void, Never>()
 
     // MARK: - Public Attributes
-    var coordinator: FirstPresciptionCoordinator
+    var coordinator: FirstPresciptionCoordinator?
 
     // MARK: - View
     @State var onAddFirstPrescription: Bool = false
@@ -46,8 +46,8 @@ struct FirstPrescriptionView: View {
 //        }
     }
 
-    init (/*viewModel: HomeVM = HomeVM(),*/ coordinator: FirstPresciptionCoordinator = FirstPresciptionCoordinator()) {
-      //  self.viewModel = viewModel
+    init ( coordinator: FirstPresciptionCoordinator = FirstPresciptionCoordinator()) {
+
         self.coordinator = coordinator
     }
 }

@@ -100,7 +100,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 18 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 22 localization keys.
     struct localizable {
       /// en translation: Add
       /// 
@@ -110,10 +110,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let prescription_form_section_administration = Rswift.StringResource(key: "prescription_form_section_administration", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Atention!
+      /// 
+      /// Locales: en
+      static let home_alert_title = Rswift.StringResource(key: "home_alert_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Day
       /// 
       /// Locales: en, es
       static let prescription_form_interval_list_day = Rswift.StringResource(key: "prescription_form_interval_list_day", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// en translation: Home
+      /// 
+      /// Locales: en
+      static let home_title = Rswift.StringResource(key: "home_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Hour
       /// 
       /// Locales: en, es
@@ -150,6 +158,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let first_prescription_title_msg_add = Rswift.StringResource(key: "first_prescription_title_msg_add", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: This prescription is going to be eliminated! Proceed?
+      /// 
+      /// Locales: en
+      static let home_alert_message = Rswift.StringResource(key: "home_alert_message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Units box
       /// 
       /// Locales: en
@@ -174,6 +186,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let prescription_form_err_units_dose_maximum = Rswift.StringResource(key: "prescription_form_err_units_dose_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Yes
+      /// 
+      /// Locales: en
+      static let home_alert_ok = Rswift.StringResource(key: "home_alert_ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       
       /// en translation: Add
       /// 
@@ -189,11 +205,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("prescription_form_section_administration", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Atention!
+      /// 
+      /// Locales: en
+      static func home_alert_title(_: Void = ()) -> String {
+        return NSLocalizedString("home_alert_title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Day
       /// 
       /// Locales: en, es
       static func prescription_form_interval_list_day(_: Void = ()) -> String {
         return NSLocalizedString("prescription_form_interval_list_day", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Home
+      /// 
+      /// Locales: en
+      static func home_title(_: Void = ()) -> String {
+        return NSLocalizedString("home_title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Hour
@@ -259,6 +289,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("first_prescription_title_msg_add", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: This prescription is going to be eliminated! Proceed?
+      /// 
+      /// Locales: en
+      static func home_alert_message(_: Void = ()) -> String {
+        return NSLocalizedString("home_alert_message", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Units box
       /// 
       /// Locales: en
@@ -299,6 +336,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func prescription_form_err_units_dose_maximum(_: Void = ()) -> String {
         return NSLocalizedString("prescription_form_err_units_dose_maximum", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Yes
+      /// 
+      /// Locales: en
+      static func home_alert_ok(_: Void = ()) -> String {
+        return NSLocalizedString("home_alert_ok", bundle: R.hostingBundle, comment: "")
       }
       
       fileprivate init() {}

@@ -15,34 +15,46 @@ struct HomePrescriptionView: View {
 //        return onAddPrescriptionSubject.eraseToAnyPublisher()
 //    }
 //    private var onAddPrescriptionSubject = PassthroughSubject<Void, Never>()
-private var subscription = Set<AnyCancellable>()
+    private var subscription = Set<AnyCancellable>()
 
     // MARK: - Public Attributes
     @ObservedObject var viewModel: HomePrescriptionVM = HomePrescriptionVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
 
-   
+    @State var isRemovingPrescription: Bool = false
+    @State var currentPrescription: Prescription = Prescription(name: "", unitsBox: 0, interval: Interval(hours: 0, label: ""), unitsDose: 0)
+    // @State var currentPage = 0
     var body: some View {
         ZStack {
             BackgroundView()
             VStack {
-                Rectangle().fill().background(Color.yellow).frame(height: 20)
                 PageView(self.viewModel.prescriptions.map {
                     PrescriptionHomePageView(prescription: $0,
-                                             dosePrescription: self.$viewModel.dosePrescription)
-                }).background(Color(R.color.colorGray50Semi.name))
+                                             dosePrescription: self.$viewModel.dosePrescription,
+                                             isRemovingPrescription: self.$isRemovingPrescription,
+                                             curentPrescription: self.$currentPrescription)
+                }, currentPage: self.$viewModel.currentPage)
+                    .background(Color(R.color.colorGray50Semi.name))
                     .frame(height: 400)
-                    
                     .padding()
                 Spacer()
+            }.padding(.top, 20)
+                .alert(isPresented: self.$isRemovingPrescription) {
+                    Alert(title: Text(R.string.localizable.home_alert_title.key.localized),
+                          message: Text(R.string.localizable.home_alert_message.key.localized),
+                          primaryButton: .default (Text(R.string.localizable.home_alert_ok.key.localized)) {
+                              self.viewModel.remove(prescription: self.currentPrescription)
+                          },
+                          secondaryButton: .cancel()
+                    )
             }
         }.navigationBarItems(trailing:
             Button(action: {
-                  self.viewModel.addPrescription()
+                self.viewModel.addPrescription()
             }) {
                 Image(systemName: "plus.rectangle")
                     .font(Font.system(size: 20).bold())
                     .foregroundColor(Color(R.color.colorGray50.name))
-            }
+        }
         ).navigationBarTitle("_Home")
     }
 
