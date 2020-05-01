@@ -10,9 +10,15 @@ import Foundation
 
 
 public final class HomeCoordinatorMock: HomeCoordinatorProtocol {
+    
     var presentPrescriptionFormCount = 0
+    var replaceByFirstPrescriptionCount = 0
     
     public func presentPrescriptionForm(interactor: PrescriptionInteractorProtocol) {
         presentPrescriptionFormCount += 1
+    }
+    
+    public func replaceByFirstPrescription(interactor: PrescriptionInteractorProtocol) {
+        replaceByFirstPrescriptionCount += 1
     }
 }

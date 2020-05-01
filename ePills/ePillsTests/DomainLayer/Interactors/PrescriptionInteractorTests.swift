@@ -37,7 +37,7 @@ class PrescriptionInteractorTests: XCTestCase {
         let expectation = XCTestExpectation(description: self.debugDescription)
         sut = PrescriptionInteractor(dataManager: DataManager.shared)
 
-        let expecteds: [[Prescription]] = [[],
+        let expecteds: [[Prescription]] = [
             [Prescription(name: "a",
                           unitsBox: 10,
                           interval: Interval(hours: 8, label: "8 hours"),
@@ -48,7 +48,7 @@ class PrescriptionInteractorTests: XCTestCase {
                                         unitsBox: 10,
                                         interval: Interval(hours: 8, label: "8 hours"),
                                         unitsDose: 1)
-        sut.$prescriptions
+        sut.getPrescriptions()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
@@ -78,7 +78,7 @@ class PrescriptionInteractorTests: XCTestCase {
         let expectation = XCTestExpectation(description: self.debugDescription)
         sut = PrescriptionInteractor(dataManager: DataManager.shared)
 
-        let expecteds: [[Prescription]] = [[],
+        let expecteds: [[Prescription]] = [
             [Prescription(name: "a",
                           unitsBox: 10,
                           interval: Interval(hours: 8, label: "8 hours"),
@@ -98,7 +98,7 @@ class PrescriptionInteractorTests: XCTestCase {
                                          unitsBox: 10,
                                          interval: Interval(hours: 8, label: "8 hours"),
                                          unitsDose: 1)
-        sut.$prescriptions
+        sut.getPrescriptions()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in

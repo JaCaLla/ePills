@@ -28,17 +28,17 @@ public final class HomeCoordinator {
 
     func start() -> UIViewController {
         
-
-        navitationController.viewControllers = [getHomePrescriptionVC()]
+        let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
+        navitationController.viewControllers = [getHomePrescriptionVC(interactor: interactor)]
         return navitationController
     }
 
-    func getHomePrescriptionVC() -> UIViewController {
-        let homePrescriptionVM = HomePrescriptionVM(homeCoordinator: self)
+    func getHomePrescriptionVC(interactor: PrescriptionInteractorProtocol) -> UIViewController {
+        let homePrescriptionVM = HomePrescriptionVM(interactor: interactor, homeCoordinator: self)
         let homePrescriptionView = HomePrescriptionView(viewModel: homePrescriptionVM)
         let homePrescriptionVC = HomePrescriptionVC(rootView: homePrescriptionView)
-        homePrescriptionVC.title = "_Home2"
-        homePrescriptionVC.tabBarItem = UITabBarItem(title: "_Home13",
+       // homePrescriptionVC.title = "_Home2"
+        homePrescriptionVC.tabBarItem = UITabBarItem(title: R.string.localizable.home_title.key.localized,
                                                      image: UIImage(systemName: "plus.rectangle"),
                                                      tag: 0)
         return homePrescriptionVC
@@ -64,7 +64,7 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
         firstPresciptionCoordinator.navitationController = self.navitationController
         let previousViewControllers = self.navitationController.viewControllers
         firstPresciptionCoordinator.onFinishedPublisher.sink { _ in
-            self.navitationController.viewControllers = [self.getHomePrescriptionVC()]
+            self.navitationController.viewControllers = [self.getHomePrescriptionVC(interactor: interactor)]
         }.store(in: &cancellable)
         let rootViewController = firstPresciptionCoordinator.start(navigationController: false)
         rootViewController.modalTransitionStyle = .crossDissolve

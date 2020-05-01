@@ -55,7 +55,7 @@ struct HomePrescriptionView: View {
                     .font(Font.system(size: 20).bold())
                     .foregroundColor(Color(R.color.colorGray50.name))
         }
-        ).navigationBarTitle("_Home")
+        ).navigationBarTitle(R.string.localizable.home_title.key.localized)
     }
 
     init(viewModel: HomePrescriptionVM) {

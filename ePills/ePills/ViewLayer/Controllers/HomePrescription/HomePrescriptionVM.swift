@@ -20,7 +20,7 @@ public final class HomePrescriptionVM: ObservableObject {
     private var view: HomePrescriptionView?
 
     // MARK: - Private attributes
-    private var interactor: PrescriptionInteractor
+    private var interactor: PrescriptionInteractorProtocol
     private var homeCoordinator: HomeCoordinatorProtocol
 
     // MARK: - Publishers
@@ -33,21 +33,26 @@ public final class HomePrescriptionVM: ObservableObject {
     }
     @Published var currentPage = 0
 
-    init(interactor: PrescriptionInteractor = PrescriptionInteractor(),
+    init(interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(),
          homeCoordinator: HomeCoordinatorProtocol) {
         self.interactor = interactor
         self.homeCoordinator = homeCoordinator
-        interactor.$prescriptions
+        /*interactor.$prescriptions
             .assign(to: \.prescriptions, on: self)
             .store(in: &cancellables)
+        */
+        self.interactor.getPrescriptions()
+            .sink{ prescriptions in
+                self.prescriptions = prescriptions
+        }.store(in: &cancellables)
+        self.interactor.getCurrentPrescriptionIndex()
+            .sink { currentPrescriptionIndex in
+                self.currentPage = currentPrescriptionIndex
+        }.store(in: &cancellables)
         self.$prescriptions
             .sink { someValue in
-                //guard someValue.isEmpty else { return }
-                if someValue.isEmpty {
-                    self.homeCoordinator.replaceByFirstPrescription(interactor: self.interactor)
-                } else {
-                    self.currentPage = self.interactor.getCurrentPrescriptionIndex()
-                }
+                guard someValue.isEmpty else { return }
+                self.homeCoordinator.replaceByFirstPrescription(interactor: self.interactor)
             }.store(in: &cancellables)
     }
 }

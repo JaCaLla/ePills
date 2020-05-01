@@ -39,6 +39,10 @@ struct Prescription {
             self.nextDose = Int(Date().timeIntervalSince1970) + self.interval.hours * 3600
         }
     }
+    
+    func title() -> String {
+        return "\(self.name) [\(self.unitsConsumed)/\(self.unitsBox)]"
+    }
 }
 
 extension Prescription: Equatable {

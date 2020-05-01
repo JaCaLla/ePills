@@ -43,14 +43,14 @@ class PrescriptionFormVMTests: XCTestCase {
         sut.selectedIntervalIndex = Interval(hours: 8, label: "8 hours")
         sut.unitsDose =  "1"
        
-        let expecteds: [[Prescription]] = [[],
+        let expecteds: [[Prescription]] = [
             [Prescription(name: "a",
                           unitsBox: 10,
                           interval: Interval(hours: 8, label: "8 hours"),
                           unitsDose: 1)]]
         var expetedsIdx = 0
         
-        interactor.$prescriptions
+        interactor.getPrescriptions()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in

@@ -7,11 +7,14 @@
 //
 @testable import ePills
 import Foundation
+import Combine
 
 public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
     
     var addCount = 0
     var removeCount = 0
+    var getCurrentPrescriptionIndexCount = 0
+    var getPrescriptionsCount = 0
     
     public func add(prescription: Prescription) {
         addCount += 1
@@ -21,5 +24,14 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
         removeCount += 1
     }
     
+    public func getCurrentPrescriptionIndex() -> AnyPublisher<Int, Never> {
+        getCurrentPrescriptionIndexCount += 1
+        return Just(0).eraseToAnyPublisher()
+    }
+    
+    public func getPrescriptions() -> AnyPublisher<[Prescription], Never> {
+        getPrescriptionsCount += 1
+        return Just([]).eraseToAnyPublisher()
+    }
     
 }
