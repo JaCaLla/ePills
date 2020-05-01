@@ -57,5 +57,8 @@ class PrescriptionTests: XCTestCase {
         XCTAssertEqual(sut.unitsConsumed, 20)
     }
 
+    func test_title() {
+        XCTAssertEqual(sut.title(), "asdfg [0/20]")
+    }
 
 }

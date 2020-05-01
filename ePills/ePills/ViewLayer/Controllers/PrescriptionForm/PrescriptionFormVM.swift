@@ -12,6 +12,7 @@ import Combine
 protocol PrescriptionFormVMProtocol {
     func getIntervals() -> [Interval]
     func save()
+    func remove(prescription: Prescription)
 }
 
 public final class PrescriptionFormVM: ObservableObject {
@@ -28,7 +29,7 @@ public final class PrescriptionFormVM: ObservableObject {
     @Published var unitsDose: String = "1"
 
     // MARK: - Private attributes
-    var interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(dataManager: DataManager.shared)
+    var interactor: PrescriptionInteractorProtocol //= PrescriptionInteractor(dataManager: DataManager.shared)
     //var firstPresciptionCoordinator: FirstPresciptionCoordinator
 //    var dataManager: DataManagerProtocol
 
@@ -50,6 +51,10 @@ extension PrescriptionFormVM: PrescriptionFormVMProtocol {
       //  dataManager.add(prescription: prescription)
         interactor.add(prescription: prescription)
         onDismissSubject.send()
+    }
+    
+    func remove(prescription: Prescription) {
+        interactor.remove(prescription: prescription)
     }
 
     func getIntervals() -> [Interval] {

@@ -27,32 +27,31 @@ final public class FirstPresciptionCoordinator {
     var navitationController: UINavigationController = UINavigationController()
 
     // MARK: - Public Helpers
-    func start() -> UIViewController {
+    func start(navigationController: Bool = true, prescriptionInteractor: PrescriptionInteractorProtocol? = nil) -> UIViewController {
         let homeView = FirstPrescriptionView( coordinator: self)
         let firstPrescriptionVC = FirstPrescriptionVC(rootView: homeView)
         homeView.onAddFirstPrescriptionPublisher.sink {
-            self.presentPrescriptionForm(homeView: homeView)
+            self.presentPrescriptionForm(homeView: homeView,
+                                         prescriptionInteractor: prescriptionInteractor ?? PrescriptionInteractor(dataManager: DataManager.shared) )
         }.store(in: &onAddFirstSubscription)
+        guard navigationController else {
+            return firstPrescriptionVC
+        }
         navitationController.viewControllers = [firstPrescriptionVC];
         return navitationController
     }
 
     // MARK: - Private/Internal
-    fileprivate func presentPrescriptionForm(homeView: FirstPrescriptionView) {
-        let prescriptionFormVM = PrescriptionFormVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared)/*,
-                                                    coordinator: self*/)
+    fileprivate func presentPrescriptionForm(homeView: FirstPrescriptionView, prescriptionInteractor: PrescriptionInteractorProtocol) {
+        let prescriptionFormVM = PrescriptionFormVM(interactor: prescriptionInteractor /*PrescriptionInteractor(dataManager: DataManager.shared)*/)
         prescriptionFormVM.onDismissPublisher.sink {
-                        let tabBarC = TabBarController(/*coordinator: self*/)
+                        let tabBarC = TabBarController()
                         self.onUIViewControllerInternalPublisher.send(tabBarC)
         }.store(in: &onDismissIssueSubscription)
         let prescriptionFormView = PrescriptionFormView(viewModel: prescriptionFormVM)
         let prescriptionFormVC = PrescriptionFormVC(rootView: prescriptionFormView)
        
         prescriptionFormVC.hidesBottomBarWhenPushed = true
-//        prescriptionFormView.onAddedPrescriptionPublisher.sink {
-//            let tabBarC = TabBarController(/*coordinator: self*/)
-//            self.onUIViewControllerInternalPublisher.send(tabBarC)
-//        }.store(in: &onDismissIssueSubscription)
         self.navitationController.pushViewController(prescriptionFormVC, animated: true)
     }
 }

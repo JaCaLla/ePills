@@ -26,3 +26,8 @@
 "prescription_form_interval_list_hour" = "Hour";
 "prescription_form_interval_list_hours" = "Hours";
 "prescription_form_interval_list_day" = "Day";
+
+"home_title" = "Home";
+"home_alert_title" = "Atention!";
+"home_alert_message" = "This prescription is going to be eliminated! Proceed?";
+"home_alert_ok" = "Yes";

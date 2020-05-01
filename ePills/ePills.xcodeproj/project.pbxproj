@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0A63076FDFD4C0E744E7238D /* Pods_ePills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD86EE5D26121AE773DBB92 /* Pods_ePills.framework */; };
 		3617ECEE8974CC1955656F55 /* Pods_ePillsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E35F4D39E48EFB14C6CC183B /* Pods_ePillsTests.framework */; };
+		5E3B7AD82459FEBA00541AB4 /* PrescriptionInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7AD72459FEBA00541AB4 /* PrescriptionInteractorTests.swift */; };
+		5E3B7ADC245A26A000541AB4 /* PrescriptionInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7ADB245A26A000541AB4 /* PrescriptionInteractorMock.swift */; };
+		5E3B7ADF245A327A00541AB4 /* HomePrescriptionVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7ADE245A327A00541AB4 /* HomePrescriptionVMTest.swift */; };
+		5E3B7AE2245AD7D300541AB4 /* HomeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7AE1245AD7D300541AB4 /* HomeCoordinatorMock.swift */; };
 		5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB014244B0F3F00F162EB /* AppDelegate.swift */; };
 		5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */; };
 		5E6AB01B244B0F4200F162EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6AB01A244B0F4200F162EB /* Assets.xcassets */; };
@@ -61,6 +65,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E3B7AD72459FEBA00541AB4 /* PrescriptionInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionInteractorTests.swift; sourceTree = "<group>"; };
+		5E3B7ADB245A26A000541AB4 /* PrescriptionInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionInteractorMock.swift; sourceTree = "<group>"; };
+		5E3B7ADE245A327A00541AB4 /* HomePrescriptionVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionVMTest.swift; sourceTree = "<group>"; };
+		5E3B7AE1245AD7D300541AB4 /* HomeCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorMock.swift; sourceTree = "<group>"; };
 		5E6AB011244B0F3F00F162EB /* ePills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ePills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6AB014244B0F3F00F162EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +151,64 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5E3B7AD52459FE1700541AB4 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5E3B7AD62459FE3F00541AB4 /* Interactors */,
+			);
+			path = DomainLayer;
+			sourceTree = "<group>";
+		};
+		5E3B7AD62459FE3F00541AB4 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				5E3B7AD72459FEBA00541AB4 /* PrescriptionInteractorTests.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		5E3B7AD9245A268600541AB4 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5E3B7AE0245AD7C400541AB4 /* Coordinators */,
+				5E3B7ADA245A268D00541AB4 /* Interactors */,
+			);
+			path = DomainLayer;
+			sourceTree = "<group>";
+		};
+		5E3B7ADA245A268D00541AB4 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				5E3B7ADB245A26A000541AB4 /* PrescriptionInteractorMock.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		5E3B7ADD245A31F600541AB4 /* HomePrescription */ = {
+			isa = PBXGroup;
+			children = (
+				5E3B7ADE245A327A00541AB4 /* HomePrescriptionVMTest.swift */,
+			);
+			path = HomePrescription;
+			sourceTree = "<group>";
+		};
+		5E3B7AE0245AD7C400541AB4 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				5E3B7AE1245AD7D300541AB4 /* HomeCoordinatorMock.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		5E3B7AE3245AF2B000541AB4 /* HomePrescriptionView */ = {
+			isa = PBXGroup;
+			children = (
+				5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */,
+				5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */,
+			);
+			path = HomePrescriptionView;
+			sourceTree = "<group>";
+		};
 		5E6AB008244B0F3F00F162EB = {
 			isa = PBXGroup;
 			children = (
@@ -190,8 +256,9 @@
 			isa = PBXGroup;
 			children = (
 				5EFE81032454CDAA00D44F53 /* Mocks */,
-				5EFE81072454CEB200D44F53 /* DataLayer */,
 				5EFE80FF2454BD3300D44F53 /* ViewLayer */,
+				5E3B7AD52459FE1700541AB4 /* DomainLayer */,
+				5EFE81072454CEB200D44F53 /* DataLayer */,
 				5E6AB02D244B0F4200F162EB /* Info.plist */,
 			);
 			path = ePillsTests;
@@ -229,8 +296,9 @@
 		5E6AB042244B43CC00F162EB /* FirstPrescription */ = {
 			isa = PBXGroup;
 			children = (
-				5ED44B5C24545E7C00081B36 /* FirstPrescriptionView */,
 				5EFF2155244F57BE00B77AE9 /* FirstPrescriptionVC.swift */,
+				5E6AB03D244B245F00F162EB /* FirstPrescriptionView.swift */,
+				5ED44B5C24545E7C00081B36 /* FirstPrescriptionView */,
 			);
 			path = FirstPrescription;
 			sourceTree = "<group>";
@@ -309,22 +377,21 @@
 			path = PrescriptionFormView;
 			sourceTree = "<group>";
 		};
-		5ED44B5424542EED00081B36 /* HomePrescriptionView */ = {
+		5ED44B5424542EED00081B36 /* HomePrescription */ = {
 			isa = PBXGroup;
 			children = (
+				5E3B7AE3245AF2B000541AB4 /* HomePrescriptionView */,
 				5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */,
-				5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */,
-				5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */,
 				5ED44B592454541000081B36 /* HomePrescriptionVC.swift */,
 				5E8EECE62456CFD600398832 /* HomePrescriptionVM.swift */,
 			);
-			path = HomePrescriptionView;
+			path = HomePrescription;
 			sourceTree = "<group>";
 		};
 		5ED44B5B245458D100081B36 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5ED44B5424542EED00081B36 /* HomePrescriptionView */,
+				5ED44B5424542EED00081B36 /* HomePrescription */,
 				5E6AB045244B4EF300F162EB /* PrescriptionForm */,
 				5E6AB042244B43CC00F162EB /* FirstPrescription */,
 			);
@@ -336,7 +403,6 @@
 			children = (
 				5E6AB04D244BA32200F162EB /* MessageView.swift */,
 				5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */,
-				5E6AB03D244B245F00F162EB /* FirstPrescriptionView.swift */,
 			);
 			path = FirstPrescriptionView;
 			sourceTree = "<group>";
@@ -344,6 +410,7 @@
 		5EFE80FF2454BD3300D44F53 /* ViewLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5E3B7ADD245A31F600541AB4 /* HomePrescription */,
 				5EFE81002454BE6400D44F53 /* PrescriptionForm */,
 			);
 			path = ViewLayer;
@@ -360,6 +427,7 @@
 		5EFE81032454CDAA00D44F53 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				5E3B7AD9245A268600541AB4 /* DomainLayer */,
 				5EFE81042454CDB700D44F53 /* DataLayer */,
 			);
 			path = Mocks;
@@ -666,10 +734,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E3B7ADC245A26A000541AB4 /* PrescriptionInteractorMock.swift in Sources */,
 				5EFE81022454C12800D44F53 /* PrescriptionFormVMTests.swift in Sources */,
 				5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */,
+				5E3B7AE2245AD7D300541AB4 /* HomeCoordinatorMock.swift in Sources */,
 				5EFE81062454CDE400D44F53 /* DataManagerMock.swift in Sources */,
 				5E8EECE32456258600398832 /* PrescriptionTests.swift in Sources */,
+				5E3B7AD82459FEBA00541AB4 /* PrescriptionInteractorTests.swift in Sources */,
+				5E3B7ADF245A327A00541AB4 /* HomePrescriptionVMTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
