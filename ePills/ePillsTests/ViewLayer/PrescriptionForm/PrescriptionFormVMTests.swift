@@ -11,15 +11,16 @@ import XCTest
 import Combine
 
 class PrescriptionFormVMTests: XCTestCase {
-    
-    var sut:PrescriptionFormVM!
+
+    var sut: PrescriptionFormVM!
     var prescriptionInteractorMock: PrescriptionInteractorMock!
     private var cancellables = Set<AnyCancellable>()
 
     override func setUpWithError() throws {
         DataManager.shared.reset()
         prescriptionInteractorMock = PrescriptionInteractorMock()
-        self.sut = PrescriptionFormVM(interactor: prescriptionInteractorMock)
+        self.sut = PrescriptionFormVM(interactor: prescriptionInteractorMock, prescription: nil)
+        Bundle.setLanguage(lang: "en")
     }
 
     override func tearDownWithError() throws {
@@ -27,29 +28,29 @@ class PrescriptionFormVMTests: XCTestCase {
     }
 
     func test_addPrescriptionWhenMock() throws {
-       // let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
-        sut = PrescriptionFormVM(interactor: prescriptionInteractorMock)
+        // let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
+        sut = PrescriptionFormVM(interactor: prescriptionInteractorMock, prescription: nil)
         sut.save()
         XCTAssertEqual(prescriptionInteractorMock.addCount, 1)
     }
-    
+
     func test_addPrescriptionWhenDataManagerReal() throws {
         let expectation = XCTestExpectation(description: self.debugDescription)
-        
+
         let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
-       sut = PrescriptionFormVM(interactor: interactor)
+        sut = PrescriptionFormVM(interactor: interactor, prescription: nil)
         sut.name = "a"
         sut.unitsBox = "10"
         sut.selectedIntervalIndex = Interval(hours: 8, label: "8 hours")
-        sut.unitsDose =  "1"
-       
+        sut.unitsDose = "1"
+
         let expecteds: [[Prescription]] = [
             [Prescription(name: "a",
                           unitsBox: 10,
                           interval: Interval(hours: 8, label: "8 hours"),
                           unitsDose: 1)]]
         var expetedsIdx = 0
-        
+
         interactor.getPrescriptions()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
@@ -64,18 +65,73 @@ class PrescriptionFormVMTests: XCTestCase {
             }).store(in: &cancellables)
         // When
         sut.save()
+        
+        // Then
+        XCTAssertEqual(sut.title(), "Prescription form")
         wait(for: [expectation], timeout: 0.1)
     }
-    
+
     func test_removePrescription() throws {
         let prescription = Prescription(name: "a",
-                                            unitsBox: 10,
-                                            interval: Interval(hours: 8, label: "8 hours"),
-                                            unitsDose: 1)
+                                        unitsBox: 10,
+                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        unitsDose: 1)
         sut.remove(prescription: prescription)
         XCTAssertEqual(prescriptionInteractorMock.removeCount, 1)
     }
     
+    func test_updatePrescriptionWhenDataManagerReal() throws {
+        let expectation = XCTestExpectation(description: self.debugDescription)
+
+        let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
+        let prescription = Prescription(name: "a",
+        unitsBox: 10,
+        interval: Interval(hours: 8, label: "8 hours"),
+        unitsDose: 1)
+        interactor.add(prescription: prescription)
+        sut = PrescriptionFormVM(interactor: interactor, prescription: prescription)
+        sut.name = "a"
+        sut.unitsBox = "10"
+        sut.selectedIntervalIndex = Interval(hours: 8, label: "8 hours")
+        sut.unitsDose = "1"
+
+        let expecteds: [[Prescription]] = [
+            [Prescription(name: "a",
+                          unitsBox: 10,
+                          interval: Interval(hours: 8, label: "8 hours"),
+                          unitsDose: 1)]]
+        var expetedsIdx = 0
+
+        interactor.getPrescriptions()
+            .sink(receiveCompletion: { completion in
+                XCTFail(".sink() received the completion:")
+            }, receiveValue: { someValue in
+                guard expetedsIdx < expecteds.count else { return }
+                XCTAssertEqual(expecteds[expetedsIdx], someValue)
+                expetedsIdx += 1
+                if expetedsIdx >= expecteds.count {
+                    expectation.fulfill()
+                }
+
+            }).store(in: &cancellables)
+        // When
+        sut.save()
+        
+        // Then
+        XCTAssertEqual(sut.title(), "Update prescription")
+        wait(for: [expectation], timeout: 100.1)
+    }
+    
+    func test_updatePrescriptionWhenMock() throws {
+        let prescription = Prescription(name: "a",
+                                        unitsBox: 10,
+                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        unitsDose: 1)
+        sut = PrescriptionFormVM(interactor: prescriptionInteractorMock, prescription: prescription)
+        sut.save()
+        XCTAssertEqual(prescriptionInteractorMock.updateCount, 1)
+    }
+
     func test_getIntervals_es() throws {
         Bundle.setLanguage(lang: "es")
         // When
@@ -101,7 +157,7 @@ class PrescriptionFormVMTests: XCTestCase {
         XCTAssertEqual(intervals[7].hours, 1)
         XCTAssertEqual(intervals[7].label, "1 Día")
     }
-    
+
     func test_getIntervals_en() throws {
         // Update the language by swaping bundle
         Bundle.setLanguage(lang: "en")

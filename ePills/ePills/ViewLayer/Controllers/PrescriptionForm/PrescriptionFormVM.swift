@@ -13,30 +13,39 @@ protocol PrescriptionFormVMProtocol {
     func getIntervals() -> [Interval]
     func save()
     func remove(prescription: Prescription)
+    func title() -> String
 }
 
 public final class PrescriptionFormVM: ObservableObject {
 
     // MARK: - Publishers
     var onDismissPublisher: AnyPublisher<Void, Never> {
-            return onDismissSubject.eraseToAnyPublisher()
+        return onDismissSubject.eraseToAnyPublisher()
     }
     private var onDismissSubject = PassthroughSubject<Void, Never>()
-    
+
     @Published var name: String = ""
     @Published var unitsBox: String = ""
     @Published var selectedIntervalIndex = Interval(hours: 8, label: "8 Hours")
     @Published var unitsDose: String = "1"
 
     // MARK: - Private attributes
-    var interactor: PrescriptionInteractorProtocol //= PrescriptionInteractor(dataManager: DataManager.shared)
-    //var firstPresciptionCoordinator: FirstPresciptionCoordinator
-//    var dataManager: DataManagerProtocol
+    private var interactor: PrescriptionInteractorProtocol
+    @Published var prescription: Prescription?
 
-    init(interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(dataManager: DataManager.shared)/*,
-          coordinator: FirstPresciptionCoordinator*/) {
+    init(interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(dataManager: DataManager.shared), prescription: Prescription?) {
         self.interactor = interactor
-   //     self.firstPresciptionCoordinator = coordinator
+        self.prescription = prescription
+        if let updatedPrescription = self.prescription/*,
+            let name = updatedPrescription.name,
+            let unitsBox = String(describing: updatedPrescription.unitsBox),
+            let interval = updatedPrescription.interval,
+            let unitsDose = String(describing: updatedPrescription.unitsDose)*/ {
+            self.name = updatedPrescription.name
+            self.unitsBox = "\(String(describing: updatedPrescription.unitsBox))"
+            self.selectedIntervalIndex = updatedPrescription.interval //?? Interval(hours: 8, label: "8 Hours")
+            self.unitsDose = "\(String(describing: updatedPrescription.unitsDose))"
+        }
     }
 
 
@@ -44,15 +53,22 @@ public final class PrescriptionFormVM: ObservableObject {
 
 extension PrescriptionFormVM: PrescriptionFormVMProtocol {
     func save() {
-        let prescription = Prescription(name: self.name,
-                                        unitsBox: Int(self.unitsBox) ?? -1,
-                                        interval: self.selectedIntervalIndex,
-                                        unitsDose: Int(self.unitsDose) ?? -1)
-      //  dataManager.add(prescription: prescription)
-        interactor.add(prescription: prescription)
+        if var updatedPrescription = self.prescription {
+            updatedPrescription.name = self.name
+            updatedPrescription.unitsBox = Int(self.unitsBox) ?? -1
+            updatedPrescription.interval = self.selectedIntervalIndex
+            updatedPrescription.unitsDose = Int(self.unitsDose) ?? -1
+            interactor.update(prescription: updatedPrescription)
+        } else {
+            let prescription = Prescription(name: self.name,
+                                            unitsBox: Int(self.unitsBox) ?? -1,
+                                            interval: self.selectedIntervalIndex,
+                                            unitsDose: Int(self.unitsDose) ?? -1)
+            interactor.add(prescription: prescription)
+        }
         onDismissSubject.send()
     }
-    
+
     func remove(prescription: Prescription) {
         interactor.remove(prescription: prescription)
     }
@@ -70,5 +86,10 @@ extension PrescriptionFormVM: PrescriptionFormVMProtocol {
             Interval(hours: $0,
                      label: "\($0) \(R.string.localizable.prescription_form_interval_list_day.key.localized)") })
         return invervals
+    }
+    func title() -> String {
+        return  self.prescription == nil ?
+                R.string.localizable.prescription_form_title.key.localized :
+        R.string.localizable.prescription_form_title_update.key.localized
     }
 }

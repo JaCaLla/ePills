@@ -14,7 +14,7 @@ import SwiftUI
 import Combine
 
 protocol HomeCoordinatorProtocol {
-    func presentPrescriptionForm(interactor: PrescriptionInteractorProtocol)
+    func presentPrescriptionForm(interactor: PrescriptionInteractorProtocol, prescription: Prescription?)
     func replaceByFirstPrescription(interactor: PrescriptionInteractorProtocol)
 }
 
@@ -47,8 +47,8 @@ public final class HomeCoordinator {
 }
 
 extension HomeCoordinator: HomeCoordinatorProtocol {
-    func presentPrescriptionForm(interactor: PrescriptionInteractorProtocol) {
-        let prescriptionFormVM = PrescriptionFormVM(interactor: interactor)
+    func presentPrescriptionForm(interactor: PrescriptionInteractorProtocol, prescription: Prescription?) {
+        let prescriptionFormVM = PrescriptionFormVM(interactor: interactor, prescription: prescription)
         prescriptionFormVM.onDismissPublisher.sink {
             self.navitationController.popViewController(animated: true)
         }.store(in: &onDismissIssueSubscription)

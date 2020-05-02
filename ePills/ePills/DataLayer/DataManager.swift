@@ -13,6 +13,7 @@ protocol DataManagerProtocol {
     
     func add(prescription: Prescription)
     func remove(prescription: Prescription)
+    func update(prescription: Prescription)
     func getPrescriptions() -> AnyPublisher<[Prescription], Never>
 }
 
@@ -35,17 +36,7 @@ extension DataManager: DataManagerProtocol {
     
     func remove(prescription: Prescription) {
         
-        if let index = prescriptions.firstIndex(where: {$0 == prescription}) {
-          prescriptions.remove(at: index)
-        } else{
-            print("eing!!!")
-        }
-//        prescriptions = prescriptions
-//       // .compactMap( { $0 == prescription ? nil : $0 })
-//        .sorted(by:{ $0.creation < $1.creation })
-//        prescriptions = prescriptions
-//            .compactMap( { $0 == prescription ? nil : $0 })
-//            .sorted(by:{ $0.creation < $1.creation })
+        prescriptions.removeAll(where: {$0.id == prescription.id})
         subject.send(self.prescriptions)
     }
     
@@ -53,6 +44,17 @@ extension DataManager: DataManagerProtocol {
         prescriptions = prescriptions.sorted(by:{ $0.creation < $1.creation })
         subject.send(self.prescriptions)
         return subject.eraseToAnyPublisher()
+    }
+    
+    func update(prescription: Prescription) {
+        guard let index = prescriptions.firstIndex(where: {$0.id == prescription.id}) else { return }
+        prescriptions[index].name = prescription.name
+        prescriptions[index].unitsBox = prescription.unitsBox
+        prescriptions[index].interval = prescription.interval
+        prescriptions[index].unitsDose = prescription.unitsDose
+        prescriptions[index].unitsConsumed = prescription.unitsConsumed
+        prescriptions[index].nextDose = prescription.nextDose
+        subject.send(self.prescriptions)
     }
 }
 

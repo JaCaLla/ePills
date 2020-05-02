@@ -42,8 +42,9 @@ final public class FirstPresciptionCoordinator {
     }
 
     // MARK: - Private/Internal
-    fileprivate func presentPrescriptionForm(homeView: FirstPrescriptionView, prescriptionInteractor: PrescriptionInteractorProtocol) {
-        let prescriptionFormVM = PrescriptionFormVM(interactor: prescriptionInteractor /*PrescriptionInteractor(dataManager: DataManager.shared)*/)
+    fileprivate func presentPrescriptionForm(homeView: FirstPrescriptionView,
+                                             prescriptionInteractor: PrescriptionInteractorProtocol) {
+        let prescriptionFormVM = PrescriptionFormVM(interactor: prescriptionInteractor, prescription: nil)
         prescriptionFormVM.onDismissPublisher.sink {
                         let tabBarC = TabBarController()
                         self.onUIViewControllerInternalPublisher.send(tabBarC)

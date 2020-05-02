@@ -10,6 +10,7 @@
 "first_prescription_title_msg_add" = "Press + for adding your first prescription";
 
 "prescription_form_title" = "Prescription form";
+"prescription_form_title_update" = "Update prescription";
 "prescription_form_section_medicine" = "Medicine";
 "prescription_form_section_medicine_name" = "Name";
 "prescription_form_section_medicine_units_box" = "Units box";

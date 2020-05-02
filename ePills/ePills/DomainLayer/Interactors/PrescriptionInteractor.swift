@@ -13,6 +13,7 @@ protocol PrescriptionInteractorProtocol {
 
     func add(prescription: Prescription)
     func remove(prescription: Prescription)
+    func update(prescription: Prescription)
     func getCurrentPrescriptionIndex()  -> AnyPublisher<Int, Never>
     func getPrescriptions() -> AnyPublisher<[Prescription], Never>
 }
@@ -54,6 +55,14 @@ extension PrescriptionInteractor: PrescriptionInteractorProtocol {
         dataManager.remove(prescription: prescription)
         currentPrescriptionIndex = 0
         currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
+    }
+    
+    func update(prescription: Prescription) {
+        dataManager.update(prescription: prescription)
+        if let index = prescriptions.firstIndex(of: prescription) {
+            currentPrescriptionIndex = index
+             currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
+        }
     }
 
     func getCurrentPrescriptionIndex()  -> AnyPublisher<Int, Never> {

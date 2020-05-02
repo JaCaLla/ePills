@@ -21,7 +21,7 @@ struct HomePrescriptionView: View {
     @ObservedObject var viewModel: HomePrescriptionVM = HomePrescriptionVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
 
     @State var isRemovingPrescription: Bool = false
-    @State var currentPrescription: Prescription = Prescription(name: "", unitsBox: 0, interval: Interval(hours: 0, label: ""), unitsDose: 0)
+//    @State var currentPrescription: Prescription = Prescription(name: "", unitsBox: 0, interval: Interval(hours: 0, label: ""), unitsDose: 0)
     // @State var currentPage = 0
     var body: some View {
         ZStack {
@@ -31,7 +31,8 @@ struct HomePrescriptionView: View {
                     PrescriptionHomePageView(prescription: $0,
                                              dosePrescription: self.$viewModel.dosePrescription,
                                              isRemovingPrescription: self.$isRemovingPrescription,
-                                             curentPrescription: self.$currentPrescription)
+                                             onEditing: self.$viewModel.onEditing,
+                                             curentPrescription: self.$viewModel.currentPrescription)
                 }, currentPage: self.$viewModel.currentPage)
                     .background(Color(R.color.colorGray50Semi.name))
                     .frame(height: 400)
@@ -42,7 +43,7 @@ struct HomePrescriptionView: View {
                     Alert(title: Text(R.string.localizable.home_alert_title.key.localized),
                           message: Text(R.string.localizable.home_alert_message.key.localized),
                           primaryButton: .default (Text(R.string.localizable.home_alert_ok.key.localized)) {
-                              self.viewModel.remove(prescription: self.currentPrescription)
+                              self.viewModel.remove(prescription: self.viewModel.currentPrescription)
                           },
                           secondaryButton: .cancel()
                     )
