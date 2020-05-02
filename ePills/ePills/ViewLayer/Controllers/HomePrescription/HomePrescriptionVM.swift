@@ -12,6 +12,7 @@ import Combine
 protocol HomePrescriptionVMProtocol {
     func addPrescription()
     func remove(prescription: Prescription)
+    func update(prescription: Prescription)
 }
 
 public final class HomePrescriptionVM: ObservableObject {
@@ -32,15 +33,14 @@ public final class HomePrescriptionVM: ObservableObject {
         }
     }
     @Published var currentPage = 0
+    @Published var currentPrescription: Prescription = Prescription(name: "", unitsBox: 0, interval: Interval(hours: 0, label: ""), unitsDose: 0)
+    @Published var onEditing: Prescription?
 
     init(interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(),
          homeCoordinator: HomeCoordinatorProtocol) {
         self.interactor = interactor
         self.homeCoordinator = homeCoordinator
-        /*interactor.$prescriptions
-            .assign(to: \.prescriptions, on: self)
-            .store(in: &cancellables)
-        */
+
         self.interactor.getPrescriptions()
             .sink{ prescriptions in
                 self.prescriptions = prescriptions
@@ -54,17 +54,28 @@ public final class HomePrescriptionVM: ObservableObject {
                 guard someValue.isEmpty else { return }
                 self.homeCoordinator.replaceByFirstPrescription(interactor: self.interactor)
             }.store(in: &cancellables)
+        self.$onEditing
+                  .sink { prescription in
+                      guard let uwpPrescription = prescription else { return }
+                    self.update(prescription: uwpPrescription)
+                  }.store(in: &cancellables)
     }
 }
 
 
 extension HomePrescriptionVM: HomePrescriptionVMProtocol {
     func addPrescription() {
-        self.homeCoordinator.presentPrescriptionForm(interactor: self.interactor)
+        self.homeCoordinator.presentPrescriptionForm(interactor: self.interactor,
+                                                     prescription: nil)
     }
 
     func remove(prescription: Prescription) {
         self.interactor.remove(prescription: prescription)
         self.currentPage = 0
+    }
+    
+    func update(prescription: Prescription) {
+        self.homeCoordinator.presentPrescriptionForm(interactor: self.interactor,
+                                                     prescription: prescription)
     }
 }

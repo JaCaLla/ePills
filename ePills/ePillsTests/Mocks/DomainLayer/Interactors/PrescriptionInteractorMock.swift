@@ -10,9 +10,10 @@ import Foundation
 import Combine
 
 public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
-    
+
     var addCount = 0
     var removeCount = 0
+    var updateCount = 0
     var getCurrentPrescriptionIndexCount = 0
     var getPrescriptionsCount = 0
     
@@ -24,6 +25,9 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
         removeCount += 1
     }
     
+    public func update(prescription: Prescription) {
+        updateCount += 1
+    }
     public func getCurrentPrescriptionIndex() -> AnyPublisher<Int, Never> {
         getCurrentPrescriptionIndexCount += 1
         return Just(0).eraseToAnyPublisher()

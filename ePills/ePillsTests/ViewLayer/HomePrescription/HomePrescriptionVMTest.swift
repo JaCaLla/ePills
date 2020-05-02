@@ -118,23 +118,7 @@ class HomePrescriptionVMTest: XCTestCase {
         // When
         prescriptionInteractor.add(prescription: prescription1)
         prescriptionInteractor.add(prescription: prescription2)
-
-//        let expectedsCurrent: [Int] = [0,1]
-//        var expectedsCurrentIdx = 0
-//
-//        sut.$currentPage
-//            .sink(receiveCompletion: { completion in
-//                XCTFail(".sink() received the completion:")
-//            }, receiveValue: { someValue in
-//                // Then
-//                guard expectedsCurrentIdx < expectedsCurrent.count else { return }
-//                XCTAssertEqual(expectedsCurrent[expectedsCurrentIdx], someValue)
-//                expectedsCurrentIdx += 1
-//                if expectedsCurrentIdx >= expectedsCurrent.count,
-//                    expetedsIdx >= expecteds.count {
-//                    expectation.fulfill()
-//                }
-//            }).store(in: &cancellables)
+        
         wait(for: [expectation], timeout: 100.1)
     }
 
@@ -176,6 +160,17 @@ class HomePrescriptionVMTest: XCTestCase {
     func test_addPrescription() throws {
         sut.addPrescription()
         XCTAssertEqual(homeCoordintorMock.presentPrescriptionFormCount, 1)
+        XCTAssertNil(homeCoordintorMock.prescription)
+    }
+    
+    func test_updatePrescription() throws {
+        let prescription = Prescription(name: "a",
+                                                unitsBox: 10,
+                                                interval: Interval(hours: 8, label: "8 hours"),
+                                                unitsDose: 1)
+        sut.update(prescription: prescription)
+        XCTAssertEqual(homeCoordintorMock.presentPrescriptionFormCount, 1)
+        XCTAssertEqual(homeCoordintorMock.prescription!, prescription)
     }
 
     func testPerformanceExample() throws {

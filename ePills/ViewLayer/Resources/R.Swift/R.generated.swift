@@ -100,7 +100,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 22 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 23 localization keys.
     struct localizable {
       /// en translation: Add
       /// 
@@ -186,6 +186,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let prescription_form_err_units_dose_maximum = Rswift.StringResource(key: "prescription_form_err_units_dose_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Update prescription
+      /// 
+      /// Locales: en
+      static let prescription_form_title_update = Rswift.StringResource(key: "prescription_form_title_update", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Yes
       /// 
       /// Locales: en
@@ -336,6 +340,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func prescription_form_err_units_dose_maximum(_: Void = ()) -> String {
         return NSLocalizedString("prescription_form_err_units_dose_maximum", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Update prescription
+      /// 
+      /// Locales: en
+      static func prescription_form_title_update(_: Void = ()) -> String {
+        return NSLocalizedString("prescription_form_title_update", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Yes

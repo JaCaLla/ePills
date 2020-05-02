@@ -15,6 +15,7 @@ enum PrescriptionState {
 }
 
 struct Prescription {
+    let id = UUID()
     var name: String
     var unitsBox: Int
     var interval: Interval

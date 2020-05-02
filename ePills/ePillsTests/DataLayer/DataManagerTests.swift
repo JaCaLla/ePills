@@ -30,6 +30,7 @@ class DataManagerTests: XCTestCase {
         sut.getPrescriptions()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
+                 expectation.fulfill()
             }, receiveValue: { someValue in
                 XCTAssertEqual(someValue, [])
                 expectation.fulfill()
@@ -54,6 +55,7 @@ class DataManagerTests: XCTestCase {
         sut.getPrescriptions()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
+                 expectation.fulfill()
             }, receiveValue: { someValue in
                 // Then
                 XCTAssertEqual(someValue, [Prescription(name: "a",
@@ -81,6 +83,7 @@ class DataManagerTests: XCTestCase {
         sut.getPrescriptions()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
+                 expectation.fulfill()
             }, receiveValue: { someValue in
                 // Then
                 XCTAssertEqual(someValue, [Prescription(name: "a",
@@ -132,6 +135,7 @@ class DataManagerTests: XCTestCase {
                 // Then
                 guard prescriptions.count == 3 else {
                     XCTFail()
+                     expectation.fulfill()
                     return
                 }
                 XCTAssertEqual(prescriptions[0].creation, 1)
@@ -180,6 +184,7 @@ class DataManagerTests: XCTestCase {
                 // Then
                 guard prescriptions.count == 2 else {
                     XCTFail()
+                     expectation.fulfill()
                     return
                 }
                 XCTAssertEqual(prescriptions[0].creation, 1)
@@ -192,6 +197,44 @@ class DataManagerTests: XCTestCase {
             }).store(in: &cancellables)
         // When
         sut.remove(prescription: notStarted2)
+
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
+    func test_updatePrescription() {
+        let expectation = XCTestExpectation(description: self.debugDescription)
+        // Given
+        var prescription = Prescription(name: "name",
+                                       unitsBox: 10,
+                                       interval: Interval(hours: 8, label: "8 hours"),
+                                       unitsDose: 1)
+        sut.add(prescription: prescription)
+        
+        sut.getPrescriptions()
+            .sink(receiveCompletion: { completion in
+                XCTFail(".sink() received the completion:")
+            }, receiveValue: { prescriptions in
+                // Then
+                guard prescriptions.count == 1 else {
+                    XCTFail()
+                     expectation.fulfill()
+                    return
+                }
+                XCTAssertTrue(prescriptions[0].creation > 0)
+                XCTAssertEqual(prescriptions[0].name, "nameUpdated")
+                XCTAssertEqual(prescriptions[0].unitsDose, 2)
+                XCTAssertEqual(prescriptions[0].interval, Interval(hours: 2, label: "2 hours"))
+                XCTAssertEqual(prescriptions[0].unitsBox, 20)
+                XCTAssertEqual(prescriptions[0].getState(), .ongoing)
+               expectation.fulfill()
+            }).store(in: &cancellables)
+        // When
+        prescription.name = "nameUpdated"
+        prescription.unitsBox = 20
+        prescription.interval = Interval(hours: 2, label: "2 hours")
+        prescription.unitsDose = 2
+        prescription.nextDose = Int(Date().timeIntervalSince1970)
+        sut.update(prescription: prescription)
 
         wait(for: [expectation], timeout: 0.1)
     }

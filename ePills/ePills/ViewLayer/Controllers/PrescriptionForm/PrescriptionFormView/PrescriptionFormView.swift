@@ -78,14 +78,14 @@ struct PrescriptionFormView: View {
                                            validator: unitsDoseValidator)
                     .keyboardType(.numberPad)
                 if isValidForm() {
-                    AcceptButtonCell {
+                    AcceptButtonCell(prescription: $viewModel.prescription, action: {
                         self.viewModel.save()
 //                        self.onAddedPrescriptionInternalPublisher.send()
-                    }
+                    })
                 }
                 Spacer()
             }.padding(.top, 20)
-        }.navigationBarTitle(Text(R.string.localizable.prescription_form_title.key.localized))
+        }.navigationBarTitle(Text(viewModel.title()))
     }
     
     func isValidForm() -> Bool {
@@ -99,10 +99,23 @@ struct PrescriptionFormView: View {
 
 struct PrescriptionDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PrescriptionFormView(viewModel: PrescriptionFormVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared)/*,
-                                                           coordinator: FirstPresciptionCoordinator()*/))
+        let dataManager = DataManager.shared
+        let interactor = PrescriptionInteractor(dataManager: dataManager)
+        let viewModel =  PrescriptionFormVM(interactor: interactor, prescription: nil)
+       return PrescriptionFormView(viewModel: viewModel)
     }
 }
+/*
+static var previews: some View {
+  let model = DataModel.sample
+  let interactor = TripListInteractor(model: model)
+  let presenter = TripListPresenter(interactor: interactor)
+  return NavigationView {
+    TripListView(presenter: presenter)
+  }
+}
+
+*/
 
 struct SectionFormView: View {
     // MARK: - View

@@ -29,6 +29,7 @@
 		5E8EECE72456CFD600398832 /* HomePrescriptionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE62456CFD600398832 /* HomePrescriptionVM.swift */; };
 		5E8EECE9245741A200398832 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE8245741A200398832 /* HomeCoordinator.swift */; };
 		5E8EECEB2458D2B600398832 /* PrescriptionHomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */; };
+		5EB5DA84245DC41E0009EA75 /* PrescriptionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */; };
 		5EBBAA502450A08E00CD2B5E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */; };
 		5EBBAA542450C76300CD2B5E /* PrescriptionFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */; };
 		5EBBAA562450C86500CD2B5E /* PrescriptionFormVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */; };
@@ -89,6 +90,7 @@
 		5E8EECE62456CFD600398832 /* HomePrescriptionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionVM.swift; sourceTree = "<group>"; };
 		5E8EECE8245741A200398832 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionHomePageView.swift; sourceTree = "<group>"; };
+		5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionButtonView.swift; sourceTree = "<group>"; };
 		5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVC.swift; sourceTree = "<group>"; };
 		5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVM.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			children = (
 				5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */,
 				5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */,
+				5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */,
 			);
 			path = HomePrescriptionView;
 			sourceTree = "<group>";
@@ -712,6 +715,7 @@
 				5E8EECE52456B65900398832 /* PageView.swift in Sources */,
 				5ED44B5A2454541000081B36 /* HomePrescriptionVC.swift in Sources */,
 				5ED44B46245353EE00081B36 /* StringExtension.swift in Sources */,
+				5EB5DA84245DC41E0009EA75 /* PrescriptionButtonView.swift in Sources */,
 				5E8EECEB2458D2B600398832 /* PrescriptionHomePageView.swift in Sources */,
 				5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */,
 				5E8EECE9245741A200398832 /* HomeCoordinator.swift in Sources */,
