@@ -15,6 +15,7 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
     var removeCount = 0
     var getCurrentPrescriptionIndexCount = 0
     var getPrescriptionsCount = 0
+    var takeDoseCount = 0
     
     public func add(prescription: Prescription) {
         addCount += 1
@@ -22,6 +23,10 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
     
     public func remove(prescription: Prescription) {
         removeCount += 1
+    }
+    
+    public func takeDose(prescription: Prescription, timeManager: TimeManagerPrococol?) {
+        takeDoseCount += 1
     }
     
     public func getCurrentPrescriptionIndex() -> AnyPublisher<Int, Never> {

@@ -10,18 +10,13 @@ import SwiftUI
 import Combine
 struct HomePrescriptionView: View {
 
-//    // MARK: - Publishers
-//    var onAddPrescriptionPublisher: AnyPublisher<Void, Never> {
-//        return onAddPrescriptionSubject.eraseToAnyPublisher()
-//    }
-//    private var onAddPrescriptionSubject = PassthroughSubject<Void, Never>()
     private var subscription = Set<AnyCancellable>()
 
     // MARK: - Public Attributes
     @ObservedObject var viewModel: HomePrescriptionVM = HomePrescriptionVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
 
     @State var isRemovingPrescription: Bool = false
-    @State var currentPrescription: Prescription = Prescription(name: "", unitsBox: 0, interval: Interval(hours: 0, label: ""), unitsDose: 0)
+    @State var currentPrescription: Prescription = Prescription(name: "", unitsBox: 0, interval: Interval(secs: 0, label: ""), unitsDose: 0)
     // @State var currentPage = 0
     var body: some View {
         ZStack {
@@ -31,7 +26,8 @@ struct HomePrescriptionView: View {
                     PrescriptionHomePageView(prescription: $0,
                                              dosePrescription: self.$viewModel.dosePrescription,
                                              isRemovingPrescription: self.$isRemovingPrescription,
-                                             curentPrescription: self.$currentPrescription)
+                                             curentPrescription: self.$currentPrescription,
+                                             viewModel: self.viewModel)
                 }, currentPage: self.$viewModel.currentPage)
                     .background(Color(R.color.colorGray50Semi.name))
                     .frame(height: 400)
@@ -65,7 +61,7 @@ struct HomePrescriptionView: View {
 
 struct HomePrescriptionView_Previews: PreviewProvider {
     static var prescriptionInteractor: PrescriptionInteractor {
-        let prescription = Prescription(name: "Clamoxyl 200mg", unitsBox: 20, interval: Interval(hours: 8, label: "Every 8 hours"), unitsDose: 2)
+        let prescription = Prescription(name: "Clamoxyl 200mg", unitsBox: 20, interval: Interval(secs: 8 * 3600, label: "Every 8 hours"), unitsDose: 2)
         let dataManager: DataManager = DataManager.shared
         dataManager.add(prescription: prescription)
         return PrescriptionInteractor(dataManager: dataManager)

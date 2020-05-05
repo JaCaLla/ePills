@@ -24,7 +24,7 @@ class DataManagerTests: XCTestCase {
 // Given
         let prescription = Prescription(name: "a",
                                         unitsBox: 10,
-                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        interval: Interval(secs: 8, label: "8 hours"),
                                         unitsDose: 1)
         sut.add(prescription: prescription)
         sut.getPrescriptions()
@@ -48,7 +48,7 @@ class DataManagerTests: XCTestCase {
         // Given
         let prescription = Prescription(name: "a",
                                         unitsBox: 10,
-                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        interval: Interval(secs: 8, label: "8 hours"),
                                         unitsDose: 1)
 
         sut.getPrescriptions()
@@ -58,7 +58,7 @@ class DataManagerTests: XCTestCase {
                 // Then
                 XCTAssertEqual(someValue, [Prescription(name: "a",
                                                         unitsBox: 10,
-                                                        interval: Interval(hours: 8, label: "8 hours"),
+                                                        interval: Interval(secs: 8, label: "8 hours"),
                                                         unitsDose: 1)])
                 expectation.fulfill()
             }).store(in: &cancellables)
@@ -73,7 +73,7 @@ class DataManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: self.debugDescription)
         let prescription1 = Prescription(name: "a",
                                          unitsBox: 10,
-                                         interval: Interval(hours: 8, label: "8 hours"),
+                                         interval: Interval(secs: 8, label: "8 hours"),
                                          unitsDose: 1)
 
         sut.add(prescription: prescription1)
@@ -85,11 +85,11 @@ class DataManagerTests: XCTestCase {
                 // Then
                 XCTAssertEqual(someValue, [Prescription(name: "a",
                                                         unitsBox: 10,
-                                                        interval: Interval(hours: 8, label: "8 hours"),
+                                                        interval: Interval(secs: 8, label: "8 hours"),
                                                         unitsDose: 1),
                                    Prescription(name: "b",
                                                 unitsBox: 5,
-                                                interval: Interval(hours: 4, label: "4 hours"),
+                                                interval: Interval(secs: 4, label: "4 hours"),
                                                 unitsDose: 2)
                 ])
                 expectation.fulfill()
@@ -97,7 +97,7 @@ class DataManagerTests: XCTestCase {
         // When
         let prescription2 = Prescription(name: "b",
                                          unitsBox: 5,
-                                         interval: Interval(hours: 4, label: "4 hours"),
+                                         interval: Interval(secs: 4, label: "4 hours"),
                                          unitsDose: 2)
         sut.add(prescription: prescription2)
 
@@ -109,17 +109,17 @@ class DataManagerTests: XCTestCase {
         // Given
         var notStarted1 = Prescription(name: "notStarted3",
                                        unitsBox: 10,
-                                       interval: Interval(hours: 8, label: "8 hours"),
+                                       interval: Interval(secs: 8, label: "8 hours"),
                                        unitsDose: 1)
         notStarted1.creation = 3
         var notStarted2 = Prescription(name: "notStarted1",
                                        unitsBox: 10,
-                                       interval: Interval(hours: 8, label: "8 hours"),
+                                       interval: Interval(secs: 8, label: "8 hours"),
                                        unitsDose: 1)
         notStarted2.creation = 1
         var notStarted3 = Prescription(name: "notStarted2",
                                        unitsBox: 10,
-                                       interval: Interval(hours: 8, label: "8 hours"),
+                                       interval: Interval(secs: 8, label: "8 hours"),
                                        unitsDose: 1)
         notStarted3.creation = 2
         sut.add(prescription: notStarted3)
@@ -156,17 +156,17 @@ class DataManagerTests: XCTestCase {
         // Given
         var notStarted1 = Prescription(name: "notStarted1",
                                        unitsBox: 10,
-                                       interval: Interval(hours: 8, label: "8 hours"),
+                                       interval: Interval(secs: 8, label: "8 hours"),
                                        unitsDose: 1)
         notStarted1.creation = 1
         var notStarted2 = Prescription(name: "notStarted2",
                                        unitsBox: 10,
-                                       interval: Interval(hours: 8, label: "8 hours"),
+                                       interval: Interval(secs: 8, label: "8 hours"),
                                        unitsDose: 1)
         notStarted2.creation = 2
         var notStarted3 = Prescription(name: "notStarted3",
                                        unitsBox: 10,
-                                       interval: Interval(hours: 8, label: "8 hours"),
+                                       interval: Interval(secs: 8, label: "8 hours"),
                                        unitsDose: 1)
         notStarted3.creation = 3
         sut.add(prescription: notStarted3)
@@ -196,5 +196,65 @@ class DataManagerTests: XCTestCase {
         wait(for: [expectation], timeout: 0.1)
     }
 
+    func test_updatePrescriptions() {
+        let expectation = XCTestExpectation(description: self.debugDescription)
+        // Given
+        let notStarted1 = Prescription(name: "notStarted1",
+                                       unitsBox: 10,
+                                       interval: Interval(secs: 8, label: "8 hours"),
+                                       unitsDose: 1)
+        notStarted1.creation = 1
+        var notStarted2 = Prescription(name: "notStarted2",
+                                       unitsBox: 10,
+                                       interval: Interval(secs: 8, label: "8 hours"),
+                                       unitsDose: 1)
+        notStarted2.name = "aaa"
+        notStarted2.unitsBox = 0
+        notStarted2.interval = Interval(secs: 11, label: "aa")
+        notStarted2.unitsDose = 0
+        notStarted2.unitsConsumed = 0
+        notStarted2.nextDose = nil
+        notStarted2.creation = 2
+        let notStarted3 = Prescription(name: "notStarted3",
+                                       unitsBox: 10,
+                                       interval: Interval(secs: 8, label: "8 hours"),
+                                       unitsDose: 1)
+        notStarted3.creation = 3
+        sut.add(prescription: notStarted3)
+        sut.add(prescription: notStarted1)
+        sut.add(prescription: notStarted2)
+        
+        sut.getPrescriptions()
+            .sink(receiveCompletion: { completion in
+                XCTFail(".sink() received the completion:")
+            }, receiveValue: { prescriptions in
+                // Then
+                guard prescriptions.count == 3 else {
+                    XCTFail()
+                    return
+                }
+                
+                XCTAssertEqual(prescriptions[1].name, "bbb")
+                XCTAssertEqual(prescriptions[1].unitsBox, 1)
+                XCTAssertEqual(prescriptions[1].interval, Interval(secs: 12, label: "bb"))
+                XCTAssertEqual(prescriptions[1].unitsDose, 1)
+                XCTAssertEqual(prescriptions[1].unitsConsumed, 1)
+                XCTAssertEqual(prescriptions[1].nextDose, 1)
+                XCTAssertEqual(prescriptions[1].creation, 2)
+                XCTAssertEqual(prescriptions[1].getState(), .finished)
+                expectation.fulfill()
+            }).store(in: &cancellables)
+        // When
+        notStarted2.name = "bbb"
+        notStarted2.unitsBox = 1
+        notStarted2.interval = Interval(secs: 12, label: "bb")
+        notStarted2.unitsDose = 1
+        notStarted2.unitsConsumed = 1
+        notStarted2.nextDose = 1
+        notStarted2.creation = 2
+        sut.update(prescription: notStarted2)
+
+        wait(for: [expectation], timeout: 100.1)
+    }
 
 }

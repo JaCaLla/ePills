@@ -29,6 +29,8 @@
 		5E8EECE72456CFD600398832 /* HomePrescriptionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE62456CFD600398832 /* HomePrescriptionVM.swift */; };
 		5E8EECE9245741A200398832 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE8245741A200398832 /* HomeCoordinator.swift */; };
 		5E8EECEB2458D2B600398832 /* PrescriptionHomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */; };
+		5EB5DA86245E0B8A0009EA75 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5DA85245E0B8A0009EA75 /* TimeManager.swift */; };
+		5EB5DA89245E10110009EA75 /* TimeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5DA88245E10110009EA75 /* TimeManagerTests.swift */; };
 		5EBBAA502450A08E00CD2B5E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */; };
 		5EBBAA542450C76300CD2B5E /* PrescriptionFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */; };
 		5EBBAA562450C86500CD2B5E /* PrescriptionFormVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */; };
@@ -89,6 +91,8 @@
 		5E8EECE62456CFD600398832 /* HomePrescriptionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionVM.swift; sourceTree = "<group>"; };
 		5E8EECE8245741A200398832 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionHomePageView.swift; sourceTree = "<group>"; };
+		5EB5DA85245E0B8A0009EA75 /* TimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
+		5EB5DA88245E10110009EA75 /* TimeManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagerTests.swift; sourceTree = "<group>"; };
 		5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVC.swift; sourceTree = "<group>"; };
 		5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVM.swift; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 		5E3B7AD52459FE1700541AB4 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5EB5DA87245E10000009EA75 /* Managers */,
 				5E3B7AD62459FE3F00541AB4 /* Interactors */,
 			);
 			path = DomainLayer;
@@ -331,6 +336,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5EB5DA87245E10000009EA75 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5EB5DA88245E10110009EA75 /* TimeManagerTests.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		5ED44B3924533E0200081B36 /* Texts */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				5EFF215F244F9ACE00B77AE9 /* DebugManager.swift */,
+				5EB5DA85245E0B8A0009EA75 /* TimeManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -718,6 +732,7 @@
 				5E6AB03E244B245F00F162EB /* FirstPrescriptionView.swift in Sources */,
 				5E6AB04E244BA32200F162EB /* MessageView.swift in Sources */,
 				5EFF2160244F9ACE00B77AE9 /* DebugManager.swift in Sources */,
+				5EB5DA86245E0B8A0009EA75 /* TimeManager.swift in Sources */,
 				5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */,
 				5ED44B3824532EAE00081B36 /* AcceptButtonCell.swift in Sources */,
 				5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */,
@@ -735,6 +750,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E3B7ADC245A26A000541AB4 /* PrescriptionInteractorMock.swift in Sources */,
+				5EB5DA89245E10110009EA75 /* TimeManagerTests.swift in Sources */,
 				5EFE81022454C12800D44F53 /* PrescriptionFormVMTests.swift in Sources */,
 				5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */,
 				5E3B7AE2245AD7D300541AB4 /* HomeCoordinatorMock.swift in Sources */,

@@ -83,7 +83,7 @@ struct ModalView<T:Identifiable & CustomStringConvertible & Equatable>: View {
 struct SelectorCell_Previews: PreviewProvider {
     static var previews: some View {
         SelectorCell(presentingModal: .constant(false),
-                     selectedIntervalIndex: .constant(Interval(hours: 8, label: "8 Hours")),
+                     selectedIntervalIndex: .constant(Interval(secs: 8 * 3600, label: "8 Hours")),
                      hours:[])
     }
 }

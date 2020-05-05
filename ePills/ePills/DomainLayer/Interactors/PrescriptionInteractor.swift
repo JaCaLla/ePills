@@ -13,6 +13,7 @@ protocol PrescriptionInteractorProtocol {
 
     func add(prescription: Prescription)
     func remove(prescription: Prescription)
+    func takeDose(prescription: Prescription, timeManager: TimeManagerPrococol?)
     func getCurrentPrescriptionIndex()  -> AnyPublisher<Int, Never>
     func getPrescriptions() -> AnyPublisher<[Prescription], Never>
 }
@@ -53,6 +54,12 @@ extension PrescriptionInteractor: PrescriptionInteractorProtocol {
     func remove(prescription: Prescription) {
         dataManager.remove(prescription: prescription)
         currentPrescriptionIndex = 0
+        currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
+    }
+    
+    func takeDose(prescription: Prescription, timeManager: TimeManagerPrococol?) {
+        prescription.takeDose(timeManager: timeManager ?? TimeManager())
+        dataManager.update(prescription: prescription)
         currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
     }
 

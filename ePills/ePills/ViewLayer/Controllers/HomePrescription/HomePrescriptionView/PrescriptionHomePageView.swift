@@ -21,10 +21,11 @@ struct PrescriptionHomePageView: View {
     @Binding var dosePrescription: Prescription?
     @Binding var onRemovingPrescription: Bool
     @Binding var currentPrescription: Prescription
+     var viewModel: HomePrescriptionVM
     var body: some View {
         VStack {
             HStack(alignment: .center) {
-                Text(prescription.name)
+                Text(viewModel.title())//prescription.title())
                     .font(.headline)
                     .foregroundColor(Color(R.color.colorWhite.name))
                     .padding(.leading)
@@ -59,27 +60,29 @@ struct PrescriptionHomePageView: View {
     init(prescription: Prescription,
          dosePrescription: Binding<Prescription?>,
          isRemovingPrescription: Binding<Bool>,
-          curentPrescription: Binding<Prescription>) {
+          curentPrescription: Binding<Prescription>,
+          viewModel: HomePrescriptionVM) {
         self.prescription = prescription
         self._dosePrescription = dosePrescription
         self._onRemovingPrescription = isRemovingPrescription
         self._currentPrescription =  curentPrescription
+        self.viewModel = viewModel
     }
 }
 
-struct PrescriptionHomePageView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        let prescription = Prescription(name: "Clamoxyl 200mg",
-                                        unitsBox: 20,
-                                        interval: Interval(hours: 8, label: "Every 8 hours"),
-                                        unitsDose: 2)
-        return ZStack {
-            PrescriptionHomePageView(prescription: prescription,
-                                     dosePrescription: .constant(nil),
-                                     isRemovingPrescription: .constant(false),
-                                     curentPrescription: .constant(prescription))
-        }
-
-    }
-}
+//struct PrescriptionHomePageView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        let prescription = Prescription(name: "Clamoxyl 200mg",
+//                                        unitsBox: 20,
+//                                        interval: Interval(secs: 8 * 3600, label: "Every 8 hours"),
+//                                        unitsDose: 2)
+//        return ZStack {
+//            PrescriptionHomePageView(prescription: prescription,
+//                                     dosePrescription: .constant(nil),
+//                                     isRemovingPrescription: .constant(false),
+//                                     curentPrescription: .constant(prescription))
+//        }
+//
+//    }
+//}

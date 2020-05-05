@@ -14,6 +14,7 @@ class DataManagerMock: DataManagerProtocol {
     var addCount: Int = 0
     var removeCount: Int = 0
     var getPrescriptionsCount: Int = 0
+    var updateCount: Int = 0
 
     func add(prescription: Prescription) {
         addCount += 1
@@ -21,6 +22,10 @@ class DataManagerMock: DataManagerProtocol {
 
     func remove(prescription: Prescription) {
         removeCount += 1
+    }
+    
+    func update(prescription: Prescription) {
+        updateCount += 1
     }
 
     func getPrescriptions() -> AnyPublisher<[Prescription], Never> {

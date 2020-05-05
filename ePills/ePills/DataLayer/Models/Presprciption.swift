@@ -11,10 +11,28 @@ import Foundation
 enum PrescriptionState {
     case notStarted
     case ongoing
+    case ongoingReady
+    case ongoingEllapsed
     case finished
+    
+    func message() -> String {
+        switch self {
+            case .notStarted: return ""
+            case .ongoing: return ""
+            case .ongoingReady: return ""
+            case .ongoingEllapsed: return ""
+            case .finished: return ""
+        }
+    }
 }
 
-struct Prescription {
+class Prescription: Identifiable {
+    
+    struct Constants {
+       static let ongoingReadyOffset:Int = 10
+    }
+    
+    let id: UUID = UUID()
     var name: String
     var unitsBox: Int
     var interval: Interval
@@ -22,27 +40,64 @@ struct Prescription {
     var unitsConsumed: Int = 0
     var nextDose: Int?
     var creation: Int = Int(Date().timeIntervalSince1970)
-
-    func getState() -> PrescriptionState {
-        guard nextDose != nil else {
-            return .notStarted
-        }
-        return unitsConsumed >= unitsBox ? .finished : .ongoing
+    
+    init(name: String, unitsBox: Int, interval: Interval, unitsDose: Int) {
+        self.name = name
+        self.unitsBox = unitsBox
+        self.interval = interval
+        self.unitsDose = unitsDose
     }
 
-    mutating func takeDose() {
+    func getState(timeManager: TimeManagerPrococol = TimeManager()) -> PrescriptionState {
+        guard let nextDose = self.nextDose else {
+            return unitsConsumed >= unitsBox ? .finished : .notStarted
+        }
+        if unitsConsumed >= unitsBox {
+            return .finished
+        } else {
+            if timeManager.timeIntervalSince1970() > nextDose {
+                return .ongoingEllapsed
+            } else {
+                return timeManager.timeIntervalSince1970() > nextDose - Prescription.Constants.ongoingReadyOffset ? . ongoingReady : .ongoing
+            }
+        }
+    }
+
+     func takeDose(timeManager: TimeManagerPrococol = TimeManager()) {
         guard getState() != .finished else { return }
         self.unitsConsumed += self.unitsDose
+        guard unitsConsumed < unitsBox else {
+            nextDose = nil
+            return
+        }
         if let uwpNextDose = self.nextDose {
-            self.nextDose = uwpNextDose + self.interval.hours * 3600
+            self.nextDose = uwpNextDose + self.interval.secs
         } else {
-            self.nextDose = Int(Date().timeIntervalSince1970) + self.interval.hours * 3600
+            self.nextDose = timeManager.timeIntervalSince1970() + self.interval.secs
         }
     }
     
-    func title() -> String {
-        return "\(self.name) [\(self.unitsConsumed)/\(self.unitsBox)]"
+    func getRemaining(timeManager: TimeManagerPrococol = TimeManager()) -> Int? {
+        
+        guard let nextDose = self.nextDose else { return nil }
+        return Int(timeManager.timeIntervalSince1970()) - nextDose
     }
+    
+    func getRemainingMins(timeManager: TimeManagerPrococol = TimeManager()) -> Int? {
+        guard let remainigSecs = getRemaining(timeManager: timeManager) else { return nil }
+        return Int(floor(Double(remainigSecs / 60)))
+    }
+    
+    func getRemainingHours(timeManager: TimeManagerPrococol = TimeManager()) -> Int? {
+           guard let remainigMins = getRemainingMins(timeManager: timeManager) else { return nil }
+           return Int(floor(Double(remainigMins / 60)))
+       }
+    
+    func getRemainingDays(timeManager: TimeManagerPrococol = TimeManager()) -> Int? {
+             guard let remainigHours = getRemainingHours(timeManager: timeManager) else { return nil }
+             return Int(floor(Double(remainigHours / 24)))
+         }
+    
 }
 
 extension Prescription: Equatable {
