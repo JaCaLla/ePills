@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct PrescriptionButtonView: View {
+    let size: CGFloat = 0.6//0.8
     var iconName: String
     var action: () -> Void
     var body: some View {
@@ -17,13 +18,13 @@ struct PrescriptionButtonView: View {
                 ZStack {
                     ZStack {
                         EmptyView()
-                    }.frame(width:  geometry.size.height * 0.8 , height: geometry.size.height * 0.8)
+                    }.frame(width:  geometry.size.height * self.size , height: geometry.size.height * self.size)
                         .background(Color(R.color.colorGray50Semi.name))
                         .cornerRadius(geometry.size.height * 0.5)
                     Image(systemName: self.iconName)
-                        .font(Font.system(size: geometry.size.height * 0.4 ).bold())
+                        .font(Font.system(size: geometry.size.height * 0.3 ).bold())
                         .foregroundColor(Color.white)
-                }.frame(width:  geometry.size.height * 0.8, height:  geometry.size.height * 0.8, alignment: .center)
+                }.frame(width:  geometry.size.height * self.size, height:  geometry.size.height * self.size, alignment: .center)
                     .onTapGesture {
                         self.action()
                 }

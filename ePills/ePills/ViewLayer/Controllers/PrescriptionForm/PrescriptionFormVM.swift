@@ -26,7 +26,7 @@ public final class PrescriptionFormVM: ObservableObject {
 
     @Published var name: String = ""
     @Published var unitsBox: String = ""
-    @Published var selectedIntervalIndex = Interval(hours: 8, label: "8 Hours")
+    @Published var selectedIntervalIndex = Interval(secs: 8 * 3600, label: "8 Hours")
     @Published var unitsDose: String = "1"
 
     // MARK: - Private attributes
@@ -74,17 +74,20 @@ extension PrescriptionFormVM: PrescriptionFormVMProtocol {
     }
 
     func getIntervals() -> [Interval] {
-
+        
+        let secsPerHour = 3600
+        
         var invervals: [Interval] = []
-        invervals.append(contentsOf: [1].map {
-            Interval(hours: $0,
-                     label: "\($0) \(R.string.localizable.prescription_form_interval_list_hour.key.localized)") })
-        invervals.append(contentsOf: [2, 4, 6, 8, 12, 16].map {
-            Interval(hours: $0,
-                     label: "\($0) \(R.string.localizable.prescription_form_interval_list_hours.key.localized)") })
-        invervals.append(contentsOf: [1].map {
-            Interval(hours: $0,
-                     label: "\($0) \(R.string.localizable.prescription_form_interval_list_day.key.localized)") })
+        invervals.append(Interval(secs: 10, label: "_10 Secs"))
+        invervals.append(Interval(secs: 1 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_1_hour.key.localized))
+        invervals.append(Interval(secs: 2 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_2_hours.key.localized))
+        invervals.append(Interval(secs: 4 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_4_hours.key.localized))
+        invervals.append(Interval(secs: 6 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_6_hours.key.localized))
+        invervals.append(Interval(secs: 8 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_8_hours.key.localized))
+        invervals.append(Interval(secs: 12 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_12_hours.key.localized))
+        invervals.append(Interval(secs: 24 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_1_day.key.localized))
+        invervals.append(Interval(secs: 48 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_2_days.key.localized))
+        
         return invervals
     }
     func title() -> String {

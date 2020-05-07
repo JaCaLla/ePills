@@ -27,8 +27,28 @@
 "prescription_form_interval_list_hour" = "Hour";
 "prescription_form_interval_list_hours" = "Hours";
 "prescription_form_interval_list_day" = "Day";
+"prescription_form_interval_list_1_hour" = "1 Hour";
+"prescription_form_interval_list_2_hours" = "2 Hours";
+"prescription_form_interval_list_3_hours" = "3 Hours";
+"prescription_form_interval_list_4_hours" = "4 Hours";
+"prescription_form_interval_list_6_hours" = "6 Hours";
+"prescription_form_interval_list_8_hours" = "8 Hours";
+"prescription_form_interval_list_12_hours" = "12 Hours";
+"prescription_form_interval_list_1_day" = "1 Day";
+"prescription_form_interval_list_2_days" = "2 Days";
 
 "home_title" = "Home";
 "home_alert_title" = "Atention!";
 "home_alert_message" = "This prescription is going to be eliminated! Proceed?";
 "home_alert_ok" = "Yes";
+"home_prescription_not_started" = "Not started. Press icon to start";
+"home_prescription_onging" = "In course, next dose:";
+"home_prescription_ongoing_ready" = "You can take your dose, press icon to mark";
+"home_prescription_ongoing_ellapsed" = "Dose ellapsed, press icon to mark";
+"home_prescription_finished" = "Presciption finished, press renew to start again";
+"home_prescription_secs_suffix" = "s";
+"home_prescription_mins_suffix" = "m";
+"home_prescription_hours_suffix" = "h";
+"home_prescription_days_suffix" = "d";
+"home_prescription_more_than_month" = "> Month";
+

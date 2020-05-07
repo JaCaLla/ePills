@@ -12,15 +12,19 @@ import Combine
 struct PrescriptionHomePageView: View {
 
     var prescription: Prescription
-    @Binding var dosePrescription: Prescription?
     @Binding var isRemovingPrescription: Bool
-    @Binding var onEditing: Prescription?
     @Binding var currentPrescription: Prescription
+     var viewModel: HomePrescriptionVM
+    
+    // MARK: - Private attributes
+    let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
+    @State var now = Date()
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 HStack(alignment: .center) {
-                    Text(self.prescription.title())
+                    Text(self.viewModel.title())
                         .font(.headline)
                         .foregroundColor(Color(R.color.colorWhite.name))
                         .padding(.leading)
@@ -45,45 +49,55 @@ struct PrescriptionHomePageView: View {
                 }.frame(height: geometry.size.height / 4)
                     .background(Color.blue)
                 HStack {
-                    Spacer()
-                    Image(systemName: "plus.rectangle")
-                        .font(Font.system(size: 20).bold())
-                        .foregroundColor(Color.white)
-                        .onTapGesture {
-                            self.dosePrescription = self.prescription
-                    }
-                    Spacer()
+                   // Spacer()
+                    VStack {
+                        Image(systemName: self.viewModel.prescriptionIcon)
+                            .font(Font.system(size: 60).bold())
+                            .foregroundColor(Color(self.viewModel.prescriptionColor))
+                            .onTapGesture {
+                               // self.dosePrescription = self.prescription
+                                self.viewModel.takeDose()
+                        }
+                        Text(self.viewModel.prescriptionMessage)
+                            .font(.body).padding(.vertical)
+                            .foregroundColor(Color(self.viewModel.prescriptionColor))
+                        HStack(alignment: .firstTextBaseline) {
+                            Spacer()
+                            Text(self.viewModel.remainingMessageMajor)
+                                .font(.largeTitle)//.padding()
+                                .foregroundColor(Color(self.viewModel.prescriptionColor))
+                             Text(self.viewModel.remainingMessageMinor)
+                                .font(.headline)
+                                .foregroundColor(Color(self.viewModel.prescriptionColor)).padding(.leading, 5)
+                            Spacer()
+                        }//.background(Color.blue)
+                    }//.background(Color.gray)
+                    
+                   // Spacer()
                 }.frame(height: geometry.size.height * 0.375)
-                    .background(Color.green)
+                //.background(Color.green)
                 HStack {
                     Spacer()
-//                    Image(systemName: "square.and.pencil")
-//                        .font(Font.system(size: 20).bold())
-//                        .foregroundColor(Color.white)
-//                        .onTapGesture {
-//                            self.onEditing = self.prescription
-//                    }
+                    if (self.viewModel.isUpdatable) {
                     PrescriptionButtonView(iconName: "square.and.pencil", action: {
-                        self.onEditing = self.prescription
-                    })
+                        self.viewModel.update()
+                        })
+                    }
                     Spacer()
                 }.frame(height: geometry.size.height / 4)
-                //.background(Color.yellow)
                 Spacer()
             }
         }
     }
 
     init(prescription: Prescription,
-         dosePrescription: Binding<Prescription?>,
          isRemovingPrescription: Binding<Bool>,
-         onEditing: Binding<Prescription?>,
-         curentPrescription: Binding<Prescription>) {
+         curentPrescription: Binding<Prescription>,
+         viewModel: HomePrescriptionVM) {
         self.prescription = prescription
-        self._dosePrescription = dosePrescription
         self._isRemovingPrescription = isRemovingPrescription
-        self._onEditing = onEditing
         self._currentPrescription = curentPrescription
+        self.viewModel = viewModel
     }
 }
 
@@ -92,14 +106,13 @@ struct PrescriptionHomePageView_Previews: PreviewProvider {
     static var previews: some View {
         let prescription = Prescription(name: "Clamoxyl 200mg",
                                         unitsBox: 20,
-                                        interval: Interval(hours: 8, label: "Every 8 hours"),
+                                        interval: Interval(secs: 8, label: "Every 8 hours"),
                                         unitsDose: 2)
+        let viewModel = HomePrescriptionVM(homeCoordinator: HomeCoordinator())
         return ZStack {
             PrescriptionHomePageView(prescription: prescription,
-                                     dosePrescription: .constant(nil),
                                      isRemovingPrescription: .constant(false),
-                                     onEditing: .constant(nil),
-                                     curentPrescription: .constant(prescription))
+                                     curentPrescription: .constant(prescription), viewModel: viewModel)
         }
 
     }

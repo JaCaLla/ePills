@@ -27,7 +27,7 @@ class PrescriptionInteractorTests: XCTestCase {
     func test_addPrescriptionWhenDataManagerMock() throws {
         let prescription = Prescription(name: "a",
                                         unitsBox: 10,
-                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        interval: Interval(secs: 8, label: "8 hours"),
                                         unitsDose: 1)
         sut.add(prescription: prescription)
         XCTAssertEqual(dataManagerMock.addCount, 1)
@@ -40,13 +40,13 @@ class PrescriptionInteractorTests: XCTestCase {
         let expecteds: [[Prescription]] = [
             [Prescription(name: "a",
                           unitsBox: 10,
-                          interval: Interval(hours: 8, label: "8 hours"),
+                          interval: Interval(secs: 8, label: "8 hours"),
                           unitsDose: 1)]]
         var expetedsIdx = 0
 
         let prescription = Prescription(name: "a",
                                         unitsBox: 10,
-                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        interval: Interval(secs: 8, label: "8 hours"),
                                         unitsDose: 1)
         sut.getPrescriptions()
             .sink(receiveCompletion: { completion in
@@ -68,7 +68,7 @@ class PrescriptionInteractorTests: XCTestCase {
     func test_removePrescriptionWhenDataManagerMock() throws {
         let prescription = Prescription(name: "a",
                                         unitsBox: 10,
-                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        interval: Interval(secs: 8, label: "8 hours"),
                                         unitsDose: 1)
         sut.remove(prescription: prescription)
         XCTAssertEqual(dataManagerMock.removeCount, 1)
@@ -81,22 +81,22 @@ class PrescriptionInteractorTests: XCTestCase {
         let expecteds: [[Prescription]] = [
             [Prescription(name: "a",
                           unitsBox: 10,
-                          interval: Interval(hours: 8, label: "8 hours"),
+                          interval: Interval(secs: 8, label: "8 hours"),
                           unitsDose: 1)],
             [Prescription(name: "a",
                           unitsBox: 10,
-                          interval: Interval(hours: 8, label: "8 hours"),
+                          interval: Interval(secs: 8, label: "8 hours"),
                           unitsDose: 1)],
             []]
         var expetedsIdx = 0
 
         let prescription = Prescription(name: "a",
                                         unitsBox: 10,
-                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        interval: Interval(secs: 8, label: "8 hours"),
                                         unitsDose: 1)
         let prescription2 = Prescription(name: "b",
                                          unitsBox: 10,
-                                         interval: Interval(hours: 8, label: "8 hours"),
+                                         interval: Interval(secs: 8, label: "8 hours"),
                                          unitsDose: 1)
         sut.getPrescriptions()
             .sink(receiveCompletion: { completion in
@@ -120,7 +120,7 @@ class PrescriptionInteractorTests: XCTestCase {
     func test_updatePrescriptionWhenDataManagerMock() throws {
         let prescription = Prescription(name: "a",
                                         unitsBox: 10,
-                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        interval: Interval(secs: 8, label: "8 hours"),
                                         unitsDose: 1)
         sut.update(prescription: prescription)
         XCTAssertEqual(dataManagerMock.updateCount, 1)
@@ -133,18 +133,18 @@ class PrescriptionInteractorTests: XCTestCase {
         let expecteds: [[Prescription]] = [
             [Prescription(name: "a",
                           unitsBox: 10,
-                          interval: Interval(hours: 8, label: "8 hours"),
+                          interval: Interval(secs: 8, label: "8 hours"),
                           unitsDose: 1)],
             [Prescription(name: "nameUpdated",
                           unitsBox: 20,
-                          interval: Interval(hours: 2, label: "2 hours"),
+                          interval: Interval(secs: 2, label: "2 hours"),
                           unitsDose: 2)]
         ]
         var expetedsIdx = 0
 
         var prescription = Prescription(name: "a",
                                         unitsBox: 10,
-                                        interval: Interval(hours: 8, label: "8 hours"),
+                                        interval: Interval(secs: 8, label: "8 hours"),
                                         unitsDose: 1)
         sut.getPrescriptions()
             .sink(receiveCompletion: { completion in
@@ -162,7 +162,7 @@ class PrescriptionInteractorTests: XCTestCase {
         sut.add(prescription: prescription)
         prescription.name = "nameUpdated"
         prescription.unitsBox = 20
-        prescription.interval = Interval(hours: 2, label: "2 hours")
+        prescription.interval = Interval(secs: 2, label: "2 hours")
         prescription.unitsDose = 2
         sut.update(prescription: prescription)
         wait(for: [expectation], timeout: 100.1)

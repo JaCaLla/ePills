@@ -54,6 +54,8 @@ extension DataManager: DataManagerProtocol {
         prescriptions[index].unitsDose = prescription.unitsDose
         prescriptions[index].unitsConsumed = prescription.unitsConsumed
         prescriptions[index].nextDose = prescription.nextDose
+        prescriptions[index].creation = prescription.creation
+
         subject.send(self.prescriptions)
     }
 }
