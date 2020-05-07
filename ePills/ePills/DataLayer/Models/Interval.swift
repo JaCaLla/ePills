@@ -14,11 +14,11 @@ struct Interval: Identifiable, CustomStringConvertible, Equatable {
     }
 
     let id: UUID = UUID()
-    var hours: Int
+    var secs: Int
     var label: String
 
     static func == (lhs: Interval, rhs: Interval) -> Bool {
-        return lhs.hours == rhs.hours &&
+        return lhs.secs == rhs.secs &&
         lhs.label == rhs.label 
     }
 }

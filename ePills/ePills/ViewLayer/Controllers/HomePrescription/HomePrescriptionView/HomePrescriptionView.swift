@@ -21,18 +21,16 @@ struct HomePrescriptionView: View {
     @ObservedObject var viewModel: HomePrescriptionVM = HomePrescriptionVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
 
     @State var isRemovingPrescription: Bool = false
-//    @State var currentPrescription: Prescription = Prescription(name: "", unitsBox: 0, interval: Interval(hours: 0, label: ""), unitsDose: 0)
-    // @State var currentPage = 0
+
     var body: some View {
         ZStack {
             BackgroundView()
             VStack {
                 PageView(self.viewModel.prescriptions.map {
                     PrescriptionHomePageView(prescription: $0,
-                                             dosePrescription: self.$viewModel.dosePrescription,
                                              isRemovingPrescription: self.$isRemovingPrescription,
-                                             onEditing: self.$viewModel.onEditing,
-                                             curentPrescription: self.$viewModel.currentPrescription)
+                                             curentPrescription: self.$viewModel.currentPrescription,
+                                             viewModel: self.viewModel)
                 }, currentPage: self.$viewModel.currentPage)
                     .background(Color(R.color.colorGray50Semi.name))
                     .frame(height: 400)
@@ -43,7 +41,7 @@ struct HomePrescriptionView: View {
                     Alert(title: Text(R.string.localizable.home_alert_title.key.localized),
                           message: Text(R.string.localizable.home_alert_message.key.localized),
                           primaryButton: .default (Text(R.string.localizable.home_alert_ok.key.localized)) {
-                              self.viewModel.remove(prescription: self.viewModel.currentPrescription)
+                              self.viewModel.remove(/*prescription: self.viewModel.currentPrescription*/)
                           },
                           secondaryButton: .cancel()
                     )
@@ -66,7 +64,7 @@ struct HomePrescriptionView: View {
 
 struct HomePrescriptionView_Previews: PreviewProvider {
     static var prescriptionInteractor: PrescriptionInteractor {
-        let prescription = Prescription(name: "Clamoxyl 200mg", unitsBox: 20, interval: Interval(hours: 8, label: "Every 8 hours"), unitsDose: 2)
+        let prescription = Prescription(name: "Clamoxyl 200mg", unitsBox: 20, interval: Interval(secs: 8, label: "Every 8 hours"), unitsDose: 2)
         let dataManager: DataManager = DataManager.shared
         dataManager.add(prescription: prescription)
         return PrescriptionInteractor(dataManager: dataManager)
