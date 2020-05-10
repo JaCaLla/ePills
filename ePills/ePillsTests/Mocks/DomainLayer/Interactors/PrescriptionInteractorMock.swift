@@ -14,6 +14,7 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
     var addCount = 0
     var removeCount = 0
     var updateCount = 0
+    var takeDoseCount = 0
     var getCurrentPrescriptionIndexCount = 0
     var getPrescriptionsCount = 0
     
@@ -38,4 +39,7 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
         return Just([]).eraseToAnyPublisher()
     }
     
+    public func takeDose(prescription: Prescription, onComplete: @escaping (Bool) -> Void) {
+        takeDoseCount += 1
+    }    
 }

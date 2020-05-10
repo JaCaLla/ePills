@@ -1,42 +1,23 @@
 //
 //  SceneDelegate.swift
-//  ePills
+//  seco
 //
-//  Created by Javier Calatrava on 18/04/2020.
+//  Created by Javier Calatrava on 20/02/2020.
 //  Copyright © 2020 Javier Calatrava. All rights reserved.
 //
 
 import UIKit
-import SwiftUI
-import Combine
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let firstPresciptionCoordinator = FirstPresciptionCoordinator()
-    
-    private var onChangeRootVCSubscription = Set<AnyCancellable>()
+
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-
-        // Use a UIHostingController as window root view controller.
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-
-            window.rootViewController = firstPresciptionCoordinator.start()//TabBarController()
-            
-            firstPresciptionCoordinator.onFinishedPublisher.sink { vc in
-                 window.rootViewController = TabBarController()//vc
-                self.window = window
-                 window.makeKeyAndVisible()
-            }.store(in: &onChangeRootVCSubscription)
-            
-            self.window = window
-            window.makeKeyAndVisible()
-        }
+        guard let _ = (scene as? UIWindowScene) else { return }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

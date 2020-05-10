@@ -182,7 +182,7 @@ class HomePrescriptionVMTest: XCTestCase {
         prescriptionInteractor.add(prescription: prescription)
 
         XCTAssertEqual(sut.getIconName(/*prescription: prescription,*/ timeManager: TimeManager()), "stop")
-        XCTAssertEqual(sut.getMessage(prescription: prescription, timeManager: TimeManager()), "Not started. Press icon to start")
+        XCTAssertEqual(sut.getMessage(/*prescription: prescription,*/ timeManager: TimeManager()), "Not started. Press icon to start")
         XCTAssertTrue(sut.updatable())
     }
 
@@ -200,7 +200,7 @@ class HomePrescriptionVMTest: XCTestCase {
         prescriptionInteractor.add(prescription: prescription)
         prescription.takeDose(timeManager: timeManager)
         XCTAssertEqual(sut.getIconName(/*prescription: prescription,*/ timeManager: timeManager), "clear")
-        XCTAssertEqual(sut.getMessage(prescription: prescription, timeManager: TimeManager()), "Presciption finished, press renew to start again")
+        XCTAssertEqual(sut.getMessage(/*prescription: prescription,*/ timeManager: TimeManager()), "Presciption finished, press renew to start again")
         XCTAssertTrue(sut.updatable())
     }
 
@@ -217,7 +217,7 @@ class HomePrescriptionVMTest: XCTestCase {
         prescription.takeDose(timeManager: timeManager)
         // Then
         XCTAssertEqual(sut.getIconName(/*prescription: prescription,*/ timeManager: timeManager), "play")
-        XCTAssertEqual(sut.getMessage(prescription: prescription, timeManager: TimeManager()), "Dose ellapsed, press icon to mark")
+        XCTAssertEqual(sut.getMessage(/*prescription: prescription,*/ timeManager: TimeManager()), "Dose ellapsed, press icon to mark")
         XCTAssertFalse(sut.updatable())
     }
 
@@ -236,7 +236,7 @@ class HomePrescriptionVMTest: XCTestCase {
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 9))
         // Then
         XCTAssertEqual(sut.getIconName(/*prescription: prescription,*/ timeManager: timeManager), "alarm")
-        XCTAssertEqual(sut.getMessage(prescription: prescription, timeManager: TimeManager()), "Dose ellapsed, press icon to mark")
+        XCTAssertEqual(sut.getMessage(/*prescription: prescription,*/ timeManager: TimeManager()), "Dose ellapsed, press icon to mark")
         XCTAssertFalse(sut.updatable())
     }
 
@@ -254,7 +254,7 @@ class HomePrescriptionVMTest: XCTestCase {
         // When
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 11))
         XCTAssertEqual(sut.getIconName(/*prescription: prescription,*/ timeManager: timeManager), "exclamationmark.triangle")
-        XCTAssertEqual(sut.getMessage(prescription: prescription, timeManager: TimeManager()), "Dose ellapsed, press icon to mark")
+        XCTAssertEqual(sut.getMessage(/*prescription: prescription,*/ timeManager: TimeManager()), "Dose ellapsed, press icon to mark")
         XCTAssertFalse(sut.updatable())
     }
 

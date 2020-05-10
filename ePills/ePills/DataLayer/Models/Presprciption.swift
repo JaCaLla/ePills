@@ -67,6 +67,14 @@ class Prescription: Identifiable {
         }
     }
 
+    func isFirst() -> Bool {
+        return unitsConsumed == 0
+    }
+    
+    func isLast() -> Bool {
+        return unitsConsumed + unitsDose >= unitsBox
+    }
+    
     func getRemaining(timeManager: TimeManagerPrococol = TimeManager()) -> Int? {
 
         guard let nextDose = self.nextDose else { return nil }

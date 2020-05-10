@@ -313,4 +313,21 @@ class PrescriptionTests: XCTestCase {
         sut.takeDose(timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingDays(timeManager: timeManager), -1)
     }
+    
+    func test_isLastOrLastPrescription() {
+        XCTAssertTrue(sut.isFirst())
+        XCTAssertFalse(sut.isLast())
+        
+        XCTAssertNil(sut.nextDose)
+        let timeManager = TimeManager()
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
+        sut.interval = Interval(secs: 3600, label: "1 hour")
+        sut.unitsBox = 1
+        sut.unitsDose = 1
+        sut.takeDose(timeManager: timeManager)
+        
+        XCTAssertFalse(sut.isFirst())
+        XCTAssertTrue(sut.isLast())
+    }
+  
 }

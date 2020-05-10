@@ -47,7 +47,7 @@ struct PrescriptionHomePageView: View {
                         .foregroundColor(Color.white)
                     Spacer()
                 }.frame(height: geometry.size.height / 4)
-                    .background(Color.blue)
+                  //  .background(Color.blue)
                 HStack {
                    // Spacer()
                     VStack {

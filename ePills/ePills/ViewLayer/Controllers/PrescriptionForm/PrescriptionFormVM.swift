@@ -78,7 +78,7 @@ extension PrescriptionFormVM: PrescriptionFormVMProtocol {
         let secsPerHour = 3600
         
         var invervals: [Interval] = []
-        invervals.append(Interval(secs: 10, label: "_10 Secs"))
+        invervals.append(Interval(secs: 30, label: "_30 Secs"))
         invervals.append(Interval(secs: 1 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_1_hour.key.localized))
         invervals.append(Interval(secs: 2 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_2_hours.key.localized))
         invervals.append(Interval(secs: 4 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_4_hours.key.localized))

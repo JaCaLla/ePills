@@ -14,6 +14,7 @@ protocol PrescriptionInteractorProtocol {
     func add(prescription: Prescription)
     func remove(prescription: Prescription)
     func update(prescription: Prescription)
+    func takeDose(prescription: Prescription, onComplete: @escaping (Bool) -> Void)
     func getCurrentPrescriptionIndex()  -> AnyPublisher<Int, Never>
     func getPrescriptions() -> AnyPublisher<[Prescription], Never>
 }
@@ -45,6 +46,7 @@ extension PrescriptionInteractor: PrescriptionInteractorProtocol {
 
     func add(prescription: Prescription) {
         dataManager.add(prescription: prescription)
+       // LocalNotificationManager.shared.add(prescription: prescription, onComplete: { _ in })
         if let index = prescriptions.firstIndex(of: prescription) {
             currentPrescriptionIndex = index
              currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
@@ -52,6 +54,7 @@ extension PrescriptionInteractor: PrescriptionInteractorProtocol {
     }
 
     func remove(prescription: Prescription) {
+        LocalNotificationManager.shared.removeNotification(prescription: prescription)
         dataManager.remove(prescription: prescription)
         currentPrescriptionIndex = 0
         currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
@@ -63,6 +66,14 @@ extension PrescriptionInteractor: PrescriptionInteractorProtocol {
             currentPrescriptionIndex = index
              currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
         }
+    }
+    
+    func takeDose(prescription: Prescription, onComplete: @escaping (Bool) -> Void) {
+        if !prescription.isLast() {
+           LocalNotificationManager.shared.addNotification(prescription: prescription, onComplete: onComplete)
+        }
+        
+        self.update(prescription: prescription)
     }
 
     func getCurrentPrescriptionIndex()  -> AnyPublisher<Int, Never> {

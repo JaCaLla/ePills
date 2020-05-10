@@ -14,10 +14,10 @@ import Combine
 final public class FirstPresciptionCoordinator {
 
     // MARK: - Publishers
-    var onFinishedPublisher: AnyPublisher<UIViewController, Never> {
+    var onFinishedPublisher: AnyPublisher<Void, Never> {
         return onUIViewControllerInternalPublisher.eraseToAnyPublisher()
     }
-    private var onUIViewControllerInternalPublisher = PassthroughSubject<UIViewController, Never>()
+    private var onUIViewControllerInternalPublisher = PassthroughSubject<Void, Never>()
 
     // MARK: - Subscriptions
     private var onDismissIssueSubscription = Set<AnyCancellable>()
@@ -34,6 +34,9 @@ final public class FirstPresciptionCoordinator {
             self.presentPrescriptionForm(homeView: homeView,
                                          prescriptionInteractor: prescriptionInteractor ?? PrescriptionInteractor(dataManager: DataManager.shared) )
         }.store(in: &onAddFirstSubscription)
+        firstPrescriptionVC.tabBarItem = UITabBarItem(title: R.string.localizable.home_title.key.localized,
+        image: UIImage(systemName: "plus.rectangle"),
+        tag: 0)
         guard navigationController else {
             return firstPrescriptionVC
         }
@@ -46,8 +49,7 @@ final public class FirstPresciptionCoordinator {
                                              prescriptionInteractor: PrescriptionInteractorProtocol) {
         let prescriptionFormVM = PrescriptionFormVM(interactor: prescriptionInteractor, prescription: nil)
         prescriptionFormVM.onDismissPublisher.sink {
-                        let tabBarC = TabBarController()
-                        self.onUIViewControllerInternalPublisher.send(tabBarC)
+                        self.onUIViewControllerInternalPublisher.send()
         }.store(in: &onDismissIssueSubscription)
         let prescriptionFormView = PrescriptionFormView(viewModel: prescriptionFormVM)
         let prescriptionFormVC = PrescriptionFormVC(rootView: prescriptionFormView)

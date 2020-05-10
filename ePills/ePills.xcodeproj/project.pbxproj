@@ -13,6 +13,15 @@
 		5E3B7ADC245A26A000541AB4 /* PrescriptionInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7ADB245A26A000541AB4 /* PrescriptionInteractorMock.swift */; };
 		5E3B7ADF245A327A00541AB4 /* HomePrescriptionVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7ADE245A327A00541AB4 /* HomePrescriptionVMTest.swift */; };
 		5E3B7AE2245AD7D300541AB4 /* HomeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7AE1245AD7D300541AB4 /* HomeCoordinatorMock.swift */; };
+		5E55149A2464A5EF00E97DF4 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5514992464A5EF00E97DF4 /* LocalNotificationManager.swift */; };
+		5E55149D2464A9FE00E97DF4 /* StartUpAppSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E55149C2464A9FE00E97DF4 /* StartUpAppSequencer.swift */; };
+		5E5514A22464AA3800E97DF4 /* PresentMainAppOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E55149F2464AA3800E97DF4 /* PresentMainAppOperation.swift */; };
+		5E5514A32464AA3800E97DF4 /* RequestNotificationPermissionOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5514A02464AA3800E97DF4 /* RequestNotificationPermissionOp.swift */; };
+		5E5514A42464AA3800E97DF4 /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5514A12464AA3800E97DF4 /* ConcurrentOperation.swift */; };
+		5E5514A62464AC1000E97DF4 /* MainFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5514A52464AC1000E97DF4 /* MainFlowCoordinator.swift */; };
+		5E5514A82464AE7900E97DF4 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5514A72464AE7900E97DF4 /* UIApplicationExtension.swift */; };
+		5E5514AB2464B75500E97DF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E5514AA2464B75500E97DF4 /* Main.storyboard */; };
+		5E5514BB2468101000E97DF4 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5514BA2468101000E97DF4 /* DateExtension.swift */; };
 		5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB014244B0F3F00F162EB /* AppDelegate.swift */; };
 		5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */; };
 		5E6AB01B244B0F4200F162EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6AB01A244B0F4200F162EB /* Assets.xcassets */; };
@@ -71,6 +80,15 @@
 		5E3B7ADB245A26A000541AB4 /* PrescriptionInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionInteractorMock.swift; sourceTree = "<group>"; };
 		5E3B7ADE245A327A00541AB4 /* HomePrescriptionVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionVMTest.swift; sourceTree = "<group>"; };
 		5E3B7AE1245AD7D300541AB4 /* HomeCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorMock.swift; sourceTree = "<group>"; };
+		5E5514992464A5EF00E97DF4 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		5E55149C2464A9FE00E97DF4 /* StartUpAppSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartUpAppSequencer.swift; sourceTree = "<group>"; };
+		5E55149F2464AA3800E97DF4 /* PresentMainAppOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentMainAppOperation.swift; sourceTree = "<group>"; };
+		5E5514A02464AA3800E97DF4 /* RequestNotificationPermissionOp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestNotificationPermissionOp.swift; sourceTree = "<group>"; };
+		5E5514A12464AA3800E97DF4 /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
+		5E5514A52464AC1000E97DF4 /* MainFlowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainFlowCoordinator.swift; sourceTree = "<group>"; };
+		5E5514A72464AE7900E97DF4 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
+		5E5514AA2464B75500E97DF4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5E5514BA2468101000E97DF4 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		5E6AB011244B0F3F00F162EB /* ePills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ePills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6AB014244B0F3F00F162EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +176,7 @@
 		5E3B7AD52459FE1700541AB4 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5E5514BC2468379600E97DF4 /* Managers */,
 				5E3B7AD62459FE3F00541AB4 /* Interactors */,
 			);
 			path = DomainLayer;
@@ -174,6 +193,7 @@
 		5E3B7AD9245A268600541AB4 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5E5514BF246839CE00E97DF4 /* Managers */,
 				5E3B7AE0245AD7C400541AB4 /* Coordinators */,
 				5E3B7ADA245A268D00541AB4 /* Interactors */,
 			);
@@ -212,6 +232,47 @@
 				5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */,
 			);
 			path = HomePrescriptionView;
+			sourceTree = "<group>";
+		};
+		5E55149B2464A93400E97DF4 /* Sequencer */ = {
+			isa = PBXGroup;
+			children = (
+				5E55149E2464AA0300E97DF4 /* Operations */,
+				5E55149C2464A9FE00E97DF4 /* StartUpAppSequencer.swift */,
+			);
+			path = Sequencer;
+			sourceTree = "<group>";
+		};
+		5E55149E2464AA0300E97DF4 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				5E5514A12464AA3800E97DF4 /* ConcurrentOperation.swift */,
+				5E55149F2464AA3800E97DF4 /* PresentMainAppOperation.swift */,
+				5E5514A02464AA3800E97DF4 /* RequestNotificationPermissionOp.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		5E5514A92464B73A00E97DF4 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5E5514AA2464B75500E97DF4 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		5E5514BC2468379600E97DF4 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		5E5514BF246839CE00E97DF4 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		5E6AB008244B0F3F00F162EB = {
@@ -283,6 +344,7 @@
 		5E6AB038244B13A100F162EB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5E5514A92464B73A00E97DF4 /* Storyboards */,
 				5ED44B3924533E0200081B36 /* Texts */,
 				5E6AB01A244B0F4200F162EB /* Assets.xcassets */,
 				5E6AB039244B13AA00F162EB /* R.Swift */,
@@ -466,6 +528,7 @@
 		5EFF2157244F5CE100B77AE9 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5E55149B2464A93400E97DF4 /* Sequencer */,
 				5ED44B472453669400081B36 /* Interactors */,
 				5EFF215E244F9A7600B77AE9 /* Managers */,
 				5EFF215D244F99F400B77AE9 /* Coordinators */,
@@ -478,6 +541,8 @@
 			children = (
 				5ED44B45245353EE00081B36 /* StringExtension.swift */,
 				5EFE810D2454F0AF00D44F53 /* BundleExtension.swift */,
+				5E5514A72464AE7900E97DF4 /* UIApplicationExtension.swift */,
+				5E5514BA2468101000E97DF4 /* DateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -485,6 +550,7 @@
 		5EFF215D244F99F400B77AE9 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				5E5514A52464AC1000E97DF4 /* MainFlowCoordinator.swift */,
 				5EFF2158244F5DD100B77AE9 /* FirstPresciptionCoordinator.swift */,
 				5E8EECE8245741A200398832 /* HomeCoordinator.swift */,
 			);
@@ -495,6 +561,7 @@
 			isa = PBXGroup;
 			children = (
 				5EFF215F244F9ACE00B77AE9 /* DebugManager.swift */,
+				5E5514992464A5EF00E97DF4 /* LocalNotificationManager.swift */,
 				5EB5DA952461D06E0009EA75 /* TimeManager.swift */,
 			);
 			path = Managers;
@@ -598,6 +665,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E6AB021244B0F4200F162EB /* LaunchScreen.storyboard in Resources */,
+				5E5514AB2464B75500E97DF4 /* Main.storyboard in Resources */,
 				5ED44B3C2453401700081B36 /* Localizable.strings in Resources */,
 				5E6AB01E244B0F4200F162EB /* Preview Assets.xcassets in Resources */,
 				5E6AB01B244B0F4200F162EB /* Assets.xcassets in Resources */,
@@ -702,23 +770,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E5514A22464AA3800E97DF4 /* PresentMainAppOperation.swift in Sources */,
 				5ED44B5824542F3F00081B36 /* HomePrescriptionView.swift in Sources */,
 				5ED44B362452C7A500081B36 /* SelectorCell.swift in Sources */,
+				5E55149A2464A5EF00E97DF4 /* LocalNotificationManager.swift in Sources */,
 				5EFE810E2454F0AF00D44F53 /* BundleExtension.swift in Sources */,
+				5E5514A62464AC1000E97DF4 /* MainFlowCoordinator.swift in Sources */,
+				5E55149D2464A9FE00E97DF4 /* StartUpAppSequencer.swift in Sources */,
 				5E6AB04A244B60A800F162EB /* BackgroundView.swift in Sources */,
 				5ED44B49245366C800081B36 /* PrescriptionInteractor.swift in Sources */,
 				5EB5DA962461D06E0009EA75 /* TimeManager.swift in Sources */,
 				5EBBAA562450C86500CD2B5E /* PrescriptionFormVM.swift in Sources */,
 				5ED44B4C2454158500081B36 /* DataManager.swift in Sources */,
 				5EBBAA542450C76300CD2B5E /* PrescriptionFormVC.swift in Sources */,
+				5E5514A42464AA3800E97DF4 /* ConcurrentOperation.swift in Sources */,
 				5E6AB052244BA75300F162EB /* NavigationBarModifier.swift in Sources */,
 				5ED44B502454165D00081B36 /* Presprciption.swift in Sources */,
 				5EBBAA502450A08E00CD2B5E /* TabBarController.swift in Sources */,
+				5E5514BB2468101000E97DF4 /* DateExtension.swift in Sources */,
 				5ED44B44245352AC00081B36 /* R.generated.swift in Sources */,
 				5EFE810C2454D13D00D44F53 /* Resetable.swift in Sources */,
 				5E8EECE52456B65900398832 /* PageView.swift in Sources */,
 				5ED44B5A2454541000081B36 /* HomePrescriptionVC.swift in Sources */,
 				5ED44B46245353EE00081B36 /* StringExtension.swift in Sources */,
+				5E5514A82464AE7900E97DF4 /* UIApplicationExtension.swift in Sources */,
 				5EB5DA84245DC41E0009EA75 /* PrescriptionButtonView.swift in Sources */,
 				5E8EECEB2458D2B600398832 /* PrescriptionHomePageView.swift in Sources */,
 				5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */,
@@ -729,6 +804,7 @@
 				5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */,
 				5ED44B3824532EAE00081B36 /* AcceptButtonCell.swift in Sources */,
 				5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */,
+				5E5514A32464AA3800E97DF4 /* RequestNotificationPermissionOp.swift in Sources */,
 				5E8EECE72456CFD600398832 /* HomePrescriptionVM.swift in Sources */,
 				5ED44B532454180300081B36 /* Interval.swift in Sources */,
 				5EFF2159244F5DD100B77AE9 /* FirstPresciptionCoordinator.swift in Sources */,
