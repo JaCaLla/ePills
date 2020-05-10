@@ -117,7 +117,7 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         guard prescriptions.count > currentPage else { return }
         let prescription = self.prescriptions[currentPage]
         prescription.takeDose()
-        self.interactor.update(prescription: prescription)
+        self.interactor.takeDose(prescription: prescription, onComplete: { _ in })
         self.refreshVM()
     }
     

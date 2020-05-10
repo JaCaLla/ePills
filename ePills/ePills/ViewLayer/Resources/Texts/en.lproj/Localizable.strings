@@ -5,6 +5,7 @@
   Created by Javier Calatrava on 24/04/2020.
   Copyright © 2020 Javier Calatrava. All rights reserved.
 */
+"app_name" = "ePills";
 
 "first_prescription_title" = "Add";
 "first_prescription_title_msg_add" = "Press + for adding your first prescription";
@@ -52,3 +53,4 @@
 "home_prescription_days_suffix" = "d";
 "home_prescription_more_than_month" = "> Month";
 
+"notification_next_dose" = "Next dose: ";

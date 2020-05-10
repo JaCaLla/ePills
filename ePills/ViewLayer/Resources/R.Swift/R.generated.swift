@@ -98,14 +98,21 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 1 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
   struct storyboard {
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
+    /// Storyboard `Main`.
+    static let main = _R.storyboard.main()
     
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
     static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.launchScreen)
+    }
+    
+    /// `UIStoryboard(name: "Main", bundle: ...)`
+    static func main(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.main)
     }
     
     fileprivate init() {}
@@ -118,7 +125,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 42 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 44 localization keys.
     struct localizable {
       /// en translation: 1 Day
       /// 
@@ -216,6 +223,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let prescription_form_section_medicine_name = Rswift.StringResource(key: "prescription_form_section_medicine_name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Next dose: 
+      /// 
+      /// Locales: en
+      static let notification_next_dose = Rswift.StringResource(key: "notification_next_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Not started. Press icon to start
       /// 
       /// Locales: en
@@ -276,6 +287,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let home_prescription_days_suffix = Rswift.StringResource(key: "home_prescription_days_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: ePills
+      /// 
+      /// Locales: en
+      static let app_name = Rswift.StringResource(key: "app_name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: h
       /// 
       /// Locales: en
@@ -457,6 +472,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("prescription_form_section_medicine_name", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Next dose: 
+      /// 
+      /// Locales: en
+      static func notification_next_dose(_: Void = ()) -> String {
+        return NSLocalizedString("notification_next_dose", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Not started. Press icon to start
       /// 
       /// Locales: en
@@ -562,6 +584,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("home_prescription_days_suffix", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: ePills
+      /// 
+      /// Locales: en
+      static func app_name(_: Void = ()) -> String {
+        return NSLocalizedString("app_name", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: h
       /// 
       /// Locales: en
@@ -610,6 +639,7 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       try launchScreen.validate()
+      try main.validate()
     }
     
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
@@ -617,6 +647,20 @@ struct _R: Rswift.Validatable {
       
       let bundle = R.hostingBundle
       let name = "LaunchScreen"
+      
+      static func validate() throws {
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = UIKit.UIViewController
+      
+      let bundle = R.hostingBundle
+      let name = "Main"
       
       static func validate() throws {
         if #available(iOS 11.0, *) {

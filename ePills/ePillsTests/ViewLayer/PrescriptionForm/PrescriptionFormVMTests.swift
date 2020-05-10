@@ -142,8 +142,8 @@ class PrescriptionFormVMTests: XCTestCase {
             XCTFail()
             return
         }
-        XCTAssertEqual(intervals[0].secs, 10)
-        XCTAssertEqual(intervals[0].label, "_10 Secs")
+        XCTAssertEqual(intervals[0].secs, 30)
+        XCTAssertEqual(intervals[0].label, "_30 Secs")
         XCTAssertEqual(intervals[1].secs, 3600)
         XCTAssertEqual(intervals[1].label, "1 Hour")
         XCTAssertEqual(intervals[2].secs, 7200)

@@ -62,7 +62,7 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
     func replaceByFirstPrescription(interactor: PrescriptionInteractorProtocol) {
         let firstPresciptionCoordinator = FirstPresciptionCoordinator()
         firstPresciptionCoordinator.navitationController = self.navitationController
-        let previousViewControllers = self.navitationController.viewControllers
+       // let previousViewControllers = self.navitationController.viewControllers
         firstPresciptionCoordinator.onFinishedPublisher.sink { _ in
             self.navitationController.viewControllers = [self.getHomePrescriptionVC(interactor: interactor)]
         }.store(in: &cancellable)
