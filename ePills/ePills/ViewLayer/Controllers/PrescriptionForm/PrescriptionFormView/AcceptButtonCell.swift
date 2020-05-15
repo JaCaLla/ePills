@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AcceptButtonCell: View {
-    @Binding var prescription: Prescription?
+    @Binding var medicine: Medicine?
     var action:() -> Void
     
     var body: some View {
@@ -20,21 +20,21 @@ struct AcceptButtonCell: View {
             .onTapGesture {
                 self.action()
                                 }
-            Image(systemName: self.prescription == nil ? "plus.rectangle" : "square.and.pencil")
+            Image(systemName: self.medicine == nil ? "plus.rectangle" : "square.and.pencil")
                 .font(Font.system(size: 30).bold())
                 .foregroundColor(Color.gray)
             //
         }.padding(.horizontal, 15)
             .padding(.top,30)
     }
-    init(prescription:Binding<Prescription?>, action:@escaping () -> Void) {
-        self._prescription = prescription
+    init(medicine:Binding<Medicine?>, action:@escaping () -> Void) {
+        self._medicine = medicine
         self.action = action
     }
 }
 
 struct AcceptButtonCell_Previews: PreviewProvider {
     static var previews: some View {
-        AcceptButtonCell(prescription: .constant(nil), action: { })
+        AcceptButtonCell(medicine: .constant(nil), action: { })
     }
 }

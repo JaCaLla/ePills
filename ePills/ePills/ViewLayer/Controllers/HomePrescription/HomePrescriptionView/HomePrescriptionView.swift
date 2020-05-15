@@ -26,8 +26,8 @@ struct HomePrescriptionView: View {
         ZStack {
             BackgroundView()
             VStack {
-                PageView(self.viewModel.prescriptions.map {
-                    PrescriptionHomePageView(prescription: $0,
+                PageView(self.viewModel.medicines.map {
+                    PrescriptionHomePageView(medicine: $0,
                                              isRemovingPrescription: self.$isRemovingPrescription,
                                              curentPrescription: self.$viewModel.currentPrescription,
                                              viewModel: self.viewModel)
@@ -41,7 +41,7 @@ struct HomePrescriptionView: View {
                     Alert(title: Text(R.string.localizable.home_alert_title.key.localized),
                           message: Text(R.string.localizable.home_alert_message.key.localized),
                           primaryButton: .default (Text(R.string.localizable.home_alert_ok.key.localized)) {
-                              self.viewModel.remove(/*prescription: self.viewModel.currentPrescription*/)
+                              self.viewModel.remove()
                           },
                           secondaryButton: .cancel()
                     )
@@ -64,9 +64,9 @@ struct HomePrescriptionView: View {
 
 struct HomePrescriptionView_Previews: PreviewProvider {
     static var prescriptionInteractor: PrescriptionInteractor {
-        let prescription = Prescription(name: "Clamoxyl 200mg", unitsBox: 20, interval: Interval(secs: 8, label: "Every 8 hours"), unitsDose: 2)
+        let medicine = Medicine(name: "Clamoxyl 200mg", unitsBox: 20, intervalSecs: 8, unitsDose: 2)
         let dataManager: DataManager = DataManager.shared
-        dataManager.add(prescription: prescription)
+        dataManager.add(medicine: medicine)
         return PrescriptionInteractor(dataManager: dataManager)
     }
 

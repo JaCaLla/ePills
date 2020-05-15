@@ -47,7 +47,7 @@ final public class FirstPresciptionCoordinator {
     // MARK: - Private/Internal
     fileprivate func presentPrescriptionForm(homeView: FirstPrescriptionView,
                                              prescriptionInteractor: PrescriptionInteractorProtocol) {
-        let prescriptionFormVM = PrescriptionFormVM(interactor: prescriptionInteractor, prescription: nil)
+        let prescriptionFormVM = PrescriptionFormVM(interactor: prescriptionInteractor, medicine: nil)
         prescriptionFormVM.onDismissPublisher.sink {
                         self.onUIViewControllerInternalPublisher.send()
         }.store(in: &onDismissIssueSubscription)

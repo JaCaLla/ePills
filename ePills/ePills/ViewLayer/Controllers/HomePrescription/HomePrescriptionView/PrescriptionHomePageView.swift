@@ -11,9 +11,9 @@ import Combine
 
 struct PrescriptionHomePageView: View {
 
-    var prescription: Prescription
+    var medicine: Medicine
     @Binding var isRemovingPrescription: Bool
-    @Binding var currentPrescription: Prescription
+    @Binding var currentMedicine: Medicine
      var viewModel: HomePrescriptionVM
     
     // MARK: - Private attributes
@@ -35,7 +35,7 @@ struct PrescriptionHomePageView: View {
                         .padding()
                         .onTapGesture {
                             self.isRemovingPrescription = true
-                            self.currentPrescription = self.prescription
+                            self.currentMedicine = self.medicine
                     }
                 }.frame(height: geometry.size.height * 0.125)
                     .background(Color(R.color.colorGray50Semi.name))
@@ -90,13 +90,13 @@ struct PrescriptionHomePageView: View {
         }
     }
 
-    init(prescription: Prescription,
+    init(medicine: Medicine,
          isRemovingPrescription: Binding<Bool>,
-         curentPrescription: Binding<Prescription>,
+         curentPrescription: Binding<Medicine>,
          viewModel: HomePrescriptionVM) {
-        self.prescription = prescription
+        self.medicine = medicine
         self._isRemovingPrescription = isRemovingPrescription
-        self._currentPrescription = curentPrescription
+        self._currentMedicine = curentPrescription
         self.viewModel = viewModel
     }
 }
@@ -104,13 +104,13 @@ struct PrescriptionHomePageView: View {
 struct PrescriptionHomePageView_Previews: PreviewProvider {
 
     static var previews: some View {
-        let prescription = Prescription(name: "Clamoxyl 200mg",
+        let prescription = Medicine(name: "Clamoxyl 200mg",
                                         unitsBox: 20,
-                                        interval: Interval(secs: 8, label: "Every 8 hours"),
+                                        intervalSecs: 8,
                                         unitsDose: 2)
         let viewModel = HomePrescriptionVM(homeCoordinator: HomeCoordinator())
         return ZStack {
-            PrescriptionHomePageView(prescription: prescription,
+            PrescriptionHomePageView(medicine: prescription,
                                      isRemovingPrescription: .constant(false),
                                      curentPrescription: .constant(prescription), viewModel: viewModel)
         }

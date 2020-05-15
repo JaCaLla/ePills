@@ -17,16 +17,17 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
     var takeDoseCount = 0
     var getCurrentPrescriptionIndexCount = 0
     var getPrescriptionsCount = 0
+    var getIntervalsCount = 0
     
-    public func add(prescription: Prescription) {
+    public func add(medicine: Medicine) {
         addCount += 1
     }
     
-    public func remove(prescription: Prescription) {
+    public func remove(medicine: Medicine) {
         removeCount += 1
     }
     
-    public func update(prescription: Prescription) {
+    public func update(medicine: Medicine) {
         updateCount += 1
     }
     public func getCurrentPrescriptionIndex() -> AnyPublisher<Int, Never> {
@@ -34,12 +35,17 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
         return Just(0).eraseToAnyPublisher()
     }
     
-    public func getPrescriptions() -> AnyPublisher<[Prescription], Never> {
+    public func getMedicines() -> AnyPublisher<[Medicine], Never> {
         getPrescriptionsCount += 1
         return Just([]).eraseToAnyPublisher()
     }
     
-    public func takeDose(prescription: Prescription, onComplete: @escaping (Bool) -> Void) {
+    public func takeDose(medicine: Medicine, onComplete: @escaping (Bool) -> Void) {
         takeDoseCount += 1
-    }    
+    }
+    
+    public func getIntervals() -> [Interval] {
+        getIntervalsCount += 1
+        return []
+    }
 }

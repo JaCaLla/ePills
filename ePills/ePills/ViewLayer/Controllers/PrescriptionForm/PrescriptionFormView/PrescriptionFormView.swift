@@ -78,7 +78,7 @@ struct PrescriptionFormView: View {
                                            validator: unitsDoseValidator)
                     .keyboardType(.numberPad)
                 if isValidForm() {
-                    AcceptButtonCell(prescription: $viewModel.prescription, action: {
+                    AcceptButtonCell(medicine: $viewModel.medicine, action: {
                         self.viewModel.save()
 //                        self.onAddedPrescriptionInternalPublisher.send()
                     })
@@ -101,7 +101,7 @@ struct PrescriptionDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let dataManager = DataManager.shared
         let interactor = PrescriptionInteractor(dataManager: dataManager)
-        let viewModel =  PrescriptionFormVM(interactor: interactor, prescription: nil)
+        let viewModel =  PrescriptionFormVM(interactor: interactor, medicine: nil)
        return PrescriptionFormView(viewModel: viewModel)
     }
 }
