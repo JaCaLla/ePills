@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,6 +38,8 @@
 		5E8EECE72456CFD600398832 /* HomePrescriptionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE62456CFD600398832 /* HomePrescriptionVM.swift */; };
 		5E8EECE9245741A200398832 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE8245741A200398832 /* HomeCoordinator.swift */; };
 		5E8EECEB2458D2B600398832 /* PrescriptionHomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */; };
+		5E94DF56246EDB70003C3FFE /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 5E94DF55246EDB70003C3FFE /* Realm */; };
+		5E94DF58246EDB70003C3FFE /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5E94DF57246EDB70003C3FFE /* RealmSwift */; };
 		5EB5DA84245DC41E0009EA75 /* PrescriptionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */; };
 		5EB5DA962461D06E0009EA75 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5DA952461D06E0009EA75 /* TimeManager.swift */; };
 		5EBBAA502450A08E00CD2B5E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */; };
@@ -149,6 +151,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E94DF58246EDB70003C3FFE /* RealmSwift in Frameworks */,
+				5E94DF56246EDB70003C3FFE /* Realm in Frameworks */,
 				0A63076FDFD4C0E744E7238D /* Pods_ePills.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,6 +601,10 @@
 			dependencies = (
 			);
 			name = ePills;
+			packageProductDependencies = (
+				5E94DF55246EDB70003C3FFE /* Realm */,
+				5E94DF57246EDB70003C3FFE /* RealmSwift */,
+			);
 			productName = ePills;
 			productReference = 5E6AB011244B0F3F00F162EB /* ePills.app */;
 			productType = "com.apple.product-type.application";
@@ -649,6 +657,9 @@
 				es,
 			);
 			mainGroup = 5E6AB008244B0F3F00F162EB;
+			packageReferences = (
+				5E94DF54246EDB70003C3FFE /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+			);
 			productRefGroup = 5E6AB012244B0F3F00F162EB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1096,6 +1107,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5E94DF54246EDB70003C3FFE /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa";
+			requirement = {
+				kind = exactVersion;
+				version = 3.17.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5E94DF55246EDB70003C3FFE /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E94DF54246EDB70003C3FFE /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		5E94DF57246EDB70003C3FFE /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E94DF54246EDB70003C3FFE /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5E6AB009244B0F3F00F162EB /* Project object */;
 }
