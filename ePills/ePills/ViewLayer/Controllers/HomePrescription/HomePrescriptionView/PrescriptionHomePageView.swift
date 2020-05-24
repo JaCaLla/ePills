@@ -42,7 +42,7 @@ struct PrescriptionHomePageView: View {
 
                 HStack {
                     Spacer()
-                    Image(systemName: "")//plus.rectangle")
+                    Image(systemName: "plus.rectangle")
                         .font(Font.system(size: 20).bold())
                         .foregroundColor(Color.white)
                     Spacer()

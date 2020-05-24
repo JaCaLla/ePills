@@ -11,6 +11,7 @@ import UIKit
 class TabBarController: UITabBarController {
 
     var homeCoordinator: HomeCoordinator = HomeCoordinator()
+    var appConfigurationCoordinator: AppConfigurationCoordinator = AppConfigurationCoordinator()
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +31,10 @@ class TabBarController: UITabBarController {
     private func setupView() {
 
         let setupVC = UIViewController()
-        setupVC.title = "_Setup"
-        setupVC.view.backgroundColor = UIColor.orange
-        setupVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+  
 
         self.viewControllers = [homeCoordinator.start(),
-            setupVC]
+                                appConfigurationCoordinator.start()]
 
     }
 

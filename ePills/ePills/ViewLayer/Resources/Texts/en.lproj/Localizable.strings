@@ -53,4 +53,10 @@
 "home_prescription_days_suffix" = "d";
 "home_prescription_more_than_month" = "> Month";
 
+"setup_title" = "Setup";
+"setup_section_general" = "General";
+"setup_section_others" = "Otros";
+"setup_option_version" = "Version";
+"setup_option_reset" = "Reset";
+
 "notification_next_dose" = "Next dose: ";
