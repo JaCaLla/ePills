@@ -70,7 +70,7 @@ public final class HomePrescriptionVM: ObservableObject {
                 self.homeCoordinator.replaceByFirstPrescription(interactor: self.interactor)
                 self.refreshVM()
             }.store(in: &cancellables)
-        
+        self.interactor.flushMedicines()
         timer = Timer.scheduledTimer(timeInterval: 1.0,
                                      target: self,
                                      selector: #selector(fireTimer),
