@@ -132,7 +132,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 44 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 49 localization keys.
     struct localizable {
       /// en translation: 1 Day
       /// 
@@ -194,6 +194,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let home_prescription_ongoing_ellapsed = Rswift.StringResource(key: "home_prescription_ongoing_ellapsed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: General
+      /// 
+      /// Locales: en
+      static let setup_section_general = Rswift.StringResource(key: "setup_section_general", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Home
       /// 
       /// Locales: en
@@ -238,6 +242,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let home_prescription_not_started = Rswift.StringResource(key: "home_prescription_not_started", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Otros
+      /// 
+      /// Locales: en
+      static let setup_section_others = Rswift.StringResource(key: "setup_section_others", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Presciption finished, press renew to start again
       /// 
       /// Locales: en
@@ -250,6 +258,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let first_prescription_title_msg_add = Rswift.StringResource(key: "first_prescription_title_msg_add", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Reset
+      /// 
+      /// Locales: en
+      static let setup_option_reset = Rswift.StringResource(key: "setup_option_reset", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Setup
+      /// 
+      /// Locales: en
+      static let setup_title = Rswift.StringResource(key: "setup_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: This prescription is going to be eliminated! Proceed?
       /// 
       /// Locales: en
@@ -282,6 +298,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let prescription_form_title_update = Rswift.StringResource(key: "prescription_form_title_update", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Version
+      /// 
+      /// Locales: en
+      static let setup_option_version = Rswift.StringResource(key: "setup_option_version", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Yes
       /// 
       /// Locales: en
@@ -416,6 +436,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("home_prescription_ongoing_ellapsed", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: General
+      /// 
+      /// Locales: en
+      static func setup_section_general(_: Void = ()) -> String {
+        return NSLocalizedString("setup_section_general", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Home
       /// 
       /// Locales: en
@@ -493,6 +520,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("home_prescription_not_started", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Otros
+      /// 
+      /// Locales: en
+      static func setup_section_others(_: Void = ()) -> String {
+        return NSLocalizedString("setup_section_others", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Presciption finished, press renew to start again
       /// 
       /// Locales: en
@@ -512,6 +546,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func first_prescription_title_msg_add(_: Void = ()) -> String {
         return NSLocalizedString("first_prescription_title_msg_add", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Reset
+      /// 
+      /// Locales: en
+      static func setup_option_reset(_: Void = ()) -> String {
+        return NSLocalizedString("setup_option_reset", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Setup
+      /// 
+      /// Locales: en
+      static func setup_title(_: Void = ()) -> String {
+        return NSLocalizedString("setup_title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: This prescription is going to be eliminated! Proceed?
@@ -568,6 +616,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func prescription_form_title_update(_: Void = ()) -> String {
         return NSLocalizedString("prescription_form_title_update", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Version
+      /// 
+      /// Locales: en
+      static func setup_option_version(_: Void = ()) -> String {
+        return NSLocalizedString("setup_option_version", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Yes

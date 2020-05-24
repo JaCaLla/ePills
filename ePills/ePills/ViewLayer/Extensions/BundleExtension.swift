@@ -26,9 +26,17 @@ extension Bundle {
         let path = Bundle.main.path(forResource: lang, ofType: "lproj")
         bundle = Bundle(path: path!)
     }
-    
 
-        var appName: String? {
-            return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
-        }
+
+    var appName: String? {
+        return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+    }
+
+    var releaseVersionNumber: String? {
+        return self.infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+
+    var buildVersionNumber: String? {
+        return self.infoDictionary?["CFBundleVersion"] as? String
+    }
 }
