@@ -11,14 +11,16 @@ import Combine
 
 protocol PrescriptionInteractorProtocol {
 
-    func add(medicine: Medicine)
+    func add(medicine: Medicine) -> Medicine?
    // func add(cycle: Cycle)
     //func remove(cycle: Cycle)
     func remove(medicine: Medicine)
     func update(medicine: Medicine)
     func takeDose(medicine: Medicine, onComplete: @escaping (Bool) -> Void)
+     func takeDose(medicine: Medicine, timeManager: TimeManagerPrococol)
     func getCurrentPrescriptionIndex()  -> AnyPublisher<Int, Never>
-    func getMedicines() -> AnyPublisher<[Medicine], Never>
+    func getMedicinesPublisher() -> AnyPublisher<[Medicine], Never>
+     func flushMedicines()
     func getIntervals() -> [Interval] 
 }
 
@@ -38,13 +40,11 @@ final class PrescriptionInteractor {
 
     init(dataManager: DataManagerProtocol = DataManager.shared) {
         self.dataManager = dataManager
-//        self.dataManager.getPrescriptions()
-//            .sink { prescriptions in
-//                self.cycles = prescriptions
-//            }.store(in: &cancellables)
-                self.dataManager.getMedicines()
+
+                self.dataManager.getMedicinesPublisher()
                     .sink { medicines in
                         self.medicines = medicines
+                        self.subject.send(self.medicines)
                     }.store(in: &cancellables)
     }
 }
@@ -52,21 +52,14 @@ final class PrescriptionInteractor {
 // MARK: - PrescriptionInteractorProtocol
 extension PrescriptionInteractor: PrescriptionInteractorProtocol {
     
-    func add(medicine: Medicine) {
-        dataManager.add(medicine: medicine)
-        if let index = medicines.firstIndex(of: medicine) {
+    func add(medicine: Medicine) -> Medicine? {
+        guard let createdMedicine = dataManager.add(medicine: medicine) else { return nil}
+        if let index = medicines.firstIndex(of: createdMedicine) {
             currentPrescriptionIndex = index
              currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
         }
+        return createdMedicine
     }
-//    func add(cycle: Cycle) {
-//        dataManager.add(cycle: cycle)
-//          if let index = cycles.firstIndex(of: cycle) {
-//            currentPrescriptionIndex = index
-//             currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
-//        }
-//    }
-
     func remove(medicine: Medicine) {
         LocalNotificationManager.shared.removeNotification(prescription: medicine)
         dataManager.remove(medicine: medicine)
@@ -74,20 +67,6 @@ extension PrescriptionInteractor: PrescriptionInteractorProtocol {
         currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
     }
     
-//    func remove(cycle: Cycle) {
-//        LocalNotificationManager.shared.removeNotification(prescription: cycle)
-//        dataManager.remove(prescription: cycle)
-//        currentPrescriptionIndex = 0
-//        currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
-//    }
-    
-//    func update(cycle: Cycle) {
-////        dataManager.update(prescription: cycle)
-////        if let index = cycles.firstIndex(of: cycle) {
-////            currentPrescriptionIndex = index
-////             currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
-////        }
-//    }
     func update(medicine: Medicine) {
                 dataManager.update(medicine: medicine)
                 if let index = medicines.firstIndex(of: medicine) {
@@ -100,31 +79,40 @@ extension PrescriptionInteractor: PrescriptionInteractorProtocol {
         if !medicine.isLast() {
            LocalNotificationManager.shared.addNotification(prescription: medicine, onComplete: onComplete)
         }
-        
+
         self.update(medicine: medicine)
+    }
+    
+    func takeDose(medicine: Medicine,timeManager: TimeManagerPrococol) {
+        
+        if !medicine.isLast() {
+            LocalNotificationManager.shared.addNotification(prescription: medicine, onComplete: { _ in /* Do nothing */})
+        }
+        medicine.takeDose(timeManager:timeManager)
+        if let nextDose =  medicine.currentCycle.nextDose {
+            let dose = Dose(expected: nextDose, timeManager: timeManager)
+            dataManager.add(dose: dose, medicine: medicine)
+        }
+        
+         self.update(medicine: medicine)
     }
 
     func getCurrentPrescriptionIndex()  -> AnyPublisher<Int, Never> {
         currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
         return currentPrescriptionIndexSubject.eraseToAnyPublisher()
     }
-
-//    func getPrescriptions() -> AnyPublisher<[Cycle], Never> {
-//        self.dataManager.getPrescriptions()
-//            .sink { prescriptions in
-//                self.cycles = prescriptions
-//                self.subject.send(self.cycles)
-//            }.store(in: &cancellables)
-//        return subject.eraseToAnyPublisher()
-//    }
     
-    func getMedicines() -> AnyPublisher<[Medicine], Never> {
-        self.dataManager.getMedicines()
+    func getMedicinesPublisher() -> AnyPublisher<[Medicine], Never> {
+        self.dataManager.getMedicinesPublisher()
             .sink { medicines in
                 self.medicines = medicines
-                self.subject.send(self.medicines)
+             //   self.subject.send(self.medicines)
             }.store(in: &cancellables)
         return subject.eraseToAnyPublisher()
+    }
+    
+    func flushMedicines() {
+         self.dataManager.flushMedicines()
     }
     
     func getIntervals() -> [Interval] {

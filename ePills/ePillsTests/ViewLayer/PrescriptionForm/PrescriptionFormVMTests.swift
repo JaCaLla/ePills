@@ -51,7 +51,7 @@ class PrescriptionFormVMTests: XCTestCase {
                           unitsDose: 1)]]
         var expetedsIdx = 0
 
-        interactor.getMedicines()
+        interactor.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { medicines in
@@ -88,8 +88,8 @@ class PrescriptionFormVMTests: XCTestCase {
         unitsBox: 10,
         intervalSecs: 8,
         unitsDose: 1)
-        interactor.add(medicine: medicine)
-        sut = PrescriptionFormVM(interactor: interactor, medicine: medicine)
+        guard let createdMedicine = interactor.add(medicine: medicine) else {XCTFail(); return}
+        sut = PrescriptionFormVM(interactor: interactor, medicine: createdMedicine)
         sut.name = "a"
         sut.unitsBox = "10"
         sut.selectedIntervalIndex = Interval(secs: 8, label: "8 hours")
@@ -102,7 +102,7 @@ class PrescriptionFormVMTests: XCTestCase {
                           unitsDose: 1)]]
         var expetedsIdx = 0
 
-        interactor.getMedicines()
+        interactor.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
@@ -119,7 +119,7 @@ class PrescriptionFormVMTests: XCTestCase {
         
         // Then
         XCTAssertEqual(sut.title(), "Update prescription")
-        wait(for: [expectation], timeout: 100.1)
+        wait(for: [expectation], timeout: 1.1)
     }
     
     func test_updatePrescriptionWhenMock() throws {
@@ -127,6 +127,7 @@ class PrescriptionFormVMTests: XCTestCase {
                                         unitsBox: 10,
                                         intervalSecs: 8,
                                         unitsDose: 1)
+        medicine.id = UUID().uuidString
         sut = PrescriptionFormVM(interactor: prescriptionInteractorMock, medicine: medicine)
         sut.save()
         XCTAssertEqual(prescriptionInteractorMock.updateCount, 1)

@@ -35,19 +35,17 @@ class HomecycleVMTest: XCTestCase {
 
         let expectation = XCTestExpectation(description: self.debugDescription)
 
-        let expecteds: [[Medicine]] = [
-            [Medicine(name: "a",
-                          unitsBox: 10,
-                          intervalSecs: 8,
-                          unitsDose: 1)]]
+        let expecteds: [[Medicine]] = [[],
+                                       [Medicine(name: "a",
+                                                 unitsBox: 10,
+                                                 intervalSecs: 8,
+                                                 unitsDose: 1)]]
         var expetedsIdx = 0
         let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
+                             unitsBox: 10,
+                             intervalSecs: 8,
+                             unitsDose: 1)
         // When
-        prescriptionInteractor.add(medicine: cycle)
-
         sut.$medicines
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
@@ -69,44 +67,94 @@ class HomecycleVMTest: XCTestCase {
                 // Then
                 XCTAssertEqual(0, someValue)
             }).store(in: &cancellables)
-        wait(for: [expectation], timeout: 0.1)
+
+        prescriptionInteractor.add(medicine: cycle)
+
+        wait(for: [expectation], timeout: 10)
     }
 
     func test_getcyclesWhenAdded2cycles() throws {
+        
+        let expectation = XCTestExpectation(description: self.debugDescription)
 
+         let expecteds: [[Medicine]] = [[],
+                                        [Medicine(name: "a",
+                                                  unitsBox: 10,
+                                                  intervalSecs: 8,
+                                                  unitsDose: 1)],
+                                    [Medicine(name: "a",
+                                                                                     unitsBox: 10,
+                                                                                     intervalSecs: 8,
+                                                                                     unitsDose: 1),
+                                     Medicine(name: "b",
+                                     unitsBox: 10,
+                                     intervalSecs: 8,
+                                     unitsDose: 1)
+            ] ]
+         var expetedsIdx = 0
+         let cycle = Medicine(name: "a",
+                              unitsBox: 10,
+                              intervalSecs: 8,
+                              unitsDose: 1)
+        let cycle2 = Medicine(name: "b",
+        unitsBox: 10,
+        intervalSecs: 8,
+        unitsDose: 1)
+         // When
+         sut.$medicines
+             .sink(receiveCompletion: { completion in
+                 XCTFail(".sink() received the completion:")
+             }, receiveValue: { someValue in
+                 // Then
+                 guard expetedsIdx < expecteds.count else { return }
+                 XCTAssertEqual(expecteds[expetedsIdx], someValue)
+                 expetedsIdx += 1
+                 if expetedsIdx >= expecteds.count {
+                     expectation.fulfill()
+                 }
+
+             }).store(in: &cancellables)
+
+
+         prescriptionInteractor.add(medicine: cycle)
+        prescriptionInteractor.add(medicine: cycle2)
+
+         wait(for: [expectation], timeout: 10)
+        
+/*
         let expectation = XCTestExpectation(description: self.debugDescription)
 
         let expecteds: [[Medicine]] = [[],
-            [Medicine(name: "a",
-                          unitsBox: 10,
-                          intervalSecs: 8,
-                          unitsDose: 1)], [
-                Medicine(name: "a",
-                             unitsBox: 10,
-                             intervalSecs: 8,
-                             unitsDose: 1),
-                Medicine(name: "b",
-                             unitsBox: 10,
-                             intervalSecs: 8,
-                             unitsDose: 1)
-            ]]
+                                       [Medicine(name: "a",
+                                                 unitsBox: 10,
+                                                 intervalSecs: 8,
+                                                 unitsDose: 1)],
+                                       [Medicine(name: "a",
+                                                 unitsBox: 10,
+                                                 intervalSecs: 8,
+                                                 unitsDose: 1),
+                                        Medicine(name: "b",
+                                                 unitsBox: 10,
+                                                 intervalSecs: 8,
+                                                 unitsDose: 1)
+                                       ]]
 
         var expetedsIdx = 0
         let cycle1 = Medicine(name: "a",
-                                         unitsBox: 10,
-                                         intervalSecs: 8,
-                                         unitsDose: 1)
+                              unitsBox: 10,
+                              intervalSecs: 8,
+                              unitsDose: 1)
         let cycle2 = Medicine(name: "b",
-                                         unitsBox: 10,
-                                         intervalSecs: 8,
-                                         unitsDose: 1)
+                              unitsBox: 10,
+                              intervalSecs: 8,
+                              unitsDose: 1)
 
         sut.$medicines
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
                 // Then
-                guard expetedsIdx < expecteds.count else { return }
+                guard expetedsIdx < expecteds.count else { XCTFail(); return }
                 XCTAssertEqual(expecteds[expetedsIdx], someValue)
                 expetedsIdx += 1
                 if expetedsIdx >= expecteds.count {
@@ -119,7 +167,8 @@ class HomecycleVMTest: XCTestCase {
         prescriptionInteractor.add(medicine: cycle1)
         prescriptionInteractor.add(medicine: cycle2)
 
-        wait(for: [expectation], timeout: 100.1)
+        wait(for: [expectation], timeout: 1.1)
+        */
     }
 
     func test_getCurrentcyclesWhenAdded2cycles() throws {
@@ -130,13 +179,13 @@ class HomecycleVMTest: XCTestCase {
 
         var expetedsIdx = 0
         let cycle1 = Medicine(name: "a",
-                                         unitsBox: 10,
-                                         intervalSecs: 8,
-                                         unitsDose: 1)
+                              unitsBox: 10,
+                              intervalSecs: 8,
+                              unitsDose: 1)
         let cycle2 = Medicine(name: "b",
-                                         unitsBox: 10,
-                                         intervalSecs: 8,
-                                         unitsDose: 1)
+                              unitsBox: 10,
+                              intervalSecs: 8,
+                              unitsDose: 1)
 
         sut.$currentPage
             .sink(receiveCompletion: { completion in
@@ -165,9 +214,9 @@ class HomecycleVMTest: XCTestCase {
     func test_title() {
 
         let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
+                             unitsBox: 10,
+                             intervalSecs: 8,
+                             unitsDose: 1)
         // When
         prescriptionInteractor.add(medicine: cycle)
 
@@ -176,9 +225,9 @@ class HomecycleVMTest: XCTestCase {
 
     func test_iconNameWhenNotStarted() {
         let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
+                             unitsBox: 10,
+                             intervalSecs: 8,
+                             unitsDose: 1)
         prescriptionInteractor.add(medicine: cycle)
 
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: TimeManager()), "stop")
@@ -190,15 +239,15 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 1,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
-        cycle.intervalSecs = 3600
-        cycle.unitsBox = 1
-        cycle.unitsDose = 1
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        let medicine = Medicine(name: "a",
+                                unitsBox: 1,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        medicine.intervalSecs = 3600
+        medicine.unitsBox = 1
+        medicine.unitsDose = 1
+        guard let created = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        prescriptionInteractor.takeDose(medicine: created, timeManager: timeManager)
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: timeManager), "clear")
         XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: TimeManager()), "Presciption finished, press renew to start again")
         XCTAssertTrue(sut.updatable())
@@ -208,16 +257,21 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8 * 3600,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
+        sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8 * 3600,
+                                unitsDose: 1)
+
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { return }
+        //  timeManager.setInjectedDate(date:  Date(timeIntervalSince1970:  8 * 3600 + 1))
+        prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 8 * 3600 - 1000))
         // When
-        cycle.takeDose(timeManager: timeManager)
+        //medicine.takeDose(timeManager: timeManager)
         // Then
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: timeManager), "play")
-        XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: TimeManager()), "Dose ellapsed, press icon to mark")
+        XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: timeManager), "In course, next dose:")
         XCTAssertFalse(sut.updatable())
     }
 
@@ -225,13 +279,15 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 10,
-                                        unitsDose: 1)
-        cycle.intervalSecs = 10
-       prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 10,
+                                unitsDose: 1)
+        medicine.intervalSecs = 10
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        //cycle.takeDose(timeManager: timeManager)
+        prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         // When
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 9))
         // Then
@@ -244,13 +300,16 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
-        cycle.intervalSecs = 10
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        medicine.intervalSecs = 10
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        //medicine.takeDose(timeManager: timeManager)
+        prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
+
         // When
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 11))
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: timeManager), "exclamationmark.triangle")
@@ -262,29 +321,40 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Cycle()
+        sut.timeManager = timeManager
+        //    let cycle = Cycle(unitsConsumed: 0, nextDose: nil)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "")
 
     }
 
     func test_getRemainingTimeMessageWhenNextIsGreaterThanAMonth() {
+        // Case 1
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 3600 * 24 * 32,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 3600 * 24 * 32,
+                                unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        //medicine.takeDose(timeManager: timeManager)
+        prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "> Month")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "")
 
-        cycle.currentCycle.nextDose = nil
-        cycle.intervalSecs = 3600 * 24 * 31
-        cycle.takeDose(timeManager: timeManager)
-       prescriptionInteractor.add(medicine: cycle)
+        // Case 2
+//		medicine.currentCycle.nextDose = nil
+//		medicine.intervalSecs = 3600 * 24 * 31
+//		medicine.takeDose(timeManager: timeManager)
+        
+        createdMedicine.currentCycle.nextDose = nil
+        createdMedicine.intervalSecs = 3600 * 24 * 31
+         prescriptionInteractor.update(medicine: createdMedicine)
+        prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
+
+      //  prescriptionInteractor.add(medicine: medicine)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "> Month")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "")
     }
@@ -293,19 +363,23 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 3600 * 24 * 1 + 3600,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 3600 * 24 * 1 + 3600,
+                             unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        //medicine.takeDose(timeManager: timeManager)
+        prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "-1d")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "01h")
 
-        cycle.currentCycle.nextDose = nil
-        cycle.intervalSecs = 3600 * 24 * 1
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        createdMedicine.currentCycle.nextDose = nil
+        createdMedicine.intervalSecs = 3600 * 24 * 1
+       // prescriptionInteractor.add(medicine: cycle)
+        prescriptionInteractor.update(medicine: createdMedicine)
+       // cycle.takeDose(timeManager: timeManager)
+         prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "-1d")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "00h")
     }
@@ -314,12 +388,16 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 3600 * 24 * 1 - 1,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 3600 * 24 * 1 - 1,
+                             unitsDose: 1)
+       // prescriptionInteractor.add(medicine: cycle)
+       // cycle.takeDose(timeManager: timeManager)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+              //medicine.takeDose(timeManager: timeManager)
+              prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "-23h")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "59m")
     }
@@ -328,12 +406,14 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 3600 * 1 - 1,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+           sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 3600 * 1 - 1,
+                             unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+                    //medicine.takeDose(timeManager: timeManager)
+                    prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "-59m")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "59s")
     }
@@ -342,12 +422,14 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 30,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+           sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 30,
+                             unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+                    //medicine.takeDose(timeManager: timeManager)
+                    prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "-30s")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "")
     }
@@ -356,12 +438,14 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 30,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+           sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 30,
+                             unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+                          //medicine.takeDose(timeManager: timeManager)
+                          prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 45))
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "15s")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "")
@@ -371,12 +455,14 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 0,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+          sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 0,
+                             unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+                          //medicine.takeDose(timeManager: timeManager)
+                          prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 60 * 5 + 10))
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "05m")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "10s")
@@ -386,12 +472,14 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 0,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+          sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 0,
+                             unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+                          //medicine.takeDose(timeManager: timeManager)
+                          prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 3600 * 5 + 180))
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "05h")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "03m")
@@ -401,12 +489,14 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 0,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 0,
+                             unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+                          //medicine.takeDose(timeManager: timeManager)
+                          prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 3600 * 24 * 2 + 180))
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "02d")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "00h")
@@ -416,12 +506,14 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 0,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 0,
+                             unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+                                 //medicine.takeDose(timeManager: timeManager)
+                                 prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 3600 * 24 * 60 + 180))
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "> Month")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "")
@@ -431,16 +523,16 @@ class HomecycleVMTest: XCTestCase {
         // Given
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 0,
-                                        unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
-        cycle.takeDose(timeManager: timeManager)
+        sut.timeManager = timeManager
+        let medicine = Medicine(name: "a",
+                             unitsBox: 10,
+                             intervalSecs: 0,
+                             unitsDose: 1)
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+                                 //medicine.takeDose(timeManager: timeManager)
+                                 prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 3600 * 24 * 400))
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "> Month")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "")
     }
-    
-    
 }

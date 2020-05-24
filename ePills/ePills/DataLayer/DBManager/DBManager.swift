@@ -9,160 +9,262 @@
 import Foundation
 import RealmSwift
 
-protocol DBManagerProtocol {
+struct DBManagerError: Error { }
 
+protocol DBManagerProtocol {
+    
+    func existMedicine() -> Bool
+    
+	func create(medicine: Medicine) -> Result<Medicine, Error>
+	func delete(medicine: Medicine) -> Result<Bool, Error>
+	func update(medicine: Medicine) -> Result<Medicine, Error>
+	func getMedicines() -> [Medicine]
+
+    func create(cycle: Cycle, medicineId: String, timeManager: TimeManagerPrococol) -> Result<Cycle, Error>
+	func delete(cycle: Cycle) -> Result<Bool, Error>
+	func updateCyle(cycle: Cycle) -> Result<Cycle, Error>
+	func getCycles(medicineId: String) -> [Cycle]
+
+	func create(dose: Dose, cycleId: String) -> Result<Dose, Error>
+	func getDoses(cycleId: String) -> [Dose]
 }
 
 // MARK: - Resetable
 class DBManager {
 
-    static let shared = DBManager()
-    var thread = Thread.current
-    var realm: Realm!
+	static let shared = DBManager()
+	var thread = Thread.current
+	var realm: Realm!
 
-    private init() {
-        setRealmHandlers()
-    }
+	private init() {
+		setRealmHandlers()
+	}
 
-    // MARK: - Cycle
-    func create(cycleDB: CycleDB, onComplete: @escaping () -> Void = {/* Default empty block */}) {
-    }
-    
-    func get(id: Int, onComplete: @escaping (CycleDB) -> Void = { _ in /* Default empty block */}) {
-    }
-    
-    func getCycles(onComplete: @escaping ([CycleDB]) -> Void = { _ in /* Default empty block */}) {
-    }
-    
-    func update(cycleDB: CycleDB, onComplete: @escaping () -> Void = {/* Default empty block */}) {
-    }
-    
-    func getCycles(medicineId:Int) -> [Cycle] {
-        return []
-    }
-    
-    // MARK: - Dose
-    func create(doseDB: DoseDB, onComplete: @escaping () -> Void = {/* Default empty block */}) {
+	// MARK: - Medicine
+    func isEmpty() -> Bool {
         self.resetHandlerIfNecessary()
-        if let foundIssueDB = self.getDose(id: doseDB.id) {
-           // self.rename(issueDB: foundIssueDB, newIssueDB: issueDB, onComplete:onComplete)
-        } else {
-            do {
-                try realm.write({
-                    self.realm.add(doseDB)
-                    onComplete()
-                })
-            } catch {
-                // handle error
-            }
-        }
+        return realm.objects(MedicineDB.self).isEmpty
     }
     
-    func getDoses() -> Results<DoseDB> {
-        self.resetHandlerIfNecessary()
-        return realm.objects(DoseDB.self)
-    }
-    
-    func getDoses(cycleId:Int) -> [DoseDB] {
-        return []
-    }
-    
-    func getDose(id:String) -> DoseDB? {
-        return nil
-    }
-    
-    
-    
-/*
-    // MARK: - IssueDB
-    func create(issueDB: PrescriptionDB, onComplete: @escaping () -> Void = {/* Default empty block */}) {
-        self.resetHandlerIfNecessary()
-        if let foundIssueDB = self.getIssue(route: issueDB.route) {
-            self.rename(issueDB: foundIssueDB, newIssueDB: issueDB, onComplete:onComplete)
-        } else {
-            do {
-                try realm.write({
-                    self.realm.add(issueDB)
-                    onComplete()
-                })
-            } catch {
-                // handle error
-            }
-        }
-    }
+	func create(medicine: Medicine) -> Result<Medicine, Error> {
+		self.resetHandlerIfNecessary()
+		if let medicineDB = self.getMedicineDB(id: medicine.id) {
+			return self.updateDB(medicineDB: medicineDB, medicine: medicine)
+		} else {
+			do {
+				let medicineDB = MedicineDB(medicine: medicine)
+				try realm.write({
+					self.realm.add(medicineDB)
+				})
+				return .success(medicineDB.getMedicine())
+			} catch {
+				return .failure(DBManagerError())
+			}
+		}
+	}
 
-    func getIssues() -> Results<IssueDB> {
+	private func updateDB(medicineDB: MedicineDB, medicine: Medicine) -> Result<Medicine, Error> {
+		self.resetHandlerIfNecessary()
+		guard !(realm.objects(MedicineDB.self).isEmpty) else { return .failure(DBManagerError()) }
+		do {
+			try realm.write({
+				medicineDB.id = medicine.id
+				medicineDB.name = medicine.name
+				medicineDB.unitsBox = medicine.unitsBox
+				medicineDB.interval = medicine.intervalSecs
+				medicineDB.unitsDose = medicine.unitsDose
+				medicineDB.creation = medicine.creation
+				medicineDB.update = Int(Date().timeIntervalSince1970)
+			})
+			return .success(medicineDB.getMedicine())
+		} catch {
+			return .failure(DBManagerError())
+		}
+	}
 
-        self.resetHandlerIfNecessary()
-        return realm.objects(IssueDB.self)
-    }
+	func delete(medicine: Medicine) -> Result<Bool, Error> {
+		guard let medicinesDB = self.getMedicineDB(id: medicine.id) else {
+			return .failure(DBManagerError())
+		}
+		let cyclesDB = realm.objects(CycleDB.self).filter({ $0.medicineId == medicine.id })
+		let dosesDB: [DoseDB] = cyclesDB.map({ self.getDosesDB(cycleId: $0.id) }).flatMap { $0 }
+		do {
+			try realm.write({
+				self.realm.delete(medicinesDB)
+				self.realm.delete(cyclesDB)
+				self.realm.delete(dosesDB)
+			})
+			return .success(true)
+		} catch {
+			return .failure(DBManagerError())
+		}
+	}
 
-    func getIssue(route: String) -> PrescriptionDB? {
+	func update(medicine: Medicine) -> Result<Medicine, Error> {
+		self.resetHandlerIfNecessary()
+		guard let medicineDB = self.getMedicineDB(id: medicine.id) else {
+			return .failure(DBManagerError())
+		}
+		return updateDB(medicineDB: medicineDB, medicine: medicine)
+	}
 
-        self.resetHandlerIfNecessary()
-        guard let uwpFoundMachine = realm.objects(PrescriptionDB.self).filter("route = %@", route).first else {
-            return nil
-        }
+	func getMedicines() -> [Medicine] {
+		self.resetHandlerIfNecessary()
+		return realm.objects(MedicineDB.self).map({ $0.getMedicine() })
+	}
 
-        return uwpFoundMachine
-    }
+	func getMedicineDB(id: String) -> MedicineDB? {
+		self.resetHandlerIfNecessary()
+		return realm.objects(MedicineDB.self).first(where: { $0.id == id })
+	}
 
-    // MARK: - Private/Internal
+	// MARK: - Cycle
+	func create(cycle: Cycle, medicineId: String, timeManager: TimeManagerPrococol) -> Result<Cycle, Error> {
+		self.resetHandlerIfNecessary()
+		if let cycleDB = self.getCycleDB(id: cycle.id) {
+			return self.updateDB(cycleDB: cycleDB, cycle: cycle)
+		} else {
+			do {
+                let cycleDB = CycleDB(cycle: cycle, medicineId: medicineId, timeManager: timeManager)
+				try realm.write({
+					self.realm.add(cycleDB)
+				})
+                let cycle = cycleDB.getCycle()
+				return .success(cycle)
+			} catch {
+				return .failure(DBManagerError())
+			}
+		}
+	}
 
-    func rename(issueDB: PrescriptionDB, newIssueDB: PrescriptionDB, onComplete: @escaping () -> Void) {
-        self.resetHandlerIfNecessary()
-        guard !(realm.objects(PrescriptionDB.self).isEmpty) else { return }
-        do {
-            try realm.write({
-                issueDB.name = newIssueDB.name
-                issueDB.surename = newIssueDB.surename
-                issueDB.email = newIssueDB.email
-                issueDB.timestamp = newIssueDB.timestamp
-                issueDB.report = newIssueDB.report
-                issueDB.phone = newIssueDB.phone
-                onComplete()
-            })
-        } catch {
-            // handle error
-            onComplete()
-        }
-    }
-     */
-    func resetHandlerIfNecessary() {
-        guard thread == Thread.current else {
-            self.setRealmHandlers()
-            thread = Thread.current
-            return
-        }
-    }
+	func delete(cycle: Cycle) -> Result<Bool, Error> {
+		guard let cycleDB = self.getCycleDB(id: cycle.id) else {
+			return .failure(DBManagerError())
+		}
+		let dosesDB = realm.objects(DoseDB.self).filter({ $0.cycleId == cycle.id })
+		do {
+			try realm.write({
+				self.realm.delete(cycleDB)
+				self.realm.delete(dosesDB)
+			})
+			return .success(true)
+		} catch {
+			return .failure(DBManagerError())
+		}
+	}
 
-    func setRealmHandlers() {
-        do {
-            if NSClassFromString("XCTest") != nil {
-                realm = try Realm(configuration: RealmConfig.utest.configuration)
-            } else {
-                realm = try Realm(configuration: RealmConfig.main.configuration)
-            }
-        } catch {
-            // handle error
-            print("REALM ERROR: MIGRATION TO SECURED DDBB WAS NOT POSSIBLE!!!!")
-        }
-    }
+	func updateCyle(cycle: Cycle) -> Result<Cycle, Error> {
+		self.resetHandlerIfNecessary()
+		guard let cycleDB = self.getCycleDB(id: cycle.id) else {
+			return .failure(DBManagerError())
+		}
+		return self.updateDB(cycleDB: cycleDB, cycle: cycle)
+	}
+
+	private func updateDB(cycleDB: CycleDB, cycle: Cycle) -> Result<Cycle, Error> {
+		self.resetHandlerIfNecessary()
+		guard !(realm.objects(CycleDB.self).isEmpty) else { return .failure(DBManagerError()) }
+		do {
+			try realm.write({
+				cycleDB.medicineId = cycle.medicineId
+				cycleDB.unitsConsumed = cycle.unitsConsumed
+				if let nextDose = cycle.nextDose {
+					cycleDB.nextDose = nextDose
+				} else {
+					cycleDB.nextDose = -1
+				}
+				cycleDB.update = cycle.update//Int(Date().timeIntervalSince1970)
+                cycleDB.creation = cycle.creation
+			})
+            let cycle = cycleDB.getCycle()
+			return .success(cycle)
+		} catch {
+			return .failure(DBManagerError())
+		}
+	}
+
+	private func getCycleDB(id: String) -> CycleDB? {
+		self.resetHandlerIfNecessary()
+		return realm.objects(CycleDB.self).first(where: { $0.id == id })
+	}
+
+	func getCycles(medicineId: String) -> [Cycle] {
+		self.resetHandlerIfNecessary()
+		let seq = realm.objects(CycleDB.self).filter({ $0.medicineId == medicineId })
+		let cycles: [Cycle] = seq.map({ $0.getCycle() })
+		return cycles
+	}
+
+	// MARK: - Dose
+	func create(dose: Dose, cycleId: String) -> Result<Dose, Error> {
+		//     let medicineDB = MedicineDB(
+		self.resetHandlerIfNecessary()
+		guard self.getDoseDB(id: dose.id) == nil else {
+			return .failure(DBManagerError())
+		}
+		do {
+			let doseDB = DoseDB(dose: dose, cycleId: cycleId)
+			try realm.write({
+				self.realm.add(doseDB)
+			})
+			return .success(doseDB.getDose())
+		} catch {
+			return .failure(DBManagerError())
+		}
+	}
+
+	private func getDoseDB(id: String) -> DoseDB? {
+		self.resetHandlerIfNecessary()
+		return realm.objects(DoseDB.self).first(where: { $0.id == id })
+	}
+
+	func getDosesDB(cycleId: String) -> [DoseDB] {
+		self.resetHandlerIfNecessary()
+		return realm.objects(DoseDB.self).filter({ $0.cycleId == cycleId })
+	}
+
+	func getDoses(cycleId: String) -> [Dose] {
+		self.resetHandlerIfNecessary()
+		let seq = realm.objects(DoseDB.self).filter({ $0.cycleId == cycleId })
+		let doses: [Dose] = seq.map({ $0.getDose() })
+		return doses
+	}
+
+	// MARK: - Handlers
+	func resetHandlerIfNecessary() {
+		guard thread == Thread.current else {
+			self.setRealmHandlers()
+			thread = Thread.current
+			return
+		}
+	}
+
+	func setRealmHandlers() {
+		do {
+			if NSClassFromString("XCTest") != nil {
+				realm = try Realm(configuration: RealmConfig.utest.configuration)
+			} else {
+				realm = try Realm(configuration: RealmConfig.main.configuration)
+			}
+		} catch {
+			// handle error
+		}
+	}
 }
 
 
 // MARK: - Resetable
 extension DBManager: Resetable {
-    func reset() {
+	func reset() {
 
-        self.resetHandlerIfNecessary()
-        do {
-            try realm.write {
-                realm.deleteAll()
-            }
-        } catch {
-            // handle error
-        }
-    }
+		self.resetHandlerIfNecessary()
+		do {
+			try realm.write {
+				realm.deleteAll()
+			}
+		} catch {
+			// handle error
+		}
+	}
 }
 

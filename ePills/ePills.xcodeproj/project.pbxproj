@@ -24,6 +24,9 @@
 		5E4473D2246EF85100D997A6 /* MedicineDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473CE246EF85100D997A6 /* MedicineDB.swift */; };
 		5E4473D5246EFA0000D997A6 /* CycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473D3246EF9FF00D997A6 /* CycleTests.swift */; };
 		5E4473D6246EFA0000D997A6 /* MedicineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473D4246EF9FF00D997A6 /* MedicineTests.swift */; };
+		5E4473DA246EFFBD00D997A6 /* MedicineDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473D9246EFFBD00D997A6 /* MedicineDBTests.swift */; };
+		5E4473DC246F014300D997A6 /* DBManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473DB246F014300D997A6 /* DBManagerTests.swift */; };
+		5E4473DE246F369900D997A6 /* CycleDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473DD246F369900D997A6 /* CycleDBTests.swift */; };
 		5E55149A2464A5EF00E97DF4 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5514992464A5EF00E97DF4 /* LocalNotificationManager.swift */; };
 		5E55149D2464A9FE00E97DF4 /* StartUpAppSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E55149C2464A9FE00E97DF4 /* StartUpAppSequencer.swift */; };
 		5E5514A22464AA3800E97DF4 /* PresentMainAppOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E55149F2464AA3800E97DF4 /* PresentMainAppOperation.swift */; };
@@ -33,6 +36,7 @@
 		5E5514A82464AE7900E97DF4 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5514A72464AE7900E97DF4 /* UIApplicationExtension.swift */; };
 		5E5514AB2464B75500E97DF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E5514AA2464B75500E97DF4 /* Main.storyboard */; };
 		5E5514BB2468101000E97DF4 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5514BA2468101000E97DF4 /* DateExtension.swift */; };
+		5E685C62247A4891008539D9 /* MainFlowCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E685C61247A4891008539D9 /* MainFlowCoordinatorTests.swift */; };
 		5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB014244B0F3F00F162EB /* AppDelegate.swift */; };
 		5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */; };
 		5E6AB01B244B0F4200F162EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6AB01A244B0F4200F162EB /* Assets.xcassets */; };
@@ -104,6 +108,9 @@
 		5E4473CE246EF85100D997A6 /* MedicineDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicineDB.swift; sourceTree = "<group>"; };
 		5E4473D3246EF9FF00D997A6 /* CycleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleTests.swift; sourceTree = "<group>"; };
 		5E4473D4246EF9FF00D997A6 /* MedicineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicineTests.swift; sourceTree = "<group>"; };
+		5E4473D9246EFFBD00D997A6 /* MedicineDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineDBTests.swift; sourceTree = "<group>"; };
+		5E4473DB246F014300D997A6 /* DBManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManagerTests.swift; sourceTree = "<group>"; };
+		5E4473DD246F369900D997A6 /* CycleDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleDBTests.swift; sourceTree = "<group>"; };
 		5E5514992464A5EF00E97DF4 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		5E55149C2464A9FE00E97DF4 /* StartUpAppSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartUpAppSequencer.swift; sourceTree = "<group>"; };
 		5E55149F2464AA3800E97DF4 /* PresentMainAppOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentMainAppOperation.swift; sourceTree = "<group>"; };
@@ -113,6 +120,7 @@
 		5E5514A72464AE7900E97DF4 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		5E5514AA2464B75500E97DF4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5E5514BA2468101000E97DF4 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		5E685C61247A4891008539D9 /* MainFlowCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowCoordinatorTests.swift; sourceTree = "<group>"; };
 		5E6AB011244B0F3F00F162EB /* ePills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ePills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6AB014244B0F3F00F162EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +210,7 @@
 		5E3B7AD52459FE1700541AB4 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5E685C60247A487B008539D9 /* Coordinator */,
 				5E5514BC2468379600E97DF4 /* Managers */,
 				5E3B7AD62459FE3F00541AB4 /* Interactors */,
 			);
@@ -289,6 +298,24 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
+		5E4473D7246EFF5000D997A6 /* DBManager */ = {
+			isa = PBXGroup;
+			children = (
+				5E4473DB246F014300D997A6 /* DBManagerTests.swift */,
+				5E4473D8246EFF9A00D997A6 /* Models */,
+			);
+			path = DBManager;
+			sourceTree = "<group>";
+		};
+		5E4473D8246EFF9A00D997A6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5E4473D9246EFFBD00D997A6 /* MedicineDBTests.swift */,
+				5E4473DD246F369900D997A6 /* CycleDBTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		5E55149B2464A93400E97DF4 /* Sequencer */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +355,14 @@
 			children = (
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		5E685C60247A487B008539D9 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				5E685C61247A4891008539D9 /* MainFlowCoordinatorTests.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		5E6AB008244B0F3F00F162EB = {
@@ -474,10 +509,10 @@
 		5ED44B4A2454154F00081B36 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5ED44B4B2454158500081B36 /* DataManager.swift */,
 				5E4473C4246EF7E000D997A6 /* DBManager */,
 				5EFE810A2454D11B00D44F53 /* Protocols */,
 				5ED44B4D245415C100081B36 /* Models */,
-				5ED44B4B2454158500081B36 /* DataManager.swift */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -572,8 +607,9 @@
 		5EFE81072454CEB200D44F53 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				5E8EECE12456256500398832 /* Model */,
 				5EFE81082454CF6D00D44F53 /* DataManagerTests.swift */,
+				5E4473D7246EFF5000D997A6 /* DBManager */,
+				5E8EECE12456256500398832 /* Model */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -895,8 +931,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E4473DE246F369900D997A6 /* CycleDBTests.swift in Sources */,
+				5E685C62247A4891008539D9 /* MainFlowCoordinatorTests.swift in Sources */,
+				5E4473DA246EFFBD00D997A6 /* MedicineDBTests.swift in Sources */,
 				5E3B7ADC245A26A000541AB4 /* PrescriptionInteractorMock.swift in Sources */,
 				5EFE81022454C12800D44F53 /* PrescriptionFormVMTests.swift in Sources */,
+				5E4473DC246F014300D997A6 /* DBManagerTests.swift in Sources */,
 				5E4473D5246EFA0000D997A6 /* CycleTests.swift in Sources */,
 				5E4473D6246EFA0000D997A6 /* MedicineTests.swift in Sources */,
 				5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */,

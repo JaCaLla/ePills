@@ -17,9 +17,7 @@ class PresentMainAppOperation: ConcurrentOperation {
 
     override func main() {
         DispatchQueue.main.async {
-              MainFlowCoordinator.shared.start()
-            
-            
+            MainFlowCoordinator.shared.start(dataManager: DataManager.shared)
               self.state = .finished
           }
     }

@@ -26,9 +26,9 @@ class cycleInteractorTests: XCTestCase {
 
     func test_addcycleWhenDataManagerMock() throws {
         let medicine = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
         sut.add(medicine: medicine)
         XCTAssertEqual(dataManagerMock.addCount, 1)
     }
@@ -39,16 +39,16 @@ class cycleInteractorTests: XCTestCase {
 
         let expecteds: [[Medicine]] = [
             [Medicine(name: "a",
-                          unitsBox: 10,
-                          intervalSecs: 8,
-                          unitsDose: 1)]]
+                      unitsBox: 10,
+                      intervalSecs: 8,
+                      unitsDose: 1)]]
         var expetedsIdx = 0
 
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
-        sut.getMedicines()
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
@@ -61,15 +61,15 @@ class cycleInteractorTests: XCTestCase {
 
             }).store(in: &cancellables)
         // When
-        sut.add(medicine: cycle)
+        sut.add(medicine: medicine)
         wait(for: [expectation], timeout: 0.1)
     }
 
     func test_removecycleWhenDataManagerMock() throws {
         let medicine = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
         sut.remove(medicine: medicine)
         XCTAssertEqual(dataManagerMock.removeCount, 1)
     }
@@ -78,95 +78,95 @@ class cycleInteractorTests: XCTestCase {
         let expectation = XCTestExpectation(description: self.debugDescription)
         sut = PrescriptionInteractor(dataManager: DataManager.shared)
 
+        
         let expecteds: [[Medicine]] = [
             [Medicine(name: "a",
-                          unitsBox: 10,
-                          intervalSecs: 8,
-                          unitsDose: 1)],
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)],
             [Medicine(name: "a",
-                          unitsBox: 10,
-                          intervalSecs: 8,
-                          unitsDose: 1)],
+                      unitsBox: 10,
+                      intervalSecs: 8,
+                      unitsDose: 1)],
             []]
         var expetedsIdx = 0
+        
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        let medicine2 = Medicine(name: "b",
+                                 unitsBox: 10,
+                                 intervalSecs: 8,
+                                 unitsDose: 1)
+       
 
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
-        let cycle2 = Medicine(name: "b",
-                                         unitsBox: 10,
-                                         intervalSecs: 8,
-                                         unitsDose: 1)
-        sut.getMedicines()
+        sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
-                guard expetedsIdx < expecteds.count else { return }
-                XCTAssertEqual(expecteds[expetedsIdx], someValue)
-                expetedsIdx += 1
-                if expetedsIdx >= expecteds.count {
-                    expectation.fulfill()
-                }
-
+                guard expetedsIdx < expecteds.count else {  /*XCTFail();*/ expectation.fulfill(); return }
+                               XCTAssertEqual(expecteds[expetedsIdx], someValue)
+                               expetedsIdx += 1
+                               if expetedsIdx >= expecteds.count {
+                                   expectation.fulfill()
+                               }
             }).store(in: &cancellables)
         // When
-        sut.add(medicine: cycle)
-        sut.remove(medicine: cycle2)
-        sut.remove(medicine: cycle)
-        wait(for: [expectation], timeout: 0.1)
+        guard let createdMedicine = sut.add(medicine: medicine) else { XCTFail(); return }
+               sut.remove(medicine: medicine2)
+        sut.remove(medicine: createdMedicine)
+        wait(for: [expectation], timeout: 1.0)
     }
 
     func test_updatecycleWhenDataManagerMock() throws {
-        let cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
-        sut.update(medicine: cycle)
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        sut.update(medicine: medicine)
         XCTAssertEqual(dataManagerMock.updateCount, 1)
     }
 
     func test_updatecycleWhenDataManagerReal() throws {
-        let expectation = XCTestExpectation(description: self.debugDescription)
+         let asyncExpectation = expectation(description: "\(#function)")
+
         sut = PrescriptionInteractor(dataManager: DataManager.shared)
 
-        let expecteds: [[Medicine]] = [
-            [/*Medicine(name: "a",
-                          unitsBox: 10,
-                          intervalSecs: 8,
-                          unitsDose: 1)],*/
-            Medicine(name: "nameUpdated",
-                          unitsBox: 20,
-                          intervalSecs: 2,
-                          unitsDose: 2)]
-        ]
-        var expetedsIdx = 0
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
 
-        var cycle = Medicine(name: "a",
-                                        unitsBox: 10,
-                                        intervalSecs: 8,
-                                        unitsDose: 1)
-          sut.add(medicine: cycle)
-        sut.getMedicines()
+        let expecteds: [[Medicine]] = [
+            [Medicine(name: "nameUpdated",
+                      unitsBox: 20,
+                      intervalSecs: 2,
+                      unitsDose: 2)]]
+        var expetedsIdx = 0
+        
+        guard let createdMedicine = sut.add(medicine: medicine) else { XCTFail();  asyncExpectation.fulfill();  return }
+
+        sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
-               // guard expetedsIdx < expecteds.count else { return }
-                XCTAssertEqual([Medicine(name: "nameUpdated",
-                unitsBox: 20,
-                intervalSecs: 2,
-                unitsDose: 2)], someValue)
-                expectation.fulfill()
-
+                guard let medicine = someValue.first else { XCTFail(); asyncExpectation.fulfill(); return }
+                XCTAssertEqual(medicine.name, "nameUpdated")
+                XCTAssertEqual(medicine.unitsBox, 20)
+                XCTAssertEqual(medicine.intervalSecs, 2)
+                XCTAssertEqual(medicine.unitsDose, 2)
+                asyncExpectation.fulfill()
+                
             }).store(in: &cancellables)
         // When
-      
-        cycle.name = "nameUpdated"
-        cycle.unitsBox = 20
-        cycle.intervalSecs = 2
-        cycle.unitsDose = 2
-        sut.update(medicine: cycle)
-        wait(for: [expectation], timeout: 100.1)
+        createdMedicine.name = "nameUpdated"
+        createdMedicine.unitsBox = 20
+        createdMedicine.intervalSecs = 2
+        createdMedicine.unitsDose = 2
+        sut.update(medicine: createdMedicine)
+
+         self.waitForExpectations(timeout: 2.0, handler: nil)
     }
     
     func test_getIntervals_en() throws {

@@ -10,16 +10,16 @@ import XCTest
 
 class CycleTests: XCTestCase {
 
-    var sut: Cycle!
+	var sut: Cycle!
 
-    override func setUpWithError() throws {
+	override func setUpWithError() throws {
 
-        sut = Cycle()
-    }
+		sut = Cycle(unitsConsumed: 0, nextDose: nil)
+	}
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+	override func tearDownWithError() throws {
+		// Put teardown code here. This method is called after the invocation of each test method in the class.
+	}
 
 //    func test_defaultConstructor() throws {
 //        XCTAssertEqual(sut.name, "asdfg")
@@ -310,11 +310,11 @@ class CycleTests: XCTestCase {
 //        sut.takeDose(timeManager: timeManager)
 //        XCTAssertEqual(sut.getRemainingDays(timeManager: timeManager), -1)
 //    }
-//    
+//
 //    func test_isLastOrLastPrescription() {
 //        XCTAssertTrue(sut.isFirst())
 //        XCTAssertFalse(sut.isLast())
-//        
+//
 //        XCTAssertNil(sut.nextDose)
 //        let timeManager = TimeManager()
 //        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
@@ -322,9 +322,9 @@ class CycleTests: XCTestCase {
 //        sut.unitsBox = 1
 //        sut.unitsDose = 1
 //        sut.takeDose(timeManager: timeManager)
-//        
+//
 //        XCTAssertFalse(sut.isFirst())
 //        XCTAssertTrue(sut.isLast())
 //    }
-  
+
 }

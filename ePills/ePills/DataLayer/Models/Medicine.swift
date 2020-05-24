@@ -10,7 +10,7 @@ import Foundation
 
 class Medicine: Identifiable {
 
-	var id: String = UUID().uuidString
+	var id: String = ""
 	var name: String
 	var unitsBox: Int
 	var unitsDose: Int
@@ -25,7 +25,7 @@ class Medicine: Identifiable {
 		self.unitsBox = unitsBox
 		self.intervalSecs = intervalSecs
 		self.unitsDose = unitsDose
-		self.currentCycle = Cycle()
+		self.currentCycle = Cycle(unitsConsumed: 0, nextDose: nil)
 	}
 
 	func getState(timeManager: TimeManagerPrococol = TimeManager()) -> CyclesState {
@@ -38,7 +38,8 @@ class Medicine: Identifiable {
 			if timeManager.timeIntervalSince1970() > nextDose {
 				return .ongoingEllapsed
 			} else {
-				return timeManager.timeIntervalSince1970() > nextDose - Cycle.Constants.ongoingReadyOffset ? . ongoingReady: .ongoing
+                let currentTime = timeManager.timeIntervalSince1970()
+				return currentTime > nextDose - Cycle.Constants.ongoingReadyOffset ? . ongoingReady: .ongoing
 			}
 		}
 	}
@@ -77,6 +78,6 @@ extension Medicine: Equatable {
 			lhs.unitsBox == rhs.unitsBox &&
 			lhs.intervalSecs == rhs.intervalSecs &&
 			lhs.unitsDose == rhs.unitsDose //&&
-			//lhs.currentCycle == rhs.currentCycle
+		//lhs.currentCycle == rhs.currentCycle
 	}
 }

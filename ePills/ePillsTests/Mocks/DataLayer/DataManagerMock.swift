@@ -15,9 +15,13 @@ class DataManagerMock: DataManagerProtocol {
     var removeCount: Int = 0
     var updateCount: Int = 0
     var getPrescriptionsCount: Int = 0
+    var publishMedicinesCount: Int = 0
+    var isEmptyCount: Int = 0
+    var addDoseCount: Int = 0
 
-    func add(medicine: Medicine) {
+    func add(medicine: Medicine) -> Medicine? {
         addCount += 1
+        return nil
     }
 
     func remove(medicine: Medicine) {
@@ -28,8 +32,22 @@ class DataManagerMock: DataManagerProtocol {
         updateCount += 1
     }
 
-    func getMedicines() -> AnyPublisher<[Medicine], Never> {
+    func getMedicinesPublisher() -> AnyPublisher<[Medicine], Never> {
         getPrescriptionsCount += 1
         return Just([]).eraseToAnyPublisher()
+    }
+    
+    func flushMedicines() {
+        publishMedicinesCount  += 1
+    }
+    
+    func isEmpty() -> Bool {
+         isEmptyCount += 1
+        return addCount == 0
+      }
+    
+    func add(dose: Dose, medicine: Medicine) -> Dose? {
+        addDoseCount += 1
+        return nil
     }
 }
