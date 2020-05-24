@@ -12,8 +12,8 @@ import UserNotifications
 
 protocol LocalNotificationManagerProtocol {
     func requestAuthorization(onComplete: @escaping (() -> Void))
-    func addNotification(prescription: Prescription, onComplete: @escaping ((Bool) -> Void))
-    func removeNotification(prescription: Prescription)
+    func addNotification(prescription: Medicine, onComplete: @escaping ((Bool) -> Void))
+    func removeNotification(prescription: Medicine)
 }
 
 public final class LocalNotificationManager: NSObject {
@@ -46,14 +46,14 @@ extension LocalNotificationManager : LocalNotificationManagerProtocol {
       }
     }
     
-    func removeNotification(prescription: Prescription) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [prescription.id.uuidString])
+    func removeNotification(prescription: Medicine) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [prescription.id])
     }
     
-    func addNotification(prescription: Prescription, onComplete: @escaping ((Bool) -> Void)) {
+    func addNotification(prescription: Medicine, onComplete: @escaping ((Bool) -> Void)) {
         guard !prescription.isLast() else { return }
         
-        let date = Date(timeIntervalSinceNow: TimeInterval(prescription.interval.secs - Prescription.Constants.ongoingReadyOffset))
+        let date = Date(timeIntervalSinceNow: TimeInterval(prescription.intervalSecs - Cycle.Constants.ongoingReadyOffset))
         let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
         
@@ -73,7 +73,7 @@ extension LocalNotificationManager : LocalNotificationManagerProtocol {
 //        ]
         content.sound = UNNotificationSound.default
         
-        let identifier = prescription.id.uuidString//UUID().uuidString
+        let identifier = prescription.id//UUID().uuidString
         let request = UNNotificationRequest(identifier: identifier,
                                             content: content,
                                             trigger: trigger)

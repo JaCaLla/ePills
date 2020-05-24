@@ -1,5 +1,5 @@
 //
-//  PrescriptionInteractorTests.swift
+//  cycleInteractorTests.swift
 //  ePillsTests
 //
 //  Created by Javier Calatrava on 29/04/2020.
@@ -9,7 +9,7 @@
 import XCTest
 import Combine
 
-class PrescriptionInteractorTests: XCTestCase {
+class cycleInteractorTests: XCTestCase {
 
     var sut: PrescriptionInteractor!
     var dataManagerMock: DataManagerMock = DataManagerMock()
@@ -24,31 +24,31 @@ class PrescriptionInteractorTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func test_addPrescriptionWhenDataManagerMock() throws {
-        let prescription = Prescription(name: "a",
-                                        unitsBox: 10,
-                                        interval: Interval(secs: 8, label: "8 hours"),
-                                        unitsDose: 1)
-        sut.add(prescription: prescription)
+    func test_addcycleWhenDataManagerMock() throws {
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        sut.add(medicine: medicine)
         XCTAssertEqual(dataManagerMock.addCount, 1)
     }
 
-    func test_addPrescriptionWhenDataManagerReal() throws {
+    func test_addcycleWhenDataManagerReal() throws {
         let expectation = XCTestExpectation(description: self.debugDescription)
         sut = PrescriptionInteractor(dataManager: DataManager.shared)
 
-        let expecteds: [[Prescription]] = [
-            [Prescription(name: "a",
-                          unitsBox: 10,
-                          interval: Interval(secs: 8, label: "8 hours"),
-                          unitsDose: 1)]]
+        let expecteds: [[Medicine]] = [
+            [Medicine(name: "a",
+                      unitsBox: 10,
+                      intervalSecs: 8,
+                      unitsDose: 1)]]
         var expetedsIdx = 0
 
-        let prescription = Prescription(name: "a",
-                                        unitsBox: 10,
-                                        interval: Interval(secs: 8, label: "8 hours"),
-                                        unitsDose: 1)
-        sut.getPrescriptions()
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
@@ -61,110 +61,140 @@ class PrescriptionInteractorTests: XCTestCase {
 
             }).store(in: &cancellables)
         // When
-        sut.add(prescription: prescription)
+        sut.add(medicine: medicine)
         wait(for: [expectation], timeout: 0.1)
     }
 
-    func test_removePrescriptionWhenDataManagerMock() throws {
-        let prescription = Prescription(name: "a",
-                                        unitsBox: 10,
-                                        interval: Interval(secs: 8, label: "8 hours"),
-                                        unitsDose: 1)
-        sut.remove(prescription: prescription)
+    func test_removecycleWhenDataManagerMock() throws {
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        sut.remove(medicine: medicine)
         XCTAssertEqual(dataManagerMock.removeCount, 1)
     }
 
-    func test_removePrescriptionWhenDataManagerReal() throws {
+    func test_removecycleWhenDataManagerReal() throws {
         let expectation = XCTestExpectation(description: self.debugDescription)
         sut = PrescriptionInteractor(dataManager: DataManager.shared)
 
-        let expecteds: [[Prescription]] = [
-            [Prescription(name: "a",
-                          unitsBox: 10,
-                          interval: Interval(secs: 8, label: "8 hours"),
-                          unitsDose: 1)],
-            [Prescription(name: "a",
-                          unitsBox: 10,
-                          interval: Interval(secs: 8, label: "8 hours"),
-                          unitsDose: 1)],
+        
+        let expecteds: [[Medicine]] = [
+            [Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)],
+            [Medicine(name: "a",
+                      unitsBox: 10,
+                      intervalSecs: 8,
+                      unitsDose: 1)],
             []]
         var expetedsIdx = 0
+        
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        let medicine2 = Medicine(name: "b",
+                                 unitsBox: 10,
+                                 intervalSecs: 8,
+                                 unitsDose: 1)
+       
 
-        let prescription = Prescription(name: "a",
-                                        unitsBox: 10,
-                                        interval: Interval(secs: 8, label: "8 hours"),
-                                        unitsDose: 1)
-        let prescription2 = Prescription(name: "b",
-                                         unitsBox: 10,
-                                         interval: Interval(secs: 8, label: "8 hours"),
-                                         unitsDose: 1)
-        sut.getPrescriptions()
+        sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
-                guard expetedsIdx < expecteds.count else { return }
-                XCTAssertEqual(expecteds[expetedsIdx], someValue)
-                expetedsIdx += 1
-                if expetedsIdx >= expecteds.count {
-                    expectation.fulfill()
-                }
-
+                guard expetedsIdx < expecteds.count else {  /*XCTFail();*/ expectation.fulfill(); return }
+                               XCTAssertEqual(expecteds[expetedsIdx], someValue)
+                               expetedsIdx += 1
+                               if expetedsIdx >= expecteds.count {
+                                   expectation.fulfill()
+                               }
             }).store(in: &cancellables)
         // When
-        sut.add(prescription: prescription)
-        sut.remove(prescription: prescription2)
-        sut.remove(prescription: prescription)
-        wait(for: [expectation], timeout: 0.1)
+        guard let createdMedicine = sut.add(medicine: medicine) else { XCTFail(); return }
+               sut.remove(medicine: medicine2)
+        sut.remove(medicine: createdMedicine)
+        wait(for: [expectation], timeout: 1.0)
     }
 
-    func test_updatePrescriptionWhenDataManagerMock() throws {
-        let prescription = Prescription(name: "a",
-                                        unitsBox: 10,
-                                        interval: Interval(secs: 8, label: "8 hours"),
-                                        unitsDose: 1)
-        sut.update(prescription: prescription)
+    func test_updatecycleWhenDataManagerMock() throws {
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        sut.update(medicine: medicine)
         XCTAssertEqual(dataManagerMock.updateCount, 1)
     }
 
-    func test_updatePrescriptionWhenDataManagerReal() throws {
-        let expectation = XCTestExpectation(description: self.debugDescription)
+    func test_updatecycleWhenDataManagerReal() throws {
+         let asyncExpectation = expectation(description: "\(#function)")
+
         sut = PrescriptionInteractor(dataManager: DataManager.shared)
 
-        let expecteds: [[Prescription]] = [
-            [Prescription(name: "a",
-                          unitsBox: 10,
-                          interval: Interval(secs: 8, label: "8 hours"),
-                          unitsDose: 1)],
-            [Prescription(name: "nameUpdated",
-                          unitsBox: 20,
-                          interval: Interval(secs: 2, label: "2 hours"),
-                          unitsDose: 2)]
-        ]
-        var expetedsIdx = 0
+        let medicine = Medicine(name: "a",
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
 
-        var prescription = Prescription(name: "a",
-                                        unitsBox: 10,
-                                        interval: Interval(secs: 8, label: "8 hours"),
-                                        unitsDose: 1)
-        sut.getPrescriptions()
+        let expecteds: [[Medicine]] = [
+            [Medicine(name: "nameUpdated",
+                      unitsBox: 20,
+                      intervalSecs: 2,
+                      unitsDose: 2)]]
+        var expetedsIdx = 0
+        
+        guard let createdMedicine = sut.add(medicine: medicine) else { XCTFail();  asyncExpectation.fulfill();  return }
+
+        sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
-                guard expetedsIdx < expecteds.count else { return }
-                XCTAssertEqual(expecteds[expetedsIdx], someValue)
-                expetedsIdx += 1
-                if expetedsIdx >= expecteds.count {
-                    expectation.fulfill()
-                }
-
+                guard let medicine = someValue.first else { XCTFail(); asyncExpectation.fulfill(); return }
+                XCTAssertEqual(medicine.name, "nameUpdated")
+                XCTAssertEqual(medicine.unitsBox, 20)
+                XCTAssertEqual(medicine.intervalSecs, 2)
+                XCTAssertEqual(medicine.unitsDose, 2)
+                asyncExpectation.fulfill()
+                
             }).store(in: &cancellables)
         // When
-        sut.add(prescription: prescription)
-        prescription.name = "nameUpdated"
-        prescription.unitsBox = 20
-        prescription.interval = Interval(secs: 2, label: "2 hours")
-        prescription.unitsDose = 2
-        sut.update(prescription: prescription)
-        wait(for: [expectation], timeout: 100.1)
+        createdMedicine.name = "nameUpdated"
+        createdMedicine.unitsBox = 20
+        createdMedicine.intervalSecs = 2
+        createdMedicine.unitsDose = 2
+        sut.update(medicine: createdMedicine)
+
+         self.waitForExpectations(timeout: 2.0, handler: nil)
+    }
+    
+    func test_getIntervals_en() throws {
+        // Update the language by swaping bundle
+        Bundle.setLanguage(lang: "en")
+        // When
+        let intervals = sut.getIntervals()
+        guard intervals.count == 9 else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(intervals[0].secs, 30)
+        XCTAssertEqual(intervals[0].label, "_30 Secs")
+        XCTAssertEqual(intervals[1].secs, 3600)
+        XCTAssertEqual(intervals[1].label, "1 Hour")
+        XCTAssertEqual(intervals[2].secs, 7200)
+        XCTAssertEqual(intervals[2].label, "2 Hours")
+        XCTAssertEqual(intervals[3].secs, 14400)
+        XCTAssertEqual(intervals[3].label, "4 Hours")
+        XCTAssertEqual(intervals[4].secs, 21600)
+        XCTAssertEqual(intervals[4].label, "6 Hours")
+        XCTAssertEqual(intervals[5].secs, 28800)
+        XCTAssertEqual(intervals[5].label, "8 Hours")
+        XCTAssertEqual(intervals[6].secs, 43200)
+        XCTAssertEqual(intervals[6].label, "12 Hours")
+        XCTAssertEqual(intervals[7].secs, 86400)
+        XCTAssertEqual(intervals[7].label, "1 Day")
+        XCTAssertEqual(intervals[8].secs, 172800)
+        XCTAssertEqual(intervals[8].label, "2 Days")
     }
 }
