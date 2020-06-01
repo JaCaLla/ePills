@@ -19,4 +19,13 @@ extension String {
                                  value: "",
                                  comment: "")
     }
+    
+    func toDate(format: String) -> Date? {
+        let dateformat = DateFormatter()
+       // dateformat.timeZone = TimeZone(abbreviation: "UTC")
+       // dateformat.locale = Locale(identifier: "en_US_POSIX")
+        dateformat.calendar = Calendar(identifier: .gregorian)
+        dateformat.dateFormat = format
+       return dateformat.date(from: self)
+    }
 }

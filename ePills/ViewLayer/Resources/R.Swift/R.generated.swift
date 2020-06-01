@@ -9,17 +9,121 @@ import UIKit
 
 /// This `R` struct is generated and contains references to static resources.
 struct R: Rswift.Validatable {
-  fileprivate static let applicationLocale = hostingBundle.preferredLocalizations.first.flatMap(Locale.init) ?? Locale.current
+  fileprivate static let applicationLocale = hostingBundle.preferredLocalizations.first.flatMap { Locale(identifier: $0) } ?? Locale.current
   fileprivate static let hostingBundle = Bundle(for: R.Class.self)
-  
+
+  /// Find first language and bundle for which the table exists
+  fileprivate static func localeBundle(tableName: String, preferredLanguages: [String]) -> (Foundation.Locale, Foundation.Bundle)? {
+    // Filter preferredLanguages to localizations, use first locale
+    var languages = preferredLanguages
+      .map { Locale(identifier: $0) }
+      .prefix(1)
+      .flatMap { locale -> [String] in
+        if hostingBundle.localizations.contains(locale.identifier) {
+          if let language = locale.languageCode, hostingBundle.localizations.contains(language) {
+            return [locale.identifier, language]
+          } else {
+            return [locale.identifier]
+          }
+        } else if let language = locale.languageCode, hostingBundle.localizations.contains(language) {
+          return [language]
+        } else {
+          return []
+        }
+      }
+
+    // If there's no languages, use development language as backstop
+    if languages.isEmpty {
+      if let developmentLocalization = hostingBundle.developmentLocalization {
+        languages = [developmentLocalization]
+      }
+    } else {
+      // Insert Base as second item (between locale identifier and languageCode)
+      languages.insert("Base", at: 1)
+
+      // Add development language as backstop
+      if let developmentLocalization = hostingBundle.developmentLocalization {
+        languages.append(developmentLocalization)
+      }
+    }
+
+    // Find first language for which table exists
+    // Note: key might not exist in chosen language (in that case, key will be shown)
+    for language in languages {
+      if let lproj = hostingBundle.url(forResource: language, withExtension: "lproj"),
+         let lbundle = Bundle(url: lproj)
+      {
+        let strings = lbundle.url(forResource: tableName, withExtension: "strings")
+        let stringsdict = lbundle.url(forResource: tableName, withExtension: "stringsdict")
+
+        if strings != nil || stringsdict != nil {
+          return (Locale(identifier: language), lbundle)
+        }
+      }
+    }
+
+    // If table is available in main bundle, don't look for localized resources
+    let strings = hostingBundle.url(forResource: tableName, withExtension: "strings", subdirectory: nil, localization: nil)
+    let stringsdict = hostingBundle.url(forResource: tableName, withExtension: "stringsdict", subdirectory: nil, localization: nil)
+
+    if strings != nil || stringsdict != nil {
+      return (applicationLocale, hostingBundle)
+    }
+
+    // If table is not found for requested languages, key will be shown
+    return nil
+  }
+
+  /// Load string from Info.plist file
+  fileprivate static func infoPlistString(path: [String], key: String) -> String? {
+    var dict = hostingBundle.infoDictionary
+    for step in path {
+      guard let obj = dict?[step] as? [String: Any] else { return nil }
+      dict = obj
+    }
+    return dict?[key] as? String
+  }
+
   static func validate() throws {
     try intern.validate()
   }
-  
-  /// This `R.color` struct is generated, and contains static references to 7 colors.
+
+  #if os(iOS) || os(tvOS)
+  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  struct storyboard {
+    /// Storyboard `LaunchScreen`.
+    static let launchScreen = _R.storyboard.launchScreen()
+    /// Storyboard `Main`.
+    static let main = _R.storyboard.main()
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
+    static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.launchScreen)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "Main", bundle: ...)`
+    static func main(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.main)
+    }
+    #endif
+
+    fileprivate init() {}
+  }
+  #endif
+
+  /// This `R.color` struct is generated, and contains static references to 10 colors.
   struct color {
     /// Color `ColorBlack`.
     static let colorBlack = Rswift.ColorResource(bundle: R.hostingBundle, name: "ColorBlack")
+    /// Color `ColorBlueLight`.
+    static let colorBlueLight = Rswift.ColorResource(bundle: R.hostingBundle, name: "ColorBlueLight")
+    /// Color `ColorBlue`.
+    static let colorBlue = Rswift.ColorResource(bundle: R.hostingBundle, name: "ColorBlue")
+    /// Color `ColorGray25`.
+    static let colorGray25 = Rswift.ColorResource(bundle: R.hostingBundle, name: "ColorGray25")
     /// Color `ColorGray50Semi`.
     static let colorGray50Semi = Rswift.ColorResource(bundle: R.hostingBundle, name: "ColorGray50Semi")
     /// Color `ColorGray50`.
@@ -32,710 +136,1198 @@ struct R: Rswift.Validatable {
     static let colorRed = Rswift.ColorResource(bundle: R.hostingBundle, name: "ColorRed")
     /// Color `ColorWhite`.
     static let colorWhite = Rswift.ColorResource(bundle: R.hostingBundle, name: "ColorWhite")
-    
+
+    #if os(iOS) || os(tvOS)
     /// `UIColor(named: "ColorBlack", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
     static func colorBlack(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.colorBlack, compatibleWith: traitCollection)
     }
-    
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "ColorBlue", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func colorBlue(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.colorBlue, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "ColorBlueLight", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func colorBlueLight(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.colorBlueLight, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "ColorGray25", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func colorGray25(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.colorGray25, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIColor(named: "ColorGray50", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
     static func colorGray50(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.colorGray50, compatibleWith: traitCollection)
     }
-    
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIColor(named: "ColorGray50Semi", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
     static func colorGray50Semi(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.colorGray50Semi, compatibleWith: traitCollection)
     }
-    
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIColor(named: "ColorGreen", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
     static func colorGreen(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.colorGreen, compatibleWith: traitCollection)
     }
-    
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIColor(named: "ColorOrange", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
     static func colorOrange(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.colorOrange, compatibleWith: traitCollection)
     }
-    
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIColor(named: "ColorRed", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
     static func colorRed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.colorRed, compatibleWith: traitCollection)
     }
-    
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIColor(named: "ColorWhite", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
     static func colorWhite(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.colorWhite, compatibleWith: traitCollection)
     }
-    
+    #endif
+
     fileprivate init() {}
   }
-  
-  /// This `R.image` struct is generated, and contains static references to 2 images.
+
+  /// This `R.image` struct is generated, and contains static references to 3 images.
   struct image {
     /// Image `background`.
     static let background = Rswift.ImageResource(bundle: R.hostingBundle, name: "background")
+    /// Image `circle`.
+    static let circle = Rswift.ImageResource(bundle: R.hostingBundle, name: "circle")
     /// Image `glass`.
     static let glass = Rswift.ImageResource(bundle: R.hostingBundle, name: "glass")
-    
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "background", bundle: ..., traitCollection: ...)`
     static func background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.background, compatibleWith: traitCollection)
     }
-    
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "circle", bundle: ..., traitCollection: ...)`
+    static func circle(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.circle, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "glass", bundle: ..., traitCollection: ...)`
     static func glass(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.glass, compatibleWith: traitCollection)
     }
-    
+    #endif
+
     fileprivate init() {}
   }
-  
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
-  struct storyboard {
-    /// Storyboard `LaunchScreen`.
-    static let launchScreen = _R.storyboard.launchScreen()
-    /// Storyboard `Main`.
-    static let main = _R.storyboard.main()
-    
-    /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
-    static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.launchScreen)
+
+  /// This `R.info` struct is generated, and contains static references to 1 properties.
+  struct info {
+    struct uiApplicationSceneManifest {
+      static let _key = "UIApplicationSceneManifest"
+      static let uiApplicationSupportsMultipleScenes = false
+
+      struct uiSceneConfigurations {
+        static let _key = "UISceneConfigurations"
+
+        struct uiWindowSceneSessionRoleApplication {
+          struct defaultConfiguration {
+            static let _key = "Default Configuration"
+            static let uiSceneConfigurationName = infoPlistString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication", "Default Configuration"], key: "UISceneConfigurationName") ?? "Default Configuration"
+            static let uiSceneDelegateClassName = infoPlistString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication", "Default Configuration"], key: "UISceneDelegateClassName") ?? "$(PRODUCT_MODULE_NAME).SceneDelegate"
+            static let uiSceneStoryboardFile = infoPlistString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication", "Default Configuration"], key: "UISceneStoryboardFile") ?? "Main"
+
+            fileprivate init() {}
+          }
+
+          fileprivate init() {}
+        }
+
+        fileprivate init() {}
+      }
+
+      fileprivate init() {}
     }
-    
-    /// `UIStoryboard(name: "Main", bundle: ...)`
-    static func main(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.main)
-    }
-    
+
     fileprivate init() {}
   }
-  
+
   /// This `R.string` struct is generated, and contains static references to 2 localization tables.
   struct string {
     /// This `R.string.launchScreen` struct is generated, and contains static references to 0 localization keys.
     struct launchScreen {
       fileprivate init() {}
     }
-    
-    /// This `R.string.localizable` struct is generated, and contains static references to 49 localization keys.
+
+    /// This `R.string.localizable` struct is generated, and contains static references to 50 localization keys.
     struct localizable {
       /// en translation: 1 Day
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_interval_list_1_day = Rswift.StringResource(key: "prescription_form_interval_list_1_day", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: 1 Hour
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_interval_list_1_hour = Rswift.StringResource(key: "prescription_form_interval_list_1_hour", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: 12 Hours
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_interval_list_12_hours = Rswift.StringResource(key: "prescription_form_interval_list_12_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: 2 Days
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_interval_list_2_days = Rswift.StringResource(key: "prescription_form_interval_list_2_days", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: 2 Hours
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_interval_list_2_hours = Rswift.StringResource(key: "prescription_form_interval_list_2_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: 3 Hours
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_interval_list_3_hours = Rswift.StringResource(key: "prescription_form_interval_list_3_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: 4 Hours
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_interval_list_4_hours = Rswift.StringResource(key: "prescription_form_interval_list_4_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: 6 Hours
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_interval_list_6_hours = Rswift.StringResource(key: "prescription_form_interval_list_6_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: 8 Hours
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_interval_list_8_hours = Rswift.StringResource(key: "prescription_form_interval_list_8_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: > Month
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_more_than_month = Rswift.StringResource(key: "home_prescription_more_than_month", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Add
-      /// 
+      ///
       /// Locales: en, es
       static let first_prescription_title = Rswift.StringResource(key: "first_prescription_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: Administration
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_section_administration = Rswift.StringResource(key: "prescription_form_section_administration", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Atention!
-      /// 
+      ///
       /// Locales: en
       static let home_alert_title = Rswift.StringResource(key: "home_alert_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Day
-      /// 
+      ///
       /// Locales: en, es
       static let prescription_form_interval_list_day = Rswift.StringResource(key: "prescription_form_interval_list_day", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: Dose ellapsed, press icon to mark
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_ongoing_ellapsed = Rswift.StringResource(key: "home_prescription_ongoing_ellapsed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: General
-      /// 
+      ///
       /// Locales: en
       static let setup_section_general = Rswift.StringResource(key: "setup_section_general", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Home
-      /// 
+      ///
       /// Locales: en
       static let home_title = Rswift.StringResource(key: "home_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Hour
-      /// 
+      ///
       /// Locales: en, es
       static let prescription_form_interval_list_hour = Rswift.StringResource(key: "prescription_form_interval_list_hour", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: Hours
-      /// 
+      ///
       /// Locales: en, es
       static let prescription_form_interval_list_hours = Rswift.StringResource(key: "prescription_form_interval_list_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: In course, next dose:
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_onging = Rswift.StringResource(key: "home_prescription_onging", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Last dose:
+      ///
+      /// Locales: en
+      static let calendar_last_dose = Rswift.StringResource(key: "calendar_last_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Medicine
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_section_medicine = Rswift.StringResource(key: "prescription_form_section_medicine", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Medicine name can not be longer than 20 characters
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_err_name_maximum = Rswift.StringResource(key: "prescription_form_err_name_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Medicine name cannot be empty
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_err_name_empty = Rswift.StringResource(key: "prescription_form_err_name_empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Medicine name must be a word with more than 5 characters
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_err_name_minimum = Rswift.StringResource(key: "prescription_form_err_name_minimum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Name
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_section_medicine_name = Rswift.StringResource(key: "prescription_form_section_medicine_name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Next dose: 
-      /// 
+      ///
       /// Locales: en
       static let notification_next_dose = Rswift.StringResource(key: "notification_next_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Not started. Press icon to start
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_not_started = Rswift.StringResource(key: "home_prescription_not_started", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Otros
-      /// 
+      ///
       /// Locales: en
       static let setup_section_others = Rswift.StringResource(key: "setup_section_others", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Presciption finished, press renew to start again
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_finished = Rswift.StringResource(key: "home_prescription_finished", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Prescription form
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_title = Rswift.StringResource(key: "prescription_form_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Press + for adding your first prescription
-      /// 
+      ///
       /// Locales: en
       static let first_prescription_title_msg_add = Rswift.StringResource(key: "first_prescription_title_msg_add", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Reset
-      /// 
+      ///
       /// Locales: en
       static let setup_option_reset = Rswift.StringResource(key: "setup_option_reset", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Setup
-      /// 
+      ///
       /// Locales: en
       static let setup_title = Rswift.StringResource(key: "setup_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: This prescription is going to be eliminated! Proceed?
-      /// 
+      ///
       /// Locales: en
       static let home_alert_message = Rswift.StringResource(key: "home_alert_message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Units box
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_section_medicine_units_box = Rswift.StringResource(key: "prescription_form_section_medicine_units_box", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Units box name cannot be empty
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_err_units_box_empty = Rswift.StringResource(key: "prescription_form_err_units_box_empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Units dose
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_section_administration_units_dose = Rswift.StringResource(key: "prescription_form_section_administration_units_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Units prescription can not be empty
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_err_units_dose_empty = Rswift.StringResource(key: "prescription_form_err_units_dose_empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Units prescription can not be greater than 99 units per box
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_err_units_box_maximum = Rswift.StringResource(key: "prescription_form_err_units_box_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Units prescription can not be greater than 99 units per box
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_err_units_dose_maximum = Rswift.StringResource(key: "prescription_form_err_units_dose_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Update prescription
-      /// 
+      ///
       /// Locales: en
       static let prescription_form_title_update = Rswift.StringResource(key: "prescription_form_title_update", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Version
-      /// 
+      ///
       /// Locales: en
       static let setup_option_version = Rswift.StringResource(key: "setup_option_version", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Yes
-      /// 
+      ///
       /// Locales: en
       static let home_alert_ok = Rswift.StringResource(key: "home_alert_ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You can take your dose, press icon to mark
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_ongoing_ready = Rswift.StringResource(key: "home_prescription_ongoing_ready", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: d
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_days_suffix = Rswift.StringResource(key: "home_prescription_days_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: ePills
-      /// 
+      ///
       /// Locales: en
       static let app_name = Rswift.StringResource(key: "app_name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: h
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_hours_suffix = Rswift.StringResource(key: "home_prescription_hours_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: m
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_mins_suffix = Rswift.StringResource(key: "home_prescription_mins_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: s
-      /// 
+      ///
       /// Locales: en
       static let home_prescription_secs_suffix = Rswift.StringResource(key: "home_prescription_secs_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      
+
       /// en translation: 1 Day
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_interval_list_1_day(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_1_day", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_1_day(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_1_day", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_1_day"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_1_day", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: 1 Hour
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_interval_list_1_hour(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_1_hour", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_1_hour(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_1_hour", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_1_hour"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_1_hour", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: 12 Hours
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_interval_list_12_hours(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_12_hours", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_12_hours(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_12_hours", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_12_hours"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_12_hours", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: 2 Days
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_interval_list_2_days(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_2_days", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_2_days(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_2_days", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_2_days"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_2_days", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: 2 Hours
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_interval_list_2_hours(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_2_hours", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_2_hours(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_2_hours", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_2_hours"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_2_hours", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: 3 Hours
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_interval_list_3_hours(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_3_hours", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_3_hours(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_3_hours", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_3_hours"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_3_hours", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: 4 Hours
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_interval_list_4_hours(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_4_hours", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_4_hours(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_4_hours", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_4_hours"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_4_hours", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: 6 Hours
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_interval_list_6_hours(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_6_hours", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_6_hours(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_6_hours", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_6_hours"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_6_hours", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: 8 Hours
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_interval_list_8_hours(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_8_hours", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_8_hours(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_8_hours", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_8_hours"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_8_hours", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: > Month
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_more_than_month(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_more_than_month", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_more_than_month(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_more_than_month", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_more_than_month"
+        }
+
+        return NSLocalizedString("home_prescription_more_than_month", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Add
-      /// 
+      ///
       /// Locales: en, es
-      static func first_prescription_title(_: Void = ()) -> String {
-        return NSLocalizedString("first_prescription_title", bundle: R.hostingBundle, comment: "")
+      static func first_prescription_title(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("first_prescription_title", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "first_prescription_title"
+        }
+
+        return NSLocalizedString("first_prescription_title", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Administration
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_section_administration(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_section_administration", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_section_administration(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_section_administration", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_section_administration"
+        }
+
+        return NSLocalizedString("prescription_form_section_administration", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Atention!
-      /// 
+      ///
       /// Locales: en
-      static func home_alert_title(_: Void = ()) -> String {
-        return NSLocalizedString("home_alert_title", bundle: R.hostingBundle, comment: "")
+      static func home_alert_title(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_alert_title", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_alert_title"
+        }
+
+        return NSLocalizedString("home_alert_title", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Day
-      /// 
+      ///
       /// Locales: en, es
-      static func prescription_form_interval_list_day(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_day", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_day(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_day", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_day"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_day", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Dose ellapsed, press icon to mark
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_ongoing_ellapsed(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_ongoing_ellapsed", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_ongoing_ellapsed(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_ongoing_ellapsed", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_ongoing_ellapsed"
+        }
+
+        return NSLocalizedString("home_prescription_ongoing_ellapsed", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: General
-      /// 
+      ///
       /// Locales: en
-      static func setup_section_general(_: Void = ()) -> String {
-        return NSLocalizedString("setup_section_general", bundle: R.hostingBundle, comment: "")
+      static func setup_section_general(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("setup_section_general", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "setup_section_general"
+        }
+
+        return NSLocalizedString("setup_section_general", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Home
-      /// 
+      ///
       /// Locales: en
-      static func home_title(_: Void = ()) -> String {
-        return NSLocalizedString("home_title", bundle: R.hostingBundle, comment: "")
+      static func home_title(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_title", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_title"
+        }
+
+        return NSLocalizedString("home_title", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Hour
-      /// 
+      ///
       /// Locales: en, es
-      static func prescription_form_interval_list_hour(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_hour", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_hour(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_hour", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_hour"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_hour", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Hours
-      /// 
+      ///
       /// Locales: en, es
-      static func prescription_form_interval_list_hours(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_interval_list_hours", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_interval_list_hours(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_hours", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_hours"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_hours", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: In course, next dose:
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_onging(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_onging", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_onging(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_onging", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_onging"
+        }
+
+        return NSLocalizedString("home_prescription_onging", bundle: bundle, comment: "")
       }
-      
+
+      /// en translation: Last dose:
+      ///
+      /// Locales: en
+      static func calendar_last_dose(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calendar_last_dose", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "calendar_last_dose"
+        }
+
+        return NSLocalizedString("calendar_last_dose", bundle: bundle, comment: "")
+      }
+
       /// en translation: Medicine
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_section_medicine(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_section_medicine", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_section_medicine(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_section_medicine", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_section_medicine"
+        }
+
+        return NSLocalizedString("prescription_form_section_medicine", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Medicine name can not be longer than 20 characters
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_err_name_maximum(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_err_name_maximum", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_err_name_maximum(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_err_name_maximum", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_err_name_maximum"
+        }
+
+        return NSLocalizedString("prescription_form_err_name_maximum", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Medicine name cannot be empty
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_err_name_empty(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_err_name_empty", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_err_name_empty(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_err_name_empty", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_err_name_empty"
+        }
+
+        return NSLocalizedString("prescription_form_err_name_empty", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Medicine name must be a word with more than 5 characters
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_err_name_minimum(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_err_name_minimum", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_err_name_minimum(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_err_name_minimum", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_err_name_minimum"
+        }
+
+        return NSLocalizedString("prescription_form_err_name_minimum", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Name
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_section_medicine_name(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_section_medicine_name", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_section_medicine_name(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_section_medicine_name", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_section_medicine_name"
+        }
+
+        return NSLocalizedString("prescription_form_section_medicine_name", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Next dose: 
-      /// 
+      ///
       /// Locales: en
-      static func notification_next_dose(_: Void = ()) -> String {
-        return NSLocalizedString("notification_next_dose", bundle: R.hostingBundle, comment: "")
+      static func notification_next_dose(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("notification_next_dose", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "notification_next_dose"
+        }
+
+        return NSLocalizedString("notification_next_dose", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Not started. Press icon to start
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_not_started(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_not_started", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_not_started(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_not_started", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_not_started"
+        }
+
+        return NSLocalizedString("home_prescription_not_started", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Otros
-      /// 
+      ///
       /// Locales: en
-      static func setup_section_others(_: Void = ()) -> String {
-        return NSLocalizedString("setup_section_others", bundle: R.hostingBundle, comment: "")
+      static func setup_section_others(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("setup_section_others", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "setup_section_others"
+        }
+
+        return NSLocalizedString("setup_section_others", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Presciption finished, press renew to start again
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_finished(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_finished", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_finished(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_finished", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_finished"
+        }
+
+        return NSLocalizedString("home_prescription_finished", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Prescription form
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_title(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_title", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_title(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_title", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_title"
+        }
+
+        return NSLocalizedString("prescription_form_title", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Press + for adding your first prescription
-      /// 
+      ///
       /// Locales: en
-      static func first_prescription_title_msg_add(_: Void = ()) -> String {
-        return NSLocalizedString("first_prescription_title_msg_add", bundle: R.hostingBundle, comment: "")
+      static func first_prescription_title_msg_add(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("first_prescription_title_msg_add", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "first_prescription_title_msg_add"
+        }
+
+        return NSLocalizedString("first_prescription_title_msg_add", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Reset
-      /// 
+      ///
       /// Locales: en
-      static func setup_option_reset(_: Void = ()) -> String {
-        return NSLocalizedString("setup_option_reset", bundle: R.hostingBundle, comment: "")
+      static func setup_option_reset(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("setup_option_reset", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "setup_option_reset"
+        }
+
+        return NSLocalizedString("setup_option_reset", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Setup
-      /// 
+      ///
       /// Locales: en
-      static func setup_title(_: Void = ()) -> String {
-        return NSLocalizedString("setup_title", bundle: R.hostingBundle, comment: "")
+      static func setup_title(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("setup_title", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "setup_title"
+        }
+
+        return NSLocalizedString("setup_title", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: This prescription is going to be eliminated! Proceed?
-      /// 
+      ///
       /// Locales: en
-      static func home_alert_message(_: Void = ()) -> String {
-        return NSLocalizedString("home_alert_message", bundle: R.hostingBundle, comment: "")
+      static func home_alert_message(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_alert_message", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_alert_message"
+        }
+
+        return NSLocalizedString("home_alert_message", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Units box
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_section_medicine_units_box(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_section_medicine_units_box", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_section_medicine_units_box(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_section_medicine_units_box", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_section_medicine_units_box"
+        }
+
+        return NSLocalizedString("prescription_form_section_medicine_units_box", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Units box name cannot be empty
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_err_units_box_empty(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_err_units_box_empty", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_err_units_box_empty(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_err_units_box_empty", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_err_units_box_empty"
+        }
+
+        return NSLocalizedString("prescription_form_err_units_box_empty", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Units dose
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_section_administration_units_dose(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_section_administration_units_dose", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_section_administration_units_dose(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_section_administration_units_dose", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_section_administration_units_dose"
+        }
+
+        return NSLocalizedString("prescription_form_section_administration_units_dose", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Units prescription can not be empty
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_err_units_dose_empty(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_err_units_dose_empty", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_err_units_dose_empty(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_err_units_dose_empty", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_err_units_dose_empty"
+        }
+
+        return NSLocalizedString("prescription_form_err_units_dose_empty", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Units prescription can not be greater than 99 units per box
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_err_units_box_maximum(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_err_units_box_maximum", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_err_units_box_maximum(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_err_units_box_maximum", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_err_units_box_maximum"
+        }
+
+        return NSLocalizedString("prescription_form_err_units_box_maximum", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Units prescription can not be greater than 99 units per box
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_err_units_dose_maximum(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_err_units_dose_maximum", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_err_units_dose_maximum(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_err_units_dose_maximum", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_err_units_dose_maximum"
+        }
+
+        return NSLocalizedString("prescription_form_err_units_dose_maximum", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Update prescription
-      /// 
+      ///
       /// Locales: en
-      static func prescription_form_title_update(_: Void = ()) -> String {
-        return NSLocalizedString("prescription_form_title_update", bundle: R.hostingBundle, comment: "")
+      static func prescription_form_title_update(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_title_update", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_title_update"
+        }
+
+        return NSLocalizedString("prescription_form_title_update", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Version
-      /// 
+      ///
       /// Locales: en
-      static func setup_option_version(_: Void = ()) -> String {
-        return NSLocalizedString("setup_option_version", bundle: R.hostingBundle, comment: "")
+      static func setup_option_version(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("setup_option_version", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "setup_option_version"
+        }
+
+        return NSLocalizedString("setup_option_version", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: Yes
-      /// 
+      ///
       /// Locales: en
-      static func home_alert_ok(_: Void = ()) -> String {
-        return NSLocalizedString("home_alert_ok", bundle: R.hostingBundle, comment: "")
+      static func home_alert_ok(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_alert_ok", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_alert_ok"
+        }
+
+        return NSLocalizedString("home_alert_ok", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: You can take your dose, press icon to mark
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_ongoing_ready(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_ongoing_ready", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_ongoing_ready(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_ongoing_ready", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_ongoing_ready"
+        }
+
+        return NSLocalizedString("home_prescription_ongoing_ready", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: d
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_days_suffix(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_days_suffix", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_days_suffix(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_days_suffix", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_days_suffix"
+        }
+
+        return NSLocalizedString("home_prescription_days_suffix", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: ePills
-      /// 
+      ///
       /// Locales: en
-      static func app_name(_: Void = ()) -> String {
-        return NSLocalizedString("app_name", bundle: R.hostingBundle, comment: "")
+      static func app_name(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("app_name", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "app_name"
+        }
+
+        return NSLocalizedString("app_name", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: h
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_hours_suffix(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_hours_suffix", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_hours_suffix(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_hours_suffix", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_hours_suffix"
+        }
+
+        return NSLocalizedString("home_prescription_hours_suffix", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: m
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_mins_suffix(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_mins_suffix", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_mins_suffix(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_mins_suffix", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_mins_suffix"
+        }
+
+        return NSLocalizedString("home_prescription_mins_suffix", bundle: bundle, comment: "")
       }
-      
+
       /// en translation: s
-      /// 
+      ///
       /// Locales: en
-      static func home_prescription_secs_suffix(_: Void = ()) -> String {
-        return NSLocalizedString("home_prescription_secs_suffix", bundle: R.hostingBundle, comment: "")
+      static func home_prescription_secs_suffix(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_secs_suffix", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_secs_suffix"
+        }
+
+        return NSLocalizedString("home_prescription_secs_suffix", bundle: bundle, comment: "")
       }
-      
+
       fileprivate init() {}
     }
-    
+
     fileprivate init() {}
   }
-  
+
   fileprivate struct intern: Rswift.Validatable {
     fileprivate static func validate() throws {
       try _R.validate()
     }
-    
+
     fileprivate init() {}
   }
-  
+
   fileprivate class Class {}
-  
+
   fileprivate init() {}
 }
 
 struct _R: Rswift.Validatable {
   static func validate() throws {
+    #if os(iOS) || os(tvOS)
     try storyboard.validate()
+    #endif
   }
-  
+
+  #if os(iOS) || os(tvOS)
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
+      #if os(iOS) || os(tvOS)
       try launchScreen.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try main.validate()
+      #endif
     }
-    
+
+    #if os(iOS) || os(tvOS)
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = UIKit.UIViewController
-      
+
       let bundle = R.hostingBundle
       let name = "LaunchScreen"
-      
+
       static func validate() throws {
         if UIKit.UIImage(named: "glass", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'glass' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
-      
+
       fileprivate init() {}
     }
-    
+    #endif
+
+    #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = UIKit.UIViewController
-      
+
       let bundle = R.hostingBundle
       let name = "Main"
-      
+
       static func validate() throws {
         if UIKit.UIImage(named: "glass", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'glass' is used in storyboard 'Main', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
-      
+
       fileprivate init() {}
     }
-    
+    #endif
+
     fileprivate init() {}
   }
-  
+  #endif
+
   fileprivate init() {}
 }

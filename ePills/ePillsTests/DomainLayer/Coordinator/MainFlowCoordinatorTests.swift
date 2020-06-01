@@ -39,7 +39,7 @@ class MainFlowCoordinatorTests: XCTestCase {
                                        unitsBox: 10,
                                        intervalSecs: 8,
                                        unitsDose: 1)
-        _ = DBManager.shared.create(medicine: medicine)
+        _ = DBManager.shared.create(medicine: medicine, timeManager: TimeManager())
         // When
          MainFlowCoordinator.shared.start(dataManager: dataManager)
         // Then

@@ -14,8 +14,9 @@ import SwiftUI
 import Combine
 
 protocol HomeCoordinatorProtocol {
-    func presentPrescriptionForm(interactor: PrescriptionInteractorProtocol, medicine: Medicine?)
-    func replaceByFirstPrescription(interactor: PrescriptionInteractorProtocol)
+    func presentPrescriptionForm(interactor: MedicineInteractorProtocol, medicine: Medicine?)
+    func presentCalendar(interactor: MedicineInteractorProtocol, medicine: Medicine)
+    func replaceByFirstPrescription(interactor: MedicineInteractorProtocol)
 }
 
 public final class HomeCoordinator {
@@ -28,12 +29,12 @@ public final class HomeCoordinator {
 
     func start() -> UIViewController {
         
-        let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
+        let interactor = MedicineInteractor(dataManager: DataManager.shared)
         navitationController.viewControllers = [getHomePrescriptionVC(interactor: interactor)]
         return navitationController
     }
 
-    func getHomePrescriptionVC(interactor: PrescriptionInteractorProtocol) -> UIViewController {
+    func getHomePrescriptionVC(interactor: MedicineInteractorProtocol) -> UIViewController {
         let homePrescriptionVM = HomePrescriptionVM(interactor: interactor, homeCoordinator: self)
         let homePrescriptionView = HomePrescriptionView(viewModel: homePrescriptionVM)
         let homePrescriptionVC = HomePrescriptionVC(rootView: homePrescriptionView)
@@ -47,7 +48,7 @@ public final class HomeCoordinator {
 }
 
 extension HomeCoordinator: HomeCoordinatorProtocol {
-    func presentPrescriptionForm(interactor: PrescriptionInteractorProtocol, medicine: Medicine?) {
+    func presentPrescriptionForm(interactor: MedicineInteractorProtocol, medicine: Medicine?) {
         let prescriptionFormVM = PrescriptionFormVM(interactor: interactor, medicine: medicine)
         prescriptionFormVM.onDismissPublisher.sink {
             self.navitationController.popViewController(animated: true)
@@ -58,8 +59,26 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
 
         self.navitationController.pushViewController(prescriptionFormVC, animated: true)
     }
+    
+    func presentCalendar(interactor: MedicineInteractorProtocol, medicine: Medicine) {
+        #if true
+        let mecicineCalendarVM = MedicineCalendarVM(medicine: medicine)
+        let medicineCalendarView = MedicineCalendarView(viewModel: mecicineCalendarVM)
+        let medicineCalendarVC = MedicineCalendarVC(rootView: medicineCalendarView)
+        
+        self.navitationController.pushViewController(medicineCalendarVC, animated: true)
+        #else
+        pastYesterdayStartedMedicineCycle(days: 9) { medicine, timeManager in
+            let mecicineCalendarVM = MedicineCalendarVM(medicine: medicine, timeManager: timeManager)
+                let medicineCalendarView = MedicineCalendarView(viewModel: mecicineCalendarVM)
+                let medicineCalendarVC = MedicineCalendarVC(rootView: medicineCalendarView)
+                
+                self.navitationController.pushViewController(medicineCalendarVC, animated: true)
+        }
+        #endif
+    }
 
-    func replaceByFirstPrescription(interactor: PrescriptionInteractorProtocol) {
+    func replaceByFirstPrescription(interactor: MedicineInteractorProtocol) {
         let firstPresciptionCoordinator = FirstPresciptionCoordinator()
         firstPresciptionCoordinator.navitationController = self.navitationController
        // let previousViewControllers = self.navitationController.viewControllers
@@ -72,4 +91,150 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
 
 //         self.navitationController.viewControllers = [UIViewController()]
     }
+}
+
+private var cancellables = Set<AnyCancellable>()
+func pastMedicineCycle(onComplete: @escaping (Medicine, TimeManagerProtocol) -> Void) {
+    DataManager.shared.reset()
+    let dataManager = DataManager.shared
+    let interactor = MedicineInteractor(dataManager: dataManager)
+    let timeManager = TimeManager()
+
+    let medicine = Medicine(name: "a",
+                            unitsBox: 10,
+                            intervalSecs: 3600 * 24,
+                            unitsDose: 1)
+    guard let createdMedicine = interactor.add(medicine: medicine, timeManager: timeManager) else { return }
+
+    timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800)) //1-March-2020
+    interactor.takeDose(medicine: createdMedicine, timeManager: timeManager)
+        
+    let suscripiton = interactor.getMedicinesPublisher()
+
+              suscripiton.sink(receiveCompletion: { completion in
+                 return
+              }, receiveValue: { someValue in
+                guard let medicine = someValue.first else { return }
+                
+                onComplete(medicine,timeManager)
+                //  asyncExpectation.fulfill()
+              }).store(in: &cancellables)
+          interactor.flushMedicines()
+    
+}
+
+
+func startMedicineCycle(onComplete: @escaping (Medicine, TimeManagerProtocol) -> Void) {
+    DataManager.shared.reset()
+    let dataManager = DataManager.shared
+    let interactor = MedicineInteractor(dataManager: dataManager)
+    let timeManager = TimeManager()
+
+    let medicine = Medicine(name: "a",
+                            unitsBox: 10,
+                            intervalSecs: 3600 * 24,
+                            unitsDose: 1)
+    guard let createdMedicine = interactor.add(medicine: medicine, timeManager: timeManager) else { return }
+
+    timeManager.setInjectedDate(date: Date()) //Today
+    interactor.takeDose(medicine: createdMedicine, timeManager: timeManager)
+        
+    let suscripiton = interactor.getMedicinesPublisher()
+
+              suscripiton.sink(receiveCompletion: { completion in
+                 return
+              }, receiveValue: { someValue in
+                guard let medicine = someValue.first else { return }
+                
+                onComplete(medicine,timeManager)
+              }).store(in: &cancellables)
+          interactor.flushMedicines()
+    
+}
+
+func pastYesterdayStartedMedicineCycle(days: Int, onComplete: @escaping (Medicine, TimeManagerProtocol) -> Void) {
+    DataManager.shared.reset()
+    let dataManager = DataManager.shared
+    let interactor = MedicineInteractor(dataManager: dataManager)
+    let timeManager = TimeManager()
+
+    let medicine = Medicine(name: "a",
+                            unitsBox: 10,
+                            intervalSecs: 3600 * 24,
+                            unitsDose: 1)
+    guard let createdMedicine = interactor.add(medicine: medicine, timeManager: timeManager) else { return }
+
+    timeManager.setInjectedDate(date: Date(timeIntervalSince1970: Date().timeIntervalSince1970 - Double(3600 * 24 * days))) //Yesterday
+    interactor.takeDose(medicine: createdMedicine, timeManager: timeManager)
+        
+    let suscripiton = interactor.getMedicinesPublisher()
+
+              suscripiton.sink(receiveCompletion: { completion in
+                 return
+              }, receiveValue: { someValue in
+                guard let medicine = someValue.first else { return }
+                
+                onComplete(medicine,timeManager)
+                //  asyncExpectation.fulfill()
+              }).store(in: &cancellables)
+          interactor.flushMedicines()
+    
+}
+
+func startMedicineMonoCycle(onComplete: @escaping (Medicine, TimeManagerProtocol) -> Void) {
+    DataManager.shared.reset()
+    let dataManager = DataManager.shared
+    let interactor = MedicineInteractor(dataManager: dataManager)
+    let timeManager = TimeManager()
+
+    let medicine = Medicine(name: "a",
+                            unitsBox: 1,
+                            intervalSecs: 3600 * 24,
+                            unitsDose: 1)
+    guard let createdMedicine = interactor.add(medicine: medicine, timeManager: timeManager) else { return }
+
+    timeManager.setInjectedDate(date: Date()) //Today
+    interactor.takeDose(medicine: createdMedicine, timeManager: timeManager)
+        
+    let suscripiton = interactor.getMedicinesPublisher()
+
+              suscripiton.sink(receiveCompletion: { completion in
+                 return
+              }, receiveValue: { someValue in
+                guard let medicine = someValue.first else { return }
+                
+                onComplete(medicine,timeManager)
+                //  asyncExpectation.fulfill()
+              }).store(in: &cancellables)
+          interactor.flushMedicines()
+    
+}
+
+func pastMedicineMonoCycle(onComplete: @escaping (Medicine, TimeManagerProtocol) -> Void) {
+    DataManager.shared.reset()
+       let dataManager = DataManager.shared
+       let interactor = MedicineInteractor(dataManager: dataManager)
+       let timeManager = TimeManager()
+    timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800)) //1-March-2020
+       let medicine = Medicine(name: "a",
+                               unitsBox: 1,
+                               intervalSecs: 3600 * 24,
+                               unitsDose: 1)
+       guard let createdMedicine = interactor.add(medicine: medicine, timeManager: timeManager) else { return }
+
+       timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800)) //1-March-2020
+       interactor.takeDose(medicine: createdMedicine, timeManager: timeManager)
+           
+       let suscripiton = interactor.getMedicinesPublisher()
+
+                 suscripiton.sink(receiveCompletion: { completion in
+                    return
+                 }, receiveValue: { someValue in
+                   guard let medicine = someValue.first else { return }
+                   
+                   onComplete(medicine,timeManager)
+                   //  asyncExpectation.fulfill()
+                 }).store(in: &cancellables)
+             interactor.flushMedicines()
+    
 }

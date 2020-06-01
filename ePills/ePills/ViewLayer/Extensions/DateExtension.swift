@@ -22,4 +22,27 @@ extension Date {
         return dateformat.string(from: self)
 
     }
+
+    func isToday() -> Bool {
+        let today = Date().dateFormatUTC()
+        let otherDate = self.dateFormatUTC()
+        if today == otherDate {
+            print("now")
+        }
+        return today == otherDate
+    }
+
+    func isSameDDMMYYYY(date: Date) -> Bool {
+        let calendar = Calendar.current
+        let componentsDate = calendar.dateComponents([.year, .month, .day], from: date)
+        let componentsSelf = calendar.dateComponents([.year, .month, .day], from: self)
+
+        return componentsDate.day == componentsSelf.day &&
+            componentsDate.month == componentsSelf.month &&
+            componentsDate.year == componentsSelf.year
+    }
+    
+    func getDateFor(days: Int) -> Date? {
+        return Calendar.current.date(byAdding: .day, value: days, to: Date())
+    }
 }

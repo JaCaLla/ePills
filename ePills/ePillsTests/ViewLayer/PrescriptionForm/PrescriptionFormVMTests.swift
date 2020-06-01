@@ -13,12 +13,12 @@ import Combine
 class PrescriptionFormVMTests: XCTestCase {
 
     var sut: PrescriptionFormVM!
-    var prescriptionInteractorMock: PrescriptionInteractorMock!
+    var prescriptionInteractorMock: MedicineInteractorMock!
     private var cancellables = Set<AnyCancellable>()
 
     override func setUpWithError() throws {
         DataManager.shared.reset()
-        prescriptionInteractorMock = PrescriptionInteractorMock()
+        prescriptionInteractorMock = MedicineInteractorMock()
         self.sut = PrescriptionFormVM(interactor: prescriptionInteractorMock, medicine: nil)
         Bundle.setLanguage(lang: "en")
     }
@@ -37,7 +37,7 @@ class PrescriptionFormVMTests: XCTestCase {
     func test_addPrescriptionWhenDataManagerReal() throws {
         let expectation = XCTestExpectation(description: self.debugDescription)
 
-        let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
+        let interactor = MedicineInteractor(dataManager: DataManager.shared)
         sut = PrescriptionFormVM(interactor: interactor, medicine: nil)
         sut.name = "a"
         sut.unitsBox = "10"
@@ -83,12 +83,12 @@ class PrescriptionFormVMTests: XCTestCase {
     func test_updatePrescriptionWhenDataManagerReal() throws {
         let expectation = XCTestExpectation(description: self.debugDescription)
 
-        let interactor = PrescriptionInteractor(dataManager: DataManager.shared)
+        let interactor = MedicineInteractor(dataManager: DataManager.shared)
         let medicine = Medicine(name: "a",
         unitsBox: 10,
         intervalSecs: 8,
         unitsDose: 1)
-        guard let createdMedicine = interactor.add(medicine: medicine) else {XCTFail(); return}
+        guard let createdMedicine = interactor.add(medicine: medicine, timeManager: TimeManager()) else {XCTFail(); return}
         sut = PrescriptionFormVM(interactor: interactor, medicine: createdMedicine)
         sut.name = "a"
         sut.unitsBox = "10"

@@ -19,7 +19,7 @@ class DataManagerMock: DataManagerProtocol {
     var isEmptyCount: Int = 0
     var addDoseCount: Int = 0
 
-    func add(medicine: Medicine) -> Medicine? {
+    func add(medicine: Medicine, timeManager: TimeManagerProtocol) -> Medicine? {
         addCount += 1
         return nil
     }

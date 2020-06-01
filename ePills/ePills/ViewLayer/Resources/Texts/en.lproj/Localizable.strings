@@ -59,4 +59,6 @@
 "setup_option_version" = "Version";
 "setup_option_reset" = "Reset";
 
+"calendar_last_dose" = "Last dose:";
+
 "notification_next_dose" = "Next dose: ";

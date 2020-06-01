@@ -14,14 +14,14 @@ class HomecycleVMTest: XCTestCase {
     var sut: HomePrescriptionVM!
     var homeCoordintorMock: HomeCoordinatorMock!
     var dataManager: DataManagerProtocol!
-    var prescriptionInteractor: PrescriptionInteractor!
+    var prescriptionInteractor: MedicineInteractor!
     private var cancellables = Set<AnyCancellable>()
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         DataManager.shared.reset()
         dataManager = DataManager.shared
-        prescriptionInteractor = PrescriptionInteractor(dataManager: dataManager)
+        prescriptionInteractor = MedicineInteractor(dataManager: dataManager)
         homeCoordintorMock = HomeCoordinatorMock()
         sut = HomePrescriptionVM(interactor: prescriptionInteractor,
                                  homeCoordinator: homeCoordintorMock)
@@ -41,7 +41,7 @@ class HomecycleVMTest: XCTestCase {
                                                  intervalSecs: 8,
                                                  unitsDose: 1)]]
         var expetedsIdx = 0
-        let cycle = Medicine(name: "a",
+        let medicine = Medicine(name: "a",
                              unitsBox: 10,
                              intervalSecs: 8,
                              unitsDose: 1)
@@ -68,7 +68,7 @@ class HomecycleVMTest: XCTestCase {
                 XCTAssertEqual(0, someValue)
             }).store(in: &cancellables)
 
-        prescriptionInteractor.add(medicine: cycle)
+        prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager())
 
         wait(for: [expectation], timeout: 10)
     }
@@ -116,8 +116,8 @@ class HomecycleVMTest: XCTestCase {
              }).store(in: &cancellables)
 
 
-         prescriptionInteractor.add(medicine: cycle)
-        prescriptionInteractor.add(medicine: cycle2)
+         prescriptionInteractor.add(medicine: cycle, timeManager: TimeManager())
+        prescriptionInteractor.add(medicine: cycle2, timeManager: TimeManager())
 
          wait(for: [expectation], timeout: 10)
         
@@ -200,8 +200,8 @@ class HomecycleVMTest: XCTestCase {
                 }
             }).store(in: &cancellables)
         // When
-        prescriptionInteractor.add(medicine: cycle1)
-        prescriptionInteractor.add(medicine: cycle2)
+        prescriptionInteractor.add(medicine: cycle1, timeManager: TimeManager())
+        prescriptionInteractor.add(medicine: cycle2, timeManager: TimeManager())
 
         wait(for: [expectation], timeout: 0.1)
     }
@@ -218,7 +218,7 @@ class HomecycleVMTest: XCTestCase {
                              intervalSecs: 8,
                              unitsDose: 1)
         // When
-        prescriptionInteractor.add(medicine: cycle)
+        prescriptionInteractor.add(medicine: cycle, timeManager: TimeManager())
 
         XCTAssertEqual(sut.title(), "a [0/10]")
     }
@@ -228,7 +228,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 8,
                              unitsDose: 1)
-        prescriptionInteractor.add(medicine: cycle)
+        prescriptionInteractor.add(medicine: cycle, timeManager: TimeManager())
 
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: TimeManager()), "stop")
         XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: TimeManager()), "Not started. Press icon to start")
@@ -246,7 +246,7 @@ class HomecycleVMTest: XCTestCase {
         medicine.intervalSecs = 3600
         medicine.unitsBox = 1
         medicine.unitsDose = 1
-        guard let created = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let created = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
         prescriptionInteractor.takeDose(medicine: created, timeManager: timeManager)
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: timeManager), "clear")
         XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: TimeManager()), "Presciption finished, press renew to start again")
@@ -263,7 +263,7 @@ class HomecycleVMTest: XCTestCase {
                                 intervalSecs: 8 * 3600,
                                 unitsDose: 1)
 
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { return }
         //  timeManager.setInjectedDate(date:  Date(timeIntervalSince1970:  8 * 3600 + 1))
         prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 8 * 3600 - 1000))
@@ -285,7 +285,7 @@ class HomecycleVMTest: XCTestCase {
                                 intervalSecs: 10,
                                 unitsDose: 1)
         medicine.intervalSecs = 10
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
         //cycle.takeDose(timeManager: timeManager)
         prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         // When
@@ -306,7 +306,7 @@ class HomecycleVMTest: XCTestCase {
                                 intervalSecs: 8,
                                 unitsDose: 1)
         medicine.intervalSecs = 10
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
         //medicine.takeDose(timeManager: timeManager)
         prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
 
@@ -338,7 +338,7 @@ class HomecycleVMTest: XCTestCase {
                                 unitsBox: 10,
                                 intervalSecs: 3600 * 24 * 32,
                                 unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
         //medicine.takeDose(timeManager: timeManager)
         prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "> Month")
@@ -368,7 +368,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 3600 * 24 * 1 + 3600,
                              unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
         //medicine.takeDose(timeManager: timeManager)
         prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "-1d")
@@ -395,7 +395,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsDose: 1)
        // prescriptionInteractor.add(medicine: cycle)
        // cycle.takeDose(timeManager: timeManager)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
               //medicine.takeDose(timeManager: timeManager)
               prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "-23h")
@@ -411,7 +411,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 3600 * 1 - 1,
                              unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
                     //medicine.takeDose(timeManager: timeManager)
                     prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "-59m")
@@ -427,7 +427,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 30,
                              unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
                     //medicine.takeDose(timeManager: timeManager)
                     prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "-30s")
@@ -443,7 +443,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 30,
                              unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
                           //medicine.takeDose(timeManager: timeManager)
                           prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 45))
@@ -460,7 +460,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 0,
                              unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
                           //medicine.takeDose(timeManager: timeManager)
                           prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 60 * 5 + 10))
@@ -477,7 +477,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 0,
                              unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
                           //medicine.takeDose(timeManager: timeManager)
                           prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 3600 * 5 + 180))
@@ -494,7 +494,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 0,
                              unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
                           //medicine.takeDose(timeManager: timeManager)
                           prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 3600 * 24 * 2 + 180))
@@ -511,7 +511,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 0,
                              unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
                                  //medicine.takeDose(timeManager: timeManager)
                                  prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 3600 * 24 * 60 + 180))
@@ -528,7 +528,7 @@ class HomecycleVMTest: XCTestCase {
                              unitsBox: 10,
                              intervalSecs: 0,
                              unitsDose: 1)
-        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
                                  //medicine.takeDose(timeManager: timeManager)
                                  prescriptionInteractor.takeDose(medicine: createdMedicine, timeManager: timeManager)
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 3600 * 24 * 400))

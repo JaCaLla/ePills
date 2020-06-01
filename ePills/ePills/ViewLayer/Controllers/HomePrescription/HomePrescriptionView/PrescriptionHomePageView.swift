@@ -77,13 +77,31 @@ struct PrescriptionHomePageView: View {
                 }.frame(height: geometry.size.height * 0.375)
                 //.background(Color.green)
                 HStack {
-                    Spacer()
-                    if (self.viewModel.isUpdatable) {
-                    PrescriptionButtonView(iconName: "square.and.pencil", action: {
-                        self.viewModel.update()
+                    VStack {
+                       // if (self.viewModel.isUpdatable) {
+                        PrescriptionButtonView(iconName: "calendar", action: {
+                            self.viewModel.calendar()
                         })
+                      //  }
+                        Spacer()
                     }
-                    Spacer()
+                    VStack {
+                        Spacer()
+                        if (self.viewModel.isUpdatable) {
+                        PrescriptionButtonView(iconName: "square.and.pencil", action: {
+                            self.viewModel.update()
+                            })
+                        }
+                    }
+                    VStack {
+                       // if (self.viewModel.isUpdatable) {
+                        PrescriptionButtonView(iconName: "list.dash", action: {
+                          //  self.viewModel.update()
+                            print("todo")
+                            })
+                      //  }
+                        Spacer()
+                    }
                 }.frame(height: geometry.size.height / 4)
                 Spacer()
             }

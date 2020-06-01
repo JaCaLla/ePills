@@ -15,12 +15,12 @@ protocol DBManagerProtocol {
     
     func existMedicine() -> Bool
     
-	func create(medicine: Medicine) -> Result<Medicine, Error>
+	func create(medicine: Medicine, timeManager: TimeManagerProtocol) -> Result<Medicine, Error>
 	func delete(medicine: Medicine) -> Result<Bool, Error>
-	func update(medicine: Medicine) -> Result<Medicine, Error>
+	func update(medicine: Medicine, timeManager: TimeManagerProtocol) -> Result<Medicine, Error>
 	func getMedicines() -> [Medicine]
 
-    func create(cycle: Cycle, medicineId: String, timeManager: TimeManagerPrococol) -> Result<Cycle, Error>
+    func create(cycle: Cycle, medicineId: String, timeManager: TimeManagerProtocol) -> Result<Cycle, Error>
 	func delete(cycle: Cycle) -> Result<Bool, Error>
 	func updateCyle(cycle: Cycle) -> Result<Cycle, Error>
 	func getCycles(medicineId: String) -> [Cycle]
@@ -46,13 +46,13 @@ class DBManager {
         return realm.objects(MedicineDB.self).isEmpty
     }
     
-	func create(medicine: Medicine) -> Result<Medicine, Error> {
+	func create(medicine: Medicine, timeManager: TimeManagerProtocol) -> Result<Medicine, Error> {
 		self.resetHandlerIfNecessary()
 		if let medicineDB = self.getMedicineDB(id: medicine.id) {
-			return self.updateDB(medicineDB: medicineDB, medicine: medicine)
+            return self.updateDB(medicineDB: medicineDB, medicine: medicine, timeManager:timeManager)
 		} else {
 			do {
-				let medicineDB = MedicineDB(medicine: medicine)
+				let medicineDB = MedicineDB(medicine: medicine,timeManager: timeManager)
 				try realm.write({
 					self.realm.add(medicineDB)
 				})
@@ -63,7 +63,7 @@ class DBManager {
 		}
 	}
 
-	private func updateDB(medicineDB: MedicineDB, medicine: Medicine) -> Result<Medicine, Error> {
+	private func updateDB(medicineDB: MedicineDB, medicine: Medicine, timeManager: TimeManagerProtocol) -> Result<Medicine, Error> {
 		self.resetHandlerIfNecessary()
 		guard !(realm.objects(MedicineDB.self).isEmpty) else { return .failure(DBManagerError()) }
 		do {
@@ -74,7 +74,7 @@ class DBManager {
 				medicineDB.interval = medicine.intervalSecs
 				medicineDB.unitsDose = medicine.unitsDose
 				medicineDB.creation = medicine.creation
-				medicineDB.update = Int(Date().timeIntervalSince1970)
+                medicineDB.update = timeManager.timeIntervalSince1970()
 			})
 			return .success(medicineDB.getMedicine())
 		} catch {
@@ -100,12 +100,12 @@ class DBManager {
 		}
 	}
 
-	func update(medicine: Medicine) -> Result<Medicine, Error> {
+	func update(medicine: Medicine, timeManager: TimeManagerProtocol) -> Result<Medicine, Error> {
 		self.resetHandlerIfNecessary()
 		guard let medicineDB = self.getMedicineDB(id: medicine.id) else {
 			return .failure(DBManagerError())
 		}
-		return updateDB(medicineDB: medicineDB, medicine: medicine)
+        return updateDB(medicineDB: medicineDB, medicine: medicine, timeManager: timeManager)
 	}
 
 	func getMedicines() -> [Medicine] {
@@ -119,7 +119,7 @@ class DBManager {
 	}
 
 	// MARK: - Cycle
-	func create(cycle: Cycle, medicineId: String, timeManager: TimeManagerPrococol) -> Result<Cycle, Error> {
+	func create(cycle: Cycle, medicineId: String, timeManager: TimeManagerProtocol) -> Result<Cycle, Error> {
 		self.resetHandlerIfNecessary()
 		if let cycleDB = self.getCycleDB(id: cycle.id) {
 			return self.updateDB(cycleDB: cycleDB, cycle: cycle)

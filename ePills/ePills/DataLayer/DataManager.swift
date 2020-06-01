@@ -12,7 +12,7 @@ import Combine
 protocol DataManagerProtocol {
 
     func isEmpty() -> Bool
-    func add(medicine: Medicine) -> Medicine?
+    func add(medicine: Medicine, timeManager: TimeManagerProtocol) -> Medicine?
     func remove(medicine: Medicine)
     func update(medicine: Medicine)
     func flushMedicines()
@@ -43,23 +43,21 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
-    func add(medicine: Medicine) -> Medicine? {
+    func add(medicine: Medicine,timeManager: TimeManagerProtocol) -> Medicine? {
         let cycle = Cycle(unitsConsumed: 0, nextDose: nil)
-        guard let medicineCreated = createMedicine(medicine: medicine),
-            let cycleCreated = createCycle(cyle: cycle, medicine: medicineCreated) else { return nil }
+        guard let medicineCreated = createMedicine(medicine: medicine, timeManager:timeManager),
+            let cycleCreated = createCycle(cyle: cycle, medicine: medicineCreated, timeManager: timeManager) else { return nil }
 
         medicineCreated.currentCycle = cycleCreated
 
-        // medicines.append(medicineCreated)
         self.medicines = fetchStoredMedicines()
 
-        //medicines = medicines.sorted(by:{ $0.currentCycle.creation < $1.currentCycle.creation })
         subject.send(self.medicines)
         return medicineCreated
     }
 
-    private func createMedicine(medicine: Medicine) -> Medicine? {
-        switch DBManager.shared.create(medicine: medicine) {
+    private func createMedicine(medicine: Medicine,timeManager: TimeManagerProtocol) -> Medicine? {
+        switch DBManager.shared.create(medicine: medicine, timeManager: timeManager) {
         case .success(let medicineCreated):
             return medicineCreated
         case .failure:
@@ -67,8 +65,8 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
-    private func createCycle(cyle: Cycle, medicine: Medicine) -> Cycle? {
-        switch DBManager.shared.create(cycle: cyle, medicineId: medicine.id, timeManager: TimeManager()) {
+    private func createCycle(cyle: Cycle, medicine: Medicine, timeManager: TimeManagerProtocol) -> Cycle? {
+        switch DBManager.shared.create(cycle: cyle, medicineId: medicine.id, timeManager: timeManager) {
         case .success(let cycleCreated):
             return cycleCreated
         case .failure:
@@ -86,7 +84,7 @@ extension DataManager: DataManagerProtocol {
         medicines[index].unitsDose = medicine.unitsDose
         //medicines[index].currentCycle = medicine.currentCycle //Cycle(name: medicine.name, unitsBox: medicine.unitsBox, intervalSecs: medicine.intervalSecs, unitsDose: medicine.unitsDose)
         medicines[index].creation = medicine.creation
-        DBManager.shared.update(medicine: medicines[index])
+        DBManager.shared.update(medicine: medicines[index], timeManager: TimeManager())
 
         let medicineCycles: [Cycle] = fetchCycles(medicineId: medicine.id)
         if let index = medicineCycles.firstIndex(where: { $0.id == medicine.currentCycle.id }) {

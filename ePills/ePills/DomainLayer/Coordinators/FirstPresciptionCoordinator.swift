@@ -27,12 +27,12 @@ final public class FirstPresciptionCoordinator {
     var navitationController: UINavigationController = UINavigationController()
 
     // MARK: - Public Helpers
-    func start(navigationController: Bool = true, prescriptionInteractor: PrescriptionInteractorProtocol? = nil) -> UIViewController {
+    func start(navigationController: Bool = true, prescriptionInteractor: MedicineInteractorProtocol? = nil) -> UIViewController {
         let homeView = FirstPrescriptionView( coordinator: self)
         let firstPrescriptionVC = FirstPrescriptionVC(rootView: homeView)
         homeView.onAddFirstPrescriptionPublisher.sink {
             self.presentPrescriptionForm(homeView: homeView,
-                                         prescriptionInteractor: prescriptionInteractor ?? PrescriptionInteractor(dataManager: DataManager.shared) )
+                                         prescriptionInteractor: prescriptionInteractor ?? MedicineInteractor(dataManager: DataManager.shared) )
         }.store(in: &onAddFirstSubscription)
         firstPrescriptionVC.tabBarItem = UITabBarItem(title: R.string.localizable.home_title.key.localized,
         image: UIImage(systemName: "plus.rectangle"),
@@ -46,7 +46,7 @@ final public class FirstPresciptionCoordinator {
 
     // MARK: - Private/Internal
     fileprivate func presentPrescriptionForm(homeView: FirstPrescriptionView,
-                                             prescriptionInteractor: PrescriptionInteractorProtocol) {
+                                             prescriptionInteractor: MedicineInteractorProtocol) {
         let prescriptionFormVM = PrescriptionFormVM(interactor: prescriptionInteractor, medicine: nil)
         prescriptionFormVM.onDismissPublisher.sink {
                         self.onUIViewControllerInternalPublisher.send()
