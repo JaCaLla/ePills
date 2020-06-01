@@ -26,7 +26,7 @@ class DataManagerTests: XCTestCase {
                                 unitsBox: 10,
                                 intervalSecs: 8,
                                 unitsDose: 1)
-        sut.add(medicine: medicine)
+        sut.add(medicine: medicine, timeManager: TimeManager())
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
@@ -73,7 +73,7 @@ class DataManagerTests: XCTestCase {
                                 unitsBox: 10,
                                 intervalSecs: 8,
                                 unitsDose: 1)
-        switch DBManager.shared.create(medicine: medicine) {
+        switch DBManager.shared.create(medicine: medicine, timeManager: TimeManager()) {
         case .success(let medicineCreated):
             let cycle = Cycle(unitsConsumed: 0, nextDose: nil)
             switch DBManager.shared.create(cycle: cycle, medicineId: medicineCreated.id, timeManager: TimeManager()) {
@@ -104,7 +104,7 @@ class DataManagerTests: XCTestCase {
         notStarted2.currentCycle.nextDose = nil
         notStarted2.currentCycle.creation = 2
 
-        guard let newNotStarted2 = sut.add(medicine: notStarted2) else { XCTFail(); return }
+        guard let newNotStarted2 = sut.add(medicine: notStarted2, timeManager: TimeManager()) else { XCTFail(); return }
         
         newNotStarted2.name = "bbb"
          newNotStarted2.unitsBox = 1
@@ -166,7 +166,7 @@ class DataManagerTests: XCTestCase {
                 expectation.fulfill()
             }).store(in: &cancellables)
         // When
-        sut.add(medicine: prescription)
+        sut.add(medicine: prescription, timeManager: TimeManager())
         wait(for: [expectation], timeout: 0.1)
 
     }
@@ -179,7 +179,7 @@ class DataManagerTests: XCTestCase {
                                      intervalSecs: 8,
                                      unitsDose: 1)
 
-        sut.add(medicine: prescription1)
+        sut.add(medicine: prescription1, timeManager: TimeManager())
 
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
@@ -203,7 +203,7 @@ class DataManagerTests: XCTestCase {
                                      unitsBox: 5,
                                      intervalSecs: 4,
                                      unitsDose: 2)
-        sut.add(medicine: prescription2)
+        sut.add(medicine: prescription2, timeManager: TimeManager())
 
         wait(for: [expectation], timeout: 0.1)
     }
@@ -226,8 +226,8 @@ class DataManagerTests: XCTestCase {
                                    intervalSecs: 8,
                                    unitsDose: 1)
         notStarted3.currentCycle.creation = 2
-        sut.add(medicine: notStarted3)
-        sut.add(medicine: notStarted1)
+        sut.add(medicine: notStarted3, timeManager: TimeManager())
+        sut.add(medicine: notStarted1, timeManager: TimeManager())
 
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
@@ -248,7 +248,7 @@ class DataManagerTests: XCTestCase {
                 expectation.fulfill()
             }).store(in: &cancellables)
         // When
-        sut.add(medicine: notStarted2)
+        sut.add(medicine: notStarted2, timeManager: TimeManager())
 
         wait(for: [expectation], timeout: 0.1)
     }
@@ -271,9 +271,9 @@ class DataManagerTests: XCTestCase {
                                    intervalSecs: 8,
                                    unitsDose: 1)
         notStarted3.currentCycle.creation = 3
-        sut.add(medicine: notStarted3)
-        sut.add(medicine: notStarted1)
-        guard let newNotStarted2 = sut.add(medicine: notStarted2) else { XCTFail(); return }
+        sut.add(medicine: notStarted3, timeManager: TimeManager())
+        sut.add(medicine: notStarted1, timeManager: TimeManager())
+        guard let newNotStarted2 = sut.add(medicine: notStarted2, timeManager: TimeManager()) else { XCTFail(); return }
 
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
@@ -312,7 +312,7 @@ class DataManagerTests: XCTestCase {
         notStarted2.currentCycle.nextDose = nil
         notStarted2.currentCycle.creation = 2
 
-        guard let newNotStarted2 = sut.add(medicine: notStarted2) else { XCTFail(); return }
+        guard let newNotStarted2 = sut.add(medicine: notStarted2, timeManager: TimeManager()) else { XCTFail(); return }
 
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
@@ -363,7 +363,7 @@ class DataManagerTests: XCTestCase {
         notStarted2.currentCycle.nextDose = nil
         notStarted2.currentCycle.creation = 2
 
-        guard let newNotStarted2 = sut.add(medicine: notStarted2) else { XCTFail(); return }
+        guard let newNotStarted2 = sut.add(medicine: notStarted2, timeManager: TimeManager()) else { XCTFail(); return }
 
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
@@ -414,7 +414,7 @@ class DataManagerTests: XCTestCase {
                notStarted2.currentCycle.nextDose = nil
                notStarted2.currentCycle.creation = 2
 
-               guard let newNotStarted2 = sut.add(medicine: notStarted2) else { XCTFail(); return }
+               guard let newNotStarted2 = sut.add(medicine: notStarted2, timeManager: TimeManager()) else { XCTFail(); return }
 
                sut.getMedicinesPublisher()
                    .sink(receiveCompletion: { completion in
@@ -485,7 +485,7 @@ class DataManagerTests: XCTestCase {
 
     func test_fetchOneMedicine2CyclesOneOngoingOneGone() {
         let medicine = Medicine(name: "aaaaa", unitsBox: 2, intervalSecs: 20, unitsDose: 1)
-        switch DBManager.shared.create(medicine: medicine) {
+        switch DBManager.shared.create(medicine: medicine, timeManager: TimeManager()) {
         case .success(let createdMedicine):
             let timeManager = TimeManager()
                    timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
@@ -521,7 +521,7 @@ class DataManagerTests: XCTestCase {
 
     func test_updateMedicine() {
         let medicine = Medicine(name: "aaaaa", unitsBox: 2, intervalSecs: 20, unitsDose: 1)
-        guard let createdMedicine = sut.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
         var medicines = sut.fetchStoredMedicines()
         // When
         createdMedicine.name = "bbbbb"
@@ -546,7 +546,7 @@ class DataManagerTests: XCTestCase {
 
     func test_updateCurrentCycle() {
         let medicine = Medicine(name: "aaaaa", unitsBox: 2, intervalSecs: 20, unitsDose: 1)
-        guard let createdMedicine = sut.add(medicine: medicine) else { XCTFail(); return }
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
 
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
@@ -569,7 +569,7 @@ class DataManagerTests: XCTestCase {
 
 func givenMedicineWithCyclesAndoDoses(real: [[Double]]) -> String {
     let medicine = Medicine(name: "aaaaa", unitsBox: 20, intervalSecs: 20, unitsDose: 1)
-    switch DBManager.shared.create(medicine: medicine) {
+    switch DBManager.shared.create(medicine: medicine, timeManager: TimeManager()) {
     case .success(let createdMedicine):
         real.forEach({
             givenCycleWithDoses(medicineId: createdMedicine.id, real: $0)

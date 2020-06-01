@@ -9,23 +9,28 @@
 import Foundation
 import Combine
 
-protocol PrescriptionInteractorProtocol {
+protocol MedicineInteractorProtocol {
 
-    func add(medicine: Medicine) -> Medicine?
+    func add(medicine: Medicine, timeManager: TimeManagerProtocol) -> Medicine?
    // func add(cycle: Cycle)
     //func remove(cycle: Cycle)
     func remove(medicine: Medicine)
     func update(medicine: Medicine)
     func takeDose(medicine: Medicine, onComplete: @escaping (Bool) -> Void)
-     func takeDose(medicine: Medicine, timeManager: TimeManagerPrococol)
+     func takeDose(medicine: Medicine, timeManager: TimeManagerProtocol)
     func getCurrentPrescriptionIndex()  -> AnyPublisher<Int, Never>
     func getMedicinesPublisher() -> AnyPublisher<[Medicine], Never>
      func flushMedicines()
-    func getIntervals() -> [Interval] 
+    func getIntervals() -> [Interval]
+    func getCycleDatesStr(medicine: Medicine) -> [String]
+    func getCycleDates(medicine: Medicine) -> [Date]
+    func getExpirationDayNumber(medicine: Medicine) -> String
+    func getExpirationMonthYear(medicine: Medicine) -> String 
+    func getExpirationWeekdayHourMinute(medicine: Medicine) -> String
 }
 
 
-final class PrescriptionInteractor {
+final class MedicineInteractor {
 
     // MARK: - Read only attributes
     private(set) var dataManager: DataManagerProtocol
@@ -50,10 +55,10 @@ final class PrescriptionInteractor {
 }
 
 // MARK: - PrescriptionInteractorProtocol
-extension PrescriptionInteractor: PrescriptionInteractorProtocol {
+extension MedicineInteractor: MedicineInteractorProtocol {
     
-    func add(medicine: Medicine) -> Medicine? {
-        guard let createdMedicine = dataManager.add(medicine: medicine) else { return nil}
+    func add(medicine: Medicine, timeManager: TimeManagerProtocol) -> Medicine? {
+        guard let createdMedicine = dataManager.add(medicine: medicine, timeManager: timeManager) else { return nil}
         if let index = medicines.firstIndex(of: createdMedicine) {
             currentPrescriptionIndex = index
              currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
@@ -83,7 +88,7 @@ extension PrescriptionInteractor: PrescriptionInteractorProtocol {
         self.update(medicine: medicine)
     }
     
-    func takeDose(medicine: Medicine,timeManager: TimeManagerPrococol) {
+    func takeDose(medicine: Medicine,timeManager: TimeManagerProtocol) {
         
         if !medicine.isLast() {
             LocalNotificationManager.shared.addNotification(prescription: medicine, onComplete: { _ in /* Do nothing */})
@@ -131,5 +136,95 @@ extension PrescriptionInteractor: PrescriptionInteractorProtocol {
         invervals.append(Interval(secs: 48 * secsPerHour, label: R.string.localizable.prescription_form_interval_list_2_days.key.localized))
         
         return invervals
+    }
+    
+    func getCycleDatesStr(medicine: Medicine) -> [String] {
+        var from = medicine.currentCycle.update
+        if let firstDose = medicine.currentCycle.doses.first {
+            from = firstDose.real
+        }
+        let to = from + medicine.intervalSecs * (( medicine.unitsBox  / medicine.unitsDose) - 1)
+        return datesRange(from: from, to: to).map({ $0.dateFormatUTC() })
+    }
+    
+    func getCycleDates(medicine: Medicine) -> [Date] {
+        
+        let cycles = self.getCycleDatesStr(medicine: medicine)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        return cycles.map({ dateFormatter.date(from: $0) ?? Date() })
+    }
+    
+    func getExpirationDayNumber(medicine: Medicine) -> String {
+        var from = medicine.currentCycle.update
+        if let firstDose = medicine.currentCycle.doses.first {
+            from = firstDose.real
+        }
+        let to = from + medicine.intervalSecs * (( medicine.unitsBox  / medicine.unitsDose) - 1)
+        let toDate = Date(timeIntervalSince1970: TimeInterval(to))
+         let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        return formatter.string(from: toDate).replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
+    }
+    
+    func getExpirationMonthYear(medicine: Medicine) -> String {
+        var from = medicine.currentCycle.update
+        if let firstDose = medicine.currentCycle.doses.first {
+            from = firstDose.real
+        }
+        let to = from + medicine.intervalSecs * (( medicine.unitsBox  / medicine.unitsDose) - 1)
+        let toDate = Date(timeIntervalSince1970: TimeInterval(to))
+         let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM"
+        let monthName = formatter.string(from: toDate)
+         formatter.dateFormat = "yyyy"
+        let year = formatter.string(from: toDate)
+        return "\(monthName.capitalized) - \(year)"
+    }
+    
+    func getExpirationWeekdayHourMinute(medicine: Medicine) -> String {
+        var from = medicine.currentCycle.update
+        if let firstDose = medicine.currentCycle.doses.first {
+            from = firstDose.real
+        }
+        let to = from + medicine.intervalSecs * (( medicine.unitsBox  / medicine.unitsDose) - 1)
+        let toDate = Date(timeIntervalSince1970: TimeInterval(to))
+         let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        let weekday = formatter.string(from: toDate)
+         formatter.dateFormat = "MM:mm"
+        let hhmm = formatter.string(from: toDate)
+        return "\(weekday.capitalized) - \(hhmm)"
+    }
+
+
+    // MARK: - Private functions
+   private func datesRange(from: Int, to: Int) -> [Date] {
+                let fromDate = Date(timeIntervalSince1970: TimeInterval(from))
+                let toDate = Date(timeIntervalSince1970: TimeInterval(to))
+        if fromDate > toDate { return [Date]() }
+
+        var tempDate = fromDate
+        var array = [tempDate]
+
+        while tempDate < toDate {
+            tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
+            array.append(tempDate)
+        }
+
+        return array
+    }
+}
+
+extension Date {
+    func dateFormatUTC() -> String {
+        let dateFormatter = DateFormatter()
+//        let twentyFourFormat: Locale = Locale(identifier: "en_US_POSIX")
+//        dateFormatter.locale = twentyFourFormat
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+//        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        let newdate = Date.init(timeInterval: 0, since: self)
+        let dateInFormat = dateFormatter.string(from: newdate)
+        return dateInFormat
     }
 }

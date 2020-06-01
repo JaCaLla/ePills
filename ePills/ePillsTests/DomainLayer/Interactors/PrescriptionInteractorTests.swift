@@ -11,13 +11,13 @@ import Combine
 
 class cycleInteractorTests: XCTestCase {
 
-    var sut: PrescriptionInteractor!
+    var sut: MedicineInteractor!
     var dataManagerMock: DataManagerMock = DataManagerMock()
     private var cancellables = Set<AnyCancellable>()
 
     override func setUpWithError() throws {
         DataManager.shared.reset()
-        sut = PrescriptionInteractor(dataManager: self.dataManagerMock)
+        sut = MedicineInteractor(dataManager: self.dataManagerMock)
     }
 
     override func tearDownWithError() throws {
@@ -29,13 +29,13 @@ class cycleInteractorTests: XCTestCase {
                                 unitsBox: 10,
                                 intervalSecs: 8,
                                 unitsDose: 1)
-        sut.add(medicine: medicine)
+        sut.add(medicine: medicine, timeManager: TimeManager())
         XCTAssertEqual(dataManagerMock.addCount, 1)
     }
 
     func test_addcycleWhenDataManagerReal() throws {
-        let expectation = XCTestExpectation(description: self.debugDescription)
-        sut = PrescriptionInteractor(dataManager: DataManager.shared)
+        //  let expectation = XCTestExpectation(description: self.debugDescription)
+        sut = MedicineInteractor(dataManager: DataManager.shared)
 
         let expecteds: [[Medicine]] = [
             [Medicine(name: "a",
@@ -56,13 +56,100 @@ class cycleInteractorTests: XCTestCase {
                 XCTAssertEqual(expecteds[expetedsIdx], someValue)
                 expetedsIdx += 1
                 if expetedsIdx >= expecteds.count {
-                    expectation.fulfill()
+                    //    expectation.fulfill()
                 }
 
             }).store(in: &cancellables)
         // When
-        sut.add(medicine: medicine)
-        wait(for: [expectation], timeout: 0.1)
+        sut.add(medicine: medicine, timeManager: TimeManager())
+        //  wait(for: [expectation], timeout: 0.1)
+    }
+
+    func test_cycleDateRangesWhenCreated() {
+        sut = MedicineInteractor(dataManager: DataManager.shared)
+        let timeManager = TimeManager()
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800)) //1-March-2020
+        let medicine = Medicine(name: "a",
+                                unitsBox: 5,
+                                intervalSecs: 3600 * 24,
+                                unitsDose: 1)
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: timeManager) else { XCTFail(); return }
+        let cycles = sut.getCycleDatesStr(medicine: createdMedicine)
+        guard cycles.count == 5 else { XCTFail(); return }
+        XCTAssertEqual(cycles[0], "01/03/2020")
+        XCTAssertEqual(cycles[1], "02/03/2020")
+        XCTAssertEqual(cycles[2], "03/03/2020")
+        XCTAssertEqual(cycles[3], "04/03/2020")
+        XCTAssertEqual(cycles[4], "05/03/2020")
+    }
+
+    func test_cycleDateRangesAfterTakeDose() {
+        //  let asyncExpectation = expectation(description: "\(#function)")
+        var testFinished = false
+        sut = MedicineInteractor(dataManager: DataManager.shared)
+        let timeManager = TimeManager()
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800)) //1-March-2020
+        let medicine = Medicine(name: "a",
+                                unitsBox: 5,
+                                intervalSecs: 3600 * 24,
+                                unitsDose: 1)
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: timeManager) else { XCTFail(); return }
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800 + 3600 * 48)) //3-March-2020
+        sut.takeDose(medicine: createdMedicine, timeManager: timeManager)
+        let suscripiton = sut.getMedicinesPublisher()
+
+        suscripiton.sink(receiveCompletion: { completion in
+            XCTFail(".sink() received the completion:")
+        }, receiveValue: { someValue in
+            guard let medicine = someValue.first, !testFinished else { return }
+            let cycles = self.sut.getCycleDatesStr(medicine: medicine)
+            guard cycles.count == 5 else { return }
+            XCTAssertEqual(cycles[0], "03/03/2020")
+            XCTAssertEqual(cycles[1], "04/03/2020")
+            XCTAssertEqual(cycles[2], "05/03/2020")
+            XCTAssertEqual(cycles[3], "06/03/2020")
+            XCTAssertEqual(cycles[4], "07/03/2020")
+            testFinished = true
+
+            //  asyncExpectation.fulfill()
+        }).store(in: &cancellables)
+        sut.flushMedicines()
+
+        // self.waitForExpectations(timeout: 2.0, handler: nil)
+    }
+
+    func test_cycleDateRangesAfterTwoTakeDose() {
+        // let asyncExpectation = expectation(description: "\(#function)")
+        var testFinished = false
+        sut = MedicineInteractor(dataManager: DataManager.shared)
+        let timeManager = TimeManager()
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800)) //1-March-2020
+        let medicine = Medicine(name: "a",
+                                unitsBox: 5,
+                                intervalSecs: 3600 * 24,
+                                unitsDose: 1)
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: timeManager) else { XCTFail(); return }
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800 + 3600 * 48)) //3-March-2020
+        sut.takeDose(medicine: createdMedicine, timeManager: timeManager)
+        sut.getMedicinesPublisher()
+            .sink(receiveCompletion: { completion in
+                XCTFail(".sink() received the completion:")
+            }, receiveValue: { someValue in
+                guard let medicine = someValue.first, !testFinished else { return }
+                let cycles = self.sut.getCycleDatesStr(medicine: medicine)
+                guard cycles.count == 5 else { XCTFail(); return }
+                XCTAssertEqual(cycles[0], "03/03/2020")
+                XCTAssertEqual(cycles[1], "04/03/2020")
+                XCTAssertEqual(cycles[2], "05/03/2020")
+                XCTAssertEqual(cycles[3], "06/03/2020")
+                XCTAssertEqual(cycles[4], "07/03/2020")
+                testFinished = true
+                // asyncExpectation.fulfill()
+            }).store(in: &cancellables)
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800 + 3600 * 72)) //4-March-2020
+        sut.takeDose(medicine: createdMedicine, timeManager: timeManager)
+
+        //  self.waitForExpectations(timeout: 2.0, handler: nil)
     }
 
     func test_removecycleWhenDataManagerMock() throws {
@@ -76,21 +163,21 @@ class cycleInteractorTests: XCTestCase {
 
     func test_removecycleWhenDataManagerReal() throws {
         let expectation = XCTestExpectation(description: self.debugDescription)
-        sut = PrescriptionInteractor(dataManager: DataManager.shared)
+        sut = MedicineInteractor(dataManager: DataManager.shared)
 
-        
+
         let expecteds: [[Medicine]] = [
             [Medicine(name: "a",
-                                unitsBox: 10,
-                                intervalSecs: 8,
-                                unitsDose: 1)],
+                      unitsBox: 10,
+                      intervalSecs: 8,
+                      unitsDose: 1)],
             [Medicine(name: "a",
                       unitsBox: 10,
                       intervalSecs: 8,
                       unitsDose: 1)],
             []]
         var expetedsIdx = 0
-        
+
         let medicine = Medicine(name: "a",
                                 unitsBox: 10,
                                 intervalSecs: 8,
@@ -99,22 +186,22 @@ class cycleInteractorTests: XCTestCase {
                                  unitsBox: 10,
                                  intervalSecs: 8,
                                  unitsDose: 1)
-       
+
 
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
-                guard expetedsIdx < expecteds.count else {  /*XCTFail();*/ expectation.fulfill(); return }
-                               XCTAssertEqual(expecteds[expetedsIdx], someValue)
-                               expetedsIdx += 1
-                               if expetedsIdx >= expecteds.count {
-                                   expectation.fulfill()
-                               }
+                guard expetedsIdx < expecteds.count else { /*XCTFail();*/ expectation.fulfill(); return }
+                XCTAssertEqual(expecteds[expetedsIdx], someValue)
+                expetedsIdx += 1
+                if expetedsIdx >= expecteds.count {
+                    expectation.fulfill()
+                }
             }).store(in: &cancellables)
         // When
-        guard let createdMedicine = sut.add(medicine: medicine) else { XCTFail(); return }
-               sut.remove(medicine: medicine2)
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
+        sut.remove(medicine: medicine2)
         sut.remove(medicine: createdMedicine)
         wait(for: [expectation], timeout: 1.0)
     }
@@ -129,9 +216,9 @@ class cycleInteractorTests: XCTestCase {
     }
 
     func test_updatecycleWhenDataManagerReal() throws {
-         let asyncExpectation = expectation(description: "\(#function)")
+        //   let asyncExpectation = expectation(description: "\(#function)")
 
-        sut = PrescriptionInteractor(dataManager: DataManager.shared)
+        sut = MedicineInteractor(dataManager: DataManager.shared)
 
         let medicine = Medicine(name: "a",
                                 unitsBox: 10,
@@ -144,20 +231,20 @@ class cycleInteractorTests: XCTestCase {
                       intervalSecs: 2,
                       unitsDose: 2)]]
         var expetedsIdx = 0
-        
-        guard let createdMedicine = sut.add(medicine: medicine) else { XCTFail();  asyncExpectation.fulfill();  return }
+
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
 
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
             }, receiveValue: { someValue in
-                guard let medicine = someValue.first else { XCTFail(); asyncExpectation.fulfill(); return }
+                guard let medicine = someValue.first else { XCTFail();return }
                 XCTAssertEqual(medicine.name, "nameUpdated")
                 XCTAssertEqual(medicine.unitsBox, 20)
                 XCTAssertEqual(medicine.intervalSecs, 2)
                 XCTAssertEqual(medicine.unitsDose, 2)
-                asyncExpectation.fulfill()
-                
+//                asyncExpectation.fulfill()
+
             }).store(in: &cancellables)
         // When
         createdMedicine.name = "nameUpdated"
@@ -166,9 +253,71 @@ class cycleInteractorTests: XCTestCase {
         createdMedicine.unitsDose = 2
         sut.update(medicine: createdMedicine)
 
-         self.waitForExpectations(timeout: 2.0, handler: nil)
+        //    self.waitForExpectations(timeout: 2.0, handler: nil)
+    }
+
+    func test_getExpirationDayNumberWhen1() {
+        sut = MedicineInteractor(dataManager: DataManager.shared)
+        let timeManager = TimeManager()
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800)) //1-March-2020
+        let medicine = Medicine(name: "a",
+                                unitsBox: 5,
+                                intervalSecs: 3600 * 24,
+                                unitsDose: 1)
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: timeManager) else {
+            XCTFail();
+            return }
+
+        XCTAssertEqual(sut.getExpirationDayNumber(medicine: createdMedicine), "5")
+
+    }
+
+    func test_getExpirationDayNumberWhen29() {
+        sut = MedicineInteractor(dataManager: DataManager.shared)
+        let timeManager = TimeManager()
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1582934400)) //29-Feb-2020
+        let medicine = Medicine(name: "a",
+                                unitsBox: 1,
+                                intervalSecs: 3600 * 1,
+                                unitsDose: 1)
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: timeManager) else {
+            XCTFail();
+            return }
+
+        XCTAssertEqual(sut.getExpirationDayNumber(medicine: createdMedicine), "29")
+
+    }
+
+    func test_getExpirationMonthYear() {
+        sut = MedicineInteractor(dataManager: DataManager.shared)
+        let timeManager = TimeManager()
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1582934400)) //29-Feb-2020
+        let medicine = Medicine(name: "a",
+                                unitsBox: 1,
+                                intervalSecs: 3600 * 1,
+                                unitsDose: 1)
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: timeManager) else {
+            XCTFail();
+            return }
+
+        XCTAssertEqual(sut.getExpirationMonthYear(medicine: createdMedicine), "Febrero - 2020")
     }
     
+    func test_getExpirationWeekdayHourMinute() {
+        sut = MedicineInteractor(dataManager: DataManager.shared)
+        let timeManager = TimeManager()
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1582934400)) //29-Feb-2020
+        let medicine = Medicine(name: "a",
+                                unitsBox: 1,
+                                intervalSecs: 3600 * 1,
+                                unitsDose: 1)
+        guard let createdMedicine = sut.add(medicine: medicine, timeManager: timeManager) else {
+            XCTFail();
+            return }
+
+        XCTAssertEqual(sut.getExpirationWeekdayHourMinute(medicine: createdMedicine), "Sábado - 02:00")
+    }
+
     func test_getIntervals_en() throws {
         // Update the language by swaping bundle
         Bundle.setLanguage(lang: "en")

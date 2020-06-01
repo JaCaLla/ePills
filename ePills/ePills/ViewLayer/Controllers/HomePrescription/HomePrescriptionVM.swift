@@ -14,11 +14,11 @@ protocol HomePrescriptionVMProtocol {
     func remove()
     func takeDose()
     func title() -> String
-    func getIconName( timeManager: TimeManagerPrococol?) -> String
-    func getMessage( timeManager: TimeManagerPrococol?) -> String
-    func getRemainingTimeMessage( timeManager: TimeManagerPrococol?) -> (String, String)
+    func getIconName(timeManager: TimeManagerProtocol?) -> String
+    func getMessage(timeManager: TimeManagerProtocol?) -> String
+    func getRemainingTimeMessage(timeManager: TimeManagerProtocol?) -> (String, String)
     func updatable() -> Bool
-    func getMessageColor(timeManager: TimeManagerPrococol?) -> String
+    func getMessageColor(timeManager: TimeManagerProtocol?) -> String
 }
 
 public final class HomePrescriptionVM: ObservableObject {
@@ -27,43 +27,43 @@ public final class HomePrescriptionVM: ObservableObject {
     private var view: HomePrescriptionView?
 
     // MARK: - Private attributes
-    private var interactor: PrescriptionInteractorProtocol
+    private var interactor: MedicineInteractorProtocol
     private var homeCoordinator: HomeCoordinatorProtocol
-    internal var timeManager: TimeManagerPrococol
+    internal var timeManager: TimeManagerProtocol
 
     // MARK: - Publishers
     private var cancellables = Set<AnyCancellable>()
     @Published var medicines: [Medicine] = []
 
     @Published var currentPage = 0
-    @Published var currentPrescription: Medicine = Medicine(name: "", unitsBox: 0, intervalSecs:0, unitsDose: 0)
+    @Published var currentPrescription: Medicine = Medicine(name: "", unitsBox: 0, intervalSecs: 0, unitsDose: 0)
     @Published var prescriptionIcon: String = ""
     @Published var prescriptionMessage: String = ""
     @Published var remainingMessageMajor: String = ""
     @Published var remainingMessageMinor: String = ""
-     @Published var prescriptionColor: String = ""
+    @Published var prescriptionColor: String = ""
     @Published var isUpdatable: Bool = false
-    
+
     var timer: Timer?
     var runCount = 0
-    
-    init(interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(),
+
+    init(interactor: MedicineInteractorProtocol = MedicineInteractor(),
          homeCoordinator: HomeCoordinatorProtocol,
-         timeManager: TimeManagerPrococol = TimeManager()) {
+         timeManager: TimeManagerProtocol = TimeManager()) {
         self.interactor = interactor
         self.homeCoordinator = homeCoordinator
         self.timeManager = timeManager
 
         self.interactor.getMedicinesPublisher()
-            .sink{ prescriptions in
+            .sink { prescriptions in
                 self.medicines = prescriptions
                 self.refreshVM()
-        }.store(in: &cancellables)
+            }.store(in: &cancellables)
         self.interactor.getCurrentPrescriptionIndex()
             .sink { currentPrescriptionIndex in
                 self.currentPage = currentPrescriptionIndex
                 self.refreshVM()
-        }.store(in: &cancellables)
+            }.store(in: &cancellables)
         self.$medicines
             .sink { someValue in
                 guard someValue.isEmpty else { return }
@@ -77,16 +77,16 @@ public final class HomePrescriptionVM: ObservableObject {
                                      userInfo: nil,
                                      repeats: true)
     }
-    
+
     @objc func fireTimer() {
         self.refreshVM()
     }
-    
+
     func refreshVM() {
         self.prescriptionIcon = self.getIconName(timeManager: timeManager)
         self.prescriptionMessage = self.getMessage(timeManager: timeManager)
         self.isUpdatable = self.updatable()
-        (self.remainingMessageMajor,self.remainingMessageMinor) = self.getRemainingTimeMessage(timeManager: timeManager)
+        (self.remainingMessageMajor, self.remainingMessageMinor) = self.getRemainingTimeMessage(timeManager: timeManager)
         self.prescriptionColor = self.getMessageColor(timeManager: timeManager)
     }
 }
@@ -103,17 +103,25 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         let medicine = self.medicines[currentPage]
         self.interactor.remove(medicine: medicine)
         self.currentPage = 0
-         self.refreshVM()
+        self.refreshVM()
     }
-    
+
     func update() {
         guard medicines.count > currentPage else { return }
-              let medicine = self.medicines[currentPage]
+        let medicine = self.medicines[currentPage]
         self.homeCoordinator.presentPrescriptionForm(interactor: self.interactor,
                                                      medicine: medicine)
-         self.refreshVM()
+        self.refreshVM()
     }
-    
+
+    func calendar() {
+        guard medicines.count > currentPage else { return }
+        let medicine = self.medicines[currentPage]
+        self.homeCoordinator.presentCalendar(interactor: self.interactor,
+                                             medicine: medicine)
+        self.refreshVM()
+    }
+
     func takeDose() {
         guard medicines.count > currentPage else { return }
         let medicine = self.medicines[currentPage]
@@ -121,16 +129,16 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         self.interactor.takeDose(medicine: medicine, timeManager: TimeManager())
         self.refreshVM()
     }
-    
+
     func title() -> String {
         guard medicines.count > currentPage else { return "" }
         let prescription = self.medicines[currentPage]
         return "\(prescription.name) [\(prescription.currentCycle.unitsConsumed)/\(prescription.unitsBox)]"
     }
 
-    func getIconName(timeManager: TimeManagerPrococol?) -> String {
+    func getIconName(timeManager: TimeManagerProtocol?) -> String {
         guard medicines.count > currentPage else { return "" }
-              let prescription = self.medicines[currentPage]
+        let prescription = self.medicines[currentPage]
         switch prescription.getState(timeManager: timeManager ?? TimeManager()) {
         case .notStarted: return "stop"
         case .ongoing: return "play"
@@ -140,11 +148,11 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         }
     }
 
-    func getMessage( timeManager: TimeManagerPrococol?) -> String {
+    func getMessage(timeManager: TimeManagerProtocol?) -> String {
         guard medicines.count > currentPage else { return ("") }
-               let prescription = self.medicines[currentPage]
-        
-        print("\( prescription.getState(timeManager: timeManager ?? TimeManager()) )")
+        let prescription = self.medicines[currentPage]
+
+        print("\(prescription.getState(timeManager: timeManager ?? TimeManager()))")
         let prescriptionState = prescription.getState(timeManager: timeManager ?? TimeManager())
         switch prescriptionState {
         case .notStarted: return R.string.localizable.home_prescription_not_started.key.localized
@@ -155,16 +163,16 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         }
     }
 
-    func getRemainingTimeMessage( timeManager: TimeManagerPrococol?) -> (String, String) {
-        guard medicines.count > currentPage else { return ("","") }
+    func getRemainingTimeMessage(timeManager: TimeManagerProtocol?) -> (String, String) {
+        guard medicines.count > currentPage else { return ("", "") }
         let medicine = self.medicines[currentPage]
-        
+
         guard let nextDose = medicine.getNextDose() else { return ("", "") }
         let requestedComponent: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
         let tmpTimeManager = timeManager ?? TimeManager()
         let now: Date = Date(timeIntervalSince1970: TimeInterval(tmpTimeManager.timeIntervalSince1970()))
         let nextDoseTimestamp = Date(timeIntervalSince1970: TimeInterval(nextDose))
-        let timeDifference = Calendar.current.dateComponents(requestedComponent, from: nextDoseTimestamp, to:now )
+        let timeDifference = Calendar.current.dateComponents(requestedComponent, from: nextDoseTimestamp, to: now)
 
         if let years = timeDifference.year,
             years != 0 {
@@ -191,30 +199,30 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
             return (String(format: "%02d%@", secs, R.string.localizable.home_prescription_secs_suffix.key.localized),
                     "")
         } else {
-             return ("", "")
+            return ("", "")
         }
     }
-    
+
     func updatable() -> Bool {
         guard medicines.count > currentPage else { return false }
         let prescription = self.medicines[currentPage]
         let prescriptionState = prescription.getState()
         return prescriptionState == CyclesState.notStarted ||
-         prescriptionState == CyclesState.finished
+            prescriptionState == CyclesState.finished
 
     }
-    
-    
-    func getMessageColor(timeManager: TimeManagerPrococol?) -> String {
+
+
+    func getMessageColor(timeManager: TimeManagerProtocol?) -> String {
         guard medicines.count > currentPage else { return ("") }
-                     let prescription = self.medicines[currentPage]
-                  
-              switch prescription.getState(timeManager: timeManager ?? TimeManager()) {
-              case .notStarted: return R.color.colorWhite.name
-              case .ongoing: return R.color.colorWhite.name
-              case .ongoingReady: return R.color.colorOrange.name
-              case .ongoingEllapsed: return R.color.colorRed.name
-              case .finished: return R.color.colorWhite.name
-              }
+        let prescription = self.medicines[currentPage]
+
+        switch prescription.getState(timeManager: timeManager ?? TimeManager()) {
+        case .notStarted: return R.color.colorWhite.name
+        case .ongoing: return R.color.colorWhite.name
+        case .ongoingReady: return R.color.colorOrange.name
+        case .ongoingEllapsed: return R.color.colorRed.name
+        case .finished: return R.color.colorWhite.name
+        }
     }
 }

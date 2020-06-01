@@ -43,7 +43,6 @@ class MedicineDBTests: XCTestCase {
 		XCTAssertEqual(sut.interval, 2)
 		XCTAssertEqual(sut.unitsDose, 3)
 		XCTAssertEqual(sut.id.contains("-"), true)
-
 	}
 
 }

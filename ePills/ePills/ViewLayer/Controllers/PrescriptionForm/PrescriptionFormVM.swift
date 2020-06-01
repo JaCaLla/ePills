@@ -31,16 +31,16 @@ public final class PrescriptionFormVM: ObservableObject {
     @Published var unitsDose: String = "1"
 
     // MARK: - Private attributes
-    private var interactor: PrescriptionInteractorProtocol
+    private var interactor: MedicineInteractorProtocol
     @Published var medicine: Medicine?
 
-    init(interactor: PrescriptionInteractorProtocol = PrescriptionInteractor(dataManager: DataManager.shared), medicine: Medicine?) {
+    init(interactor: MedicineInteractorProtocol = MedicineInteractor(dataManager: DataManager.shared), medicine: Medicine?) {
         self.interactor = interactor
         self.medicine = medicine
         if let updatedMedicine = self.medicine {
             self.name = updatedMedicine.name
             self.unitsBox = "\(String(describing: updatedMedicine.unitsBox))"
-            self.selectedIntervalIndex = self.getInterval(intervalSecs: updatedMedicine.intervalSecs)//updatedPrescription.interval //?? Interval(hours: 8, label: "8 Hours")
+            self.selectedIntervalIndex = self.getInterval(intervalSecs: updatedMedicine.intervalSecs)
             self.unitsDose = "\(String(describing: updatedMedicine.unitsDose))"
         }
     }
@@ -63,7 +63,7 @@ extension PrescriptionFormVM: PrescriptionFormVMProtocol {
                                             unitsBox: Int(self.unitsBox) ?? -1,
                                             intervalSecs: self.selectedIntervalIndex.secs,
                                             unitsDose: Int(self.unitsDose) ?? -1)
-            interactor.add(medicine: medicine)
+            interactor.add(medicine: medicine, timeManager: TimeManager())
         }
         onDismissSubject.send()
     }

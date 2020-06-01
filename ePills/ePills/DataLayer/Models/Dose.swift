@@ -15,7 +15,7 @@ public final class Dose: Identifiable {
 	var expected: Int
 	var real: Int
 
-	init(expected: Int, timeManager: TimeManagerPrococol = TimeManager()) {
+	init(expected: Int, timeManager: TimeManagerProtocol = TimeManager()) {
 		self.expected = expected
 		self.real = timeManager.timeIntervalSince1970()
 	}

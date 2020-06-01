@@ -9,8 +9,8 @@
 import Foundation
 import Combine
 
-public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
-
+public final class MedicineInteractorMock:  MedicineInteractorProtocol {
+    
     var addCount = 0
     var removeCount = 0
     var updateCount = 0
@@ -19,8 +19,16 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
     var getPrescriptionsCount = 0
     var getIntervalsCount = 0
     var flushMedicinesCount = 0
+    var getCycleDatesStr = 0
+    var getCycleDatesCount = 0
+    var getExpirationDayNumberCount = 0
     
-    public func add(medicine: Medicine) -> Medicine? {
+    public func getCycleDates(medicine: Medicine) -> [Date] {
+        getCycleDatesCount += 1
+        return []
+    }
+    
+    public func add(medicine: Medicine, timeManager: TimeManagerProtocol) -> Medicine? {
         addCount += 1
         return nil
     }
@@ -46,7 +54,7 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
         takeDoseCount += 1
     }
     
-    public func takeDose(medicine: Medicine, timeManager: TimeManagerPrococol) {
+    public func takeDose(medicine: Medicine, timeManager: TimeManagerProtocol) {
            takeDoseCount += 1
        }
     
@@ -58,4 +66,18 @@ public final class PrescriptionInteractorMock:  PrescriptionInteractorProtocol {
     public func flushMedicines() {
           flushMedicinesCount += 1
       }
+    
+    public func getCycleDatesStr(medicine: Medicine) -> [String] {
+        getCycleDatesStr += 1
+        return []
+    }
+    
+    public func getCycleDatesStr(medicine: Medicine) -> [[String]] {
+        return []
+    }
+    
+    public func getExpirationDayNumber(medicine: Medicine) -> String {
+        getExpirationDayNumberCount += 1
+        return ""
+    }
 }

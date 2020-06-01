@@ -18,7 +18,7 @@ struct HomePrescriptionView: View {
     private var subscription = Set<AnyCancellable>()
 
     // MARK: - Public Attributes
-    @ObservedObject var viewModel: HomePrescriptionVM = HomePrescriptionVM(interactor: PrescriptionInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
+    @ObservedObject var viewModel: HomePrescriptionVM = HomePrescriptionVM(interactor: MedicineInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
 
     @State var isRemovingPrescription: Bool = false
 
@@ -63,11 +63,11 @@ struct HomePrescriptionView: View {
 }
 
 struct HomePrescriptionView_Previews: PreviewProvider {
-    static var prescriptionInteractor: PrescriptionInteractor {
+    static var prescriptionInteractor: MedicineInteractor {
         let medicine = Medicine(name: "Clamoxyl 200mg", unitsBox: 20, intervalSecs: 8, unitsDose: 2)
         let dataManager: DataManager = DataManager.shared
-        dataManager.add(medicine: medicine)
-        return PrescriptionInteractor(dataManager: dataManager)
+        dataManager.add(medicine: medicine, timeManager: TimeManager())
+        return MedicineInteractor(dataManager: dataManager)
     }
 
     static var previews: some View {

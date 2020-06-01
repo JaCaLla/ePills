@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TimeManagerPrococol {
+protocol TimeManagerProtocol {
     func timeIntervalSince1970() -> Int
 }
 
@@ -23,7 +23,7 @@ final public class TimeManager {
     }
 }
 
-extension TimeManager: TimeManagerPrococol {
+extension TimeManager: TimeManagerProtocol {
     func timeIntervalSince1970() -> Int {
         if let uwpInjectedDate = self.injectedDate {
             return Int(uwpInjectedDate.timeIntervalSince1970)

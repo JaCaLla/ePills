@@ -18,7 +18,7 @@ class Medicine: Identifiable {
 	var currentCycle: Cycle
 	var pastCycles: [Cycle] = []
 
-	var creation: Int = Int(Date().timeIntervalSince1970)
+	var creation: Int = -1
 
 	init(name: String, unitsBox: Int, intervalSecs: Int, unitsDose: Int) {
 		self.name = name
@@ -28,7 +28,7 @@ class Medicine: Identifiable {
 		self.currentCycle = Cycle(unitsConsumed: 0, nextDose: nil)
 	}
 
-	func getState(timeManager: TimeManagerPrococol = TimeManager()) -> CyclesState {
+	func getState(timeManager: TimeManagerProtocol = TimeManager()) -> CyclesState {
 		guard let nextDose = self.currentCycle.nextDose else {
 			return currentCycle.unitsConsumed >= unitsBox ? .finished : .notStarted
 		}
@@ -44,7 +44,7 @@ class Medicine: Identifiable {
 		}
 	}
 
-	func takeDose(timeManager: TimeManagerPrococol = TimeManager()) {
+	func takeDose(timeManager: TimeManagerProtocol = TimeManager()) {
 		let state = getState()
 		if (state == .notStarted ||
 				state == .ongoingReady ||

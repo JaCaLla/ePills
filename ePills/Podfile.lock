@@ -1,24 +1,28 @@
 PODS:
   - FLEX (4.1.1)
-  - R.swift (5.0.3):
-    - R.swift.Library (~> 5.0.0)
-  - R.swift.Library (5.0.1)
+  - FSCalendar (2.8.1)
+  - R.swift (5.2.2):
+    - R.swift.Library (~> 5.2.0)
+  - R.swift.Library (5.2.0)
 
 DEPENDENCIES:
   - FLEX
+  - FSCalendar
   - R.swift
 
 SPEC REPOS:
   trunk:
     - FLEX
+    - FSCalendar
     - R.swift
     - R.swift.Library
 
 SPEC CHECKSUMS:
   FLEX: 81096107977a09836eb440173010ceeef01105d6
-  R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
-  R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
+  FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32
+  R.swift.Library: 5ba4f1631300caf9a4d890186930da85d540769d
 
-PODFILE CHECKSUM: 3c1e3631bbd983c08c3600427483fc36622c9cc6
+PODFILE CHECKSUM: e2bf9b13906f6c07ce84e584930e9bb7583cb8f9
 
 COCOAPODS: 1.8.3

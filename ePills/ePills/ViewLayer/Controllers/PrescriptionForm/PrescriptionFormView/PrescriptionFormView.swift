@@ -100,7 +100,7 @@ struct PrescriptionFormView: View {
 struct PrescriptionDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let dataManager = DataManager.shared
-        let interactor = PrescriptionInteractor(dataManager: dataManager)
+        let interactor = MedicineInteractor(dataManager: dataManager)
         let viewModel =  PrescriptionFormVM(interactor: interactor, medicine: nil)
        return PrescriptionFormView(viewModel: viewModel)
     }

@@ -38,7 +38,7 @@ class Prescription: Identifiable {
         self.unitsDose = unitsDose
     }
 
-    func getState(timeManager: TimeManagerPrococol = TimeManager()) -> PrescriptionState {
+    func getState(timeManager: TimeManagerProtocol = TimeManager()) -> PrescriptionState {
         guard let nextDose = self.nextDose else {
             return unitsConsumed >= unitsBox ? .finished : .notStarted
         }
@@ -53,7 +53,7 @@ class Prescription: Identifiable {
         }
     }
 
-    func takeDose(timeManager: TimeManagerPrococol = TimeManager()) {
+    func takeDose(timeManager: TimeManagerProtocol = TimeManager()) {
         let state = getState()
         if (state == .notStarted ||
                 state == .ongoingReady ||
@@ -75,23 +75,23 @@ class Prescription: Identifiable {
         return unitsConsumed + unitsDose >= unitsBox
     }
     
-    func getRemaining(timeManager: TimeManagerPrococol = TimeManager()) -> Int? {
+    func getRemaining(timeManager: TimeManagerProtocol = TimeManager()) -> Int? {
 
         guard let nextDose = self.nextDose else { return nil }
         return Int(timeManager.timeIntervalSince1970()) - nextDose
     }
 
-    func getRemainingMins(timeManager: TimeManagerPrococol = TimeManager()) -> Int? {
+    func getRemainingMins(timeManager: TimeManagerProtocol = TimeManager()) -> Int? {
         guard let remainigSecs = getRemaining(timeManager: timeManager) else { return nil }
         return Int(floor(Double(remainigSecs / 60)))
     }
 
-    func getRemainingHours(timeManager: TimeManagerPrococol = TimeManager()) -> Int? {
+    func getRemainingHours(timeManager: TimeManagerProtocol = TimeManager()) -> Int? {
         guard let remainigMins = getRemainingMins(timeManager: timeManager) else { return nil }
         return Int(floor(Double(remainigMins / 60)))
     }
 
-    func getRemainingDays(timeManager: TimeManagerPrococol = TimeManager()) -> Int? {
+    func getRemainingDays(timeManager: TimeManagerProtocol = TimeManager()) -> Int? {
         guard let remainigHours = getRemainingHours(timeManager: timeManager) else { return nil }
         return Int(floor(Double(remainigHours / 24)))
     }

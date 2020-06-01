@@ -28,11 +28,11 @@ class DBManagerTests: XCTestCase {
     func tests_existMedicine() {
         //Given
         let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-        let result = sut.create(medicine: medicine)
+        let result = sut.create(medicine: medicine, timeManager: TimeManager())
         switch result {
         case .success(let medicine1):
             let medicine = Medicine(name: "bbbb", unitsBox: 10, intervalSecs: 20, unitsDose: 30)
-            let result = sut.create(medicine: medicine)
+            let result = sut.create(medicine: medicine, timeManager: TimeManager())
             switch result {
             case .success(let medicine2):
                 // When
@@ -67,7 +67,7 @@ class DBManagerTests: XCTestCase {
 
 	func test_createMedicine() throws {
 		let medicine = Medicine(name: "asdf", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		let result = sut.create(medicine: medicine)
+		let result = sut.create(medicine: medicine, timeManager: TimeManager())
 
 		switch result {
 		case .success(let medicine):
@@ -95,12 +95,12 @@ class DBManagerTests: XCTestCase {
 	func test_createMedicineWhenExists() throws {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let medicineNew = Medicine(name: "bbbb", unitsBox: 10, intervalSecs: 20, unitsDose: 30)
 			// When
 			medicineNew.id = medicine.id
-			switch sut.create(medicine: medicineNew) {
+			switch sut.create(medicine: medicineNew, timeManager: TimeManager()) {
 			case .success(let medicine):
 				// Then
 				XCTAssertEqual(medicine.name, "bbbb")
@@ -130,12 +130,12 @@ class DBManagerTests: XCTestCase {
 	func test_createMedicineWhenDoNotExists() throws {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success:
 			let medicineNew = Medicine(name: "bbbb", unitsBox: 10, intervalSecs: 20, unitsDose: 30)
 			// When
 			//medicineNew.id = medicine.id // ID must be different
-			switch sut.create(medicine: medicineNew) {
+			switch sut.create(medicine: medicineNew, timeManager: TimeManager()) {
 			case .success(let medicine):
 				// Then
 				XCTAssertEqual(medicine.name, "bbbb")
@@ -174,11 +174,11 @@ class DBManagerTests: XCTestCase {
 	func test_deleteTwoMedicines() throws {
 		//Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		let result = sut.create(medicine: medicine)
+		let result = sut.create(medicine: medicine, timeManager: TimeManager())
 		switch result {
 		case .success(let medicine1):
 			let medicine = Medicine(name: "bbbb", unitsBox: 10, intervalSecs: 20, unitsDose: 30)
-			let result = sut.create(medicine: medicine)
+			let result = sut.create(medicine: medicine, timeManager: TimeManager())
 			switch result {
 			case .success(let medicine2):
 				// When
@@ -214,7 +214,7 @@ class DBManagerTests: XCTestCase {
 	func test_deleteNotExistingMedicine() throws {
 		//Given
 		let medicine = Medicine(name: "bbbb", unitsBox: 10, intervalSecs: 20, unitsDose: 30)
-		let result = sut.create(medicine: medicine)
+		let result = sut.create(medicine: medicine, timeManager: TimeManager())
 		switch result {
 		case .success(let medicine1):
 			// When
@@ -240,7 +240,7 @@ class DBManagerTests: XCTestCase {
 	func test_deleteMedicineWithCycleAndDose() throws {
 		// Given
         let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-        switch sut.create(medicine: medicine) {
+        switch sut.create(medicine: medicine, timeManager: TimeManager()) {
         case .success(let medicineCreated):
             let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
             switch sut.create(cycle: cycle, medicineId: medicineCreated.id, timeManager: TimeManager()) {
@@ -278,7 +278,7 @@ class DBManagerTests: XCTestCase {
 	func test_deleteUpdatedMedicine() {
 		// Given
         let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-        switch sut.create(medicine: medicine) {
+        switch sut.create(medicine: medicine, timeManager: TimeManager()) {
         case .success(let medicineCreated):
             let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
             switch sut.create(cycle: cycle, medicineId: medicineCreated.id, timeManager: TimeManager()) {
@@ -291,7 +291,7 @@ class DBManagerTests: XCTestCase {
                     let medicine = Medicine(name: "bbbb", unitsBox: 10, intervalSecs: 20, unitsDose: 30)
                     // When
                     medicine.id = medicineCreated.id
-                    switch sut.update(medicine: medicine) {
+                    switch sut.update(medicine: medicine,timeManager: TimeManager()) {
                     case .success(let medicine2):
                         guard let first = self.sut.getMedicines().first,
                             self.sut.getMedicines().count == 1 else { XCTFail(); return }
@@ -330,13 +330,13 @@ class DBManagerTests: XCTestCase {
 	func test_updateMedicine() {
 		//Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		let result = sut.create(medicine: medicine)
+		let result = sut.create(medicine: medicine, timeManager: TimeManager())
 		switch result {
 		case .success(let medicine1):
 			let medicine = Medicine(name: "bbbb", unitsBox: 10, intervalSecs: 20, unitsDose: 30)
 			// When
 			medicine.id = medicine1.id
-			switch sut.update(medicine: medicine) {
+			switch sut.update(medicine: medicine,timeManager: TimeManager()) {
 			case .success(let medicine2):
 				// Then
 				guard let first = self.sut.getMedicines().first,
@@ -357,13 +357,13 @@ class DBManagerTests: XCTestCase {
 	func test_updateNotExistingMedicine() {
 		//Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		let result = sut.create(medicine: medicine)
+		let result = sut.create(medicine: medicine, timeManager: TimeManager())
 		switch result {
 		case .success(let medicine2):
 			let medicine = Medicine(name: "bbbb", unitsBox: 10, intervalSecs: 20, unitsDose: 30)
 			// When
 			medicine.id = "xxx"
-			switch sut.update(medicine: medicine) {
+			switch sut.update(medicine: medicine, timeManager: TimeManager()) {
 			case .success:
 				XCTFail()
 			case .failure:
@@ -384,7 +384,7 @@ class DBManagerTests: XCTestCase {
 	func test_updateMedicineWithCycleAndDose() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicineCreated):
 			let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
 			switch sut.create(cycle: cycle, medicineId: medicineCreated.id, timeManager: TimeManager()) {
@@ -398,7 +398,7 @@ class DBManagerTests: XCTestCase {
 					let medicine = Medicine(name: "bbbb", unitsBox: 10, intervalSecs: 20, unitsDose: 30)
 					// When
 					medicine.id = medicineCreated.id
-					switch sut.update(medicine: medicine) {
+					switch sut.update(medicine: medicine, timeManager: TimeManager()) {
 					case .success(let medicine2):
 						// Then
 						guard let first = self.sut.getMedicines().first,
@@ -433,7 +433,7 @@ class DBManagerTests: XCTestCase {
 	func test_createTwoCyles() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
@@ -467,7 +467,7 @@ class DBManagerTests: XCTestCase {
 	func test_createAnExistingCycle() throws {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
@@ -506,7 +506,7 @@ class DBManagerTests: XCTestCase {
 	func test_deleteCycle() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
@@ -545,7 +545,7 @@ class DBManagerTests: XCTestCase {
 	func test_deleteNotExistingCycle() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 3, nextDose: nil)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
@@ -567,7 +567,7 @@ class DBManagerTests: XCTestCase {
 	func test_deleteCycleWithDose() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
@@ -603,7 +603,7 @@ class DBManagerTests: XCTestCase {
 	func test_updateCycle() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 3, nextDose: nil)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
@@ -628,7 +628,7 @@ class DBManagerTests: XCTestCase {
 	func test_updateCycleDoesNotExist() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 3, nextDose: nil)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
@@ -651,7 +651,7 @@ class DBManagerTests: XCTestCase {
 	func test_updateCycleWithDose() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
@@ -684,7 +684,7 @@ class DBManagerTests: XCTestCase {
 	func test_createDose() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
@@ -714,7 +714,7 @@ class DBManagerTests: XCTestCase {
 	func test_createExistingDose() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
-		switch sut.create(medicine: medicine) {
+		switch sut.create(medicine: medicine, timeManager: TimeManager()) {
 		case .success(let medicine):
 			let cycle = Cycle(unitsConsumed: 5, nextDose: 15)
 			switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
