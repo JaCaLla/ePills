@@ -121,6 +121,14 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
                                              medicine: medicine)
         self.refreshVM()
     }
+    
+    func doseList() {
+        guard medicines.count > currentPage else { return }
+        let medicine = self.medicines[currentPage]
+        self.homeCoordinator.presentDoseList(interactor: self.interactor,
+                                             medicine: medicine)
+        self.refreshVM()
+    }
 
     func takeDose() {
         guard medicines.count > currentPage else { return }

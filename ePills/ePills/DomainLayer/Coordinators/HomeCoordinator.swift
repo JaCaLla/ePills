@@ -16,6 +16,7 @@ import Combine
 protocol HomeCoordinatorProtocol {
     func presentPrescriptionForm(interactor: MedicineInteractorProtocol, medicine: Medicine?)
     func presentCalendar(interactor: MedicineInteractorProtocol, medicine: Medicine)
+     func presentDoseList(interactor: MedicineInteractorProtocol, medicine: Medicine)
     func replaceByFirstPrescription(interactor: MedicineInteractorProtocol)
 }
 
@@ -76,6 +77,14 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
                 self.navitationController.pushViewController(medicineCalendarVC, animated: true)
         }
         #endif
+    }
+    
+    func presentDoseList(interactor: MedicineInteractorProtocol, medicine: Medicine) {
+        
+        let doseListVM = DoseListVM(medicine: medicine)
+        let doseListView = DoseListView(viewModel: doseListVM)
+        let doseListVC = DoseListVC(rootView: doseListView)
+        self.navitationController.pushViewController(doseListVC, animated: true)
     }
 
     func replaceByFirstPrescription(interactor: MedicineInteractorProtocol) {

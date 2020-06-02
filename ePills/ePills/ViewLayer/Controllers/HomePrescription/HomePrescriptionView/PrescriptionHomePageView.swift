@@ -14,12 +14,12 @@ struct PrescriptionHomePageView: View {
     var medicine: Medicine
     @Binding var isRemovingPrescription: Bool
     @Binding var currentMedicine: Medicine
-     var viewModel: HomePrescriptionVM
-    
+    var viewModel: HomePrescriptionVM
+
     // MARK: - Private attributes
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     @State var now = Date()
-    
+
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
@@ -47,15 +47,15 @@ struct PrescriptionHomePageView: View {
                         .foregroundColor(Color.white)
                     Spacer()
                 }.frame(height: geometry.size.height / 4)
-                  //  .background(Color.blue)
+                //  .background(Color.blue)
                 HStack {
-                   // Spacer()
+                    // Spacer()
                     VStack {
                         Image(systemName: self.viewModel.prescriptionIcon)
                             .font(Font.system(size: 60).bold())
                             .foregroundColor(Color(self.viewModel.prescriptionColor))
                             .onTapGesture {
-                               // self.dosePrescription = self.prescription
+                                // self.dosePrescription = self.prescription
                                 self.viewModel.takeDose()
                         }
                         Text(self.viewModel.prescriptionMessage)
@@ -65,41 +65,36 @@ struct PrescriptionHomePageView: View {
                             Spacer()
                             Text(self.viewModel.remainingMessageMajor)
                                 .font(.largeTitle)//.padding()
-                                .foregroundColor(Color(self.viewModel.prescriptionColor))
-                             Text(self.viewModel.remainingMessageMinor)
+                            .foregroundColor(Color(self.viewModel.prescriptionColor))
+                            Text(self.viewModel.remainingMessageMinor)
                                 .font(.headline)
                                 .foregroundColor(Color(self.viewModel.prescriptionColor)).padding(.leading, 5)
                             Spacer()
                         }//.background(Color.blue)
                     }//.background(Color.gray)
-                    
-                   // Spacer()
+
+                    // Spacer()
                 }.frame(height: geometry.size.height * 0.375)
                 //.background(Color.green)
                 HStack {
                     VStack {
-                       // if (self.viewModel.isUpdatable) {
                         PrescriptionButtonView(iconName: "calendar", action: {
                             self.viewModel.calendar()
                         })
-                      //  }
                         Spacer()
                     }
                     VStack {
                         Spacer()
                         if (self.viewModel.isUpdatable) {
-                        PrescriptionButtonView(iconName: "square.and.pencil", action: {
-                            self.viewModel.update()
+                            PrescriptionButtonView(iconName: "square.and.pencil", action: {
+                                self.viewModel.update()
                             })
                         }
                     }
                     VStack {
-                       // if (self.viewModel.isUpdatable) {
                         PrescriptionButtonView(iconName: "list.dash", action: {
-                          //  self.viewModel.update()
-                            print("todo")
-                            })
-                      //  }
+                            self.viewModel.doseList()
+                        })
                         Spacer()
                     }
                 }.frame(height: geometry.size.height / 4)
@@ -123,9 +118,9 @@ struct PrescriptionHomePageView_Previews: PreviewProvider {
 
     static var previews: some View {
         let prescription = Medicine(name: "Clamoxyl 200mg",
-                                        unitsBox: 20,
-                                        intervalSecs: 8,
-                                        unitsDose: 2)
+                                    unitsBox: 20,
+                                    intervalSecs: 8,
+                                    unitsDose: 2)
         let viewModel = HomePrescriptionVM(homeCoordinator: HomeCoordinator())
         return ZStack {
             PrescriptionHomePageView(medicine: prescription,
