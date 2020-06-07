@@ -4,11 +4,17 @@ PODS:
   - R.swift (5.2.2):
     - R.swift.Library (~> 5.2.0)
   - R.swift.Library (5.2.0)
+  - Realm (3.17.3):
+    - Realm/Headers (= 3.17.3)
+  - Realm/Headers (3.17.3)
+  - RealmSwift (3.17.3):
+    - Realm (= 3.17.3)
 
 DEPENDENCIES:
   - FLEX
   - FSCalendar
   - R.swift
+  - RealmSwift (= 3.17.3)
 
 SPEC REPOS:
   trunk:
@@ -16,13 +22,17 @@ SPEC REPOS:
     - FSCalendar
     - R.swift
     - R.swift.Library
+    - Realm
+    - RealmSwift
 
 SPEC CHECKSUMS:
   FLEX: 81096107977a09836eb440173010ceeef01105d6
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
   R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32
   R.swift.Library: 5ba4f1631300caf9a4d890186930da85d540769d
+  Realm: 5a1d9d47bfc101dd597668b1a8af4288a2557f6d
+  RealmSwift: b7fdc2d18616621c31df5c7a398a45a2163f8eb0
 
-PODFILE CHECKSUM: e2bf9b13906f6c07ce84e584930e9bb7583cb8f9
+PODFILE CHECKSUM: f64a5760441a49c597deeb519ae9febb36c033ce
 
 COCOAPODS: 1.8.3

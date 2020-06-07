@@ -46,7 +46,7 @@
 "home_prescription_onging" = "In course, next dose:";
 "home_prescription_ongoing_ready" = "You can take your dose, press icon to mark";
 "home_prescription_ongoing_ellapsed" = "Dose ellapsed, press icon to mark";
-"home_prescription_finished" = "Presciption finished, press renew to start again";
+"home_prescription_finished" = "Presciption finished";
 "home_prescription_secs_suffix" = "s";
 "home_prescription_mins_suffix" = "m";
 "home_prescription_hours_suffix" = "h";

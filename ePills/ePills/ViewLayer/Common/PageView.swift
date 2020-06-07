@@ -25,7 +25,9 @@ struct PageView<Page: View>: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             PageViewController(controllers: viewControllers, currentPage: $currentPage)
-            PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
+            if viewControllers.count > 1 {
+                 PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
+            }
         }
     }
 }
@@ -50,7 +52,6 @@ struct PageViewController: UIViewControllerRepresentable {
 
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
          guard !self.controllers.isEmpty else { return }
-        print("updateUIViewController \(controllers.count)")
         context.coordinator.parent.controllers = self.controllers
         let pageToRefresh = currentPage >= controllers.count ? 0 : currentPage
         

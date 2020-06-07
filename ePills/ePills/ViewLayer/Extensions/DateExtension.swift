@@ -15,8 +15,8 @@ extension Date {
         /// return VLVuelingUtils.string(from: self, format: format)
 
         let dateformat = DateFormatter()
-        dateformat.timeZone = TimeZone(abbreviation: "UTC")
-        dateformat.locale = Locale(identifier: "en_US_POSIX")
+        //dateformat.timeZone = TimeZone(abbreviation: "UTC")
+        //dateformat.locale = Locale(identifier: "en_US_POSIX")
         dateformat.calendar = Calendar(identifier: .gregorian)
         dateformat.dateFormat = format
         return dateformat.string(from: self)

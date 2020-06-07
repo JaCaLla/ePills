@@ -120,55 +120,6 @@ class HomecycleVMTest: XCTestCase {
         prescriptionInteractor.add(medicine: cycle2, timeManager: TimeManager())
 
          wait(for: [expectation], timeout: 10)
-        
-/*
-        let expectation = XCTestExpectation(description: self.debugDescription)
-
-        let expecteds: [[Medicine]] = [[],
-                                       [Medicine(name: "a",
-                                                 unitsBox: 10,
-                                                 intervalSecs: 8,
-                                                 unitsDose: 1)],
-                                       [Medicine(name: "a",
-                                                 unitsBox: 10,
-                                                 intervalSecs: 8,
-                                                 unitsDose: 1),
-                                        Medicine(name: "b",
-                                                 unitsBox: 10,
-                                                 intervalSecs: 8,
-                                                 unitsDose: 1)
-                                       ]]
-
-        var expetedsIdx = 0
-        let cycle1 = Medicine(name: "a",
-                              unitsBox: 10,
-                              intervalSecs: 8,
-                              unitsDose: 1)
-        let cycle2 = Medicine(name: "b",
-                              unitsBox: 10,
-                              intervalSecs: 8,
-                              unitsDose: 1)
-
-        sut.$medicines
-            .sink(receiveCompletion: { completion in
-                XCTFail(".sink() received the completion:")
-            }, receiveValue: { someValue in
-                // Then
-                guard expetedsIdx < expecteds.count else { XCTFail(); return }
-                XCTAssertEqual(expecteds[expetedsIdx], someValue)
-                expetedsIdx += 1
-                if expetedsIdx >= expecteds.count {
-                    expectation.fulfill()
-                }
-
-            }
-            ).store(in: &cancellables)
-        // When
-        prescriptionInteractor.add(medicine: cycle1)
-        prescriptionInteractor.add(medicine: cycle2)
-
-        wait(for: [expectation], timeout: 1.1)
-        */
     }
 
     func test_getCurrentcyclesWhenAdded2cycles() throws {
@@ -233,6 +184,9 @@ class HomecycleVMTest: XCTestCase {
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: TimeManager()), "stop")
         XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: TimeManager()), "Not started. Press icon to start")
         XCTAssertTrue(sut.updatable())
+        XCTAssertEqual(sut.getPrescriptionTime(timeManager: TimeManager()), "")
+        XCTAssertEqual(sut.getCurrentDoseProgress(timeManager: TimeManager()), 0)
+        XCTAssertEqual(sut.hasDoses(), false)
     }
 
     func test_iconNameWhenFinished() {
@@ -249,8 +203,11 @@ class HomecycleVMTest: XCTestCase {
         guard let created = prescriptionInteractor.add(medicine: medicine, timeManager: TimeManager()) else { XCTFail(); return }
         prescriptionInteractor.takeDose(medicine: created, timeManager: timeManager)
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: timeManager), "clear")
-        XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: TimeManager()), "Presciption finished, press renew to start again")
+        XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: TimeManager()), "Presciption finished")
         XCTAssertTrue(sut.updatable())
+          XCTAssertEqual(sut.getPrescriptionTime(timeManager: TimeManager()), "")
+        XCTAssertEqual(sut.getCurrentDoseProgress(timeManager: TimeManager()), 0)
+        XCTAssertEqual(sut.hasDoses(), true)
     }
 
     func test_iconNameWhenOngoing() {
@@ -273,6 +230,9 @@ class HomecycleVMTest: XCTestCase {
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: timeManager), "play")
         XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: timeManager), "In course, next dose:")
         XCTAssertFalse(sut.updatable())
+         XCTAssertEqual(sut.getPrescriptionTime(timeManager: TimeManager()), "09:00")
+        XCTAssertEqual(sut.getCurrentDoseProgress(timeManager: TimeManager()), 1.0)
+        XCTAssertEqual(sut.hasDoses(), true)
     }
 
     func test_iconNameWhenOngoingReady() {
@@ -294,6 +254,9 @@ class HomecycleVMTest: XCTestCase {
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: timeManager), "alarm")
         XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: TimeManager()), "Dose ellapsed, press icon to mark")
         XCTAssertFalse(sut.updatable())
+         XCTAssertEqual(sut.getPrescriptionTime(timeManager: TimeManager()), "01:00")
+        XCTAssertEqual(sut.getCurrentDoseProgress(timeManager: TimeManager()), 1.0)
+        XCTAssertEqual(sut.hasDoses(), true)
     }
 
     func test_iconNameWhenNotOngoingEllapsed() {
@@ -315,6 +278,9 @@ class HomecycleVMTest: XCTestCase {
         XCTAssertEqual(sut.getIconName(/*cycle: cycle,*/ timeManager: timeManager), "exclamationmark.triangle")
         XCTAssertEqual(sut.getMessage(/*cycle: cycle,*/ timeManager: TimeManager()), "Dose ellapsed, press icon to mark")
         XCTAssertFalse(sut.updatable())
+         XCTAssertEqual(sut.getPrescriptionTime(timeManager: TimeManager()), "01:00")
+        XCTAssertEqual(sut.getCurrentDoseProgress(timeManager: TimeManager()), 1.0)
+        XCTAssertEqual(sut.hasDoses(), true)
     }
 
     func test_getRemainingTimeMessageWhenNotOngoing() {
@@ -325,7 +291,7 @@ class HomecycleVMTest: XCTestCase {
         //    let cycle = Cycle(unitsConsumed: 0, nextDose: nil)
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).0, "")
         XCTAssertEqual(sut.getRemainingTimeMessage(/*cycle: cycle,*/ timeManager: timeManager).1, "")
-
+        XCTAssertEqual(sut.getCurrentDoseProgress(timeManager: TimeManager()), 0)
     }
 
     func test_getRemainingTimeMessageWhenNextIsGreaterThanAMonth() {

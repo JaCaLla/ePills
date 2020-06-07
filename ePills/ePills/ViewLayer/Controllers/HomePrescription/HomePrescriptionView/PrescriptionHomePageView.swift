@@ -22,84 +22,96 @@ struct PrescriptionHomePageView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
-                HStack(alignment: .center) {
-                    Text(self.viewModel.title())
-                        .font(.headline)
-                        .foregroundColor(Color(R.color.colorWhite.name))
-                        .padding(.leading)
-                    Spacer()
-                    Image(systemName: "minus.rectangle")
-                        .font(Font.system(size: 20).bold())
-                        .foregroundColor(Color.white)
-                        .padding()
-                        .onTapGesture {
-                            self.isRemovingPrescription = true
-                            self.currentMedicine = self.medicine
-                    }
-                }.frame(height: geometry.size.height * 0.125)
-                    .background(Color(R.color.colorGray50Semi.name))
-
-                HStack {
-                    Spacer()
-                    Image(systemName: "plus.rectangle")
-                        .font(Font.system(size: 20).bold())
-                        .foregroundColor(Color.white)
-                    Spacer()
-                }.frame(height: geometry.size.height / 4)
-                //  .background(Color.blue)
-                HStack {
-                    // Spacer()
-                    VStack {
-                        Image(systemName: self.viewModel.prescriptionIcon)
-                            .font(Font.system(size: 60).bold())
-                            .foregroundColor(Color(self.viewModel.prescriptionColor))
+            ZStack {
+                ArcShape(width: geometry.size.width, height: geometry.size.height, progress: self.viewModel.progressPercentage)
+                    .stroke(lineWidth: 10)
+                    .fill(Color(R.color.colorWhite.name))
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                VStack(spacing: 0) {
+                    HStack(alignment: .center) {
+                        Text(self.viewModel.title())
+                            .font(.headline)
+                            .foregroundColor(Color(R.color.colorWhite.name))
+                            .padding(.leading)
+                        Spacer()
+                        Image(systemName: "minus.rectangle")
+                            .font(Font.system(size: 20).bold())
+                            .foregroundColor(Color.white)
+                            .padding()
                             .onTapGesture {
-                                // self.dosePrescription = self.prescription
-                                self.viewModel.takeDose()
+                                self.isRemovingPrescription = true
+                                self.currentMedicine = self.medicine
                         }
-                        Text(self.viewModel.prescriptionMessage)
-                            .font(.body).padding(.vertical)
-                            .foregroundColor(Color(self.viewModel.prescriptionColor))
-                        HStack(alignment: .firstTextBaseline) {
-                            Spacer()
-                            Text(self.viewModel.remainingMessageMajor)
-                                .font(.largeTitle)//.padding()
-                            .foregroundColor(Color(self.viewModel.prescriptionColor))
-                            Text(self.viewModel.remainingMessageMinor)
-                                .font(.headline)
-                                .foregroundColor(Color(self.viewModel.prescriptionColor)).padding(.leading, 5)
-                            Spacer()
-                        }//.background(Color.blue)
-                    }//.background(Color.gray)
+                    }.frame(height: geometry.size.height * 0.125)
+                        .background(Color(R.color.colorGray50Semi.name))
 
-                    // Spacer()
-                }.frame(height: geometry.size.height * 0.375)
-                //.background(Color.green)
-                HStack {
-                    VStack {
-                        PrescriptionButtonView(iconName: "calendar", action: {
-                            self.viewModel.calendar()
-                        })
+                    HStack {
                         Spacer()
-                    }
-                    VStack {
-                        Spacer()
-                        if (self.viewModel.isUpdatable) {
-                            PrescriptionButtonView(iconName: "square.and.pencil", action: {
-                                self.viewModel.update()
-                            })
+                        HStack {
+                            if !self.viewModel.prescriptionTime.isEmpty {
+                                Image(systemName: "alarm")
+                                    .foregroundColor(Color.white)
+                                    .font(Font.system(size: 20)
+                                        .bold())
+                                Text(self.viewModel.prescriptionTime)
+                                    .font(Font.system(size: 20).bold())
+                                    .foregroundColor(Color.white)
+                            }
                         }
-                    }
-                    VStack {
-                        PrescriptionButtonView(iconName: "list.dash", action: {
-                            self.viewModel.doseList()
-                        })
                         Spacer()
-                    }
-                }.frame(height: geometry.size.height / 4)
-                Spacer()
+                    }.frame(height: geometry.size.height / 4)
+                    HStack {
+                        VStack {
+                            Image(systemName: self.viewModel.prescriptionIcon)
+                                .font(Font.system(size: 60).bold())
+                                .foregroundColor(Color(self.viewModel.prescriptionColor))
+                                .onTapGesture {
+                                    self.viewModel.takeDose()
+                            }
+                            Text(self.viewModel.prescriptionMessage)
+                                .font(.body).padding(.vertical)
+                                .foregroundColor(Color(self.viewModel.prescriptionColor))
+                            HStack(alignment: .firstTextBaseline) {
+                                Spacer()
+                                Text(self.viewModel.remainingMessageMajor)
+                                    .font(.largeTitle)//.padding()
+                                .foregroundColor(Color(self.viewModel.prescriptionColor))
+                                Text(self.viewModel.remainingMessageMinor)
+                                    .font(.headline)
+                                    .foregroundColor(Color(self.viewModel.prescriptionColor)).padding(.leading, 5)
+                                Spacer()
+                            }
+                        }
+                    }.frame(height: geometry.size.height * 0.375)
+                    HStack {
+                        VStack {
+                            PrescriptionButtonView(iconName: "calendar", action: {
+                                self.viewModel.calendar()
+                            })
+                            Spacer()
+                        }.frame(width: geometry.size.width * 0.333)
+                        VStack {
+                            Spacer()
+                            if (self.viewModel.isUpdatable) {
+                                PrescriptionButtonView(iconName: "square.and.pencil", action: {
+                                    self.viewModel.update()
+                                })
+                            }
+                        }.frame(width: geometry.size.width * 0.333)
+                        VStack {
+                            if self.viewModel.medicineHasDoses {
+                                PrescriptionButtonView(iconName: "list.dash", action: {
+                                    self.viewModel.doseList()
+                                })
+                            }
+                            Spacer()
+                        }.frame(width: geometry.size.width * 0.333)
+                    }.frame(height: geometry.size.height / 4)
+                    Spacer()
+                }
             }
+
+
         }
     }
 
@@ -111,6 +123,25 @@ struct PrescriptionHomePageView: View {
         self._isRemovingPrescription = isRemovingPrescription
         self._currentMedicine = curentPrescription
         self.viewModel = viewModel
+    }
+
+    struct ArcShape: Shape {
+        var width: CGFloat
+        var height: CGFloat
+        var progress: Double
+
+        func path(in rect: CGRect) -> Path {
+
+            let bezierPath = UIBezierPath()
+            let endAngle = 360.0 * progress - 90.0
+            bezierPath.addArc(withCenter: CGPoint(x: width / 2, y: height / 2),
+                              radius: width / 3,
+                              startAngle: CGFloat(-90 * Double.pi / 180),
+                              endAngle: CGFloat(endAngle * Double.pi / 180),
+                              clockwise: true)
+
+            return Path(bezierPath.cgPath)
+        }
     }
 }
 

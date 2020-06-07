@@ -90,15 +90,12 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
     func replaceByFirstPrescription(interactor: MedicineInteractorProtocol) {
         let firstPresciptionCoordinator = FirstPresciptionCoordinator()
         firstPresciptionCoordinator.navitationController = self.navitationController
-       // let previousViewControllers = self.navitationController.viewControllers
         firstPresciptionCoordinator.onFinishedPublisher.sink { _ in
             self.navitationController.viewControllers = [self.getHomePrescriptionVC(interactor: interactor)]
         }.store(in: &cancellable)
         let rootViewController = firstPresciptionCoordinator.start(navigationController: false)
         rootViewController.modalTransitionStyle = .crossDissolve
         self.navitationController.viewControllers = [rootViewController]
-
-//         self.navitationController.viewControllers = [UIViewController()]
     }
 }
 
