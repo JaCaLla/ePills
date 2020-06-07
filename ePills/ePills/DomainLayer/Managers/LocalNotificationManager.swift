@@ -12,8 +12,8 @@ import UserNotifications
 
 protocol LocalNotificationManagerProtocol {
     func requestAuthorization(onComplete: @escaping (() -> Void))
-    func addNotification(prescription: Medicine, onComplete: @escaping ((Bool) -> Void))
-    func removeNotification(prescription: Medicine)
+    func addNotification(medicine: Medicine, onComplete: @escaping ((Bool) -> Void))
+    func removeNotification(medicine: Medicine)
 }
 
 public final class LocalNotificationManager: NSObject {
@@ -46,14 +46,14 @@ extension LocalNotificationManager : LocalNotificationManagerProtocol {
       }
     }
     
-    func removeNotification(prescription: Medicine) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [prescription.id])
+    func removeNotification(medicine: Medicine) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [medicine.id])
     }
     
-    func addNotification(prescription: Medicine, onComplete: @escaping ((Bool) -> Void)) {
-        guard !prescription.isLast() else { return }
+    func addNotification(medicine: Medicine, onComplete: @escaping ((Bool) -> Void)) {
+        guard !medicine.isLast() else { return }
         
-        let date = Date(timeIntervalSinceNow: TimeInterval(prescription.intervalSecs - Cycle.Constants.ongoingReadyOffset))
+        let date = Date(timeIntervalSinceNow: TimeInterval(medicine.intervalSecs - Cycle.Constants.ongoingReadyOffset))
         let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
         
@@ -61,8 +61,8 @@ extension LocalNotificationManager : LocalNotificationManagerProtocol {
 //                                                        repeats: false)
         let content = UNMutableNotificationContent()
         
-        content.title = "\(R.string.localizable.app_name.key.localized). \(prescription.name)"
-        content.subtitle = "\(R.string.localizable.notification_next_dose.key.localized): \(Date().format("HH:MM"))"
+        content.title = "\(R.string.localizable.app_name.key.localized). \(medicine.name)"
+        content.subtitle = "\(R.string.localizable.notification_next_dose.key.localized)\(Date(timeIntervalSince1970:Date().timeIntervalSince1970 + Double(medicine.intervalSecs)).format("HH:mm"))"
 //        content.badge = 1
         content.categoryIdentifier = R.string.localizable.app_name.key.localized
 //        content.userInfo = [
@@ -73,7 +73,7 @@ extension LocalNotificationManager : LocalNotificationManagerProtocol {
 //        ]
         content.sound = UNNotificationSound.default
         
-        let identifier = prescription.id//UUID().uuidString
+        let identifier = medicine.id//UUID().uuidString
         let request = UNNotificationRequest(identifier: identifier,
                                             content: content,
                                             trigger: trigger)

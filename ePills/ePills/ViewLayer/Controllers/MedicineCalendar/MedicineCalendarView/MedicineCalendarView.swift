@@ -41,30 +41,3 @@ struct MedicineCalendarView_Previews: PreviewProvider {
         }
     }
 }
-
-struct CalendarHeaderView: View {
-    @ObservedObject var viewModel: MedicineCalendarVM
-    var body: some View {
-        VStack {
-            Text(R.string.localizable.calendar_last_dose.key.localized)
-                .fontWeight(.light)
-                .frame(alignment: .leading)
-                .padding(.vertical,10)
-            HStack{
-                Text(viewModel.expirationDayNumber)
-                    .fontWeight(.light)
-                    .frame(alignment: .leading)
-                    .font(Font.system(size: 90, design: .default)).padding()
-                Spacer()
-                VStack {
-                    Text(viewModel.expirationMonthYear).fontWeight(.light)
-                    Text(viewModel.expirationWeekdayHourMinute).fontWeight(.light)
-                }.frame(alignment: .leading)
-                    .font(Font.system(size: 30, design: .default))
-                    .padding(.trailing, 10)
-            } .padding(.top, -40)
-        }.frame(height: 130)
-            .foregroundColor(Color.white)
-            .background(Color(R.color.colorGray50Semi.name))
-    }
-}

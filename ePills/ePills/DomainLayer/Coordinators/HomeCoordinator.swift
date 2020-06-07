@@ -16,6 +16,7 @@ import Combine
 protocol HomeCoordinatorProtocol {
     func presentPrescriptionForm(interactor: MedicineInteractorProtocol, medicine: Medicine?)
     func presentCalendar(interactor: MedicineInteractorProtocol, medicine: Medicine)
+     func presentDoseList(interactor: MedicineInteractorProtocol, medicine: Medicine)
     func replaceByFirstPrescription(interactor: MedicineInteractorProtocol)
 }
 
@@ -77,19 +78,24 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
         }
         #endif
     }
+    
+    func presentDoseList(interactor: MedicineInteractorProtocol, medicine: Medicine) {
+        
+        let doseListVM = DoseListVM(medicine: medicine)
+        let doseListView = DoseListView(viewModel: doseListVM)
+        let doseListVC = DoseListVC(rootView: doseListView)
+        self.navitationController.pushViewController(doseListVC, animated: true)
+    }
 
     func replaceByFirstPrescription(interactor: MedicineInteractorProtocol) {
         let firstPresciptionCoordinator = FirstPresciptionCoordinator()
         firstPresciptionCoordinator.navitationController = self.navitationController
-       // let previousViewControllers = self.navitationController.viewControllers
         firstPresciptionCoordinator.onFinishedPublisher.sink { _ in
             self.navitationController.viewControllers = [self.getHomePrescriptionVC(interactor: interactor)]
         }.store(in: &cancellable)
         let rootViewController = firstPresciptionCoordinator.start(navigationController: false)
         rootViewController.modalTransitionStyle = .crossDissolve
         self.navitationController.viewControllers = [rootViewController]
-
-//         self.navitationController.viewControllers = [UIViewController()]
     }
 }
 

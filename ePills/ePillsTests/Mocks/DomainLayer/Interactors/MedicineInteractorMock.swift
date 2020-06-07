@@ -22,6 +22,13 @@ public final class MedicineInteractorMock:  MedicineInteractorProtocol {
     var getCycleDatesStr = 0
     var getCycleDatesCount = 0
     var getExpirationDayNumberCount = 0
+    var getExpirationMonthYearCount = 0
+    var getExpirationWeekdayHourMinuteCount = 0
+    var getExpirationDoseDayNumberCount = 0
+    var getExpirationDoseMonthYearCount = 0
+    var getExpirationDoseWeekdayHourMinuteCount = 0
+    var timeDifference2StrCount = 0
+    var getExpirationHourMinuteCount = 0
     
     public func getCycleDates(medicine: Medicine) -> [Date] {
         getCycleDatesCount += 1
@@ -78,6 +85,41 @@ public final class MedicineInteractorMock:  MedicineInteractorProtocol {
     
     public func getExpirationDayNumber(medicine: Medicine) -> String {
         getExpirationDayNumberCount += 1
+        return ""
+    }
+    
+    public func getExpirationMonthYear(medicine: Medicine) -> String {
+        getExpirationMonthYearCount += 1
+        return ""
+    }
+    
+    public func getExpirationWeekdayHourMinute(medicine: Medicine) -> String {
+        getExpirationWeekdayHourMinuteCount += 1
+         return ""
+    }
+    
+    public func getExpirationDayNumber(dose: Dose) -> String {
+        getExpirationDoseDayNumberCount += 1
+        return ""
+    }
+    
+    public func getExpirationMonthYear(dose: Dose) -> String {
+        getExpirationDoseMonthYearCount += 1
+        return ""
+    }
+    
+    public func getExpirationWeekdayHourMinute(dose: Dose) -> String {
+        getExpirationDoseWeekdayHourMinuteCount += 1
+        return ""
+    }
+    
+    public func timeDifference2Str(timeDifference: DateComponents) -> (String, String) {
+        timeDifference2StrCount += 1
+        return ("","")
+    }
+    
+    public func getExpirationHourMinute(medicine: Medicine) -> String {
+        getExpirationHourMinuteCount += 1
         return ""
     }
 }

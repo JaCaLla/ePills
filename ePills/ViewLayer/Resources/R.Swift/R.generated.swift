@@ -419,7 +419,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let setup_section_others = Rswift.StringResource(key: "setup_section_others", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Presciption finished, press renew to start again
+      /// en translation: Presciption finished
       ///
       /// Locales: en
       static let home_prescription_finished = Rswift.StringResource(key: "home_prescription_finished", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -939,7 +939,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("setup_section_others", bundle: bundle, comment: "")
       }
 
-      /// en translation: Presciption finished, press renew to start again
+      /// en translation: Presciption finished
       ///
       /// Locales: en
       static func home_prescription_finished(preferredLanguages: [String]? = nil) -> String {

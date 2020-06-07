@@ -21,12 +21,18 @@ protocol MedicineInteractorProtocol {
     func getCurrentPrescriptionIndex()  -> AnyPublisher<Int, Never>
     func getMedicinesPublisher() -> AnyPublisher<[Medicine], Never>
      func flushMedicines()
+    func timeDifference2Str(timeDifference: DateComponents) -> (String, String)
     func getIntervals() -> [Interval]
     func getCycleDatesStr(medicine: Medicine) -> [String]
     func getCycleDates(medicine: Medicine) -> [Date]
     func getExpirationDayNumber(medicine: Medicine) -> String
     func getExpirationMonthYear(medicine: Medicine) -> String 
     func getExpirationWeekdayHourMinute(medicine: Medicine) -> String
+    func getExpirationDayNumber(dose: Dose) -> String
+    func getExpirationMonthYear(dose: Dose) -> String
+    func getExpirationWeekdayHourMinute(dose: Dose) -> String
+     func getExpirationHourMinute(medicine: Medicine) -> String
+    
 }
 
 
@@ -48,7 +54,7 @@ final class MedicineInteractor {
 
                 self.dataManager.getMedicinesPublisher()
                     .sink { medicines in
-                        self.medicines = medicines
+                            self.medicines = medicines
                         self.subject.send(self.medicines)
                     }.store(in: &cancellables)
     }
@@ -66,7 +72,7 @@ extension MedicineInteractor: MedicineInteractorProtocol {
         return createdMedicine
     }
     func remove(medicine: Medicine) {
-        LocalNotificationManager.shared.removeNotification(prescription: medicine)
+        LocalNotificationManager.shared.removeNotification(medicine: medicine)
         dataManager.remove(medicine: medicine)
         currentPrescriptionIndex = 0
         currentPrescriptionIndexSubject.send(currentPrescriptionIndex)
@@ -82,7 +88,7 @@ extension MedicineInteractor: MedicineInteractorProtocol {
     
     func takeDose(medicine: Medicine, onComplete: @escaping (Bool) -> Void) {
         if !medicine.isLast() {
-           LocalNotificationManager.shared.addNotification(prescription: medicine, onComplete: onComplete)
+           LocalNotificationManager.shared.addNotification(medicine: medicine, onComplete: onComplete)
         }
 
         self.update(medicine: medicine)
@@ -91,14 +97,15 @@ extension MedicineInteractor: MedicineInteractorProtocol {
     func takeDose(medicine: Medicine,timeManager: TimeManagerProtocol) {
         
         if !medicine.isLast() {
-            LocalNotificationManager.shared.addNotification(prescription: medicine, onComplete: { _ in /* Do nothing */})
+            LocalNotificationManager.shared.addNotification(medicine: medicine, onComplete: { _ in /* Do nothing */})
         }
-        medicine.takeDose(timeManager:timeManager)
+        //medicine.takeDose(timeManager:timeManager)
+        var dose = Dose(expected: timeManager.timeIntervalSince1970(), timeManager: timeManager)
         if let nextDose =  medicine.currentCycle.nextDose {
-            let dose = Dose(expected: nextDose, timeManager: timeManager)
-            dataManager.add(dose: dose, medicine: medicine)
+             dose = Dose(expected: nextDose, timeManager: timeManager)
         }
-        
+         dataManager.add(dose: dose, medicine: medicine)
+         medicine.takeDose(timeManager:timeManager)
          self.update(medicine: medicine)
     }
 
@@ -118,6 +125,36 @@ extension MedicineInteractor: MedicineInteractorProtocol {
     
     func flushMedicines() {
          self.dataManager.flushMedicines()
+    }
+    
+    func timeDifference2Str(timeDifference: DateComponents) -> (String, String) {
+        if let years = timeDifference.year,
+            years != 0 {
+            return (R.string.localizable.home_prescription_more_than_month.key.localized, "")
+        } else if let months = timeDifference.month,
+            months != 0 {
+            return (R.string.localizable.home_prescription_more_than_month.key.localized, "")
+        } else if let days = timeDifference.day,
+            days != 0,
+            let hours = timeDifference.hour {
+            return (String(format: "%02d%@", days, R.string.localizable.home_prescription_days_suffix.key.localized),
+                    String(format: "%02d%@", abs(hours), R.string.localizable.home_prescription_hours_suffix.key.localized))
+        } else if let hours = timeDifference.hour,
+            hours != 0,
+            let mins = timeDifference.minute {
+            return (String(format: "%02d%@", hours, R.string.localizable.home_prescription_hours_suffix.key.localized),
+                    String(format: "%02d%@", abs(mins), R.string.localizable.home_prescription_mins_suffix.key.localized))
+        } else if let mins = timeDifference.minute,
+            mins != 0,
+            let secs = timeDifference.second {
+            return (String(format: "%02d%@", mins, R.string.localizable.home_prescription_mins_suffix.key.localized),
+                    String(format: "%02d%@", abs(secs), R.string.localizable.home_prescription_secs_suffix.key.localized))
+        } else if let secs = timeDifference.second {
+            return (String(format: "%02d%@", secs, R.string.localizable.home_prescription_secs_suffix.key.localized),
+                    "")
+        } else {
+            return ("", "")
+        }
     }
     
     func getIntervals() -> [Interval] {
@@ -192,11 +229,47 @@ extension MedicineInteractor: MedicineInteractorProtocol {
          let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
         let weekday = formatter.string(from: toDate)
-         formatter.dateFormat = "MM:mm"
+         formatter.dateFormat = "HH:mm"
         let hhmm = formatter.string(from: toDate)
         return "\(weekday.capitalized) - \(hhmm)"
     }
+    
+    func getExpirationDayNumber(dose: Dose) -> String {
+        let toDate = Date(timeIntervalSince1970: TimeInterval(dose.expected))
+         let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        return formatter.string(from: toDate).replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
+    }
 
+    func getExpirationMonthYear(dose: Dose) -> String {
+        
+        let toDate = Date(timeIntervalSince1970: TimeInterval(dose.expected))
+         let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM"
+        let monthName = formatter.string(from: toDate)
+         formatter.dateFormat = "yyyy"
+        let year = formatter.string(from: toDate)
+        return "\(monthName.capitalized) - \(year)"
+    }
+    
+    func getExpirationWeekdayHourMinute(dose: Dose) -> String {
+        let toDate = Date(timeIntervalSince1970: TimeInterval(dose.expected))
+         let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        let weekday = formatter.string(from: toDate)
+         formatter.dateFormat = "HH:mm"
+        let hhmm = formatter.string(from: toDate)
+        return "\(weekday.capitalized) - \(hhmm)"
+    }
+    
+    func getExpirationHourMinute(medicine: Medicine) -> String {
+        guard let nextDose = medicine.currentCycle.nextDose else { return "" }
+        let toDate = Date(timeIntervalSince1970: TimeInterval(nextDose))
+         let formatter = DateFormatter()
+         formatter.dateFormat = "HH:mm"
+        return  formatter.string(from: toDate)
+    }
+    
 
     // MARK: - Private functions
    private func datesRange(from: Int, to: Int) -> [Date] {

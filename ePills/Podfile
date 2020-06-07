@@ -10,7 +10,7 @@ target 'ePills' do
   pod 'FSCalendar'
   
   # Pod for persistence
-  #pod 'RealmSwift'
+   pod 'RealmSwift', '3.17.3'
   
   # Pods for resources
   pod 'R.swift'#, '~> 5.0.3'

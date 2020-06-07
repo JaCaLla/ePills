@@ -16,9 +16,12 @@ protocol HomePrescriptionVMProtocol {
     func title() -> String
     func getIconName(timeManager: TimeManagerProtocol?) -> String
     func getMessage(timeManager: TimeManagerProtocol?) -> String
+    func getPrescriptionTime(timeManager: TimeManagerProtocol?) -> String
     func getRemainingTimeMessage(timeManager: TimeManagerProtocol?) -> (String, String)
     func updatable() -> Bool
     func getMessageColor(timeManager: TimeManagerProtocol?) -> String
+    func getCurrentDoseProgress(timeManager: TimeManagerProtocol) -> Double
+    func hasDoses() -> Bool
 }
 
 public final class HomePrescriptionVM: ObservableObject {
@@ -43,6 +46,9 @@ public final class HomePrescriptionVM: ObservableObject {
     @Published var remainingMessageMinor: String = ""
     @Published var prescriptionColor: String = ""
     @Published var isUpdatable: Bool = false
+     @Published var prescriptionTime: String = ""
+    @Published var progressPercentage: Double = 0
+    @Published var medicineHasDoses: Bool = false
 
     var timer: Timer?
     var runCount = 0
@@ -85,9 +91,12 @@ public final class HomePrescriptionVM: ObservableObject {
     func refreshVM() {
         self.prescriptionIcon = self.getIconName(timeManager: timeManager)
         self.prescriptionMessage = self.getMessage(timeManager: timeManager)
+        self.prescriptionTime = self.getPrescriptionTime(timeManager: timeManager)
+        self.progressPercentage = self.getCurrentDoseProgress(timeManager: timeManager)
         self.isUpdatable = self.updatable()
         (self.remainingMessageMajor, self.remainingMessageMinor) = self.getRemainingTimeMessage(timeManager: timeManager)
         self.prescriptionColor = self.getMessageColor(timeManager: timeManager)
+        self.medicineHasDoses = self.hasDoses()
     }
 }
 
@@ -121,11 +130,19 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
                                              medicine: medicine)
         self.refreshVM()
     }
+    
+    func doseList() {
+        guard medicines.count > currentPage else { return }
+        let medicine = self.medicines[currentPage]
+        self.homeCoordinator.presentDoseList(interactor: self.interactor,
+                                             medicine: medicine)
+        self.refreshVM()
+    }
 
     func takeDose() {
         guard medicines.count > currentPage else { return }
         let medicine = self.medicines[currentPage]
-        medicine.takeDose()
+        //medicine.takeDose()
         self.interactor.takeDose(medicine: medicine, timeManager: TimeManager())
         self.refreshVM()
     }
@@ -152,7 +169,7 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         guard medicines.count > currentPage else { return ("") }
         let prescription = self.medicines[currentPage]
 
-        print("\(prescription.getState(timeManager: timeManager ?? TimeManager()))")
+      //  print("\(prescription.getState(timeManager: timeManager ?? TimeManager()))")
         let prescriptionState = prescription.getState(timeManager: timeManager ?? TimeManager())
         switch prescriptionState {
         case .notStarted: return R.string.localizable.home_prescription_not_started.key.localized
@@ -174,34 +191,47 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         let nextDoseTimestamp = Date(timeIntervalSince1970: TimeInterval(nextDose))
         let timeDifference = Calendar.current.dateComponents(requestedComponent, from: nextDoseTimestamp, to: now)
 
-        if let years = timeDifference.year,
-            years != 0 {
-            return (R.string.localizable.home_prescription_more_than_month.key.localized, "")
-        } else if let months = timeDifference.month,
-            months != 0 {
-            return (R.string.localizable.home_prescription_more_than_month.key.localized, "")
-        } else if let days = timeDifference.day,
-            days != 0,
-            let hours = timeDifference.hour {
-            return (String(format: "%02d%@", days, R.string.localizable.home_prescription_days_suffix.key.localized),
-                    String(format: "%02d%@", abs(hours), R.string.localizable.home_prescription_hours_suffix.key.localized))
-        } else if let hours = timeDifference.hour,
-            hours != 0,
-            let mins = timeDifference.minute {
-            return (String(format: "%02d%@", hours, R.string.localizable.home_prescription_hours_suffix.key.localized),
-                    String(format: "%02d%@", abs(mins), R.string.localizable.home_prescription_mins_suffix.key.localized))
-        } else if let mins = timeDifference.minute,
-            mins != 0,
-            let secs = timeDifference.second {
-            return (String(format: "%02d%@", mins, R.string.localizable.home_prescription_mins_suffix.key.localized),
-                    String(format: "%02d%@", abs(secs), R.string.localizable.home_prescription_secs_suffix.key.localized))
-        } else if let secs = timeDifference.second {
-            return (String(format: "%02d%@", secs, R.string.localizable.home_prescription_secs_suffix.key.localized),
-                    "")
-        } else {
-            return ("", "")
-        }
+        return interactor.timeDifference2Str(timeDifference: timeDifference)
     }
+    
+    func getPrescriptionTime(timeManager: TimeManagerProtocol?) -> String {
+          guard medicines.count > currentPage else { return ("") }
+             let prescription = self.medicines[currentPage]
+
+           //  print("\(prescription.getState(timeManager: timeManager ?? TimeManager()))")
+             let prescriptionState = prescription.getState(timeManager: timeManager ?? TimeManager())
+             switch prescriptionState {
+             case .notStarted, .finished: return ""
+             case .ongoing, .ongoingReady, .ongoingEllapsed: return self.interactor.getExpirationHourMinute(medicine: prescription)
+             }
+    }
+    
+    func getCurrentDoseProgress(timeManager: TimeManagerProtocol) -> Double {
+        guard medicines.count > currentPage else { return 0 }
+        let medicine = self.medicines[currentPage]
+        guard let nextDose = medicine.currentCycle.nextDose,
+            medicine.intervalSecs != 0 else { return 0 }
+        guard nextDose - timeManager.timeIntervalSince1970() >= 0  else { return 1 }
+        let progress: Double = Double(nextDose - timeManager.timeIntervalSince1970()) / Double(medicine.intervalSecs)
+        return 1 - progress
+    }
+    
+    func hasDoses() -> Bool {
+        guard medicines.count > currentPage else { return false }
+        let medicine = self.medicines[currentPage]
+        return !medicine.currentCycle.doses.isEmpty
+    }
+    
+    /*
+     
+     func getExpirationHourMinute(dose: Dose) -> String {
+         let toDate = Date(timeIntervalSince1970: TimeInterval(dose.expected))
+          let formatter = DateFormatter()
+          formatter.dateFormat = "HH:mm"
+         let hhmm = formatter.string(from: toDate)
+         return hhmm
+     }
+     */
 
     func updatable() -> Bool {
         guard medicines.count > currentPage else { return false }
