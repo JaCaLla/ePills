@@ -26,8 +26,6 @@ class MainFlowCoordinator {
     private var onChangeRootVCSubscription = Set<AnyCancellable>()
 
     private init() { /*This prevents others from using the default '()' initializer for this class. */ }
-
-
 }
 
 extension MainFlowCoordinator: MainFlowCoordinatorProtocol {

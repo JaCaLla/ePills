@@ -35,14 +35,12 @@ class DataManagerTests: XCTestCase {
                 XCTAssertEqual(someValue, [])
                 expectation.fulfill()
             }).store(in: &cancellables)
-
-
         // When
         sut.reset()
 
         wait(for: [expectation], timeout: 1.0)
     }
-    
+
     func tests_isEmpty() {
         XCTAssertTrue(self.sut.isEmpty())
     }
@@ -67,8 +65,6 @@ class DataManagerTests: XCTestCase {
                 XCTAssertEqual(medicine.pastCycles.count, 0)
                 expectation.fulfill()
             }).store(in: &cancellables)
-
-
         let medicine = Medicine(name: "a",
                                 unitsBox: 10,
                                 intervalSecs: 8,
@@ -85,12 +81,11 @@ class DataManagerTests: XCTestCase {
             XCTFail()
         }
 
-
         wait(for: [expectation], timeout: 1.0)
     }
-    
+
     func test_addMedicineDose() {
-              let expectation = XCTestExpectation(description: self.debugDescription)
+        let expectation = XCTestExpectation(description: self.debugDescription)
         // Given
         let notStarted2 = Medicine(name: "notStarted2",
                                    unitsBox: 10,
@@ -105,16 +100,16 @@ class DataManagerTests: XCTestCase {
         notStarted2.currentCycle.creation = 2
 
         guard let newNotStarted2 = sut.add(medicine: notStarted2, timeManager: TimeManager()) else { XCTFail(); return }
-        
+
         newNotStarted2.name = "bbb"
-         newNotStarted2.unitsBox = 1
-         newNotStarted2.intervalSecs = 12
-         newNotStarted2.unitsDose = 1
-         newNotStarted2.currentCycle.unitsConsumed = 1
-         newNotStarted2.currentCycle.nextDose = 1
-         newNotStarted2.currentCycle.creation = 2
-         sut.update(medicine: newNotStarted2)
-        
+        newNotStarted2.unitsBox = 1
+        newNotStarted2.intervalSecs = 12
+        newNotStarted2.unitsDose = 1
+        newNotStarted2.currentCycle.unitsConsumed = 1
+        newNotStarted2.currentCycle.nextDose = 1
+        newNotStarted2.currentCycle.creation = 2
+        sut.update(medicine: newNotStarted2)
+
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
@@ -126,17 +121,17 @@ class DataManagerTests: XCTestCase {
                 }
 
                 XCTAssertEqual(prescriptions[0].currentCycle.doses.count, 1)
-                guard let firstDose = prescriptions[0].currentCycle.doses.first else {XCTFail(); expectation.fulfill(); return}
+                guard let firstDose = prescriptions[0].currentCycle.doses.first else { XCTFail(); expectation.fulfill(); return }
                 XCTAssertEqual(firstDose.cycleId, prescriptions[0].currentCycle.id)
                 XCTAssertEqual(firstDose.expected, 1)
                 XCTAssertTrue(firstDose.id.contains("-"))
                 XCTAssertEqual(firstDose.real, 5)
-                
+
                 expectation.fulfill()
             }).store(in: &cancellables)
         // When
         let timeManager = TimeManager()
-                         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 5))
+        timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 5))
         let dose = Dose(expected: newNotStarted2.currentCycle.nextDose ?? 1, timeManager: timeManager)
         sut.add(dose: dose, medicine: newNotStarted2)
         sut.flushMedicines()
@@ -348,8 +343,8 @@ class DataManagerTests: XCTestCase {
     }
 
     func test_updatePrescriptionWhenCycleIsPast() {
-      //  un ciclo se tiene que marcar como current para poderlo recuperar
-       let expectation = XCTestExpectation(description: self.debugDescription)
+        //  un ciclo se tiene que marcar como current para poderlo recuperar
+        let expectation = XCTestExpectation(description: self.debugDescription)
         // Given
         let notStarted2 = Medicine(name: "notStarted2",
                                    unitsBox: 10,
@@ -398,58 +393,56 @@ class DataManagerTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
 
-    
     func test_updatePrescriptionWhenCycleIsNotPast() {
         let expectation = XCTestExpectation(description: self.debugDescription)
-               // Given
-               let notStarted2 = Medicine(name: "notStarted2",
-                                          unitsBox: 10,
-                                          intervalSecs: 8,
-                                          unitsDose: 1)
-               notStarted2.name = "aaa"
-               notStarted2.unitsBox = 10
-               notStarted2.intervalSecs = 11
-               notStarted2.unitsDose = 2
-               notStarted2.currentCycle.unitsConsumed = 1
-               notStarted2.currentCycle.nextDose = nil
-               notStarted2.currentCycle.creation = 2
+        // Given
+        let notStarted2 = Medicine(name: "notStarted2",
+                                   unitsBox: 10,
+                                   intervalSecs: 8,
+                                   unitsDose: 1)
+        notStarted2.name = "aaa"
+        notStarted2.unitsBox = 10
+        notStarted2.intervalSecs = 11
+        notStarted2.unitsDose = 2
+        notStarted2.currentCycle.unitsConsumed = 1
+        notStarted2.currentCycle.nextDose = nil
+        notStarted2.currentCycle.creation = 2
 
-               guard let newNotStarted2 = sut.add(medicine: notStarted2, timeManager: TimeManager()) else { XCTFail(); return }
+        guard let newNotStarted2 = sut.add(medicine: notStarted2, timeManager: TimeManager()) else { XCTFail(); return }
 
-               sut.getMedicinesPublisher()
-                   .sink(receiveCompletion: { completion in
-                       XCTFail(".sink() received the completion:")
-                   }, receiveValue: { prescriptions in
-                       // Then
-                       guard prescriptions.count == 1 else {
-                           XCTFail()
-                           return
-                       }
+        sut.getMedicinesPublisher()
+            .sink(receiveCompletion: { completion in
+                XCTFail(".sink() received the completion:")
+            }, receiveValue: { prescriptions in
+                // Then
+                guard prescriptions.count == 1 else {
+                    XCTFail()
+                    return
+                }
 
-                       XCTAssertEqual(prescriptions[0].name, "bbb")
-                       XCTAssertEqual(prescriptions[0].unitsBox, 10)
-                       XCTAssertEqual(prescriptions[0].intervalSecs, 12)
-                       XCTAssertEqual(prescriptions[0].unitsDose, 5)
-                       XCTAssertEqual(prescriptions[0].pastCycles.count, 0)
-                       XCTAssertEqual(prescriptions[0].currentCycle.unitsConsumed, 5)
-                       XCTAssertEqual(prescriptions[0].currentCycle.nextDose, 1)
-                       XCTAssertEqual(prescriptions[0].getState(), .ongoingEllapsed)
-                       expectation.fulfill()
-                   }).store(in: &cancellables)
-               // When
-               newNotStarted2.name = "bbb"
-               newNotStarted2.unitsBox = 10
-               newNotStarted2.intervalSecs = 12
-               newNotStarted2.unitsDose = 5
-               newNotStarted2.currentCycle.unitsConsumed = 5
-               newNotStarted2.currentCycle.nextDose = 1
-               newNotStarted2.currentCycle.creation = 2
-               sut.update(medicine: newNotStarted2)
+                XCTAssertEqual(prescriptions[0].name, "bbb")
+                XCTAssertEqual(prescriptions[0].unitsBox, 10)
+                XCTAssertEqual(prescriptions[0].intervalSecs, 12)
+                XCTAssertEqual(prescriptions[0].unitsDose, 5)
+                XCTAssertEqual(prescriptions[0].pastCycles.count, 0)
+                XCTAssertEqual(prescriptions[0].currentCycle.unitsConsumed, 5)
+                XCTAssertEqual(prescriptions[0].currentCycle.nextDose, 1)
+                XCTAssertEqual(prescriptions[0].getState(), .ongoingEllapsed)
+                expectation.fulfill()
+            }).store(in: &cancellables)
+        // When
+        newNotStarted2.name = "bbb"
+        newNotStarted2.unitsBox = 10
+        newNotStarted2.intervalSecs = 12
+        newNotStarted2.unitsDose = 5
+        newNotStarted2.currentCycle.unitsConsumed = 5
+        newNotStarted2.currentCycle.nextDose = 1
+        newNotStarted2.currentCycle.creation = 2
+        sut.update(medicine: newNotStarted2)
 
-               wait(for: [expectation], timeout: 2)
+        wait(for: [expectation], timeout: 2)
     }
 
-    
     func test_fetchDoses() {
         let cycleId = givenCycleWithDoses(medicineId: UUID().uuidString, real: [3, 1, 2])
         let doses: [Dose] = sut.fetchDoses(cycleId: cycleId)
@@ -488,17 +481,17 @@ class DataManagerTests: XCTestCase {
         switch DBManager.shared.create(medicine: medicine, timeManager: TimeManager()) {
         case .success(let createdMedicine):
             let timeManager = TimeManager()
-                   timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
+            timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 0))
             let cycleGone = Cycle(unitsConsumed: 2, nextDose: nil, timeManager: timeManager)
             cycleGone.id = UUID().uuidString
             cycleGone.medicineId = createdMedicine.id
             switch DBManager.shared.create(cycle: cycleGone, medicineId: cycleGone.medicineId, timeManager: timeManager) {
             case .success:
-                 timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 10))
-                let cycleOngoing = Cycle(unitsConsumed: 1, nextDose: 1, timeManager:timeManager)
+                timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 10))
+                let cycleOngoing = Cycle(unitsConsumed: 1, nextDose: 1, timeManager: timeManager)
                 cycleOngoing.id = UUID().uuidString
                 cycleOngoing.medicineId = createdMedicine.id
-                 switch DBManager.shared.create(cycle: cycleOngoing, medicineId: cycleOngoing.medicineId, timeManager: timeManager) {
+                switch DBManager.shared.create(cycle: cycleOngoing, medicineId: cycleOngoing.medicineId, timeManager: timeManager) {
                 case .success:
                     // When
                     guard let medicine = sut.fetchStoredMedicines().first else { XCTFail(); return }
@@ -564,8 +557,6 @@ class DataManagerTests: XCTestCase {
     }
 
 }
-
-
 
 func givenMedicineWithCyclesAndoDoses(real: [[Double]]) -> String {
     let medicine = Medicine(name: "aaaaa", unitsBox: 20, intervalSecs: 20, unitsDose: 1)

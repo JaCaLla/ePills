@@ -45,7 +45,6 @@ struct DoseListView: View {
     }
 }
 
-
 struct DoseListView_Previews: PreviewProvider {
     static var viewModel: DoseListVM {
         let medicine = Medicine(name: "a",

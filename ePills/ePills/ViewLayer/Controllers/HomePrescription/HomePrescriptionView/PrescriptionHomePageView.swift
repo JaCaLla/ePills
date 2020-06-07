@@ -110,8 +110,6 @@ struct PrescriptionHomePageView: View {
                     Spacer()
                 }
             }
-
-
         }
     }
 

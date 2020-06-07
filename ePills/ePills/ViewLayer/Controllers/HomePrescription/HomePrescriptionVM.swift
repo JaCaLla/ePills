@@ -100,7 +100,6 @@ public final class HomePrescriptionVM: ObservableObject {
     }
 }
 
-
 extension HomePrescriptionVM: HomePrescriptionVMProtocol {
     func addPrescription() {
         self.homeCoordinator.presentPrescriptionForm(interactor: self.interactor,
@@ -241,7 +240,6 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
             prescriptionState == CyclesState.finished
 
     }
-
 
     func getMessageColor(timeManager: TimeManagerProtocol?) -> String {
         guard medicines.count > currentPage else { return ("") }

@@ -36,7 +36,6 @@ public final class AppSetupVM: ObservableObject {
         }
     }
 
-
     struct MenuSection: Codable, Identifiable {
         let id: UUID = UUID()
         var name: String

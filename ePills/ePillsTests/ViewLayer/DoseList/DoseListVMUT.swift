@@ -48,13 +48,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.realOffset, "-5m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .startPast)
 
-        /*
-          //BiCycle not finished
-         return  [DoseCellViewModel(doseOrder: "1/2", day: "1", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", realOffsetColorStr: R.color.colorRed.name, doseCellType: .endToday),
-                  DoseCellViewModel(doseOrder: "2/2", day: "2", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .startPast)]
-         */
     }
-    
     
     func test_monoCycle() {
         
@@ -191,17 +185,6 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 04:00")
         XCTAssertEqual(doseCellViewModel.realOffset, "05m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .startPast)
-        /*
-              /* //Cycle not finished
-                return  [DoseCellViewModel(day: "1", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .endToday, isFirst: true),
-                         DoseCellViewModel(day: "2", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .middle),
-                DoseCellViewModel(day: "3", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .middle),
-                DoseCellViewModel(day: "4", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .middle),
-                DoseCellViewModel(day: "5", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .startPast, isLast: true)]
-         */
-         
-         */
+
     }
-
-
 }

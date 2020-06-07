@@ -252,7 +252,6 @@ class DBManager {
 	}
 }
 
-
 // MARK: - Resetable
 extension DBManager: Resetable {
 	func reset() {

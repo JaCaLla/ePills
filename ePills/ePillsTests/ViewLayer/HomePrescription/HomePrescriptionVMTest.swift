@@ -115,7 +115,6 @@ class HomecycleVMTest: XCTestCase {
 
              }).store(in: &cancellables)
 
-
          prescriptionInteractor.add(medicine: cycle, timeManager: TimeManager())
         prescriptionInteractor.add(medicine: cycle2, timeManager: TimeManager())
 

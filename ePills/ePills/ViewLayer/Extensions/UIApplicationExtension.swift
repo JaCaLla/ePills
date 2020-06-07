@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 extension UIApplication {
 
     /// The app's key window taking into consideration apps that support multiple scenes.

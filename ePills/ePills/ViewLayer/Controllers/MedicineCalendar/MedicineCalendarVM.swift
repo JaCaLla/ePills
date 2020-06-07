@@ -10,7 +10,6 @@ import Foundation
 import Combine
 import UIKit
 
-
 public final class MedicineCalendarVM: ObservableObject {
 
     // MARK: - Publishers
@@ -91,5 +90,3 @@ public final class MedicineCalendarVM: ObservableObject {
     }
     
 }
-
-

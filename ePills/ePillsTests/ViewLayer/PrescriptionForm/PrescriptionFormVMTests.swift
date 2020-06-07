@@ -132,7 +132,4 @@ class PrescriptionFormVMTests: XCTestCase {
         sut.save()
         XCTAssertEqual(prescriptionInteractorMock.updateCount, 1)
     }
-
-
-    
 }

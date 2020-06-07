@@ -10,7 +10,6 @@ import Foundation
 import Combine
 import UIKit
 
-
 public final class DoseListVM: ObservableObject {
 
     // MARK: - Publishers
@@ -76,29 +75,5 @@ public final class DoseListVM: ObservableObject {
         }
         
         return doseCellViewModel
-
-        /*
-               //BiCycle not finished
-        return  [DoseCellViewModel(doseOrder: "1/2", day: "1", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", realOffsetColorStr: R.color.colorRed.name, doseCellType: .endToday),
-                 DoseCellViewModel(doseOrder: "2/2", day: "2", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .startPast)]
-        */
-        // Monocyle
-       // return  [DoseCellViewModel(day: "1", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .monoCycle, isFirst: true)]
-        
-        /* //Cycle finished
-        return  [DoseCellViewModel(day: "1", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .endPast, isFirst: true),
-                 DoseCellViewModel(day: "2", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .middle),
-        DoseCellViewModel(day: "3", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .middle),
-        DoseCellViewModel(day: "4", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .middle),
-        DoseCellViewModel(day: "5", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .startPast, isLast: true)]
- */
-        
-        /* //Cycle not finished
-        return  [DoseCellViewModel(day: "1", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .endToday, isFirst: true),
-                 DoseCellViewModel(day: "2", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .middle),
-        DoseCellViewModel(day: "3", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .middle),
-        DoseCellViewModel(day: "4", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .middle),
-        DoseCellViewModel(day: "5", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .startPast, isLast: true)]
- */
     }
 }

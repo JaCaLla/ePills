@@ -60,9 +60,7 @@ struct DoseCellTypeView: View {
     }
 }
 
-
 struct RoundedShape: Shape {
-
     func path(in rect: CGRect) -> Path {
         let bezierPath = UIBezierPath(roundedRect: rect,
                                       byRoundingCorners: [.topRight, .bottomRight, .topLeft, .bottomLeft],

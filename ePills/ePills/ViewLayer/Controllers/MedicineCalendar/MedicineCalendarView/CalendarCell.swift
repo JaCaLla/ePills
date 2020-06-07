@@ -11,7 +11,6 @@ import FSCalendar
 
 import UIKit
 
-
 enum SelectionCicleType: Int {
     case none
     case dayOutOfMonth
@@ -82,7 +81,6 @@ enum SelectionCicleType: Int {
         }
     }
 }
-
 
 class CalendarCell: FSCalendarCell {
 

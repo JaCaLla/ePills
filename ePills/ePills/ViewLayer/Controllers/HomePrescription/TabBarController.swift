@@ -30,10 +30,7 @@ class TabBarController: UITabBarController {
 
     private func setupView() {
 
-        let setupVC = UIViewController()
-  
-
-        self.viewControllers = [homeCoordinator.start(),
+           self.viewControllers = [homeCoordinator.start(),
                                 appConfigurationCoordinator.start()]
 
     }

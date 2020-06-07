@@ -129,7 +129,6 @@ func pastMedicineCycle(onComplete: @escaping (Medicine, TimeManagerProtocol) -> 
     
 }
 
-
 func startMedicineCycle(onComplete: @escaping (Medicine, TimeManagerProtocol) -> Void) {
     DataManager.shared.reset()
     let dataManager = DataManager.shared

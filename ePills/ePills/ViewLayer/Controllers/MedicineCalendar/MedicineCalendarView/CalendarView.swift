@@ -14,7 +14,6 @@ import Combine
 
 struct CalendarView: UIViewRepresentable {
     @ObservedObject var viewModel: MedicineCalendarVM
-  
 
     fileprivate let gregorian = Calendar(identifier: .gregorian)
     fileprivate let calendar: FSCalendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -65,7 +64,7 @@ struct CalendarView: UIViewRepresentable {
                 .onScrollToExpirationDateSubject
                 .sink {
                     calendar.select(Date(), scrollToDate: true)
-            }.store(in: &cancellables)
+                }.store(in: &cancellables)
         }
 
         // MARK: - FSCalendarDataSource
@@ -89,7 +88,7 @@ struct CalendarView: UIViewRepresentable {
 
         private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
 
-            let diyCell = (cell as! CalendarCell)
+            guard let diyCell = cell as? CalendarCell else { return }
             diyCell.reset()
 
             diyCell.dateIsToday = control.gregorian.isDateInToday(date)

@@ -9,7 +9,7 @@
 import XCTest
 import Combine
 
-class cycleInteractorTests: XCTestCase {
+class CycleInteractorUT: XCTestCase {
 
     var sut: MedicineInteractor!
     var dataManagerMock: DataManagerMock = DataManagerMock()
@@ -165,7 +165,6 @@ class cycleInteractorTests: XCTestCase {
         let expectation = XCTestExpectation(description: self.debugDescription)
         sut = MedicineInteractor(dataManager: DataManager.shared)
 
-
         let expecteds: [[Medicine]] = [
             [Medicine(name: "a",
                       unitsBox: 10,
@@ -186,8 +185,6 @@ class cycleInteractorTests: XCTestCase {
                                  unitsBox: 10,
                                  intervalSecs: 8,
                                  unitsDose: 1)
-
-
         sut.getMedicinesPublisher()
             .sink(receiveCompletion: { completion in
                 XCTFail(".sink() received the completion:")
@@ -358,7 +355,6 @@ class cycleInteractorTests: XCTestCase {
                                               intervalSecs: 3600,
                                               unitsDose: 1)
 
-
               let timeManager = TimeManager()
                  timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1582934400)) //29-Feb-2020
                       guard let createdMedicine = sut.add(medicine: medicine, timeManager: timeManager) else { XCTFail(); return }
@@ -381,7 +377,6 @@ class cycleInteractorTests: XCTestCase {
                  sut.takeDose(medicine: createdMedicine, timeManager: timeManager)
     }
     
-    
     func test_takeDoseWhenLastDose() {
         var testFinished = false
         sut = MedicineInteractor(dataManager: DataManager.shared)
@@ -390,7 +385,6 @@ class cycleInteractorTests: XCTestCase {
                                         unitsBox: 2,
                                         intervalSecs: 3600,
                                         unitsDose: 1)
-
 
         let timeManager = TimeManager()
            timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1582934400)) //29-Feb-2020

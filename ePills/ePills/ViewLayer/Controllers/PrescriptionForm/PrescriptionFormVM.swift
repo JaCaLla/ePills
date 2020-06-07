@@ -44,8 +44,6 @@ public final class PrescriptionFormVM: ObservableObject {
             self.unitsDose = "\(String(describing: updatedMedicine.unitsDose))"
         }
     }
-
-
 }
 
 extension PrescriptionFormVM: PrescriptionFormVMProtocol {

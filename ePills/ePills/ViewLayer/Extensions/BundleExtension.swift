@@ -27,7 +27,6 @@ extension Bundle {
         bundle = Bundle(path: path!)
     }
 
-
     var appName: String? {
         return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
     }

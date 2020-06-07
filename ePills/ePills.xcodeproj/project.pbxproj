@@ -783,6 +783,7 @@
 				5E6AB00E244B0F3F00F162EB /* Frameworks */,
 				5E6AB00F244B0F3F00F162EB /* Resources */,
 				34D4CFE3C0F2A9BEE8FC4F50 /* [CP] Embed Pods Frameworks */,
+				5E2C5274248CEDC4003DDD89 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -916,6 +917,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ePills/Pods-ePills-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		5E2C5274248CEDC4003DDD89 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n    \"${PODS_ROOT}/SwiftLint/swiftlint\" lint --config .swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		5E6AB036244B135300F162EB /* R.Swift */ = {
 			isa = PBXShellScriptBuildPhase;
