@@ -46,7 +46,7 @@ public final class HomePrescriptionVM: ObservableObject {
     @Published var remainingMessageMinor: String = ""
     @Published var prescriptionColor: String = ""
     @Published var isUpdatable: Bool = false
-     @Published var prescriptionTime: String = ""
+    @Published var prescriptionTime: String = ""
     @Published var progressPercentage: Double = 0
     @Published var medicineHasDoses: Bool = false
 
@@ -69,13 +69,15 @@ public final class HomePrescriptionVM: ObservableObject {
             .sink { currentPrescriptionIndex in
                 self.currentPage = currentPrescriptionIndex
                 self.refreshVM()
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
         self.$medicines
             .sink { someValue in
                 guard someValue.isEmpty else { return }
                 self.homeCoordinator.replaceByFirstPrescription(interactor: self.interactor)
                 self.refreshVM()
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
         self.interactor.flushMedicines()
         timer = Timer.scheduledTimer(timeInterval: 1.0,
                                      target: self,
@@ -99,7 +101,6 @@ public final class HomePrescriptionVM: ObservableObject {
         self.medicineHasDoses = self.hasDoses()
     }
 }
-
 
 extension HomePrescriptionVM: HomePrescriptionVMProtocol {
     func addPrescription() {
@@ -130,7 +131,7 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
                                              medicine: medicine)
         self.refreshVM()
     }
-    
+
     func doseList() {
         guard medicines.count > currentPage else { return }
         let medicine = self.medicines[currentPage]
@@ -142,7 +143,6 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
     func takeDose() {
         guard medicines.count > currentPage else { return }
         let medicine = self.medicines[currentPage]
-        //medicine.takeDose()
         self.interactor.takeDose(medicine: medicine, timeManager: TimeManager())
         self.refreshVM()
     }
@@ -157,8 +157,8 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         guard medicines.count > currentPage else { return "" }
         let prescription = self.medicines[currentPage]
         switch prescription.getState(timeManager: timeManager ?? TimeManager()) {
-        case .notStarted: return "stop"
-        case .ongoing: return "play"
+        case .notStarted: return "cursor.rays"
+        case .ongoing: return "moon.zzz"
         case .ongoingReady: return "alarm"
         case .ongoingEllapsed: return "exclamationmark.triangle"
         case .finished: return "clear"
@@ -169,7 +169,6 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         guard medicines.count > currentPage else { return ("") }
         let prescription = self.medicines[currentPage]
 
-      //  print("\(prescription.getState(timeManager: timeManager ?? TimeManager()))")
         let prescriptionState = prescription.getState(timeManager: timeManager ?? TimeManager())
         switch prescriptionState {
         case .notStarted: return R.string.localizable.home_prescription_not_started.key.localized
@@ -193,45 +192,33 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
 
         return interactor.timeDifference2Str(timeDifference: timeDifference)
     }
-    
-    func getPrescriptionTime(timeManager: TimeManagerProtocol?) -> String {
-          guard medicines.count > currentPage else { return ("") }
-             let prescription = self.medicines[currentPage]
 
-           //  print("\(prescription.getState(timeManager: timeManager ?? TimeManager()))")
-             let prescriptionState = prescription.getState(timeManager: timeManager ?? TimeManager())
-             switch prescriptionState {
-             case .notStarted, .finished: return ""
-             case .ongoing, .ongoingReady, .ongoingEllapsed: return self.interactor.getExpirationHourMinute(medicine: prescription)
-             }
+    func getPrescriptionTime(timeManager: TimeManagerProtocol?) -> String {
+        guard medicines.count > currentPage else { return ("") }
+        let prescription = self.medicines[currentPage]
+
+        let prescriptionState = prescription.getState(timeManager: timeManager ?? TimeManager())
+        switch prescriptionState {
+        case .notStarted, .finished: return ""
+        case .ongoing, .ongoingReady, .ongoingEllapsed: return self.interactor.getExpirationHourMinute(medicine: prescription)
+        }
     }
-    
+
     func getCurrentDoseProgress(timeManager: TimeManagerProtocol) -> Double {
         guard medicines.count > currentPage else { return 0 }
         let medicine = self.medicines[currentPage]
         guard let nextDose = medicine.currentCycle.nextDose,
             medicine.intervalSecs != 0 else { return 0 }
-        guard nextDose - timeManager.timeIntervalSince1970() >= 0  else { return 1 }
+        guard nextDose - timeManager.timeIntervalSince1970() >= 0 else { return 1 }
         let progress: Double = Double(nextDose - timeManager.timeIntervalSince1970()) / Double(medicine.intervalSecs)
         return 1 - progress
     }
-    
+
     func hasDoses() -> Bool {
         guard medicines.count > currentPage else { return false }
         let medicine = self.medicines[currentPage]
         return !medicine.currentCycle.doses.isEmpty
     }
-    
-    /*
-     
-     func getExpirationHourMinute(dose: Dose) -> String {
-         let toDate = Date(timeIntervalSince1970: TimeInterval(dose.expected))
-          let formatter = DateFormatter()
-          formatter.dateFormat = "HH:mm"
-         let hhmm = formatter.string(from: toDate)
-         return hhmm
-     }
-     */
 
     func updatable() -> Bool {
         guard medicines.count > currentPage else { return false }
@@ -241,7 +228,6 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
             prescriptionState == CyclesState.finished
 
     }
-
 
     func getMessageColor(timeManager: TimeManagerProtocol?) -> String {
         guard medicines.count > currentPage else { return ("") }

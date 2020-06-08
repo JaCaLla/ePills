@@ -14,7 +14,6 @@ import Combine
 
 struct CalendarView: UIViewRepresentable {
     @ObservedObject var viewModel: MedicineCalendarVM
-  
 
     fileprivate let gregorian = Calendar(identifier: .gregorian)
     fileprivate let calendar: FSCalendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -65,11 +64,13 @@ struct CalendarView: UIViewRepresentable {
                 .onScrollToExpirationDateSubject
                 .sink {
                     calendar.select(Date(), scrollToDate: true)
-            }.store(in: &cancellables)
+                }.store(in: &cancellables)
         }
 
         // MARK: - FSCalendarDataSource
-        func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        func calendar(_ calendar: FSCalendar,
+                      cellFor date: Date,
+                      at position: FSCalendarMonthPosition) -> FSCalendarCell {
             guard let cell = calendar.dequeueReusableCell(withIdentifier: "CalendarCell", for: date, at: position) as? CalendarCell else {
                 return FSCalendarCell()
             }
@@ -77,19 +78,24 @@ struct CalendarView: UIViewRepresentable {
             return cell
         }
 
-        func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
+        func calendar(_ calendar: FSCalendar,
+                      willDisplay cell: FSCalendarCell,
+                      for date: Date,
+                      at position: FSCalendarMonthPosition) {
             self.configure(cell: cell, for: date, at: position)
         }
 
         // MARK: - FSCalendarDelegate
 
-        func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        func calendar(_ calendar: FSCalendar,
+                      shouldSelect date: Date,
+                      at monthPosition: FSCalendarMonthPosition) -> Bool {
             return false
         }
 
         private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
 
-            let diyCell = (cell as! CalendarCell)
+            guard let diyCell = cell as? CalendarCell else { return }
             diyCell.reset()
 
             diyCell.dateIsToday = control.gregorian.isDateInToday(date)
@@ -106,22 +112,11 @@ struct CalendarView: UIViewRepresentable {
 extension FSCalendar {
     func customizeCalenderAppearance() {
         self.appearance.caseOptions = [.headerUsesUpperCase, .weekdayUsesUpperCase]
-
-        //       self.appearance.headerTitleFont      = UIFont.systemFont(ofSize: 20.0) // UIFont.init(name: Fonts.BalloRegular, size: 18)
-        //       self.appearance.weekdayFont          = UIFont.systemFont(ofSize: 18.0) //UIFont.init(name: Fonts.RalewayRegular, size: 16)
-        self.appearance.titleFont = UIFont.systemFont(ofSize: 1, weight: .thin)//UIFont.systemFont(ofSize: 18.0)// UIFont.init(name: Fonts.RalewayRegular, size: 16)
-//
-        self.appearance.headerTitleColor = UIColor.white//CalendarView.Colors.outOfCycle//UIColor.darkGray
-        self.appearance.weekdayTextColor = UIColor.white//CalendarView.Colors.outOfCycle
-        self.appearance.titleDefaultColor = UIColor.red// CalendarView.Colors.outOfCycle
-
-//        self.appearance.eventDefaultColor    = Colors.NavTitleColor
+        self.appearance.titleFont = UIFont.systemFont(ofSize: 1, weight: .thin)
+        self.appearance.weekdayTextColor = UIColor.white
+        self.appearance.titleDefaultColor = UIColor.red
         self.appearance.selectionColor = UIColor.clear//UIColor.purple
-//        self.appearance.titleSelectionColor  = Colors.NavTitleColor
         self.appearance.todayColor = CalendarView.Colors.today//UIColor.blue
-//        self.appearance.todaySelectionColor  = Colors.purpleColor
-//
-//        self.appearance.headerMinimumDissolvedAlpha = 0.0 // Hide Left Right Month Name
     }
 }
 

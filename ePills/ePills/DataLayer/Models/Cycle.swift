@@ -72,5 +72,3 @@ extension Cycle: Equatable {
 			lhs.nextDose == rhs.nextDose
 	}
 }
-
-

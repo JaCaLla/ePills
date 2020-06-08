@@ -12,21 +12,23 @@ import Combine
 struct AppSetupView: View {
     @ObservedObject var viewModel: AppSetupVM
     var body: some View {
-        List {
-            ForEach(viewModel.menuSections()) { menuSection in
-                Section(header: Text(menuSection.name)) {
-                    ForEach(menuSection.menuOptions) { menuOption in
-                        HStack {
-                            Text(menuOption.title)
-                            Spacer()
-                            Text(menuOption.getValue())
-                        }.onTapGesture {
-                            self.viewModel.tapped(menuOption: menuOption)
+        ZStack {
+            List {
+                ForEach(viewModel.menuSections()) { menuSection in
+                    Section(header: Text(menuSection.name)) {
+                        ForEach(menuSection.menuOptions) { menuOption in
+                            HStack {
+                                Text(menuOption.title)
+                                Spacer()
+                                Text(menuOption.getValue())
+                            }.onTapGesture {
+                                self.viewModel.tapped(menuOption: menuOption)
+                            }
                         }
                     }
                 }
-            }
-        }.listStyle(GroupedListStyle())
+            }.listStyle(GroupedListStyle())
+        }
     }
 }
 

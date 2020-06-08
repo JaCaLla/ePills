@@ -11,7 +11,7 @@ import SwiftUI
 struct MedicineCalendarView: View {
     @ObservedObject var viewModel: MedicineCalendarVM
     var body: some View {
-        ZStack{
+        ZStack {
             BackgroundView()
             VStack {
                 CalendarHeaderView(viewModel: viewModel).onTapGesture {
@@ -20,20 +20,20 @@ struct MedicineCalendarView: View {
                 CalendarView(viewModel: viewModel)
                     .padding(.top, -60)
             }
-        }.navigationBarTitle(Text(viewModel.getMedicineName()))
+        }.navigationBarTitle(R.string.localizable.calendar_title.key.localized)
     }
 }
 
 struct MedicineCalendarView_Previews: PreviewProvider {
-  
-    static var  viewModel : MedicineCalendarVM {
+
+    static var viewModel: MedicineCalendarVM {
         let medicine = Medicine(name: "a",
-                                  unitsBox: 10,
-                                  intervalSecs: 8,
-                                  unitsDose: 1)
-      return  MedicineCalendarVM(medicine: medicine)
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        return MedicineCalendarVM(medicine: medicine)
     }
-    
+
     static var previews: some View {
         ZStack {
             BackgroundView()

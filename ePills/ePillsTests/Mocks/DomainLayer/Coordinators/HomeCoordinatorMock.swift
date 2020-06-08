@@ -8,7 +8,6 @@
 @testable import ePills
 import Foundation
 
-
 public final class HomeCoordinatorMock: HomeCoordinatorProtocol {
 
     var presentPrescriptionFormCount = 0

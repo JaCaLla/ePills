@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DoseListView: View {
     @ObservedObject var viewModel: DoseListVM
-   
+
     init(viewModel: DoseListVM) {
         self.viewModel = viewModel
         UITableView.appearance().backgroundColor = .clear
@@ -23,28 +23,12 @@ struct DoseListView: View {
             BackgroundView()
             List {
                 ForEach(viewModel.getDoses()) { doseCellViewModel in
-                    HStack {
-                         DoseCellTypeView(doseCellViewModel: doseCellViewModel)
-                        Text(doseCellViewModel.day)
-                            .fontWeight(.light)
-                            .frame(alignment: .leading)
-                            .font(Font.system(size: 45, design: .default))
-                            .padding()
-                        VStack {
-                            Text(doseCellViewModel.monthYear).fontWeight(.light)
-                            Text(doseCellViewModel.weekdayHHMM).fontWeight(.light)
-                        }.frame(alignment: .leading)
-                            .font(Font.system(size: 15, design: .default))
-                        Spacer()
-                        Text(doseCellViewModel.realOffset)
-                            .foregroundColor(Color(doseCellViewModel.realOffsetColorStr))
-                    }.padding(.vertical, -20)
+                    DoseListCellView(doseCellViewModel: doseCellViewModel)
                 }
             }
-        }
+        }.navigationBarTitle(R.string.localizable.dose_list_title.key.localized)
     }
 }
-
 
 struct DoseListView_Previews: PreviewProvider {
     static var viewModel: DoseListVM {
@@ -62,4 +46,3 @@ struct DoseListView_Previews: PreviewProvider {
         DoseListView(viewModel: DoseListView_Previews.viewModel)
     }
 }
-

@@ -74,7 +74,6 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
-
     //medicine: Medicine
     func update(medicine: Medicine) {
         guard let index = medicines.firstIndex(where: { $0.id == medicine.id }) else { return }

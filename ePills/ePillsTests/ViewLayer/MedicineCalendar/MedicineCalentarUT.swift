@@ -274,7 +274,6 @@ class MedicineCalentarUT: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 
-     
         DataManager.shared.reset()
         dataManager = DataManager.shared
         interactor = MedicineInteractor(dataManager: dataManager)

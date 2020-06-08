@@ -71,13 +71,11 @@ class Medicine: Identifiable {
 	}
 }
 
-
 extension Medicine: Equatable {
 	static func == (lhs: Medicine, rhs: Medicine) -> Bool {
 		return lhs.name == rhs.name &&
 			lhs.unitsBox == rhs.unitsBox &&
 			lhs.intervalSecs == rhs.intervalSecs &&
-			lhs.unitsDose == rhs.unitsDose //&&
-		//lhs.currentCycle == rhs.currentCycle
+			lhs.unitsDose == rhs.unitsDose 
 	}
 }

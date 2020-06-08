@@ -14,19 +14,18 @@ extension Bundle {
     public static func localizedBundle() -> Bundle! {
         if bundle == nil {
             let appLang = UserDefaults.standard.string(forKey: "app_lang") ?? "en"
-            let path = Bundle.main.path(forResource: appLang, ofType: "lproj")
-            bundle = Bundle(path: path!)
+            guard let path = Bundle.main.path(forResource: appLang, ofType: "lproj") else { return Bundle()}
+            bundle = Bundle(path: path)
         }
 
-        return bundle;
+        return bundle
     }
 
     public static func setLanguage(lang: String) {
         UserDefaults.standard.set(lang, forKey: "app_lang")
-        let path = Bundle.main.path(forResource: lang, ofType: "lproj")
-        bundle = Bundle(path: path!)
+        guard let path = Bundle.main.path(forResource: lang, ofType: "lproj") else { return }
+        bundle = Bundle(path: path)
     }
-
 
     var appName: String? {
         return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String

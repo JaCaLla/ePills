@@ -501,8 +501,6 @@ class DBManagerTests: XCTestCase {
 		}
 	}
 
-
-
 	func test_deleteCycle() {
 		// Given
 		let medicine = Medicine(name: "aaaa", unitsBox: 1, intervalSecs: 2, unitsDose: 3)
