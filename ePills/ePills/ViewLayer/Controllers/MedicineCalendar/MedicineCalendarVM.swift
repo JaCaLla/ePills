@@ -15,9 +15,9 @@ public final class MedicineCalendarVM: ObservableObject {
     // MARK: - Publishers
     private var cancellables = Set<AnyCancellable>()
     var doseIntervals: [Date] = []
-    
+
     let onScrollToExpirationDateSubject = PassthroughSubject<Void, Never>()
-    
+
     @Published var expirationDayNumber: String
     @Published var expirationMonthYear: String
     @Published var expirationWeekdayHourMinute: String
@@ -44,9 +44,11 @@ public final class MedicineCalendarVM: ObservableObject {
         return medicine.name
     }
 
-    func getSelectionCicleType(date: Date, isCurrentMonth: Bool, timeManager: TimeManagerProtocol = TimeManager()) -> SelectionCicleType {
+    func getSelectionCicleType(date: Date,
+                               isCurrentMonth: Bool,
+                               timeManager: TimeManagerProtocol = TimeManager()) -> SelectionCicleType {
         guard isCurrentMonth else { return .dayOutOfMonth }
-        guard doseIntervals.filter({ date.isSameDDMMYYYY(date: $0) }).count > 0 else { return  .none }
+        guard doseIntervals.filter({ date.isSameDDMMYYYY(date: $0) }).count > 0 else { return .none }
 
         if doseIntervals.count == 1,
             let first = doseIntervals.first {
@@ -59,34 +61,38 @@ public final class MedicineCalendarVM: ObservableObject {
 
         if let first = doseIntervals.first,
             first.isSameDDMMYYYY(date: date) {
-            if doseIntervals.count == 1 { return .unknown }
-            else {
+            if doseIntervals.count == 1 {
+                return .unknown
+            } else {
                 if date.isSameDDMMYYYY(date: Date()) {
                     return .startTodayLongCycle
-                }
-                else {
-                    return date > Date(timeIntervalSince1970: TimeInterval(timeManager.timeIntervalSince1970())) ? .unknown : .startPastLongCycle
+                } else {
+                    return date > Date(timeIntervalSince1970: TimeInterval(timeManager.timeIntervalSince1970())) ?
+                        .unknown : .startPastLongCycle
                 }
             }
         } else if let last = doseIntervals.last,
             last.isSameDDMMYYYY(date: date) {
-            if date.isSameDDMMYYYY(date: Date()) { return .endTodayLongCycle }
-            else {
-                return date > Date(timeIntervalSince1970: TimeInterval(timeManager.timeIntervalSince1970())) ? .endFutureLongCycle : .endPastLongCycle
+            if date.isSameDDMMYYYY(date: Date()) {
+                return .endTodayLongCycle
+            } else {
+                return date > Date(timeIntervalSince1970: TimeInterval(timeManager.timeIntervalSince1970())) ?
+                    .endFutureLongCycle : .endPastLongCycle
             }
         } else {
-            if date.isSameDDMMYYYY(date: Date()) { return .midTodayLongCycle }
-            else {
-                return date > Date(timeIntervalSince1970: TimeInterval(timeManager.timeIntervalSince1970())) ? .midFutureLongCycle : .midPastLongCycle
+            if date.isSameDDMMYYYY(date: Date()) {
+                return .midTodayLongCycle
+            } else {
+                return date > Date(timeIntervalSince1970: TimeInterval(timeManager.timeIntervalSince1970())) ?
+                    .midFutureLongCycle : .midPastLongCycle
             }
         }
     }
 
     func getTodayCicleColor(date: Date, timeManager: TimeManagerProtocol = TimeManager()) -> UIColor {
-        let dateStr = date.dateFormatUTC()
-        let todayDateStr = Date(timeIntervalSince1970: TimeInterval(timeManager.timeIntervalSince1970())).dateFormatUTC()
+        let date = date.dateFormatUTC()
+        let todayDate = Date(timeIntervalSince1970: TimeInterval(timeManager.timeIntervalSince1970())).dateFormatUTC()
 
-        return dateStr == todayDateStr ? CalendarView.Colors.pastToday: UIColor.clear
+        return date == todayDate ? CalendarView.Colors.pastToday : UIColor.clear
     }
-    
 }

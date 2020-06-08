@@ -230,12 +230,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 3 images.
+  /// This `R.image` struct is generated, and contains static references to 2 images.
   struct image {
     /// Image `background`.
     static let background = Rswift.ImageResource(bundle: R.hostingBundle, name: "background")
-    /// Image `circle`.
-    static let circle = Rswift.ImageResource(bundle: R.hostingBundle, name: "circle")
     /// Image `glass`.
     static let glass = Rswift.ImageResource(bundle: R.hostingBundle, name: "glass")
 
@@ -243,13 +241,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "background", bundle: ..., traitCollection: ...)`
     static func background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.background, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "circle", bundle: ..., traitCollection: ...)`
-    static func circle(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.circle, compatibleWith: traitCollection)
     }
     #endif
 
@@ -301,44 +292,44 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.localizable` struct is generated, and contains static references to 50 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 52 localization keys.
     struct localizable {
       /// en translation: 1 Day
       ///
-      /// Locales: en
-      static let prescription_form_interval_list_1_day = Rswift.StringResource(key: "prescription_form_interval_list_1_day", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, es
+      static let prescription_form_interval_list_1_day = Rswift.StringResource(key: "prescription_form_interval_list_1_day", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: 1 Hour
       ///
-      /// Locales: en
-      static let prescription_form_interval_list_1_hour = Rswift.StringResource(key: "prescription_form_interval_list_1_hour", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, es
+      static let prescription_form_interval_list_1_hour = Rswift.StringResource(key: "prescription_form_interval_list_1_hour", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: 12 Hours
       ///
-      /// Locales: en
-      static let prescription_form_interval_list_12_hours = Rswift.StringResource(key: "prescription_form_interval_list_12_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, es
+      static let prescription_form_interval_list_12_hours = Rswift.StringResource(key: "prescription_form_interval_list_12_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: 2 Days
       ///
-      /// Locales: en
-      static let prescription_form_interval_list_2_days = Rswift.StringResource(key: "prescription_form_interval_list_2_days", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, es
+      static let prescription_form_interval_list_2_days = Rswift.StringResource(key: "prescription_form_interval_list_2_days", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: 2 Hours
       ///
-      /// Locales: en
-      static let prescription_form_interval_list_2_hours = Rswift.StringResource(key: "prescription_form_interval_list_2_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, es
+      static let prescription_form_interval_list_2_hours = Rswift.StringResource(key: "prescription_form_interval_list_2_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: 3 Hours
       ///
-      /// Locales: en
-      static let prescription_form_interval_list_3_hours = Rswift.StringResource(key: "prescription_form_interval_list_3_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, es
+      static let prescription_form_interval_list_3_hours = Rswift.StringResource(key: "prescription_form_interval_list_3_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: 4 Hours
       ///
-      /// Locales: en
-      static let prescription_form_interval_list_4_hours = Rswift.StringResource(key: "prescription_form_interval_list_4_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, es
+      static let prescription_form_interval_list_4_hours = Rswift.StringResource(key: "prescription_form_interval_list_4_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: 6 Hours
       ///
-      /// Locales: en
-      static let prescription_form_interval_list_6_hours = Rswift.StringResource(key: "prescription_form_interval_list_6_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, es
+      static let prescription_form_interval_list_6_hours = Rswift.StringResource(key: "prescription_form_interval_list_6_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: 8 Hours
       ///
-      /// Locales: en
-      static let prescription_form_interval_list_8_hours = Rswift.StringResource(key: "prescription_form_interval_list_8_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, es
+      static let prescription_form_interval_list_8_hours = Rswift.StringResource(key: "prescription_form_interval_list_8_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: > Month
       ///
       /// Locales: en
@@ -355,6 +346,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let home_alert_title = Rswift.StringResource(key: "home_alert_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Calendar
+      ///
+      /// Locales: en
+      static let calendar_title = Rswift.StringResource(key: "calendar_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Day
       ///
       /// Locales: en, es
@@ -363,6 +358,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let home_prescription_ongoing_ellapsed = Rswift.StringResource(key: "home_prescription_ongoing_ellapsed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Dose list
+      ///
+      /// Locales: en
+      static let dose_list_title = Rswift.StringResource(key: "dose_list_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: General
       ///
       /// Locales: en
@@ -506,7 +505,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 1 Day
       ///
-      /// Locales: en
+      /// Locales: en, es
       static func prescription_form_interval_list_1_day(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_1_day", bundle: hostingBundle, comment: "")
@@ -521,7 +520,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 1 Hour
       ///
-      /// Locales: en
+      /// Locales: en, es
       static func prescription_form_interval_list_1_hour(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_1_hour", bundle: hostingBundle, comment: "")
@@ -536,7 +535,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 12 Hours
       ///
-      /// Locales: en
+      /// Locales: en, es
       static func prescription_form_interval_list_12_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_12_hours", bundle: hostingBundle, comment: "")
@@ -551,7 +550,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 2 Days
       ///
-      /// Locales: en
+      /// Locales: en, es
       static func prescription_form_interval_list_2_days(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_2_days", bundle: hostingBundle, comment: "")
@@ -566,7 +565,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 2 Hours
       ///
-      /// Locales: en
+      /// Locales: en, es
       static func prescription_form_interval_list_2_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_2_hours", bundle: hostingBundle, comment: "")
@@ -581,7 +580,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 3 Hours
       ///
-      /// Locales: en
+      /// Locales: en, es
       static func prescription_form_interval_list_3_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_3_hours", bundle: hostingBundle, comment: "")
@@ -596,7 +595,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 4 Hours
       ///
-      /// Locales: en
+      /// Locales: en, es
       static func prescription_form_interval_list_4_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_4_hours", bundle: hostingBundle, comment: "")
@@ -611,7 +610,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 6 Hours
       ///
-      /// Locales: en
+      /// Locales: en, es
       static func prescription_form_interval_list_6_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_6_hours", bundle: hostingBundle, comment: "")
@@ -626,7 +625,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 8 Hours
       ///
-      /// Locales: en
+      /// Locales: en, es
       static func prescription_form_interval_list_8_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_8_hours", bundle: hostingBundle, comment: "")
@@ -699,6 +698,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("home_alert_title", bundle: bundle, comment: "")
       }
 
+      /// en translation: Calendar
+      ///
+      /// Locales: en
+      static func calendar_title(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calendar_title", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "calendar_title"
+        }
+
+        return NSLocalizedString("calendar_title", bundle: bundle, comment: "")
+      }
+
       /// en translation: Day
       ///
       /// Locales: en, es
@@ -727,6 +741,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("home_prescription_ongoing_ellapsed", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Dose list
+      ///
+      /// Locales: en
+      static func dose_list_title(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dose_list_title", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "dose_list_title"
+        }
+
+        return NSLocalizedString("dose_list_title", bundle: bundle, comment: "")
       }
 
       /// en translation: General

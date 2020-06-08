@@ -11,3 +11,16 @@
 "prescription_form_interval_list_hour" = "Hora";
 "prescription_form_interval_list_hours" = "Horas";
 "prescription_form_interval_list_day" = "Día";
+
+"prescription_form_interval_list_hour" = "Hora";
+"prescription_form_interval_list_hours" = "Horas";
+"prescription_form_interval_list_day" = "Día";
+"prescription_form_interval_list_1_hour" = "1 Hora";
+"prescription_form_interval_list_2_hours" = "2 Horas";
+"prescription_form_interval_list_3_hours" = "3 Horas";
+"prescription_form_interval_list_4_hours" = "4 Horas";
+"prescription_form_interval_list_6_hours" = "6 Horas";
+"prescription_form_interval_list_8_hours" = "8 Horas";
+"prescription_form_interval_list_12_hours" = "12 Horas";
+"prescription_form_interval_list_1_day" = "1 Día";
+"prescription_form_interval_list_2_days" = "2 Días";

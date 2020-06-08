@@ -42,10 +42,10 @@
 "home_alert_title" = "Atention!";
 "home_alert_message" = "This prescription is going to be eliminated! Proceed?";
 "home_alert_ok" = "Yes";
-"home_prescription_not_started" = "Not started. Press icon to start";
-"home_prescription_onging" = "In course, next dose:";
-"home_prescription_ongoing_ready" = "You can take your dose, press icon to mark";
-"home_prescription_ongoing_ellapsed" = "Dose ellapsed, press icon to mark";
+"home_prescription_not_started" = "Not started.\nPress icon to start";
+"home_prescription_onging" = "In course,\nnext dose:";
+"home_prescription_ongoing_ready" = "You can take your dose,\npress icon to mark";
+"home_prescription_ongoing_ellapsed" = "Dose ellapsed,\npress icon to mark";
 "home_prescription_finished" = "Presciption finished";
 "home_prescription_secs_suffix" = "s";
 "home_prescription_mins_suffix" = "m";
@@ -58,6 +58,10 @@
 "setup_section_others" = "Otros";
 "setup_option_version" = "Version";
 "setup_option_reset" = "Reset";
+
+"calendar_title" = "Calendar";
+
+"dose_list_title" = "Dose list";
 
 "calendar_last_dose" = "Last dose:";
 

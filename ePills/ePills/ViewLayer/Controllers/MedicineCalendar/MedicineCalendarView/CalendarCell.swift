@@ -43,23 +43,23 @@ enum SelectionCicleType: Int {
         case .unknown: return UIColor.clear
         }
     }
-    
+
     func todayFillColor() -> UIColor {
         if self == .startTodayLongCycle ||
             self == .midTodayLongCycle ||
             self == .endTodayLongCycle {
-             return CalendarView.Colors.pastToday
+            return CalendarView.Colors.pastToday
         } else {
-           return UIColor.clear
+            return UIColor.clear
         }
     }
 
     func titleLabelFont() -> UIFont {
         if self == .none ||
             self == .dayOutOfMonth {
-            return UIFont.systemFont(ofSize: 16,weight: .thin)
+            return UIFont.systemFont(ofSize: 16, weight: .thin)
         } else {
-            return UIFont.systemFont(ofSize: 18,weight: .thin)
+            return UIFont.systemFont(ofSize: 18, weight: .thin)
         }
     }
 
@@ -117,7 +117,8 @@ class CalendarCell: FSCalendarCell {
         let todaySectionLayer = CAShapeLayer()
         todaySectionLayer.fillColor = todayFillColor.cgColor
         todaySectionLayer.actions = ["hidden": NSNull()]
-        self.contentView.layer.insertSublayer(selectionLayer, below: self.titleLabel!.layer)
+        guard let titleLabel = self.titleLabel else { return }
+        self.contentView.layer.insertSublayer(selectionLayer, below: titleLabel.layer)
         self.contentView.layer.insertSublayer(todaySectionLayer, above: selectionLayer)
         self.selectionLayer = selectionLayer
         self.todaySectionLayer = todaySectionLayer
@@ -154,13 +155,13 @@ class CalendarCell: FSCalendarCell {
             self.selectionLayer.path = roundedPath()
         }
     }
-    
+
     func rectPath() -> CGPath {
         let bounds = CGRect(x: selectionLayer.frame.origin.x,
                             y: selectionLayer.frame.origin.y + 0.0,
                             width: selectionLayer.frame.size.width,
                             height: selectionLayer.frame.size.height - 5.0)
-        return  UIBezierPath(rect: bounds).cgPath
+        return UIBezierPath(rect: bounds).cgPath
     }
 
     func leftRoundedPath() -> CGPath {

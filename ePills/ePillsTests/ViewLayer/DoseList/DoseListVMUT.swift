@@ -12,6 +12,7 @@ class DoseListVMUT: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+          Bundle.setLanguage(lang: "en")
     }
 
     override func tearDownWithError() throws {
@@ -31,7 +32,7 @@ class DoseListVMUT: XCTestCase {
         medicine.currentCycle.unitsConsumed = 2
         let sut = DoseListVM(medicine: medicine)
         let doseCellViewModels = sut.getDoses()
-        guard doseCellViewModels.count == 2 else { XCTFail(); return }
+        guard doseCellViewModels.count == 2 else { XCTFail("test_getDosesWhenBiCycle"); return }
         var doseCellViewModel = doseCellViewModels[0]
         XCTAssertEqual(doseCellViewModel.doseOrder, "1/2")
         XCTAssertEqual(doseCellViewModel.day, "1")
@@ -49,9 +50,9 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.doseCellType, .startPast)
 
     }
-    
+
     func test_monoCycle() {
-        
+
         let medicine = Medicine(name: "aaa", unitsBox: 1, intervalSecs: 3600, unitsDose: 1)
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800))
@@ -60,7 +61,7 @@ class DoseListVMUT: XCTestCase {
         let sut = DoseListVM(medicine: medicine)
         medicine.currentCycle.unitsConsumed = 1
         let doseCellViewModels = sut.getDoses()
-        guard doseCellViewModels.count == 1 else { XCTFail(); return }
+        guard doseCellViewModels.count == 1 else { XCTFail("test_monoCycle"); return }
         let doseCellViewModel = doseCellViewModels[0]
         XCTAssertEqual(doseCellViewModel.doseOrder, "1/1")
         XCTAssertEqual(doseCellViewModel.day, "1")
@@ -68,16 +69,8 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 01:00")
         XCTAssertEqual(doseCellViewModel.realOffset, "00s")
         XCTAssertEqual(doseCellViewModel.doseCellType, .monoCycle)
-        
-        /*
-         
-         // Monocyle
-         // return  [DoseCellViewModel(day: "1", monthYear: "Junio - 2020", weekdayHHMM: "Viernes - 06:04", realOffset: "-1d 3h", doseCellType: .monoCycle, isFirst: true)]
-          
-         
-         */
     }
-    
+
     func test_cycleFinished() {
         let medicine = Medicine(name: "aaa", unitsBox: 5, intervalSecs: 3600, unitsDose: 1)
         let timeManager = TimeManager()
@@ -94,7 +87,7 @@ class DoseListVMUT: XCTestCase {
         medicine.currentCycle.unitsConsumed = 5
         let sut = DoseListVM(medicine: medicine)
         let doseCellViewModels = sut.getDoses()
-        guard doseCellViewModels.count == 5 else { XCTFail(); return }
+        guard doseCellViewModels.count == 5 else { XCTFail("test_cycleFinished"); return }
         var doseCellViewModel = doseCellViewModels[0]
         XCTAssertEqual(doseCellViewModel.doseOrder, "1/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
@@ -110,7 +103,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 02:00")
         XCTAssertEqual(doseCellViewModel.realOffset, "-5m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
-        
+
         doseCellViewModel = doseCellViewModels[2]
         XCTAssertEqual(doseCellViewModel.doseOrder, "3/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
@@ -118,7 +111,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 03:00")
         XCTAssertEqual(doseCellViewModel.realOffset, "-10m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
-        
+
         doseCellViewModel = doseCellViewModels[3]
         XCTAssertEqual(doseCellViewModel.doseOrder, "4/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
@@ -126,7 +119,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 04:00")
         XCTAssertEqual(doseCellViewModel.realOffset, "05m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
-        
+
         doseCellViewModel = doseCellViewModels[4]
         XCTAssertEqual(doseCellViewModel.doseOrder, "5/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
@@ -134,9 +127,9 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 05:00")
         XCTAssertEqual(doseCellViewModel.realOffset, "10m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .startPast)
-        
+
     }
-    
+
     func test_cycleNotFinished() {
         let medicine = Medicine(name: "aaa", unitsBox: 5, intervalSecs: 3600, unitsDose: 1)
         let timeManager = TimeManager()
@@ -153,7 +146,7 @@ class DoseListVMUT: XCTestCase {
         medicine.currentCycle.unitsConsumed = 4
         let sut = DoseListVM(medicine: medicine)
         let doseCellViewModels = sut.getDoses()
-        guard doseCellViewModels.count == 4 else { XCTFail(); return }
+        guard doseCellViewModels.count == 4 else { XCTFail("test_cycleNotFinished"); return }
         var doseCellViewModel = doseCellViewModels[0]
         XCTAssertEqual(doseCellViewModel.doseOrder, "1/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
@@ -169,7 +162,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 02:00")
         XCTAssertEqual(doseCellViewModel.realOffset, "-5m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
-        
+
         doseCellViewModel = doseCellViewModels[2]
         XCTAssertEqual(doseCellViewModel.doseOrder, "3/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
@@ -177,7 +170,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 03:00")
         XCTAssertEqual(doseCellViewModel.realOffset, "-10m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
-        
+
         doseCellViewModel = doseCellViewModels[3]
         XCTAssertEqual(doseCellViewModel.doseOrder, "4/5")
         XCTAssertEqual(doseCellViewModel.day, "1")

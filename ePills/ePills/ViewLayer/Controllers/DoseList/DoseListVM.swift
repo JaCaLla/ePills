@@ -28,31 +28,27 @@ public final class DoseListVM: ObservableObject {
         self.timeManager = timeManager
         self.interactor = interactor
     }
-    
+
     // MARK: - Public helpers
     private func getRemainingTimeMessage(dose: Dose) -> (String, String) {
-//        guard medicines.count > currentPage else { return ("", "") }
-//        let medicine = self.medicines[currentPage]
-//
-//        guard let nextDose = medicine.getNextDose() else { return ("", "") }
         let requestedComponent: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
-//        let tmpTimeManager = timeManager ?? TimeManager()
         let now: Date = Date(timeIntervalSince1970: TimeInterval(dose.expected))
         let nextDoseTimestamp = Date(timeIntervalSince1970: TimeInterval(dose.real))
         let timeDifference = Calendar.current.dateComponents(requestedComponent, from: nextDoseTimestamp, to: now)
 
         return interactor.timeDifference2Str(timeDifference: timeDifference)
     }
-    
+
     func getDoses() -> [DoseCellViewModel] {
         var doseCellViewModel: [DoseCellViewModel] = []
-        
+
         for (index, dose) in medicine.currentCycle.doses.enumerated() {
             let doseOrder = "\(self.medicine.unitsDose * (index + 1))/\(self.medicine.unitsBox)"
             let day = self.interactor.getExpirationDayNumber(dose: dose)
             let monthYear = self.interactor.getExpirationMonthYear(dose: dose)
             let weekdayHHMM = self.interactor.getExpirationWeekdayHourMinute(dose: dose)
             let realOffset = self.getRemainingTimeMessage(dose: dose)
+            let realOffsetColorStr =  realOffset.0.starts(with: "-") ? R.color.colorRed.name : R.color.colorBlack.name
             var doseCellType: DoseCellType = .monoCycle
             if medicine.currentCycle.doses.count == 2 {
                 doseCellType = index == 0 ? .endToday : .startPast
@@ -65,15 +61,16 @@ public final class DoseListVM: ObservableObject {
                     doseCellType = .middle
                 }
             }
-            
+
             doseCellViewModel.append(DoseCellViewModel(doseOrder: doseOrder,
-                                                      day: day,
-                                                      monthYear: monthYear,
-                                                      weekdayHHMM: weekdayHHMM,
-                                                      realOffset: "\(realOffset.0)",
-                                                      doseCellType: doseCellType))
+                                                       day: day,
+                                                       monthYear: monthYear,
+                                                       weekdayHHMM: weekdayHHMM,
+                                                       realOffset: "\(realOffset.0)",
+                realOffsetColorStr: realOffsetColorStr,
+                                                       doseCellType: doseCellType))
         }
-        
+
         return doseCellViewModel
     }
 }

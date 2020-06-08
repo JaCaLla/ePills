@@ -10,11 +10,6 @@ import SwiftUI
 import Combine
 struct HomePrescriptionView: View {
 
-//    // MARK: - Publishers
-//    var onAddPrescriptionPublisher: AnyPublisher<Void, Never> {
-//        return onAddPrescriptionSubject.eraseToAnyPublisher()
-//    }
-//    private var onAddPrescriptionSubject = PassthroughSubject<Void, Never>()
     private var subscription = Set<AnyCancellable>()
 
     // MARK: - Public Attributes
@@ -26,16 +21,18 @@ struct HomePrescriptionView: View {
         ZStack {
             BackgroundView()
             VStack {
-                PageView(self.viewModel.medicines.map {
-                    PrescriptionHomePageView(medicine: $0,
-                                             isRemovingPrescription: self.$isRemovingPrescription,
-                                             curentPrescription: self.$viewModel.currentPrescription,
-                                             viewModel: self.viewModel)
-                }, currentPage: self.$viewModel.currentPage)
-                    .background(Color(R.color.colorGray50Semi.name))
-                    .frame(height: 400)
-                    .padding()
-                Spacer()
+                GeometryReader { geometry in
+                    PageView(self.viewModel.medicines.map {
+                        PrescriptionHomePageView(medicine: $0,
+                                                 isRemovingPrescription: self.$isRemovingPrescription,
+                                                 curentPrescription: self.$viewModel.currentPrescription,
+                                                 viewModel: self.viewModel)
+                    }, currentPage: self.$viewModel.currentPage)
+                        .background(Color(R.color.colorGray50Semi.name))
+                        .frame(height: geometry.size.height * 0.90)
+                        .padding()
+                    Spacer()
+                }
             }.padding(.top, 20)
                 .alert(isPresented: self.$isRemovingPrescription) {
                     Alert(title: Text(R.string.localizable.home_alert_title.key.localized),
@@ -44,15 +41,15 @@ struct HomePrescriptionView: View {
                               self.viewModel.remove()
                           },
                           secondaryButton: .cancel()
-                    )
-            }
+                    ) }
         }.navigationBarItems(trailing:
             Button(action: {
                 self.viewModel.addPrescription()
-            }) {
-                Image(systemName: "plus.rectangle")
-                    .font(Font.system(size: 20).bold())
-                    .foregroundColor(Color(R.color.colorGray50.name))
+            })
+        {
+            Image(systemName: "plus.rectangle")
+                .font(Font.system(size: 20).bold())
+                .foregroundColor(Color(R.color.colorGray50.name))
         }
         ).navigationBarTitle(R.string.localizable.home_title.key.localized)
     }
