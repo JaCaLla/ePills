@@ -89,6 +89,8 @@
 		5ED44B532454180300081B36 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B522454180300081B36 /* Interval.swift */; };
 		5ED44B5824542F3F00081B36 /* HomePrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */; };
 		5ED44B5A2454541000081B36 /* HomePrescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B592454541000081B36 /* HomePrescriptionVC.swift */; };
+		5EF5DDAC2491FF16000368F9 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5DDAB2491FF16000368F9 /* AppEnvironment.swift */; };
+		5EF5DDAE24925261000368F9 /* AppEnvironmentUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5DDAD24925261000368F9 /* AppEnvironmentUT.swift */; };
 		5EFE81022454C12800D44F53 /* PrescriptionFormVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81012454C12800D44F53 /* PrescriptionFormVMTests.swift */; };
 		5EFE81062454CDE400D44F53 /* DataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81052454CDE400D44F53 /* DataManagerMock.swift */; };
 		5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81082454CF6D00D44F53 /* DataManagerTests.swift */; };
@@ -196,6 +198,8 @@
 		5ED44B522454180300081B36 /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionView.swift; sourceTree = "<group>"; };
 		5ED44B592454541000081B36 /* HomePrescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionVC.swift; sourceTree = "<group>"; };
+		5EF5DDAB2491FF16000368F9 /* AppEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		5EF5DDAD24925261000368F9 /* AppEnvironmentUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironmentUT.swift; sourceTree = "<group>"; };
 		5EFE81012454C12800D44F53 /* PrescriptionFormVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVMTests.swift; sourceTree = "<group>"; };
 		5EFE81052454CDE400D44F53 /* DataManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerMock.swift; sourceTree = "<group>"; };
 		5EFE81082454CF6D00D44F53 /* DataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
@@ -483,6 +487,7 @@
 		5E6AB013244B0F3F00F162EB /* ePills */ = {
 			isa = PBXGroup;
 			children = (
+				5EF5DDAB2491FF16000368F9 /* AppEnvironment.swift */,
 				5E6AB037244B139500F162EB /* ViewLayer */,
 				5EFF2157244F5CE100B77AE9 /* DomainLayer */,
 				5ED44B4A2454154F00081B36 /* DataLayer */,
@@ -511,6 +516,7 @@
 				5E3B7AD52459FE1700541AB4 /* DomainLayer */,
 				5EFE81072454CEB200D44F53 /* DataLayer */,
 				5E6AB02D244B0F4200F162EB /* Info.plist */,
+				5EF5DDAD24925261000368F9 /* AppEnvironmentUT.swift */,
 			);
 			path = ePillsTests;
 			sourceTree = "<group>";
@@ -676,6 +682,13 @@
 			path = FirstPrescriptionView;
 			sourceTree = "<group>";
 		};
+		5EF5DDAF249253F2000368F9 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		5EFE80FF2454BD3300D44F53 /* ViewLayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +779,7 @@
 		5EFF215E244F9A7600B77AE9 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5EF5DDAF249253F2000368F9 /* Firebase */,
 				5EFF215F244F9ACE00B77AE9 /* DebugManager.swift */,
 				5E5514992464A5EF00E97DF4 /* LocalNotificationManager.swift */,
 				5EB5DA952461D06E0009EA75 /* TimeManager.swift */,
@@ -1032,6 +1046,7 @@
 				5E5514BB2468101000E97DF4 /* DateExtension.swift in Sources */,
 				5E685C6E247AEAAC008539D9 /* MedicineCalendarVC.swift in Sources */,
 				5ED44B44245352AC00081B36 /* R.generated.swift in Sources */,
+				5EF5DDAC2491FF16000368F9 /* AppEnvironment.swift in Sources */,
 				5E685C67247A9B8F008539D9 /* AppSetupView.swift in Sources */,
 				5EFE810C2454D13D00D44F53 /* Resetable.swift in Sources */,
 				5E4473D0246EF85100D997A6 /* DoseDB.swift in Sources */,
@@ -1086,6 +1101,7 @@
 				5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */,
 				5E3B7AE2245AD7D300541AB4 /* HomeCoordinatorMock.swift in Sources */,
 				5EFE81062454CDE400D44F53 /* DataManagerMock.swift in Sources */,
+				5EF5DDAE24925261000368F9 /* AppEnvironmentUT.swift in Sources */,
 				5E8EECE32456258600398832 /* PrescriptionTests.swift in Sources */,
 				5E3B7AD82459FEBA00541AB4 /* MedicineInteractorUT.swift in Sources */,
 				5E3B7ADF245A327A00541AB4 /* HomePrescriptionVMTest.swift in Sources */,
@@ -1255,7 +1271,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Jca.ePills.ePills;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Jca.ePills.ePills.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1279,6 +1295,7 @@
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jca.ePills.ePills;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
