@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>53146737443-a383h4qnmkohjh0s4ug5du0hrgnk3ent.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.53146737443-a383h4qnmkohjh0s4ug5du0hrgnk3ent</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAMF915QJ0cR2IgZ4Ps5AnSOhYpofBt0iM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>53146737443</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.JCa.ePills</string>
+	<key>PROJECT_ID</key>
+	<string>epills-prod</string>
+	<key>STORAGE_BUCKET</key>
+	<string>epills-prod.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:53146737443:ios:c9fdddd62b83b924104a96</string>
+	<key>DATABASE_URL</key>
+	<string>https://epills-prod.firebaseio.com</string>
+</dict>
+</plist>

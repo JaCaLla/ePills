@@ -44,11 +44,11 @@ public final class DoseListVM: ObservableObject {
 
         for (index, dose) in medicine.currentCycle.doses.enumerated() {
             let doseOrder = "\(self.medicine.unitsDose * (index + 1))/\(self.medicine.unitsBox)"
-            let day = self.interactor.getExpirationDayNumber(dose: dose)
-            let monthYear = self.interactor.getExpirationMonthYear(dose: dose)
-            let weekdayHHMM = self.interactor.getExpirationWeekdayHourMinute(dose: dose)
+            let day = self.interactor.getExpirationRealDayNumber(dose: dose)
+            let monthYear = self.interactor.getExpirationRealMonthYear(dose: dose)
+            let weekdayHHMM = self.interactor.getExpirationRealWeekdayHourMinute(dose: dose)
             let realOffset = self.getRemainingTimeMessage(dose: dose)
-            let realOffsetColorStr =  realOffset.0.starts(with: "-") ? R.color.colorRed.name : R.color.colorBlack.name
+            let realOffsetColorStr = realOffset.0.starts(with: "-") ? R.color.colorRed.name : R.color.colorWhite.name
             var doseCellType: DoseCellType = .monoCycle
             if medicine.currentCycle.doses.count == 2 {
                 doseCellType = index == 0 ? .endToday : .startPast

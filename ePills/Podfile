@@ -21,6 +21,12 @@ target 'ePills' do
   # Pods for Networking
   #pod 'Alamofire', '~> 4.8.2'
   
+  # Pods for Analytics
+  pod 'Firebase/Analytics'
+  
+  # Pods for tracking crashes in prod
+pod 'Firebase/Crashlytics'
+  
   pod 'FLEX', :configuration => :debug
 
   target 'ePillsTests' do

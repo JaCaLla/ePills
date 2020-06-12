@@ -27,6 +27,9 @@ struct DoseListView: View {
                 }
             }
         }.navigationBarTitle(R.string.localizable.dose_list_title.key.localized)
+        .onAppear {
+            AnalyticsManager.shared.logScreen(name: Screen.doseList, flow: nil)
+        }
     }
 }
 

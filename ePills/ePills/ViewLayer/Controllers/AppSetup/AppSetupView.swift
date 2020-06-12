@@ -21,13 +21,19 @@ struct AppSetupView: View {
                                 Text(menuOption.title)
                                 Spacer()
                                 Text(menuOption.getValue())
-                            }.onTapGesture {
+                            }
+                            .foregroundColor(Color(R.color.colorBlack.name))
+                            .onTapGesture {
                                 self.viewModel.tapped(menuOption: menuOption)
                             }
                         }
                     }
                 }
             }.listStyle(GroupedListStyle())
+        }
+        .foregroundColor(Color(R.color.colorBlack.name))
+        .onAppear {
+            AnalyticsManager.shared.logScreen(name: Screen.setup, flow: nil)
         }
     }
 }

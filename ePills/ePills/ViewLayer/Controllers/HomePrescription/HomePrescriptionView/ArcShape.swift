@@ -15,9 +15,9 @@ struct ArcShape: Shape {
     var width: CGFloat
     var height: CGFloat
     var progress: Double
-    
+
     func path(in rect: CGRect) -> Path {
-        
+
         let bezierPath = UIBezierPath()
         let endAngle = 360.0 * progress - 90.0
         bezierPath.addArc(withCenter: CGPoint(x: width / 2, y: height / 2),
@@ -25,7 +25,7 @@ struct ArcShape: Shape {
                           startAngle: CGFloat(-90 * Double.pi / 180),
                           endAngle: CGFloat(endAngle * Double.pi / 180),
                           clockwise: true)
-        
+
         return Path(bezierPath.cgPath)
     }
 }

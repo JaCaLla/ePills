@@ -10,31 +10,31 @@ import SwiftUI
 
 struct BackgroundView: View {
     var body: some View {
-        GeometryReader { geometry in
-        Image("background")
-            .resizable()
-            .padding(.top, 40.0)
-            .scaledToFill()
-        .edgesIgnoringSafeArea(.all)
+        GeometryReader { _ in
+            Image("background")
+                .resizable()
+                .padding(.top, 40.0)
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }
 
 struct BackgroundView_Previews: PreviewProvider {
     static var previews: some View {
-        
+
         Group {
             BackgroundView()
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
                 .previewDisplayName("iPhone SE")
 
             BackgroundView()
-            .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-            .previewDisplayName("iPhone 8")
-            
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+                .previewDisplayName("iPhone 8")
+
             BackgroundView()
-            .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-            .previewDisplayName("iPhone XS Max")
+                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+                .previewDisplayName("iPhone XS Max")
         }
     }
 }

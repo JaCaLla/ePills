@@ -27,20 +27,21 @@ final public class FirstPresciptionCoordinator {
     var navitationController: UINavigationController = UINavigationController()
 
     // MARK: - Public Helpers
-    func start(navigationController: Bool = true, prescriptionInteractor: MedicineInteractorProtocol? = nil) -> UIViewController {
-        let homeView = FirstPrescriptionView( coordinator: self)
+    func start(navigationController: Bool = true,
+               prescriptionInteractor: MedicineInteractorProtocol? = nil) -> UIViewController {
+        let homeView = FirstPrescriptionView(coordinator: self)
         let firstPrescriptionVC = FirstPrescriptionVC(rootView: homeView)
         homeView.onAddFirstPrescriptionPublisher.sink {
+            let interactor = prescriptionInteractor ?? MedicineInteractor(dataManager: DataManager.shared)
             self.presentPrescriptionForm(homeView: homeView,
-                                         prescriptionInteractor: prescriptionInteractor ?? MedicineInteractor(dataManager: DataManager.shared) )
-        }.store(in: &onAddFirstSubscription)
-        firstPrescriptionVC.tabBarItem = UITabBarItem(title: R.string.localizable.home_title.key.localized,
-        image: UIImage(systemName: "plus.rectangle"),
-        tag: 0)
-        guard navigationController else {
-            return firstPrescriptionVC
+                                         prescriptionInteractor: interactor)
         }
-        navitationController.viewControllers = [firstPrescriptionVC];
+            .store(in: &onAddFirstSubscription)
+        firstPrescriptionVC.tabBarItem = UITabBarItem(title: R.string.localizable.home_title.key.localized,
+                                                      image: UIImage(systemName: "plus.rectangle"),
+                                                      tag: 0)
+        guard navigationController else { return firstPrescriptionVC }
+        navitationController.viewControllers = [firstPrescriptionVC]
         return navitationController
     }
 
@@ -49,11 +50,12 @@ final public class FirstPresciptionCoordinator {
                                              prescriptionInteractor: MedicineInteractorProtocol) {
         let prescriptionFormVM = PrescriptionFormVM(interactor: prescriptionInteractor, medicine: nil)
         prescriptionFormVM.onDismissPublisher.sink {
-                        self.onUIViewControllerInternalPublisher.send()
-        }.store(in: &onDismissIssueSubscription)
+            self.onUIViewControllerInternalPublisher.send()
+        }
+            .store(in: &onDismissIssueSubscription)
         let prescriptionFormView = PrescriptionFormView(viewModel: prescriptionFormVM)
         let prescriptionFormVC = PrescriptionFormVC(rootView: prescriptionFormView)
-       
+
         prescriptionFormVC.hidesBottomBarWhenPushed = true
         self.navitationController.pushViewController(prescriptionFormVC, animated: true)
     }

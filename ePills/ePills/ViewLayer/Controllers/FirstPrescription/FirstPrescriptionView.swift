@@ -27,26 +27,27 @@ struct FirstPrescriptionView: View {
             ZStack {
                 BackgroundView()
                 MessageView()
-                AddPrescriptionView().onTapGesture {
+                AddPrescriptionView()
+                .onTapGesture {
                     self.onAddFirstPrescription = true
                 }
-                    .onDisappear() {
+                .onDisappear {
                         self.onAddFirstPrescription = false
                 }
             }.navigationBarTitle(Text(R.string.localizable.first_prescription_title.key.localized))
             if onAddFirstPrescription {
                 ZStack {
                     EmptyView()
-                }.onAppear() {
+                }.onAppear {
                     self.onAddFirstPrescriptionSubject.send()
                 }
             }
-        }//.onAppear {
-//            self.viewModel.fetchPrescriptions()
-//        }
+        }.onAppear {
+            AnalyticsManager.shared.logScreen(name: Screen.addFirstMedicine, flow: ScreenFlow.firstMedicine)
+        }
     }
 
-    init ( coordinator: FirstPresciptionCoordinator = FirstPresciptionCoordinator()) {
+    init (coordinator: FirstPresciptionCoordinator = FirstPresciptionCoordinator()) {
 
         self.coordinator = coordinator
     }
@@ -56,7 +57,7 @@ struct FirstPrescriptionView_Previews: PreviewProvider {
     static var previews: some View {
 
         Group {
-            FirstPrescriptionView( coordinator: FirstPresciptionCoordinator())
+            FirstPrescriptionView(coordinator: FirstPresciptionCoordinator())
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
                 .previewDisplayName("iPhone SE")
 
@@ -64,7 +65,7 @@ struct FirstPrescriptionView_Previews: PreviewProvider {
                 .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
                 .previewDisplayName("iPhone 8")
 
-            FirstPrescriptionView( coordinator: FirstPresciptionCoordinator())
+            FirstPrescriptionView(coordinator: FirstPresciptionCoordinator())
                 .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
                 .previewDisplayName("iPhone XS Max")
         }

@@ -15,4 +15,8 @@ class AppEnvironmentUT: XCTestCase {
         XCTAssertEqual(Environment.production.toString, "production")
     }
 
+    func test_firebaseConfigFilename() {
+        XCTAssertEqual(Environment.debug.firebaseConfigFilename, "GoogleService-Info-Debug")
+        XCTAssertEqual(Environment.production.firebaseConfigFilename, "GoogleService-Info-Prod")
+    }
 }

@@ -23,15 +23,16 @@ public final class AppSetupVM: ObservableObject {
         var sections: [MenuSection] = []
 
         var generalSection: MenuSection = MenuSection(name: R.string.localizable.setup_section_general.key.localized)
-        generalSection.menuOptions.append(MenuOption(title:  R.string.localizable.setup_option_version.key.localized,
-                                                     value: Bundle.main.releaseVersionNumber))
+        let titleVersion = R.string.localizable.setup_option_version.key.localized
+        generalSection.menuOptions.append(MenuOption(title: titleVersion, value: Bundle.main.releaseVersionNumber))
         sections.append(generalSection)
 
+        #if DEBUG
         var dataSection: MenuSection = MenuSection(name: R.string.localizable.setup_section_others.key.localized)
-        dataSection.menuOptions.append(MenuOption(title:  R.string.localizable.setup_option_reset.key.localized,
-                                                  value: nil))
+        let titleReset = R.string.localizable.setup_option_reset.key.localized
+        dataSection.menuOptions.append(MenuOption(title: titleReset, value: nil))
         sections.append(dataSection)
-
+        #endif
         return sections
         }
     }

@@ -230,6 +230,36 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
+  /// This `R.file` struct is generated, and contains static references to 3 files.
+  struct file {
+    /// Resource file `GoogleService-Info-Debug.plist`.
+    static let googleServiceInfoDebugPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info-Debug", pathExtension: "plist")
+    /// Resource file `GoogleService-Info-Prod.plist`.
+    static let googleServiceInfoProdPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info-Prod", pathExtension: "plist")
+    /// Resource file `GoogleService-Info.plist`.
+    static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
+
+    /// `bundle.url(forResource: "GoogleService-Info", withExtension: "plist")`
+    static func googleServiceInfoPlist(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.googleServiceInfoPlist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "GoogleService-Info-Debug", withExtension: "plist")`
+    static func googleServiceInfoDebugPlist(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.googleServiceInfoDebugPlist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "GoogleService-Info-Prod", withExtension: "plist")`
+    static func googleServiceInfoProdPlist(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.googleServiceInfoProdPlist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    fileprivate init() {}
+  }
+
   /// This `R.image` struct is generated, and contains static references to 2 images.
   struct image {
     /// Image `background`.
@@ -292,7 +322,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.localizable` struct is generated, and contains static references to 52 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 53 localization keys.
     struct localizable {
       /// en translation: 1 Day
       ///
@@ -434,6 +464,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let setup_option_reset = Rswift.StringResource(key: "setup_option_reset", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Select dose interval
+      ///
+      /// Locales: en
+      static let prescription_form_interval_list_title = Rswift.StringResource(key: "prescription_form_interval_list_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Setup
       ///
       /// Locales: en
@@ -1026,6 +1060,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("setup_option_reset", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Select dose interval
+      ///
+      /// Locales: en
+      static func prescription_form_interval_list_title(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_list_title", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_list_title"
+        }
+
+        return NSLocalizedString("prescription_form_interval_list_title", bundle: bundle, comment: "")
       }
 
       /// en translation: Setup

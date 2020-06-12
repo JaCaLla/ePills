@@ -7,6 +7,7 @@
 //
 @testable import ePills
 import XCTest
+import Combine
 
 class DoseListVMUT: XCTestCase {
 
@@ -22,7 +23,6 @@ class DoseListVMUT: XCTestCase {
     func test_getDosesWhenBiCycle() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-
         let medicine = Medicine(name: "aaa", unitsBox: 2, intervalSecs: 3600, unitsDose: 1)
         let timeManager = TimeManager()
         timeManager.setInjectedDate(date: Date(timeIntervalSince1970: 1583020800))

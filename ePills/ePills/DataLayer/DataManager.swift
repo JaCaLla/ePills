@@ -12,7 +12,7 @@ import Combine
 protocol DataManagerProtocol {
 
     func isEmpty() -> Bool
-    func add(medicine: Medicine, timeManager: TimeManagerProtocol) -> Medicine?
+    @discardableResult func add(medicine: Medicine, timeManager: TimeManagerProtocol) -> Medicine?
     func remove(medicine: Medicine)
     func update(medicine: Medicine)
     func flushMedicines()
@@ -24,7 +24,7 @@ final class DataManager {
 
     static let shared: DataManager = DataManager()
 
-    private let subject = PassthroughSubject < [Medicine], Never > ()
+    private let subject = PassthroughSubject <[Medicine], Never>()
     private var medicines: [Medicine] = []
 
 }
@@ -35,28 +35,28 @@ extension DataManager: DataManagerProtocol {
     }
 
     func add(dose: Dose, medicine: Medicine) -> Dose? {
-        switch  DBManager.shared.create(dose: dose, cycleId: medicine.currentCycle.id) {
+        switch DBManager.shared.create(dose: dose, cycleId: medicine.currentCycle.id) {
         case .success(let doseCreated):
-                return doseCreated
-            case .failure:
-                return nil
+            return doseCreated
+        case .failure:
+            return nil
         }
     }
 
-    func add(medicine: Medicine,timeManager: TimeManagerProtocol) -> Medicine? {
+    @discardableResult func add(medicine: Medicine, timeManager: TimeManagerProtocol) -> Medicine? {
         let cycle = Cycle(unitsConsumed: 0, nextDose: nil)
-        guard let medicineCreated = createMedicine(medicine: medicine, timeManager:timeManager),
-            let cycleCreated = createCycle(cyle: cycle, medicine: medicineCreated, timeManager: timeManager) else { return nil }
+        guard let medicineCreated = createMedicine(medicine: medicine, timeManager: timeManager),
+            let cycleCreated = createCycle(cyle: cycle, medicine: medicineCreated, timeManager: timeManager) else {
+                return nil
+        }
 
         medicineCreated.currentCycle = cycleCreated
-
         self.medicines = fetchStoredMedicines()
-
         subject.send(self.medicines)
         return medicineCreated
     }
 
-    private func createMedicine(medicine: Medicine,timeManager: TimeManagerProtocol) -> Medicine? {
+    private func createMedicine(medicine: Medicine, timeManager: TimeManagerProtocol) -> Medicine? {
         switch DBManager.shared.create(medicine: medicine, timeManager: timeManager) {
         case .success(let medicineCreated):
             return medicineCreated
@@ -81,13 +81,11 @@ extension DataManager: DataManagerProtocol {
         medicines[index].unitsBox = medicine.unitsBox
         medicines[index].intervalSecs = medicine.intervalSecs
         medicines[index].unitsDose = medicine.unitsDose
-        //medicines[index].currentCycle = medicine.currentCycle //Cycle(name: medicine.name, unitsBox: medicine.unitsBox, intervalSecs: medicine.intervalSecs, unitsDose: medicine.unitsDose)
         medicines[index].creation = medicine.creation
         DBManager.shared.update(medicine: medicines[index], timeManager: TimeManager())
 
         let medicineCycles: [Cycle] = fetchCycles(medicineId: medicine.id)
         if let index = medicineCycles.firstIndex(where: { $0.id == medicine.currentCycle.id }) {
-            //medicineCycles[index].medicineId = medicine.currentCycle.medicineId
             medicineCycles[index].unitsConsumed = medicine.currentCycle.unitsConsumed
             medicineCycles[index].nextDose = medicine.currentCycle.nextDose
             medicineCycles[index].creation = medicine.currentCycle.creation
@@ -105,15 +103,15 @@ extension DataManager: DataManagerProtocol {
         // cycles.removeAll(where: {$0.id == medicine.currentCycle.id})
         subject.send(self.medicines)
     }
-    
+
     func flushMedicines() {
-       self.medicines = fetchStoredMedicines()
+        self.medicines = fetchStoredMedicines()
         subject.send(self.medicines)
     }
 
     func getMedicinesPublisher() -> AnyPublisher<[Medicine], Never> {
         self.medicines = fetchStoredMedicines()//medicines.sorted(by:{ $0.currentCycle.creation < $1.currentCycle.creation })
-      //  subject.send(self.medicines)
+        //  subject.send(self.medicines)
         return subject.eraseToAnyPublisher()
     }
 

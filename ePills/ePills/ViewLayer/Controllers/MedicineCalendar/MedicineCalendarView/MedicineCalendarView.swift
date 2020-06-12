@@ -18,9 +18,13 @@ struct MedicineCalendarView: View {
                     self.viewModel.onScrollToExpirationDateSubject.send()
                 }
                 CalendarView(viewModel: viewModel)
-                    .padding(.top, -60)
+                .padding(.top, -60)
             }
-        }.navigationBarTitle(R.string.localizable.calendar_title.key.localized)
+        }
+        .navigationBarTitle(R.string.localizable.calendar_title.key.localized)
+        .onAppear {
+                AnalyticsManager.shared.logScreen(name: Screen.calendar, flow: nil)
+        }
     }
 }
 

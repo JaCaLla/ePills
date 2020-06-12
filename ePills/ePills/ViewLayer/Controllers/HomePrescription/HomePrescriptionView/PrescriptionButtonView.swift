@@ -18,15 +18,19 @@ struct PrescriptionButtonView: View {
                 ZStack {
                     ZStack {
                         EmptyView()
-                    }.frame(width:  geometry.size.height * self.size , height: geometry.size.height * self.size)
+                    }.frame(width: geometry.size.height * self.size,
+                            height: geometry.size.height * self.size)
                         .background(Color(R.color.colorGray50Semi.name))
                         .cornerRadius(geometry.size.height * 0.5)
                     Image(systemName: self.iconName)
                         .font(Font.system(size: geometry.size.height * 0.3 ).bold())
-                        .foregroundColor(Color.white)
-                }.frame(width:  geometry.size.height * self.size, height:  geometry.size.height * self.size, alignment: .center)
-                    .onTapGesture {
-                        self.action()
+                        .foregroundColor(Color(R.color.colorWhite.name))
+                }
+                .frame(width: geometry.size.height * self.size,
+                        height: geometry.size.height * self.size,
+                        alignment: .center)
+                .onTapGesture {
+                    self.action()
                 }
             }
         }

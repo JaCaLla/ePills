@@ -41,10 +41,9 @@ extension MainFlowCoordinator: MainFlowCoordinatorProtocol {
         guard let window = UIApplication.shared.keyWindowInConnectedScenes else { return }
         
         if dataManager.isEmpty() {
-             window.rootViewController = firstPresciptionCoordinator.start()//TabBarController()
-            firstPresciptionCoordinator.onFinishedPublisher.sink { vc in
-                 window.rootViewController = TabBarController()//vc
-             //   self.window = window
+             window.rootViewController = firstPresciptionCoordinator.start()
+            firstPresciptionCoordinator.onFinishedPublisher.sink { _ in
+                 window.rootViewController = TabBarController()
                  window.makeKeyAndVisible()
             }.store(in: &onChangeRootVCSubscription)
         } else {

@@ -69,10 +69,15 @@
 		5E8EECE52456B65900398832 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE42456B65900398832 /* PageView.swift */; };
 		5E8EECE72456CFD600398832 /* HomePrescriptionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE62456CFD600398832 /* HomePrescriptionVM.swift */; };
 		5E8EECE9245741A200398832 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE8245741A200398832 /* HomeCoordinator.swift */; };
-		5E8EECEB2458D2B600398832 /* PrescriptionHomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */; };
-		5EA36B1924881126003DE6B0 /* DoseListVMUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA36B1824881126003DE6B0 /* DoseListVMUT.swift */; };
+		5E8EECEB2458D2B600398832 /* MedicineHomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECEA2458D2B600398832 /* MedicineHomePageView.swift */; };
 		5EB5DA84245DC41E0009EA75 /* PrescriptionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */; };
 		5EB5DA962461D06E0009EA75 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5DA952461D06E0009EA75 /* TimeManager.swift */; };
+		5EB91A0824926027005A082C /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB91A0724926027005A082C /* FirebaseManager.swift */; };
+		5EB91A0C24926E36005A082C /* GoogleService-Info-Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5EB91A0B24926E36005A082C /* GoogleService-Info-Debug.plist */; };
+		5EB91A0E24927081005A082C /* GoogleService-Info-Prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5EB91A0D24927080005A082C /* GoogleService-Info-Prod.plist */; };
+		5EB91A1024928D14005A082C /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB91A0F24928D14005A082C /* AnalyticsManager.swift */; };
+		5EB91A1224937B0F005A082C /* UTDoseListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB91A1124937B0F005A082C /* UTDoseListVM.swift */; };
+		5EB91A152493A15A005A082C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5EB91A142493A15A005A082C /* GoogleService-Info.plist */; };
 		5EBBAA502450A08E00CD2B5E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */; };
 		5EBBAA542450C76300CD2B5E /* PrescriptionFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */; };
 		5EBBAA562450C86500CD2B5E /* PrescriptionFormVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */; };
@@ -156,7 +161,7 @@
 		5E685C6D247AEAAC008539D9 /* MedicineCalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineCalendarVC.swift; sourceTree = "<group>"; };
 		5E685C6F247AEB3D008539D9 /* MedicineCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineCalendarView.swift; sourceTree = "<group>"; };
 		5E685C71247B08BF008539D9 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		5E6AB011244B0F3F00F162EB /* ePills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ePills.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E6AB011244B0F3F00F162EB /* ePills-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ePills-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6AB014244B0F3F00F162EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E6AB016244B0F3F00F162EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5E6AB01A244B0F4200F162EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -176,10 +181,15 @@
 		5E8EECE42456B65900398832 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		5E8EECE62456CFD600398832 /* HomePrescriptionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionVM.swift; sourceTree = "<group>"; };
 		5E8EECE8245741A200398832 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionHomePageView.swift; sourceTree = "<group>"; };
-		5EA36B1824881126003DE6B0 /* DoseListVMUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseListVMUT.swift; sourceTree = "<group>"; };
+		5E8EECEA2458D2B600398832 /* MedicineHomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineHomePageView.swift; sourceTree = "<group>"; };
 		5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionButtonView.swift; sourceTree = "<group>"; };
 		5EB5DA952461D06E0009EA75 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
+		5EB91A0724926027005A082C /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		5EB91A0B24926E36005A082C /* GoogleService-Info-Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Debug.plist"; sourceTree = "<group>"; };
+		5EB91A0D24927080005A082C /* GoogleService-Info-Prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Prod.plist"; sourceTree = "<group>"; };
+		5EB91A0F24928D14005A082C /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
+		5EB91A1124937B0F005A082C /* UTDoseListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTDoseListVM.swift; sourceTree = "<group>"; };
+		5EB91A142493A15A005A082C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVC.swift; sourceTree = "<group>"; };
 		5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVM.swift; sourceTree = "<group>"; };
@@ -342,7 +352,7 @@
 			children = (
 				5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */,
 				5E8D54D1248E870100E21145 /* ArcShape.swift */,
-				5E8EECEA2458D2B600398832 /* PrescriptionHomePageView.swift */,
+				5E8EECEA2458D2B600398832 /* MedicineHomePageView.swift */,
 				5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */,
 			);
 			path = HomePrescriptionView;
@@ -478,7 +488,7 @@
 		5E6AB012244B0F3F00F162EB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5E6AB011244B0F3F00F162EB /* ePills.app */,
+				5E6AB011244B0F3F00F162EB /* ePills-Debug.app */,
 				5E6AB027244B0F4200F162EB /* ePillsTests.xctest */,
 			);
 			name = Products;
@@ -594,7 +604,7 @@
 		5EA36B1724880B75003DE6B0 /* DoseList */ = {
 			isa = PBXGroup;
 			children = (
-				5EA36B1824881126003DE6B0 /* DoseListVMUT.swift */,
+				5EB91A1124937B0F005A082C /* UTDoseListVM.swift */,
 			);
 			path = DoseList;
 			sourceTree = "<group>";
@@ -685,6 +695,10 @@
 		5EF5DDAF249253F2000368F9 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				5EB91A0B24926E36005A082C /* GoogleService-Info-Debug.plist */,
+				5EB91A0D24927080005A082C /* GoogleService-Info-Prod.plist */,
+				5EB91A142493A15A005A082C /* GoogleService-Info.plist */,
+				5EB91A0724926027005A082C /* FirebaseManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -781,6 +795,7 @@
 			children = (
 				5EF5DDAF249253F2000368F9 /* Firebase */,
 				5EFF215F244F9ACE00B77AE9 /* DebugManager.swift */,
+				5EB91A0F24928D14005A082C /* AnalyticsManager.swift */,
 				5E5514992464A5EF00E97DF4 /* LocalNotificationManager.swift */,
 				5EB5DA952461D06E0009EA75 /* TimeManager.swift */,
 			);
@@ -812,6 +827,7 @@
 				5E6AB00F244B0F3F00F162EB /* Resources */,
 				34D4CFE3C0F2A9BEE8FC4F50 /* [CP] Embed Pods Frameworks */,
 				5E2C5274248CEDC4003DDD89 /* SwiftLint */,
+				5EB91A1324939970005A082C /* Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -821,7 +837,7 @@
 			packageProductDependencies = (
 			);
 			productName = ePills;
-			productReference = 5E6AB011244B0F3F00F162EB /* ePills.app */;
+			productReference = 5E6AB011244B0F3F00F162EB /* ePills-Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5E6AB026244B0F4200F162EB /* ePillsTests */ = {
@@ -889,7 +905,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EB91A0E24927081005A082C /* GoogleService-Info-Prod.plist in Resources */,
+				5EB91A152493A15A005A082C /* GoogleService-Info.plist in Resources */,
 				5E6AB021244B0F4200F162EB /* LaunchScreen.storyboard in Resources */,
+				5EB91A0C24926E36005A082C /* GoogleService-Info-Debug.plist in Resources */,
 				5E5514AB2464B75500E97DF4 /* Main.storyboard in Resources */,
 				5ED44B3C2453401700081B36 /* Localizable.strings in Resources */,
 				5E6AB01E244B0F4200F162EB /* Preview Assets.xcassets in Resources */,
@@ -984,6 +1003,26 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \">>>>>>>>>>>>>>>> R.Swift >>>>>>>>>>>>>>>>>>>>>>\"\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/ViewLayer/Resources/R.Swift/R.generated.swift\"\n#ls -la \"$SRCROOT/ViewLayer/R.generated.swift\"\necho \"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\"\n";
 		};
+		5EB91A1324939970005A082C /* Firebase Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Firebase Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		E12C4D0ACCAD4E140F3C7BCD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1035,6 +1074,7 @@
 				5EBBAA562450C86500CD2B5E /* PrescriptionFormVM.swift in Sources */,
 				5E685C70247AEB3D008539D9 /* MedicineCalendarView.swift in Sources */,
 				5ED44B4C2454158500081B36 /* DataManager.swift in Sources */,
+				5EB91A1024928D14005A082C /* AnalyticsManager.swift in Sources */,
 				5EBBAA542450C76300CD2B5E /* PrescriptionFormVC.swift in Sources */,
 				5E5514A42464AA3800E97DF4 /* ConcurrentOperation.swift in Sources */,
 				5E09966E247CEEF80069D197 /* CalendarCell.swift in Sources */,
@@ -1057,7 +1097,7 @@
 				5ED44B46245353EE00081B36 /* StringExtension.swift in Sources */,
 				5E5514A82464AE7900E97DF4 /* UIApplicationExtension.swift in Sources */,
 				5EB5DA84245DC41E0009EA75 /* PrescriptionButtonView.swift in Sources */,
-				5E8EECEB2458D2B600398832 /* PrescriptionHomePageView.swift in Sources */,
+				5E8EECEB2458D2B600398832 /* MedicineHomePageView.swift in Sources */,
 				5E6AB015244B0F3F00F162EB /* AppDelegate.swift in Sources */,
 				5E8EECE9245741A200398832 /* HomeCoordinator.swift in Sources */,
 				5E4473C1246EF00B00D997A6 /* Cycle.swift in Sources */,
@@ -1079,6 +1119,7 @@
 				5EFF2156244F57BE00B77AE9 /* FirstPrescriptionVC.swift in Sources */,
 				5ED44B342452061D00081B36 /* TextFieldWithValidatorCell.swift in Sources */,
 				5E312964248CFCD0002241AF /* DoseListCellView.swift in Sources */,
+				5EB91A0824926027005A082C /* FirebaseManager.swift in Sources */,
 				5E6AB047244B4F5E00F162EB /* PrescriptionFormView.swift in Sources */,
 				5E0E7D22248686FD0086C0E8 /* DoseListVM.swift in Sources */,
 			);
@@ -1088,7 +1129,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EA36B1924881126003DE6B0 /* DoseListVMUT.swift in Sources */,
 				5E4473DE246F369900D997A6 /* CycleDBTests.swift in Sources */,
 				5E685C62247A4891008539D9 /* MainFlowCoordinatorTests.swift in Sources */,
 				5E4473DA246EFFBD00D997A6 /* MedicineDBTests.swift in Sources */,
@@ -1097,6 +1137,7 @@
 				5E4473DC246F014300D997A6 /* DBManagerTests.swift in Sources */,
 				5E4473D5246EFA0000D997A6 /* CycleTests.swift in Sources */,
 				5E4473D6246EFA0000D997A6 /* MedicineTests.swift in Sources */,
+				5EB91A1224937B0F005A082C /* UTDoseListVM.swift in Sources */,
 				5E099674247F864B0069D197 /* MedicineCalentarUT.swift in Sources */,
 				5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */,
 				5E3B7AE2245AD7D300541AB4 /* HomeCoordinatorMock.swift in Sources */,
@@ -1271,8 +1312,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Jca.ePills.ePills.debug;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.JCa.ePills.debug;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)-Debug";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1293,7 +1335,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Jca.ePills.ePills;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JCa.ePills;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
 				SWIFT_VERSION = 5.0;
@@ -1320,7 +1363,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ePills.app/ePills";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ePills-Debug.app/ePills-Debug";
 			};
 			name = Debug;
 		};
@@ -1343,7 +1386,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ePills.app/ePills";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ePills-Debug.app/ePills-Debug";
 			};
 			name = Release;
 		};
