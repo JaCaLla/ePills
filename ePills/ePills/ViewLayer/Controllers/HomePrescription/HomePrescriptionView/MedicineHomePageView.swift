@@ -9,17 +9,17 @@
 import SwiftUI
 import Combine
 
-struct PrescriptionHomePageView: View {
-    
+struct MedicineHomePageView: View {
+
     var medicine: Medicine
     @Binding var isRemovingPrescription: Bool
     @Binding var currentMedicine: Medicine
     var viewModel: HomePrescriptionVM
-    
+
     // MARK: - Private attributes
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     @State var now = Date()
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -27,7 +27,8 @@ struct PrescriptionHomePageView: View {
                     .stroke(lineWidth: 10)
                     .fill(Color(R.color.colorGray50Semi.name))
                     .frame(width: geometry.size.width, height: geometry.size.height)
-                ArcShape(width: geometry.size.width, height: geometry.size.height, progress: self.viewModel.progressPercentage)
+                ArcShape(width: geometry.size.width, height: geometry.size.height,
+                         progress: self.viewModel.progressPercentage)
                     .stroke(lineWidth: 10)
                     .fill(Color(R.color.colorWhite.name))
                     .frame(width: geometry.size.width, height: geometry.size.height)
@@ -40,31 +41,30 @@ struct PrescriptionHomePageView: View {
                         Spacer()
                         Image(systemName: "minus.rectangle")
                             .font(Font.system(size: 20).bold())
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color(R.color.colorWhite.name))
                             .padding()
                             .onTapGesture {
                                 self.isRemovingPrescription = true
                                 self.currentMedicine = self.medicine
-                            }
+                        }
                     }.frame(height: geometry.size.height * 0.125)
                         .background(Color(R.color.colorGray50Semi.name))
-                    
                     VStack {
                         HStack {
-                                                    Spacer()
+                            Spacer()
                             if !self.viewModel.prescriptionTime.isEmpty {
                                 Image(systemName: "alarm")
-                                    .foregroundColor(Color.white)
+                                    .foregroundColor(Color(R.color.colorWhite.name))
                                     .font(Font.system(size: 30)
                                         .bold())
                                 Text(self.viewModel.prescriptionTime)
                                     .font(Font.system(size: 30).bold())
-                                    .foregroundColor(Color.white)
+                                    .foregroundColor(Color(R.color.colorWhite.name))
                             }
-                                                    Spacer()
+                            Spacer()
                         }
                         Spacer()
-                    }.padding().frame(height: geometry.size.height * 0.2 )
+                    }.padding().frame(height: geometry.size.height * 0.2)
                     HStack {
                         VStack {
                             Image(systemName: self.viewModel.prescriptionIcon)
@@ -72,7 +72,7 @@ struct PrescriptionHomePageView: View {
                                 .foregroundColor(Color(self.viewModel.prescriptionColor))
                                 .onTapGesture {
                                     self.viewModel.takeDose()
-                                }
+                            }
                             Text(self.viewModel.prescriptionMessage)
                                 .multilineTextAlignment(.center)
                                 .font(.body)
@@ -82,10 +82,10 @@ struct PrescriptionHomePageView: View {
                                 Spacer()
                                 Text(self.viewModel.remainingMessageMajor)
                                     .font(Font.system(size: 48).bold())//.font(.largeTitle)//.padding()
-                                    .foregroundColor(Color(self.viewModel.prescriptionColor))
+                                .foregroundColor(Color(self.viewModel.prescriptionColor))
                                 Text(self.viewModel.remainingMessageMinor)
-                                   .font(Font.system(size: 15).bold())// .font(.headline)
-                                    .foregroundColor(Color(self.viewModel.prescriptionColor))
+                                    .font(Font.system(size: 15).bold())// .font(.headline)
+                                .foregroundColor(Color(self.viewModel.prescriptionColor))
                                     .padding(.leading, -5)
                                 Spacer()
                             }
@@ -95,6 +95,7 @@ struct PrescriptionHomePageView: View {
                     HStack {
                         VStack {
                             PrescriptionButtonView(iconName: "calendar", action: {
+                                AnalyticsManager.shared.logEvent(name: Event.selectCalendar, metadata: [:])
                                 self.viewModel.calendar()
                             }).padding(.top, -40)
                             Spacer()
@@ -110,18 +111,19 @@ struct PrescriptionHomePageView: View {
                         VStack {
                             if self.viewModel.medicineHasDoses {
                                 PrescriptionButtonView(iconName: "list.dash", action: {
+                                    AnalyticsManager.shared.logEvent(name: Event.selectDoseList, metadata: [:])
                                     self.viewModel.doseList()
                                 }).padding(.top, -40)
                             }
                             Spacer()
                         }.frame(width: geometry.size.width * 0.333)
-                    }.frame(height: geometry.size.height * 0.2)//.background(Color(R.color.colorGray50Semi.name))
+                    }.frame(height: geometry.size.height * 0.2)
                     Spacer()
                 }
             }
         }
     }
-    
+
     init(medicine: Medicine,
          isRemovingPrescription: Binding<Bool>,
          curentPrescription: Binding<Medicine>,
@@ -134,7 +136,7 @@ struct PrescriptionHomePageView: View {
 }
 
 struct PrescriptionHomePageView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
         let prescription = Medicine(name: "Clamoxyl 200mg",
                                     unitsBox: 20,
@@ -142,10 +144,10 @@ struct PrescriptionHomePageView_Previews: PreviewProvider {
                                     unitsDose: 2)
         let viewModel = HomePrescriptionVM(homeCoordinator: HomeCoordinator())
         return ZStack {
-            PrescriptionHomePageView(medicine: prescription,
-                                     isRemovingPrescription: .constant(false),
-                                     curentPrescription: .constant(prescription), viewModel: viewModel)
+            MedicineHomePageView(medicine: prescription,
+                                 isRemovingPrescription: .constant(false),
+                                 curentPrescription: .constant(prescription), viewModel: viewModel)
         }
-        
+
     }
 }

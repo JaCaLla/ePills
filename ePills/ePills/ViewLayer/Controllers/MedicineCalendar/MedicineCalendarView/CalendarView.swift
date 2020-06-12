@@ -6,11 +6,11 @@
 //  Copyright © 2020 Javier Calatrava. All rights reserved.
 //
 
+import Combine
 import Foundation
+import FSCalendar
 import SwiftUI
 import UIKit
-import FSCalendar
-import Combine
 
 struct CalendarView: UIViewRepresentable {
     @ObservedObject var viewModel: MedicineCalendarVM
@@ -71,7 +71,9 @@ struct CalendarView: UIViewRepresentable {
         func calendar(_ calendar: FSCalendar,
                       cellFor date: Date,
                       at position: FSCalendarMonthPosition) -> FSCalendarCell {
-            guard let cell = calendar.dequeueReusableCell(withIdentifier: "CalendarCell", for: date, at: position) as? CalendarCell else {
+            guard let cell = calendar.dequeueReusableCell(withIdentifier: "CalendarCell",
+                                                          for: date,
+                                                          at: position) as? CalendarCell else {
                 return FSCalendarCell()
             }
             cell.reset()
@@ -113,15 +115,9 @@ extension FSCalendar {
     func customizeCalenderAppearance() {
         self.appearance.caseOptions = [.headerUsesUpperCase, .weekdayUsesUpperCase]
         self.appearance.titleFont = UIFont.systemFont(ofSize: 1, weight: .thin)
-        self.appearance.weekdayTextColor = UIColor.white
-        self.appearance.titleDefaultColor = UIColor.red
-        self.appearance.selectionColor = UIColor.clear//UIColor.purple
-        self.appearance.todayColor = CalendarView.Colors.today//UIColor.blue
-    }
-}
-
-struct CalendarView_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+        self.appearance.weekdayTextColor = UIColor(named: R.color.colorWhite.name)
+        self.appearance.titleDefaultColor = UIColor(named: R.color.colorRed.name)
+        self.appearance.selectionColor = UIColor.clear
+        self.appearance.todayColor = CalendarView.Colors.today
     }
 }

@@ -72,8 +72,9 @@ public final class HomePrescriptionVM: ObservableObject {
             }
             .store(in: &cancellables)
         self.$medicines
-            .sink { someValue in
-                guard someValue.isEmpty else { return }
+            .sink { medicines in
+                AnalyticsManager.shared.setUser(property: UserProperties.medicines, value: String(medicines.count))
+                guard medicines.isEmpty else { return }
                 self.homeCoordinator.replaceByFirstPrescription(interactor: self.interactor)
                 self.refreshVM()
             }
@@ -96,7 +97,8 @@ public final class HomePrescriptionVM: ObservableObject {
         self.prescriptionTime = self.getPrescriptionTime(timeManager: timeManager)
         self.progressPercentage = self.getCurrentDoseProgress(timeManager: timeManager)
         self.isUpdatable = self.updatable()
-        (self.remainingMessageMajor, self.remainingMessageMinor) = self.getRemainingTimeMessage(timeManager: timeManager)
+        (self.remainingMessageMajor, self.remainingMessageMinor) =
+            self.getRemainingTimeMessage(timeManager: timeManager)
         self.prescriptionColor = self.getMessageColor(timeManager: timeManager)
         self.medicineHasDoses = self.hasDoses()
     }
@@ -199,8 +201,10 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
 
         let prescriptionState = prescription.getState(timeManager: timeManager ?? TimeManager())
         switch prescriptionState {
-        case .notStarted, .finished: return ""
-        case .ongoing, .ongoingReady, .ongoingEllapsed: return self.interactor.getExpirationHourMinute(medicine: prescription)
+        case .notStarted, .finished:
+            return ""
+        case .ongoing, .ongoingReady, .ongoingEllapsed:
+            return self.interactor.getExpirationHourMinute(medicine: prescription)
         }
     }
 

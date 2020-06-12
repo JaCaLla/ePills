@@ -12,7 +12,7 @@ class TabBarController: UITabBarController {
 
     var homeCoordinator: HomeCoordinator = HomeCoordinator()
     var appConfigurationCoordinator: AppConfigurationCoordinator = AppConfigurationCoordinator()
-  
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,7 +30,7 @@ class TabBarController: UITabBarController {
 
     private func setupView() {
 
-           self.viewControllers = [homeCoordinator.start(),
+        self.viewControllers = [homeCoordinator.start(),
                                 appConfigurationCoordinator.start()]
 
     }

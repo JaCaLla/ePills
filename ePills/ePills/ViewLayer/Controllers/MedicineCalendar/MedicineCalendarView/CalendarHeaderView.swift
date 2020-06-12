@@ -15,12 +15,13 @@ struct CalendarHeaderView: View {
             Text(R.string.localizable.calendar_last_dose.key.localized)
                 .fontWeight(.light)
                 .frame(alignment: .leading)
-                .padding(.vertical,10)
-            HStack{
+                .padding(.vertical, 10)
+            HStack {
                 Text(viewModel.expirationDayNumber)
                     .fontWeight(.light)
                     .frame(alignment: .leading)
-                    .font(Font.system(size: 90, design: .default)).padding()
+                    .font(Font.system(size: 90, design: .default))
+                    .padding()
                 Spacer()
                 VStack {
                     Text(viewModel.expirationMonthYear).fontWeight(.light)
@@ -30,20 +31,20 @@ struct CalendarHeaderView: View {
                     .padding(.trailing, 10)
             } .padding(.top, -40)
         }.frame(height: 130)
-            .foregroundColor(Color.white)
+            .foregroundColor(Color(R.color.colorWhite.name))
             .background(Color(R.color.colorGray50Semi.name))
     }
 }
 
 struct CalendarHeaderView_Previews: PreviewProvider {
-    static var  viewModel : MedicineCalendarVM {
+    static var viewModel: MedicineCalendarVM {
         let medicine = Medicine(name: "a",
-                                  unitsBox: 10,
-                                  intervalSecs: 8,
-                                  unitsDose: 1)
-      return  MedicineCalendarVM(medicine: medicine)
+                                unitsBox: 10,
+                                intervalSecs: 8,
+                                unitsDose: 1)
+        return MedicineCalendarVM(medicine: medicine)
     }
-    
+
     static var previews: some View {
         ZStack {
             BackgroundView()

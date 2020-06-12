@@ -38,8 +38,8 @@ enum SelectionCicleType: Int {
         case .endFutureLongCycle: return CalendarView.Colors.future
         case .endTodayLongCycle: return CalendarView.Colors.pastToday
         case .endPastLongCycle: return CalendarView.Colors.pastToday
-        case .dayCycle: return CalendarView.Colors.pastToday //v
-        case .dayCycleToday: return CalendarView.Colors.pastToday //v
+        case .dayCycle: return CalendarView.Colors.pastToday 
+        case .dayCycleToday: return CalendarView.Colors.pastToday
         case .unknown: return UIColor.clear
         }
     }
@@ -196,14 +196,4 @@ class CalendarCell: FSCalendarCell {
                             cornerRadii: CGSize(width: self.selectionLayer.frame.width / 2,
                                                 height: self.selectionLayer.frame.width / 2)).cgPath
     }
-
-//    override func configureAppearance() {
-//        super.configureAppearance()
-//        // Override the build-in appearance configuration
-//        if self.isPlaceholder {
-//            self.eventIndicator.isHidden = true
-//            self.titleLabel.textColor = UIColor.lightGray
-//        }
-//    }
-
 }

@@ -24,6 +24,6 @@ struct DoseCellViewModel: Identifiable {
     var monthYear: String
     var weekdayHHMM: String
     var realOffset: String
-    var realOffsetColorStr: String //= R.color.colorBlack.name
+    var realOffsetColorStr: String
     var doseCellType: DoseCellType
 }

@@ -13,7 +13,7 @@ struct HomePrescriptionView: View {
     private var subscription = Set<AnyCancellable>()
 
     // MARK: - Public Attributes
-    @ObservedObject var viewModel: HomePrescriptionVM = HomePrescriptionVM(interactor: MedicineInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
+    @ObservedObject var viewModel = HomePrescriptionVM(interactor: MedicineInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
 
     @State var isRemovingPrescription: Bool = false
 
@@ -23,10 +23,10 @@ struct HomePrescriptionView: View {
             VStack {
                 GeometryReader { geometry in
                     PageView(self.viewModel.medicines.map {
-                        PrescriptionHomePageView(medicine: $0,
-                                                 isRemovingPrescription: self.$isRemovingPrescription,
-                                                 curentPrescription: self.$viewModel.currentPrescription,
-                                                 viewModel: self.viewModel)
+                        MedicineHomePageView(medicine: $0,
+                                             isRemovingPrescription: self.$isRemovingPrescription,
+                                             curentPrescription: self.$viewModel.currentPrescription,
+                                             viewModel: self.viewModel)
                     }, currentPage: self.$viewModel.currentPage)
                         .background(Color(R.color.colorGray50Semi.name))
                         .frame(height: geometry.size.height * 0.90)
@@ -41,7 +41,8 @@ struct HomePrescriptionView: View {
                               self.viewModel.remove()
                           },
                           secondaryButton: .cancel()
-                    ) }
+                    )
+            }
         }.navigationBarItems(trailing:
             Button(action: {
                 self.viewModel.addPrescription()
@@ -51,7 +52,12 @@ struct HomePrescriptionView: View {
                 .font(Font.system(size: 20).bold())
                 .foregroundColor(Color(R.color.colorGray50.name))
         }
-        ).navigationBarTitle(R.string.localizable.home_title.key.localized)
+        )
+            .navigationBarTitle(R.string.localizable.home_title.key.localized)
+            .onAppear {
+                AnalyticsManager.shared.logScreen(name: Screen.home, flow: nil)
+        }
+
     }
 
     init(viewModel: HomePrescriptionVM) {
@@ -68,7 +74,6 @@ struct HomePrescriptionView_Previews: PreviewProvider {
     }
 
     static var previews: some View {
-
         HomePrescriptionView(viewModel: HomePrescriptionVM(interactor: HomePrescriptionView_Previews.prescriptionInteractor,
                                                            homeCoordinator: HomeCoordinator()))
     }

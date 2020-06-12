@@ -11,19 +11,11 @@ import Combine
 
 struct PrescriptionFormView: View {
 
-//    // MARK: - Publishers
-//    var onAddedPrescriptionPublisher: AnyPublisher<Void, Never> {
-//        return onAddedPrescriptionInternalPublisher.eraseToAnyPublisher()
-//    }
-//    private var onAddedPrescriptionInternalPublisher = PassthroughSubject<Void, Never>()
-    
     // MARK: - Public Attributes
-    @ObservedObject var viewModel: PrescriptionFormVM //= PrescriptionFormVM(/*dataManager: DataManager.shared*/)
-  //  var coordinator: FirstPresciptionCoordinator
-    
-    init(viewModel: PrescriptionFormVM /*= PrescriptionFormVM()*//*, coordinator: FirstPresciptionCoordinator*/) {
+    @ObservedObject var viewModel: PrescriptionFormVM
+
+    init(viewModel: PrescriptionFormVM) {
         self.viewModel = viewModel
-   //     self.coordinator = coordinator
     }
 
     // MARK: - View
@@ -48,7 +40,7 @@ struct PrescriptionFormView: View {
         guard value.count < 99 else { return R.string.localizable.prescription_form_err_units_dose_maximum.key.localized }
         return nil
     }
-    
+
     @State var isUnitsDoseValid = FieldChecker()
     @State var isDosificationValid = FieldChecker()
 
@@ -80,42 +72,34 @@ struct PrescriptionFormView: View {
                 if isValidForm() {
                     AcceptButtonCell(medicine: $viewModel.medicine, action: {
                         self.viewModel.save()
-//                        self.onAddedPrescriptionInternalPublisher.send()
                     })
                 }
                 Spacer()
             }.padding(.top, 20)
-        }.navigationBarTitle(Text(viewModel.title()))
+        }
+            .navigationBarTitle(Text(viewModel.title()))
+            .onAppear {
+                AnalyticsManager.shared.logScreen(name: Screen.prescriptionForm, flow: nil)
+        }
     }
-    
+
     func isValidForm() -> Bool {
-        return  isNameValid.valid &&
+        return isNameValid.valid &&
             isUnitsBoxValid.valid &&
             isUnitsDoseValid.valid &&
-        isDosificationValid.valid
+            isDosificationValid.valid
     }
-    
+
 }
 
 struct PrescriptionDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let dataManager = DataManager.shared
         let interactor = MedicineInteractor(dataManager: dataManager)
-        let viewModel =  PrescriptionFormVM(interactor: interactor, medicine: nil)
-       return PrescriptionFormView(viewModel: viewModel)
+        let viewModel = PrescriptionFormVM(interactor: interactor, medicine: nil)
+        return PrescriptionFormView(viewModel: viewModel)
     }
 }
-/*
-static var previews: some View {
-  let model = DataModel.sample
-  let interactor = TripListInteractor(model: model)
-  let presenter = TripListPresenter(interactor: interactor)
-  return NavigationView {
-    TripListView(presenter: presenter)
-  }
-}
-
-*/
 
 struct SectionFormView: View {
     // MARK: - View

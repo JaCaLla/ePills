@@ -25,6 +25,7 @@
 "prescription_form_err_units_dose_empty" = "Units prescription can not be empty";
 "prescription_form_err_units_dose_maximum" = "Units prescription can not be greater than 99 units per box";
 
+"prescription_form_interval_list_title" ="Select dose interval";
 "prescription_form_interval_list_hour" = "Hour";
 "prescription_form_interval_list_hours" = "Hours";
 "prescription_form_interval_list_day" = "Day";
