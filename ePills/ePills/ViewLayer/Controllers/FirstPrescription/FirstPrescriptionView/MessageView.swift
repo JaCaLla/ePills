@@ -14,7 +14,7 @@ struct MessageView: View {
         VStack {
             HStack(alignment: .center) {
                 Spacer()
-                Text("first_prescription_title_msg_add".localized)
+                Text(R.string.localizable.first_prescription_title_msg_add.key.localized)
                     .foregroundColor(Color.white)
                     .font(Font.system(.headline).bold())
                 Spacer()

@@ -11,7 +11,7 @@ import SwiftUI
 struct BackgroundView: View {
     var body: some View {
         GeometryReader { _ in
-            Image("background")
+            Image(R.image.background.name)
                 .resizable()
                 .padding(.top, 40.0)
                 .scaledToFill()
