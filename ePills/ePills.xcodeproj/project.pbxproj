@@ -190,6 +190,8 @@
 		5EB91A0F24928D14005A082C /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		5EB91A1124937B0F005A082C /* UTDoseListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTDoseListVM.swift; sourceTree = "<group>"; };
 		5EB91A142493A15A005A082C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5EB91A182494E826005A082C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5EB91A192494E826005A082C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5EBBAA4F2450A08E00CD2B5E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVC.swift; sourceTree = "<group>"; };
 		5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVM.swift; sourceTree = "<group>"; };
@@ -198,8 +200,6 @@
 		5ED44B352452C7A500081B36 /* SelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorCell.swift; sourceTree = "<group>"; };
 		5ED44B3724532EAE00081B36 /* AcceptButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptButtonCell.swift; sourceTree = "<group>"; };
 		5ED44B3D2453401700081B36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		5ED44B3F245342CF00081B36 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		5ED44B40245342CF00081B36 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5ED44B43245352AC00081B36 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ViewLayer/Resources/R.Swift/R.generated.swift; sourceTree = SOURCE_ROOT; };
 		5ED44B45245353EE00081B36 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		5ED44B48245366C800081B36 /* MedicineInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineInteractor.swift; sourceTree = "<group>"; };
@@ -1164,7 +1164,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5E6AB020244B0F4200F162EB /* Base */,
-				5ED44B3F245342CF00081B36 /* es */,
+				5EB91A182494E826005A082C /* es */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1173,7 +1173,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5ED44B3D2453401700081B36 /* en */,
-				5ED44B40245342CF00081B36 /* es */,
+				5EB91A192494E826005A082C /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
