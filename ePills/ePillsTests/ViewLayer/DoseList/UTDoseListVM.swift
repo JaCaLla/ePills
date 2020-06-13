@@ -45,7 +45,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.doseOrder, "2/2")
         XCTAssertEqual(doseCellViewModel.day, "1")
         XCTAssertEqual(doseCellViewModel.monthYear, "March - 2020")
-        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 02:00")
+        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 02:05")
         XCTAssertEqual(doseCellViewModel.realOffset, "-5m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .startPast)
 
@@ -100,7 +100,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.doseOrder, "2/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
         XCTAssertEqual(doseCellViewModel.monthYear, "March - 2020")
-        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 02:00")
+        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 02:05")
         XCTAssertEqual(doseCellViewModel.realOffset, "-5m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
 
@@ -108,7 +108,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.doseOrder, "3/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
         XCTAssertEqual(doseCellViewModel.monthYear, "March - 2020")
-        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 03:00")
+        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 03:10")
         XCTAssertEqual(doseCellViewModel.realOffset, "-10m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
 
@@ -116,7 +116,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.doseOrder, "4/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
         XCTAssertEqual(doseCellViewModel.monthYear, "March - 2020")
-        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 04:00")
+        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 03:55")
         XCTAssertEqual(doseCellViewModel.realOffset, "05m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
 
@@ -124,7 +124,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.doseOrder, "5/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
         XCTAssertEqual(doseCellViewModel.monthYear, "March - 2020")
-        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 05:00")
+        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 04:50")
         XCTAssertEqual(doseCellViewModel.realOffset, "10m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .startPast)
 
@@ -159,7 +159,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.doseOrder, "2/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
         XCTAssertEqual(doseCellViewModel.monthYear, "March - 2020")
-        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 02:00")
+        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 02:05")
         XCTAssertEqual(doseCellViewModel.realOffset, "-5m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
 
@@ -167,7 +167,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.doseOrder, "3/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
         XCTAssertEqual(doseCellViewModel.monthYear, "March - 2020")
-        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 03:00")
+        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 03:10")
         XCTAssertEqual(doseCellViewModel.realOffset, "-10m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .middle)
 
@@ -175,7 +175,7 @@ class DoseListVMUT: XCTestCase {
         XCTAssertEqual(doseCellViewModel.doseOrder, "4/5")
         XCTAssertEqual(doseCellViewModel.day, "1")
         XCTAssertEqual(doseCellViewModel.monthYear, "March - 2020")
-        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 04:00")
+        XCTAssertEqual(doseCellViewModel.weekdayHHMM, "Sunday - 03:55")
         XCTAssertEqual(doseCellViewModel.realOffset, "05m")
         XCTAssertEqual(doseCellViewModel.doseCellType, .startPast)
 
