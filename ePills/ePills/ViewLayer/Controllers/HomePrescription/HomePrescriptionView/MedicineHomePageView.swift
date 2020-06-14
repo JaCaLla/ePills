@@ -81,16 +81,16 @@ struct MedicineHomePageView: View {
                             HStack(alignment: .firstTextBaseline) {
                                 Spacer()
                                 Text(self.viewModel.remainingMessageMajor)
-                                    .font(Font.system(size: 48).bold())//.font(.largeTitle)//.padding()
+                                    .font(Font.system(size: 48).bold())
                                 .foregroundColor(Color(self.viewModel.prescriptionColor))
                                 Text(self.viewModel.remainingMessageMinor)
-                                    .font(Font.system(size: 15).bold())// .font(.headline)
+                                    .font(Font.system(size: 15).bold())
                                 .foregroundColor(Color(self.viewModel.prescriptionColor))
                                     .padding(.leading, -5)
                                 Spacer()
                             }
                             Spacer()
-                        }
+                        }.padding(.top, 10)
                     }.frame(height: geometry.size.height * 0.475)
                     HStack {
                         VStack {
