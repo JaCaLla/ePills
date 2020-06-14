@@ -20,7 +20,6 @@ public final class AppConfigurationCoordinator {
         let appSetupView = AppSetupView(viewModel: appSetupVM)
         let appSetupVC = AppSetupVC(rootView: appSetupView)
         appSetupVC.title = R.string.localizable.setup_title.key.localized
-        appSetupVC.view.backgroundColor = UIColor.orange
         appSetupVC.tabBarItem = UITabBarItem(title: R.string.localizable.setup_title.key.localized,
                                                      image: UIImage(systemName: "gear"),
                                                      tag: 1)
