@@ -40,7 +40,7 @@ class DBManagerTests: XCTestCase {
                 case .success:
                     // Then
                     guard let first = self.sut.getMedicines().first,
-                        self.sut.getMedicines().count == 1 else { XCTFail(); return }
+                        self.sut.getMedicines().count == 1 else { XCTFail("\(#function)"); return }
                     XCTAssertEqual(first.name, "bbbb")
                     XCTAssertEqual(first.unitsBox, 10)
                     XCTAssertEqual(first.intervalSecs, 20)
@@ -52,16 +52,16 @@ class DBManagerTests: XCTestCase {
                         // Then
                         XCTAssertTrue(sut.isEmpty())
                     default:
-                        XCTFail()
+                        XCTFail("\(#function)")
                     }
                 default:
-                    XCTFail()
+                    XCTFail("\(#function)")
                 }
             case .failure:
-                XCTFail()
+                XCTFail("\(#function)")
             }
         case .failure:
-            XCTFail()
+            XCTFail("\(#function)")
         }
     }
 
@@ -79,7 +79,7 @@ class DBManagerTests: XCTestCase {
 			let medicines = self.sut.getMedicines()
 			guard let first = medicines.first,
 				medicines.count == 1 else {
-					XCTFail()
+					XCTFail("\(#function)")
 					return
 			}
 			XCTAssertEqual(first.name, "asdf")
@@ -88,7 +88,7 @@ class DBManagerTests: XCTestCase {
 			XCTAssertEqual(first.unitsDose, 3)
 			XCTAssertEqual(first.id, medicine.id)
 		case .failure:
-			XCTFail()
+			XCTFail("\(#function)")
 		}
 	}
 
@@ -112,7 +112,7 @@ class DBManagerTests: XCTestCase {
 				let medicines = self.sut.getMedicines()
 				guard let first = medicines.first,
 					medicines.count == 1 else {
-						XCTFail()
+						XCTFail("\(#function)")
 						return
 				}
 				XCTAssertEqual(first.name, "bbbb")
@@ -121,9 +121,9 @@ class DBManagerTests: XCTestCase {
 				XCTAssertEqual(first.unitsDose, 30)
 				XCTAssertEqual(first.id, medicine.id)
 
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -148,7 +148,7 @@ class DBManagerTests: XCTestCase {
 				guard let first = medicines.first,
 					let last = medicines.last,
 					medicines.count == 2 else {
-						XCTFail()
+						XCTFail("\(#function)")
 						return
 				}
 				XCTAssertEqual(first.name, "aaaa")
@@ -165,9 +165,9 @@ class DBManagerTests: XCTestCase {
 
 				XCTAssertNotEqual(last.id, first.id)
 
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -186,7 +186,7 @@ class DBManagerTests: XCTestCase {
 				case .success:
 					// Then
 					guard let first = self.sut.getMedicines().first,
-						self.sut.getMedicines().count == 1 else { XCTFail(); return }
+						self.sut.getMedicines().count == 1 else { XCTFail("\(#function)"); return }
 					XCTAssertEqual(first.name, "bbbb")
 					XCTAssertEqual(first.unitsBox, 10)
 					XCTAssertEqual(first.intervalSecs, 20)
@@ -196,18 +196,18 @@ class DBManagerTests: XCTestCase {
 					switch sut.delete(medicine: medicine2) {
 					case .success:
 						// Then
-						guard self.sut.getMedicines().isEmpty else { XCTFail(); return }
+						guard self.sut.getMedicines().isEmpty else { XCTFail("\(#function)"); return }
 					default:
-						XCTFail()
+						XCTFail("\(#function)")
 					}
 				default:
-					XCTFail()
+					XCTFail("\(#function)")
 				}
 			case .failure:
-				XCTFail()
+				XCTFail("\(#function)")
 			}
 		case .failure:
-			XCTFail()
+			XCTFail("\(#function)")
 		}
 	}
 
@@ -222,10 +222,10 @@ class DBManagerTests: XCTestCase {
 			switch sut.delete(medicine: medicine) {
 			case .success:
 				// Then
-				XCTFail()
+				XCTFail("\(#function)")
 			case .failure:
 				guard let first = self.sut.getMedicines().first,
-					self.sut.getMedicines().count == 1 else { XCTFail(); return }
+					self.sut.getMedicines().count == 1 else { XCTFail("\(#function)"); return }
 				XCTAssertEqual(first.name, "bbbb")
 				XCTAssertEqual(first.unitsBox, 10)
 				XCTAssertEqual(first.intervalSecs, 20)
@@ -233,7 +233,7 @@ class DBManagerTests: XCTestCase {
 				XCTAssertEqual(first.id, medicine1.id)
 			}
 		case .failure:
-			XCTFail()
+			XCTFail("\(#function)")
 		}
 	}
 
@@ -253,25 +253,25 @@ class DBManagerTests: XCTestCase {
                     switch sut.delete(medicine: medicineCreated) {
                     case .success:
                         guard self.sut.getMedicines().count == 0 else {
-                             XCTFail()
+                             XCTFail("\(#function)")
                              return
                          }
                         guard self.sut.getCycles(medicineId: medicineCreated.id).count == 0 else {
-                            XCTFail()
+                            XCTFail("\(#function)")
                             return
                         }
                         guard self.sut.getDoses(cycleId: cycle.id).count == 0 else {
-                            XCTFail()
+                            XCTFail("\(#function)")
                             return
                         }
                     case .failure:
-                        XCTFail()
+                        XCTFail("\(#function)")
                     }
-                case .failure: XCTFail()
+                case .failure: XCTFail("\(#function)")
                 }
-            case .failure: XCTFail()
+            case .failure: XCTFail("\(#function)")
             }
-        default: XCTFail()
+        default: XCTFail("\(#function)")
         }
 	}
 
@@ -294,7 +294,7 @@ class DBManagerTests: XCTestCase {
                     switch sut.update(medicine: medicine,timeManager: TimeManager()) {
                     case .success(let medicine2):
                         guard let first = self.sut.getMedicines().first,
-                            self.sut.getMedicines().count == 1 else { XCTFail(); return }
+                            self.sut.getMedicines().count == 1 else { XCTFail("\(#function)"); return }
                         XCTAssertEqual(first.name, "bbbb")
                         XCTAssertEqual(first.unitsBox, 10)
                         XCTAssertEqual(first.intervalSecs, 20)
@@ -302,28 +302,28 @@ class DBManagerTests: XCTestCase {
                         XCTAssertEqual(first.id, medicine2.id)
 
                         guard self.sut.getMedicines().count == 1 else {
-                             XCTFail()
+                             XCTFail("\(#function)")
                              return
                          }
                         guard self.sut.getCycles(medicineId: medicineCreated.id).count == 1 else {
-                            XCTFail()
+                            XCTFail("\(#function)")
                             return
                         }
                         guard self.sut.getDoses(cycleId: cycleCreated.id).count == 1 else {
-                            XCTFail()
+                            XCTFail("\(#function)")
                             return
                         }
                     case .failure:
-                        XCTFail()
+                        XCTFail("\(#function)")
                     }
                     case .failure:
-                        XCTFail()
+                        XCTFail("\(#function)")
                     }
-                case .failure: XCTFail()
+                case .failure: XCTFail("\(#function)")
                 }
-            case .failure: XCTFail()
+            case .failure: XCTFail("\(#function)")
             }
-        //case .failure: XCTFail()
+        //case .failure: XCTFail("\(#function)")
         //}
 	}
 
@@ -340,17 +340,17 @@ class DBManagerTests: XCTestCase {
 			case .success(let medicine2):
 				// Then
 				guard let first = self.sut.getMedicines().first,
-					self.sut.getMedicines().count == 1 else { XCTFail(); return }
+					self.sut.getMedicines().count == 1 else { XCTFail("\(#function)"); return }
 				XCTAssertEqual(first.name, "bbbb")
 				XCTAssertEqual(first.unitsBox, 10)
 				XCTAssertEqual(first.intervalSecs, 20)
 				XCTAssertEqual(first.unitsDose, 30)
 				XCTAssertEqual(first.id, medicine2.id)
 			case .failure:
-				XCTFail()
+				XCTFail("\(#function)")
 			}
 		case .failure:
-			XCTFail()
+			XCTFail("\(#function)")
 		}
 	}
 
@@ -365,11 +365,11 @@ class DBManagerTests: XCTestCase {
 			medicine.id = "xxx"
 			switch sut.update(medicine: medicine, timeManager: TimeManager()) {
 			case .success:
-				XCTFail()
+				XCTFail("\(#function)")
 			case .failure:
 				// Then
 				guard let first = self.sut.getMedicines().first,
-					self.sut.getMedicines().count == 1 else { XCTFail(); return }
+					self.sut.getMedicines().count == 1 else { XCTFail("\(#function)"); return }
 				XCTAssertEqual(first.name, "aaaa")
 				XCTAssertEqual(first.unitsBox, 1)
 				XCTAssertEqual(first.intervalSecs, 2)
@@ -377,7 +377,7 @@ class DBManagerTests: XCTestCase {
 				XCTAssertEqual(first.id, medicine2.id)
 			}
 		case .failure:
-			XCTFail()
+			XCTFail("\(#function)")
 		}
 	}
 
@@ -402,30 +402,30 @@ class DBManagerTests: XCTestCase {
 					case .success(let medicine2):
 						// Then
 						guard let first = self.sut.getMedicines().first,
-							self.sut.getMedicines().count == 1 else { XCTFail(); return }
+							self.sut.getMedicines().count == 1 else { XCTFail("\(#function)"); return }
 						XCTAssertEqual(first.name, "bbbb")
 						XCTAssertEqual(first.unitsBox, 10)
 						XCTAssertEqual(first.intervalSecs, 20)
 						XCTAssertEqual(first.unitsDose, 30)
 						XCTAssertEqual(first.id, medicine2.id)
 						guard self.sut.getCycles(medicineId: medicineCreated.id).count == 1 else {
-							XCTFail()
+							XCTFail("\(#function)")
 							return
 						}
 						guard self.sut.getDoses(cycleId: cycle.id).count == 1 else {
-							XCTFail()
+							XCTFail("\(#function)")
 							return
 						}
 
 					case .failure:
-						XCTFail()
+						XCTFail("\(#function)")
 					}
 
-				case .failure: XCTFail()
+				case .failure: XCTFail("\(#function)")
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -453,14 +453,14 @@ class DBManagerTests: XCTestCase {
 					XCTAssertEqual(cycle2.unitsConsumed, 3)
 					XCTAssertNil(cycle2.nextDose)
 					guard self.sut.getCycles(medicineId: medicine.id).count == 2 else {
-						XCTFail()
+						XCTFail("\(#function)")
 						return
 					}
-				case .failure: XCTFail()
+				case .failure: XCTFail("\(#function)")
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -489,15 +489,15 @@ class DBManagerTests: XCTestCase {
 					XCTAssertEqual(cycle2.unitsConsumed, 3)
 					XCTAssertNil(cycle2.nextDose)
 					guard self.sut.getCycles(medicineId: medicine.id).count == 1 else {
-						XCTFail()
+						XCTFail("\(#function)")
 						return
 					}
 				case .failure:
-					XCTFail()
+					XCTFail("\(#function)")
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -513,30 +513,30 @@ class DBManagerTests: XCTestCase {
 				switch sut.create(cycle: cycle, medicineId: medicine.id, timeManager: TimeManager()) {
 				case .success(let cycle2):
 					guard self.sut.getCycles(medicineId: medicine.id).count == 2 else {
-						XCTFail()
+						XCTFail("\(#function)")
 						return
 					}
 					switch self.sut.delete(cycle: cycle1) {
 					case .success:
 						guard self.sut.getCycles(medicineId: medicine.id).count == 1 else {
-							XCTFail()
+							XCTFail("\(#function)")
 							return
 						}
 						switch self.sut.delete(cycle: cycle2) {
 						case .success:
 							guard self.sut.getCycles(medicineId: medicine.id).count == 0 else {
-								XCTFail()
+								XCTFail("\(#function)")
 								return
 							}
-						case .failure: XCTFail()
+						case .failure: XCTFail("\(#function)")
 						}
-					case .failure: XCTFail()
+					case .failure: XCTFail("\(#function)")
 					}
-				case .failure: XCTFail()
+				case .failure: XCTFail("\(#function)")
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -552,13 +552,13 @@ class DBManagerTests: XCTestCase {
 				cycle.id = "xxxx"
 				switch self.sut.delete(cycle: cycle) {
 				case .success:
-					XCTFail()
+					XCTFail("\(#function)")
 				case .failure:
 					break
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -580,21 +580,21 @@ class DBManagerTests: XCTestCase {
 					case .success:
 						// Then
 						guard self.sut.getCycles(medicineId: medicine.id).count == 0 else {
-							XCTFail()
+							XCTFail("\(#function)")
 							return
 						}
 						guard self.sut.getDoses(cycleId: cycle.id).count == 0 else {
-							XCTFail()
+							XCTFail("\(#function)")
 							return
 						}
-					case .failure: XCTFail()
+					case .failure: XCTFail("\(#function)")
 					}
 
-				case .failure: XCTFail()
+				case .failure: XCTFail("\(#function)")
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -615,11 +615,11 @@ class DBManagerTests: XCTestCase {
 					XCTAssertEqual(cycle.medicineId, medicine.id)
 					XCTAssertEqual(cycle.unitsConsumed, 11)
 					XCTAssertEqual(cycle.nextDose, 33)
-				case .failure: XCTFail()
+				case .failure: XCTFail("\(#function)")
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -636,13 +636,13 @@ class DBManagerTests: XCTestCase {
 				cycle.medicineId = createdCycle.medicineId
 				switch self.sut.updateCyle(cycle: cycle) {
 				case .success:
-					XCTFail()
+					XCTFail("\(#function)")
 				case .failure:
 					break
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -668,13 +668,13 @@ class DBManagerTests: XCTestCase {
 						XCTAssertEqual(cycle.medicineId, medicine.id)
 						XCTAssertEqual(cycle.unitsConsumed, 11)
 						XCTAssertEqual(cycle.nextDose, 33)
-					case .failure: XCTFail()
+					case .failure: XCTFail("\(#function)")
 					}
-				case .failure: XCTFail()
+				case .failure: XCTFail("\(#function)")
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -698,14 +698,14 @@ class DBManagerTests: XCTestCase {
 					XCTAssertEqual(dose.expected, 22)
 					XCTAssertEqual(dose.real, 20)
 					guard self.sut.getDoses(cycleId: cycle.id).count == 1 else {
-						XCTFail()
+						XCTFail("\(#function)")
 						return
 					}
-				case .failure: XCTFail()
+				case .failure: XCTFail("\(#function)")
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 
@@ -724,19 +724,19 @@ class DBManagerTests: XCTestCase {
 					dose.id = doseCreated.id
 					dose.cycleId = doseCreated.cycleId
 					switch sut.create(dose: dose, cycleId: cycle.id) {
-					case .success: XCTFail()
+					case .success: XCTFail("\(#function)")
 					case .failure:
 						guard self.sut.getDoses(cycleId: cycle.id).count == 1 else {
-							XCTFail()
+							XCTFail("\(#function)")
 							return
 						}
 					}
 				case .failure:
-					XCTFail()
+					XCTFail("\(#function)")
 				}
-			case .failure: XCTFail()
+			case .failure: XCTFail("\(#function)")
 			}
-		default: XCTFail()
+		default: XCTFail("\(#function)")
 		}
 	}
 

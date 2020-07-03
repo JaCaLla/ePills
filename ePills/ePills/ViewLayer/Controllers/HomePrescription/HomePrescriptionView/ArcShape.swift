@@ -21,7 +21,7 @@ struct ArcShape: Shape {
         let bezierPath = UIBezierPath()
         let endAngle = 360.0 * progress - 90.0
         bezierPath.addArc(withCenter: CGPoint(x: width / 2, y: height / 2),
-                          radius: width / 2.8,
+                          radius: width / 3,
                           startAngle: CGFloat(-90 * Double.pi / 180),
                           endAngle: CGFloat(endAngle * Double.pi / 180),
                           clockwise: true)

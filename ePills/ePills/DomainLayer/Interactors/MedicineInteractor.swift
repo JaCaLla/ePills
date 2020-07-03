@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 protocol MedicineInteractorProtocol {
 
@@ -18,6 +19,8 @@ protocol MedicineInteractorProtocol {
     func getCurrentPrescriptionIndex() -> AnyPublisher<Int, Never>
     func getMedicinesPublisher() -> AnyPublisher<[Medicine], Never>
     func flushMedicines()
+    func getMedicinePicture(medicine: Medicine) -> Future<UIImage, DataManagerError>
+    func setMedicinePicture(medicine: Medicine, picture: UIImage) -> Future<Bool, DataManagerError>
     func timeDifference2Str(timeDifference: DateComponents) -> (String, String)
     func getIntervals() -> [Interval]
     func getCycleDatesStr(medicine: Medicine) -> [String]
@@ -29,7 +32,6 @@ protocol MedicineInteractorProtocol {
     func getExpirationRealMonthYear(dose: Dose) -> String
     func getExpirationRealWeekdayHourMinute(dose: Dose) -> String
     func getExpirationHourMinute(medicine: Medicine) -> String
-
 }
 
 final class MedicineInteractor {
@@ -123,6 +125,46 @@ extension MedicineInteractor: MedicineInteractorProtocol {
 
     func flushMedicines() {
         self.dataManager.flushMedicines()
+    }
+
+    func getMedicinePicture(medicine: Medicine) -> Future<UIImage, DataManagerError> {
+        return Future<UIImage, DataManagerError> { [weak self] promise in
+            if let weakSelf = self,
+                medicine.pictureFilename != nil {
+                _ = weakSelf.dataManager
+                    .getMedicinePicture(medicine: medicine)
+                    .sink(receiveCompletion: { (result) in
+                        if result != .finished {
+                            promise(.failure(.pictureNotFound))
+                        }
+                    }) { image in
+                        promise(.success(image))
+                }.store(in: &weakSelf.cancellables)
+            } else {
+                promise(.failure(.pictureNotFound))
+            }
+        }
+    }
+
+    func setMedicinePicture(medicine: Medicine, picture: UIImage) -> Future<Bool, DataManagerError> {
+        //medicine.pictureFilename = "\(Date().timeIntervalSince1970)"
+        return Future<Bool, DataManagerError> { [weak self] promise in
+            guard let weakSelf = self,
+                medicine.pictureFilename != nil else {
+                    promise(.failure(.pictureNotStored))
+                    return
+            }
+            _ = weakSelf.dataManager
+                .setMedicinePicture(medicine: medicine, picture: picture)
+                .sink(receiveCompletion: { (result) in
+                    if result != .finished {
+                        promise(.failure(.pictureNotStored))
+                    }
+                }) { result in
+                    promise(.success(result))
+            }
+            .store(in: &weakSelf.cancellables)
+        }
     }
 
     func timeDifference2Str(timeDifference: DateComponents) -> (String, String) {

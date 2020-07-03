@@ -30,14 +30,18 @@ struct PrescriptionFormView: View {
 
     let unitsBoxValidator: (String) -> (String?) = { value in
         guard !value.isEmpty else { return R.string.localizable.prescription_form_err_units_box_empty.key.localized }
-        guard value.count < 99 else { return R.string.localizable.prescription_form_err_units_box_maximum.key.localized }
+        guard value.count < 99 else {
+            return R.string.localizable.prescription_form_err_units_box_maximum.key.localized
+        }
         return nil
     }
     @State var isUnitsBoxValid = FieldChecker()
 
     let unitsDoseValidator: (String) -> (String?) = { value in
         guard !value.isEmpty else { return R.string.localizable.prescription_form_err_units_dose_empty.key.localized }
-        guard value.count < 99 else { return R.string.localizable.prescription_form_err_units_dose_maximum.key.localized }
+        guard value.count < 99 else {
+            return R.string.localizable.prescription_form_err_units_dose_maximum.key.localized
+        }
         return nil
     }
 
@@ -46,10 +50,12 @@ struct PrescriptionFormView: View {
 
     @State var presentingModal = false
 
+     @ObservedObject private var keyboard = KeyboardResponder()
     var body: some View {
         ZStack {
             BackgroundView()
             VStack {
+                PictureCell(medicine: $viewModel.medicine, pictureMedicine: $viewModel.medicinePicture)
                 SectionFormView(name: R.string.localizable.prescription_form_section_medicine.key.localized)
                 TextFieldWithValidatorCell(title: R.string.localizable.prescription_form_section_medicine_name.key.localized,
                                            value: $viewModel.name,
@@ -69,6 +75,7 @@ struct PrescriptionFormView: View {
                                            checker: $isUnitsDoseValid,
                                            validator: unitsDoseValidator)
                     .keyboardType(.numberPad)
+
                 if isValidForm() {
                     AcceptButtonCell(medicine: $viewModel.medicine, action: {
                         self.viewModel.save()
@@ -76,10 +83,16 @@ struct PrescriptionFormView: View {
                 }
                 Spacer()
             }.padding(.top, 20)
+            .padding(.bottom, keyboard.currentHeight)
+                .padding(.top, -keyboard.currentHeight)
+            .edgesIgnoringSafeArea(.bottom)
+            .animation(.easeOut(duration: 0.16))
         }
             .navigationBarTitle(Text(viewModel.title()))
             .onAppear {
                 AnalyticsManager.shared.logScreen(name: Screen.prescriptionForm, flow: nil)
+        }.onTapGesture {
+           UIApplication.shared.endEditing()
         }
     }
 

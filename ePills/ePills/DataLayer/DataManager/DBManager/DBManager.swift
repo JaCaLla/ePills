@@ -39,7 +39,7 @@ class DBManager {
     private init() {
         setRealmHandlers()
     }
-
+    
     // MARK: - Medicine
     func isEmpty() -> Bool {
         self.resetHandlerIfNecessary()
@@ -63,7 +63,9 @@ class DBManager {
         }
     }
 
-    private func updateDB(medicineDB: MedicineDB, medicine: Medicine, timeManager: TimeManagerProtocol) -> Result<Medicine, Error> {
+    private func updateDB(medicineDB: MedicineDB,
+                          medicine: Medicine,
+                          timeManager: TimeManagerProtocol) -> Result<Medicine, Error> {
         self.resetHandlerIfNecessary()
         guard !(realm.objects(MedicineDB.self).isEmpty) else { return .failure(DBManagerError()) }
         do {
@@ -75,6 +77,7 @@ class DBManager {
                 medicineDB.unitsDose = medicine.unitsDose
                 medicineDB.creation = medicine.creation
                 medicineDB.update = timeManager.timeIntervalSince1970()
+                medicineDB.pictureFilename = medicine.pictureFilename ?? ""
             })
             return .success(medicineDB.getMedicine())
         } catch {
@@ -266,4 +269,3 @@ extension DBManager: Resetable {
         }
     }
 }
-

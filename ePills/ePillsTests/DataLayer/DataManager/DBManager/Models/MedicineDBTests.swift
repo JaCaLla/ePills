@@ -14,7 +14,7 @@ class MedicineDBTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		// Put setup code here. This method is called before the invocation of each test method in the class.
-		sut = MedicineDB(name: "aaa", unitsBox: 1, interval: 2, unitsDose: 3)
+        sut = MedicineDB(name: "aaa", unitsBox: 1, interval: 2, unitsDose: 3, pictureFilename: "")
 	}
 
 	func test_init() throws {

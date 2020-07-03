@@ -17,9 +17,11 @@ class CycleDB: Object {
 	@objc dynamic var nextDose: Int = -1
 	@objc dynamic var creation: Int = -1
     @objc dynamic var update: Int = -1
-	// @objc dynamic var doses: [Dose]
 
-    convenience init(medicineId: String, unitsConsumed: Int, nextDose: Int, timeManager: TimeManagerProtocol = TimeManager()) {
+    convenience init(medicineId: String,
+                     unitsConsumed: Int,
+                     nextDose: Int,
+                     timeManager: TimeManagerProtocol = TimeManager()) {
 		self.init()
 		self.id = UUID().uuidString
 		self.medicineId = medicineId

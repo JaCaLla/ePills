@@ -38,6 +38,10 @@
 "prescription_form_interval_list_12_hours" = "12 Hours";
 "prescription_form_interval_list_1_day" = "1 Day";
 "prescription_form_interval_list_2_days" = "2 Days";
+"prescription_form_interval_pict_origin" ="Add a picture for identify better your prescription";
+"prescription_form_interval_pict_origin_desc" ="Picture source:";
+"prescription_form_interval_camera" ="Camera";
+"prescription_form_interval_roll" ="Gallery";
 
 "home_title" = "Home";
 "home_alert_title" = "Atention!";
@@ -56,7 +60,7 @@
 
 "setup_title" = "Setup";
 "setup_section_general" = "General";
-"setup_section_others" = "Otros";
+"setup_section_others" = "Others";
 "setup_option_version" = "Version";
 "setup_option_reset" = "Reset";
 

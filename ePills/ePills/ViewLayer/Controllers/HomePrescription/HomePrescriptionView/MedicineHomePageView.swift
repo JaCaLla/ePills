@@ -34,6 +34,7 @@ struct MedicineHomePageView: View {
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 VStack(spacing: 0) {
                     HStack(alignment: .center) {
+//                        PictureCell(medicine: $viewModel.medicine, pictureMedicine: $viewModel.medicinePicture)
                         Text(self.viewModel.title())
                             .font(.headline)
                             .foregroundColor(Color(R.color.colorWhite.name))
@@ -46,7 +47,7 @@ struct MedicineHomePageView: View {
                             .onTapGesture {
                                 self.isRemovingPrescription = true
                                 self.currentMedicine = self.medicine
-                        }
+                            }
                     }.frame(height: geometry.size.height * 0.125)
                         .background(Color(R.color.colorGray50Semi.name))
                     VStack {
@@ -72,7 +73,7 @@ struct MedicineHomePageView: View {
                                 .foregroundColor(Color(self.viewModel.prescriptionColor))
                                 .onTapGesture {
                                     self.viewModel.takeDose()
-                            }
+                                }
                             Text(self.viewModel.prescriptionMessage)
                                 .multilineTextAlignment(.center)
                                 .font(.body)
@@ -105,7 +106,7 @@ struct MedicineHomePageView: View {
                             if self.viewModel.isUpdatable {
                                 PrescriptionButtonView(iconName: "square.and.pencil", action: {
                                     self.viewModel.update()
-                                }).padding(.top, -40)
+                                }).padding(.top, -20)
                             }
                         }.frame(width: geometry.size.width * 0.333)
                         VStack {

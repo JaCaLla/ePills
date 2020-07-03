@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 protocol HomePrescriptionVMProtocol {
     func addPrescription()
@@ -49,6 +50,8 @@ public final class HomePrescriptionVM: ObservableObject {
     @Published var prescriptionTime: String = ""
     @Published var progressPercentage: Double = 0
     @Published var medicineHasDoses: Bool = false
+    @Published var medicine: Medicine?
+    @Published var medicinePicture: UIImage?
 
     var timer: Timer?
     var runCount = 0
@@ -64,7 +67,8 @@ public final class HomePrescriptionVM: ObservableObject {
             .sink { prescriptions in
                 self.medicines = prescriptions
                 self.refreshVM()
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
         self.interactor.getCurrentPrescriptionIndex()
             .sink { currentPrescriptionIndex in
                 self.currentPage = currentPrescriptionIndex
@@ -101,9 +105,14 @@ public final class HomePrescriptionVM: ObservableObject {
             self.getRemainingTimeMessage(timeManager: timeManager)
         self.prescriptionColor = self.getMessageColor(timeManager: timeManager)
         self.medicineHasDoses = self.hasDoses()
+// This code crashes.
+//        self.interactor.getMedicinePicture(medicine:  medicines[currentPage])
+//            .sink(receiveCompletion: { _ in
+//        }, receiveValue: { image in
+//            self.medicinePicture = image
+//        }).store(in: &cancellables)
     }
 }
-
 extension HomePrescriptionVM: HomePrescriptionVMProtocol {
     func addPrescription() {
         self.homeCoordinator.presentPrescriptionForm(interactor: self.interactor,

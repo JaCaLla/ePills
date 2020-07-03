@@ -9,6 +9,7 @@
 import Combine
 @testable import ePills
 import XCTest
+import UIKit
 
 class MedicineInteractorUT: XCTestCase {
 
@@ -463,33 +464,126 @@ class MedicineInteractorUT: XCTestCase {
         XCTAssertEqual(intervals[8].secs, 172800)
         XCTAssertEqual(intervals[8].label, "2 Days")
     }
+    
+    func test_getMedicinePictureWhenPictureIsStored() {
+                  let asyncExpectation = expectation(description: "\(#function)")
+sut = MedicineInteractor(dataManager: DataManager.shared)
+        LocalFileManager.shared.saveImage(imageName: "patata", image: R.image.testImage() ?? UIImage(), onComplete: { result in
+            let medicine = Medicine(name: "a",
+                                    unitsBox: 10,
+                                    intervalSecs: 8,
+                                    unitsDose: 1)
+            medicine.pictureFilename = "patata"
+            let subsciption = sut.getMedicinePicture(medicine: medicine)
+                .sink(receiveCompletion: { result in
+                    XCTAssertEqual(result, .finished)
+                    asyncExpectation.fulfill()
+                }, receiveValue: { image in
+                    // XCTAssertEqual(image, R.image.testImage() ?? UIImage())
+                    XCTAssertNotNil(image)
+                })
+            subsciption.store(in: &cancellables)
+        })
+        self.waitForExpectations(timeout: 5, handler: nil)
 
-    func test_getIntervals_es() throws {
-        // Update the language by swaping bundle
-        Bundle.setLanguage(lang: "es")
-        // When
-        let intervals = sut.getIntervals()
-        guard intervals.count == 9 else {
-            XCTFail("test_getIntervals_en")
-            return
-        }
-        XCTAssertEqual(intervals[0].secs, 30)
-        XCTAssertEqual(intervals[0].label, "_30 Secs")
-        XCTAssertEqual(intervals[1].secs, 3600)
-        XCTAssertEqual(intervals[1].label, "1 Hora")
-        XCTAssertEqual(intervals[2].secs, 7200)
-        XCTAssertEqual(intervals[2].label, "2 Horas")
-        XCTAssertEqual(intervals[3].secs, 14400)
-        XCTAssertEqual(intervals[3].label, "4 Horas")
-        XCTAssertEqual(intervals[4].secs, 21600)
-        XCTAssertEqual(intervals[4].label, "6 Horas")
-        XCTAssertEqual(intervals[5].secs, 28800)
-        XCTAssertEqual(intervals[5].label, "8 Horas")
-        XCTAssertEqual(intervals[6].secs, 43200)
-        XCTAssertEqual(intervals[6].label, "12 Horas")
-        XCTAssertEqual(intervals[7].secs, 86400)
-        XCTAssertEqual(intervals[7].label, "1 Día")
-        XCTAssertEqual(intervals[8].secs, 172800)
-        XCTAssertEqual(intervals[8].label, "2 Días")
+    }
+    
+    func test_getMedicinePictureWhenPictureNotIsStored() {
+                  let asyncExpectation = expectation(description: "\(#function)")
+sut = MedicineInteractor(dataManager: DataManager.shared)
+        LocalFileManager.shared.saveImage(imageName: "patata", image: R.image.testImage() ?? UIImage(), onComplete: { result in
+            let medicine = Medicine(name: "a",
+                                    unitsBox: 10,
+                                    intervalSecs: 8,
+                                    unitsDose: 1)
+            medicine.pictureFilename = "Berenjena"
+            let subsciption = sut.getMedicinePicture(medicine: medicine)
+                .sink(receiveCompletion: { result in
+                    XCTAssertEqual(result, .failure(.pictureNotFound))
+                    asyncExpectation.fulfill()
+                }, receiveValue: { image in
+                    // XCTAssertEqual(image, R.image.testImage() ?? UIImage())
+                    XCTAssertNil(image)
+                })
+            subsciption.store(in: &cancellables)
+        })
+        self.waitForExpectations(timeout: 5 + 1000, handler: nil)
+
+    }
+    
+    func test_getMedicinePictureWhenPictureIsStoredWhenMock() {
+                  let medicine = Medicine(name: "a",
+                              unitsBox: 10,
+                              intervalSecs: 8,
+                              unitsDose: 1)
+      medicine.pictureFilename = "Berenjena"
+      let subsciption = sut.getMedicinePicture(medicine: medicine)
+          .sink(receiveCompletion: { result in
+             // XCTAssertEqual(result, .failure(.pictureNotFound))
+            XCTAssertEqual(self.dataManagerMock.getPrescriptionsCount, 1)
+            //  asyncExpectation.fulfill()
+          }, receiveValue: { image in
+              // XCTAssertEqual(image, R.image.testImage() ?? UIImage())
+             // XCTAssertNil(image)
+          })
+      subsciption.store(in: &cancellables)
+    }
+
+    func test_setMedicinePictureWhenDoesNotExist() {
+//                            let asyncExpectation = expectation(description: "\(#function)")
+      sut = MedicineInteractor(dataManager: DataManager.shared)
+          //    LocalFileManager.shared.saveImage(imageName: "patata", image: R.image.testImage() ?? UIImage(), onComplete: { result in
+                  let medicine = Medicine(name: "a",
+                                          unitsBox: 10,
+                                          intervalSecs: 8,
+                                          unitsDose: 1)
+                  medicine.pictureFilename = "patata"
+                let subscription = sut.setMedicinePicture(medicine: medicine, picture: R.image.testImage() ?? UIImage())
+                      .sink(receiveCompletion: { result in
+                          XCTAssertEqual(result, .finished)
+                     //     asyncExpectation.fulfill()
+                      }, receiveValue: { result in
+                          // XCTAssertEqual(image, R.image.testImage() ?? UIImage())
+                          XCTAssertEqual(result, true)
+                      })
+                  subscription.store(in: &cancellables)
+//              })
+//              self.waitForExpectations(timeout: 5 + 1000, handler: nil)
+    }
+    
+    func test_setMedicinePictureWhenDoesExist() {
+                       let asyncExpectation = expectation(description: "\(#function)")
+      sut = MedicineInteractor(dataManager: DataManager.shared)
+              LocalFileManager.shared.saveImage(imageName: "patata", image: R.image.testImage() ?? UIImage(), onComplete: { result in
+                  let medicine = Medicine(name: "a",
+                                          unitsBox: 10,
+                                          intervalSecs: 8,
+                                          unitsDose: 1)
+                  medicine.pictureFilename = "patata"
+                let subscription = sut.setMedicinePicture(medicine: medicine, picture: R.image.testImage() ?? UIImage())
+                      .sink(receiveCompletion: { result in
+                          XCTAssertEqual(result, .finished)
+                          asyncExpectation.fulfill()
+                      }, receiveValue: { result in
+                          // XCTAssertEqual(image, R.image.testImage() ?? UIImage())
+                          XCTAssertEqual(result, true)
+                      })
+                  subscription.store(in: &cancellables)
+              })
+              self.waitForExpectations(timeout: 5 + 1000, handler: nil)
+    }
+    
+    func test_setMedicinePictureWhenPictureIsStoredWhenMock() {
+             let medicine = Medicine(name: "a",
+                                         unitsBox: 10,
+                                         intervalSecs: 8,
+                                         unitsDose: 1)
+                 medicine.pictureFilename = "patata"
+               let subscription = sut.setMedicinePicture(medicine: medicine, picture: R.image.testImage() ?? UIImage())
+                     .sink(receiveCompletion: { result in
+                        XCTAssertEqual(self.dataManagerMock.setMedicinePictureCount, 1)
+                     }, receiveValue: { result in
+                     })
+                 subscription.store(in: &cancellables)
     }
 }
