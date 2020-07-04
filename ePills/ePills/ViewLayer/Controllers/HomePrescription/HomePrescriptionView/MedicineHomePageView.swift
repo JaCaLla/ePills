@@ -14,6 +14,7 @@ struct MedicineHomePageView: View {
     var medicine: Medicine
     @Binding var isRemovingPrescription: Bool
     @Binding var currentMedicine: Medicine
+    @Binding var medicinePicture: UIImage
     var viewModel: HomePrescriptionVM
 
     // MARK: - Private attributes
@@ -34,7 +35,9 @@ struct MedicineHomePageView: View {
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 VStack(spacing: 0) {
                     HStack(alignment: .center) {
-//                        PictureCell(medicine: $viewModel.medicine, pictureMedicine: $viewModel.medicinePicture)
+                        Image(uiImage: self.viewModel.medicinePicture)
+                            .resizable()
+                            .aspectRatio(4 / 3, contentMode: .fit)
                         Text(self.viewModel.title())
                             .font(.headline)
                             .foregroundColor(Color(R.color.colorWhite.name))
@@ -128,10 +131,12 @@ struct MedicineHomePageView: View {
     init(medicine: Medicine,
          isRemovingPrescription: Binding<Bool>,
          curentPrescription: Binding<Medicine>,
+         medicinePicture: Binding<UIImage>,
          viewModel: HomePrescriptionVM) {
         self.medicine = medicine
         self._isRemovingPrescription = isRemovingPrescription
         self._currentMedicine = curentPrescription
+        self._medicinePicture = medicinePicture
         self.viewModel = viewModel
     }
 }
@@ -147,7 +152,9 @@ struct PrescriptionHomePageView_Previews: PreviewProvider {
         return ZStack {
             MedicineHomePageView(medicine: prescription,
                                  isRemovingPrescription: .constant(false),
-                                 curentPrescription: .constant(prescription), viewModel: viewModel)
+                                 curentPrescription: .constant(prescription),
+                                 medicinePicture: .constant(UIImage()),
+                                 viewModel: viewModel)
         }
 
     }

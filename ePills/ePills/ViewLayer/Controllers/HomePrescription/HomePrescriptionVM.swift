@@ -51,7 +51,7 @@ public final class HomePrescriptionVM: ObservableObject {
     @Published var progressPercentage: Double = 0
     @Published var medicineHasDoses: Bool = false
     @Published var medicine: Medicine?
-    @Published var medicinePicture: UIImage?
+    @Published var medicinePicture: UIImage = UIImage()
 
     var timer: Timer?
     var runCount = 0
@@ -105,6 +105,13 @@ public final class HomePrescriptionVM: ObservableObject {
             self.getRemainingTimeMessage(timeManager: timeManager)
         self.prescriptionColor = self.getMessageColor(timeManager: timeManager)
         self.medicineHasDoses = self.hasDoses()
+        self.getMedicinePicture(onComplete: { [weak self] image in
+            DispatchQueue.main.async {
+                guard let weakSelf = self, let uwpImage = image else { return }
+                weakSelf.medicinePicture = uwpImage
+            }
+
+        })
 // This code crashes.
 //        self.interactor.getMedicinePicture(medicine:  medicines[currentPage])
 //            .sink(receiveCompletion: { _ in
@@ -239,7 +246,6 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         let prescriptionState = prescription.getState()
         return prescriptionState == CyclesState.notStarted ||
             prescriptionState == CyclesState.finished
-
     }
 
     func getMessageColor(timeManager: TimeManagerProtocol?) -> String {
@@ -253,5 +259,19 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         case .ongoingEllapsed: return R.color.colorRed.name
         case .finished: return R.color.colorWhite.name
         }
+    }
+
+    func getMedicinePicture(onComplete: @escaping (UIImage?) -> Void) {
+        guard medicines.count > currentPage,
+            medicines[currentPage].pictureFilename != nil else {
+                onComplete(UIImage())
+                return
+        }
+        self.interactor.getMedicinePicture(medicine: medicines[currentPage])
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { image in
+                onComplete(image)
+            }).store(in: &cancellables)
+
     }
 }
