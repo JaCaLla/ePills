@@ -4,8 +4,6 @@
 //
 //  Created by Javier Calatrava on 08/06/2020.
 //  Copyright © 2020 Javier Calatrava. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import CoreGraphics
