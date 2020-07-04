@@ -260,12 +260,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 2 images.
+  /// This `R.image` struct is generated, and contains static references to 3 images.
   struct image {
     /// Image `background`.
     static let background = Rswift.ImageResource(bundle: R.hostingBundle, name: "background")
     /// Image `glass`.
     static let glass = Rswift.ImageResource(bundle: R.hostingBundle, name: "glass")
+    /// Image `testImage`.
+    static let testImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "testImage")
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "background", bundle: ..., traitCollection: ...)`
@@ -278,6 +280,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "glass", bundle: ..., traitCollection: ...)`
     static func glass(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.glass, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "testImage", bundle: ..., traitCollection: ...)`
+    static func testImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.testImage, compatibleWith: traitCollection)
     }
     #endif
 
@@ -322,7 +331,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.localizable` struct is generated, and contains static references to 53 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 57 localization keys.
     struct localizable {
       /// en translation: 1 Day
       ///
@@ -368,6 +377,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, es
       static let first_prescription_title = Rswift.StringResource(key: "first_prescription_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// en translation: Add a picture for identify better your prescription
+      ///
+      /// Locales: en, es
+      static let prescription_form_interval_pict_origin = Rswift.StringResource(key: "prescription_form_interval_pict_origin", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: Administration
       ///
       /// Locales: en, es
@@ -380,6 +393,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, es
       static let calendar_title = Rswift.StringResource(key: "calendar_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// en translation: Camera
+      ///
+      /// Locales: en, es
+      static let prescription_form_interval_camera = Rswift.StringResource(key: "prescription_form_interval_camera", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: Day
       ///
       /// Locales: en, es
@@ -392,6 +409,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, es
       static let dose_list_title = Rswift.StringResource(key: "dose_list_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// en translation: Gallery
+      ///
+      /// Locales: en, es
+      static let prescription_form_interval_roll = Rswift.StringResource(key: "prescription_form_interval_roll", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: General
       ///
       /// Locales: en, es
@@ -444,10 +465,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, es
       static let home_prescription_not_started = Rswift.StringResource(key: "home_prescription_not_started", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
-      /// en translation: Otros
+      /// en translation: Others
       ///
       /// Locales: en, es
       static let setup_section_others = Rswift.StringResource(key: "setup_section_others", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// en translation: Picture source:
+      ///
+      /// Locales: en, es
+      static let prescription_form_interval_pict_origin_desc = Rswift.StringResource(key: "prescription_form_interval_pict_origin_desc", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: Presciption finished
       ///
       /// Locales: en, es
@@ -702,6 +727,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("first_prescription_title", bundle: bundle, comment: "")
       }
 
+      /// en translation: Add a picture for identify better your prescription
+      ///
+      /// Locales: en, es
+      static func prescription_form_interval_pict_origin(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_pict_origin", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_pict_origin"
+        }
+
+        return NSLocalizedString("prescription_form_interval_pict_origin", bundle: bundle, comment: "")
+      }
+
       /// en translation: Administration
       ///
       /// Locales: en, es
@@ -747,6 +787,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("calendar_title", bundle: bundle, comment: "")
       }
 
+      /// en translation: Camera
+      ///
+      /// Locales: en, es
+      static func prescription_form_interval_camera(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_camera", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_camera"
+        }
+
+        return NSLocalizedString("prescription_form_interval_camera", bundle: bundle, comment: "")
+      }
+
       /// en translation: Day
       ///
       /// Locales: en, es
@@ -790,6 +845,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("dose_list_title", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Gallery
+      ///
+      /// Locales: en, es
+      static func prescription_form_interval_roll(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_roll", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_roll"
+        }
+
+        return NSLocalizedString("prescription_form_interval_roll", bundle: bundle, comment: "")
       }
 
       /// en translation: General
@@ -987,7 +1057,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("home_prescription_not_started", bundle: bundle, comment: "")
       }
 
-      /// en translation: Otros
+      /// en translation: Others
       ///
       /// Locales: en, es
       static func setup_section_others(preferredLanguages: [String]? = nil) -> String {
@@ -1000,6 +1070,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("setup_section_others", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Picture source:
+      ///
+      /// Locales: en, es
+      static func prescription_form_interval_pict_origin_desc(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_pict_origin_desc", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_pict_origin_desc"
+        }
+
+        return NSLocalizedString("prescription_form_interval_pict_origin_desc", bundle: bundle, comment: "")
       }
 
       /// en translation: Presciption finished

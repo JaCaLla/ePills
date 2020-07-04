@@ -41,29 +41,6 @@ class PrescriptionDB: Object {
         self.creation = creation
     }
 
-//    convenience init(prescription: Cycle) {
-//        self.init(id: prescription.id,
-//                  name: prescription.name,
-//                  unitsBox: prescription.unitsBox,
-//                  interval: prescription.intervalSecs,
-//                  unitsDose: prescription.unitsDose,
-//                  unitsConsumed: prescription.unitsConsumed,
-//                  nextDose: prescription.nextDose ?? -1,
-//                  creation: prescription.creation)
-//    }
-//    
-//    func getPrescription() -> Cycle {
-//        let prescription = Cycle(name: self.name,
-//                                        unitsBox: self.unitsBox,
-//                                        intervalSecs: self.interval,
-//                                        unitsDose: self.unitsDose)
-//        prescription.id = id
-//        prescription.unitsConsumed = unitsConsumed
-//        prescription.nextDose = nextDose >= 0 ? nextDose : nil
-//        prescription.creation = creation
-//        return prescription
-//    }
-
     // MARK: - Realm
     override class func primaryKey() -> String? {
         return "id"

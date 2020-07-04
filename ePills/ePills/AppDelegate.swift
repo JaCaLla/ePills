@@ -13,18 +13,18 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+
     override init() {
         AnalyticsManager.shared.set(analyticsEngine: FirebaseManager.shared)
     }
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         StartUpAppSequencer().start()
         return true
     }
     func applicationDidBecomeActive(_ application: UIApplication) {
-       
+
     }
 }
 

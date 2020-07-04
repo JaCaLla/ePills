@@ -64,7 +64,8 @@ struct CalendarView: UIViewRepresentable {
                 .onScrollToExpirationDateSubject
                 .sink {
                     calendar.select(Date(), scrollToDate: true)
-                }.store(in: &cancellables)
+                }
+                .store(in: &cancellables)
         }
 
         // MARK: - FSCalendarDataSource

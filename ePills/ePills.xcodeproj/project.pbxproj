@@ -17,6 +17,10 @@
 		5E0E7D242486898C0086C0E8 /* DoseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0E7D232486898C0086C0E8 /* DoseListView.swift */; };
 		5E0E7D26248693110086C0E8 /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0E7D25248693110086C0E8 /* CalendarHeaderView.swift */; };
 		5E0E7D28248696580086C0E8 /* DoseCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0E7D27248696580086C0E8 /* DoseCellViewModel.swift */; };
+		5E28F846249DF8E500930097 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E28F845249DF8E500930097 /* PictureCell.swift */; };
+		5E28F848249E190100930097 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E28F847249E190100930097 /* KeyboardResponder.swift */; };
+		5E28F84A249E20F300930097 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E28F849249E20F300930097 /* ImagePickerView.swift */; };
+		5E28F84E249E5EBB00930097 /* LocalFileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E28F84D249E5EBB00930097 /* LocalFileManagerMock.swift */; };
 		5E312964248CFCD0002241AF /* DoseListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E312963248CFCD0002241AF /* DoseListCellView.swift */; };
 		5E3B7AD82459FEBA00541AB4 /* MedicineInteractorUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7AD72459FEBA00541AB4 /* MedicineInteractorUT.swift */; };
 		5E3B7ADC245A26A000541AB4 /* MedicineInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7ADB245A26A000541AB4 /* MedicineInteractorMock.swift */; };
@@ -32,7 +36,7 @@
 		5E4473D1246EF85100D997A6 /* PrescriptionDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473CD246EF85100D997A6 /* PrescriptionDB.swift */; };
 		5E4473D2246EF85100D997A6 /* MedicineDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473CE246EF85100D997A6 /* MedicineDB.swift */; };
 		5E4473D5246EFA0000D997A6 /* CycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473D3246EF9FF00D997A6 /* CycleTests.swift */; };
-		5E4473D6246EFA0000D997A6 /* MedicineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473D4246EF9FF00D997A6 /* MedicineTests.swift */; };
+		5E4473D6246EFA0000D997A6 /* UTMedicine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473D4246EF9FF00D997A6 /* UTMedicine.swift */; };
 		5E4473DA246EFFBD00D997A6 /* MedicineDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473D9246EFFBD00D997A6 /* MedicineDBTests.swift */; };
 		5E4473DC246F014300D997A6 /* DBManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473DB246F014300D997A6 /* DBManagerTests.swift */; };
 		5E4473DE246F369900D997A6 /* CycleDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473DD246F369900D997A6 /* CycleDBTests.swift */; };
@@ -64,6 +68,10 @@
 		5E6AB04E244BA32200F162EB /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB04D244BA32200F162EB /* MessageView.swift */; };
 		5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */; };
 		5E6AB052244BA75300F162EB /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */; };
+		5E86A152249BA55200AFDCD7 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E86A151249BA55200AFDCD7 /* LocalFileManager.swift */; };
+		5E86A15C249BAFDF00AFDCD7 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E86A15B249BAFDF00AFDCD7 /* ConfigurationManager.swift */; };
+		5E86A15E249BB01700AFDCD7 /* UTConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E86A15D249BB01700AFDCD7 /* UTConfigurationManager.swift */; };
+		5E86A161249BB65F00AFDCD7 /* UTLocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E86A160249BB65F00AFDCD7 /* UTLocalFileManager.swift */; };
 		5E8D54D2248E870100E21145 /* ArcShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8D54D1248E870100E21145 /* ArcShape.swift */; };
 		5E8EECE32456258600398832 /* PrescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE22456258600398832 /* PrescriptionTests.swift */; };
 		5E8EECE52456B65900398832 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8EECE42456B65900398832 /* PageView.swift */; };
@@ -98,7 +106,7 @@
 		5EF5DDAE24925261000368F9 /* AppEnvironmentUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5DDAD24925261000368F9 /* AppEnvironmentUT.swift */; };
 		5EFE81022454C12800D44F53 /* PrescriptionFormVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81012454C12800D44F53 /* PrescriptionFormVMTests.swift */; };
 		5EFE81062454CDE400D44F53 /* DataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81052454CDE400D44F53 /* DataManagerMock.swift */; };
-		5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81082454CF6D00D44F53 /* DataManagerTests.swift */; };
+		5EFE81092454CF6D00D44F53 /* UTDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81082454CF6D00D44F53 /* UTDataManager.swift */; };
 		5EFE810C2454D13D00D44F53 /* Resetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE810B2454D13D00D44F53 /* Resetable.swift */; };
 		5EFE810E2454F0AF00D44F53 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE810D2454F0AF00D44F53 /* BundleExtension.swift */; };
 		5EFF2156244F57BE00B77AE9 /* FirstPrescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFF2155244F57BE00B77AE9 /* FirstPrescriptionVC.swift */; };
@@ -125,6 +133,10 @@
 		5E0E7D232486898C0086C0E8 /* DoseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseListView.swift; sourceTree = "<group>"; };
 		5E0E7D25248693110086C0E8 /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
 		5E0E7D27248696580086C0E8 /* DoseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseCellViewModel.swift; sourceTree = "<group>"; };
+		5E28F845249DF8E500930097 /* PictureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		5E28F847249E190100930097 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		5E28F849249E20F300930097 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		5E28F84D249E5EBB00930097 /* LocalFileManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManagerMock.swift; sourceTree = "<group>"; };
 		5E312963248CFCD0002241AF /* DoseListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseListCellView.swift; sourceTree = "<group>"; };
 		5E3B7AD72459FEBA00541AB4 /* MedicineInteractorUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineInteractorUT.swift; sourceTree = "<group>"; };
 		5E3B7ADB245A26A000541AB4 /* MedicineInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineInteractorMock.swift; sourceTree = "<group>"; };
@@ -140,7 +152,7 @@
 		5E4473CD246EF85100D997A6 /* PrescriptionDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrescriptionDB.swift; sourceTree = "<group>"; };
 		5E4473CE246EF85100D997A6 /* MedicineDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicineDB.swift; sourceTree = "<group>"; };
 		5E4473D3246EF9FF00D997A6 /* CycleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleTests.swift; sourceTree = "<group>"; };
-		5E4473D4246EF9FF00D997A6 /* MedicineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicineTests.swift; sourceTree = "<group>"; };
+		5E4473D4246EF9FF00D997A6 /* UTMedicine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTMedicine.swift; sourceTree = "<group>"; };
 		5E4473D9246EFFBD00D997A6 /* MedicineDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineDBTests.swift; sourceTree = "<group>"; };
 		5E4473DB246F014300D997A6 /* DBManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManagerTests.swift; sourceTree = "<group>"; };
 		5E4473DD246F369900D997A6 /* CycleDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleDBTests.swift; sourceTree = "<group>"; };
@@ -176,6 +188,10 @@
 		5E6AB04D244BA32200F162EB /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		5E6AB04F244BA35D00F162EB /* AddPrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPrescriptionView.swift; sourceTree = "<group>"; };
 		5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
+		5E86A151249BA55200AFDCD7 /* LocalFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
+		5E86A15B249BAFDF00AFDCD7 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		5E86A15D249BB01700AFDCD7 /* UTConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTConfigurationManager.swift; sourceTree = "<group>"; };
+		5E86A160249BB65F00AFDCD7 /* UTLocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTLocalFileManager.swift; sourceTree = "<group>"; };
 		5E8D54D1248E870100E21145 /* ArcShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcShape.swift; sourceTree = "<group>"; };
 		5E8EECE22456258600398832 /* PrescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionTests.swift; sourceTree = "<group>"; };
 		5E8EECE42456B65900398832 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
@@ -212,7 +228,7 @@
 		5EF5DDAD24925261000368F9 /* AppEnvironmentUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironmentUT.swift; sourceTree = "<group>"; };
 		5EFE81012454C12800D44F53 /* PrescriptionFormVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVMTests.swift; sourceTree = "<group>"; };
 		5EFE81052454CDE400D44F53 /* DataManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerMock.swift; sourceTree = "<group>"; };
-		5EFE81082454CF6D00D44F53 /* DataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
+		5EFE81082454CF6D00D44F53 /* UTDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTDataManager.swift; sourceTree = "<group>"; };
 		5EFE810B2454D13D00D44F53 /* Resetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resetable.swift; sourceTree = "<group>"; };
 		5EFE810D2454F0AF00D44F53 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
 		5EFF2155244F57BE00B77AE9 /* FirstPrescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPrescriptionVC.swift; sourceTree = "<group>"; };
@@ -585,10 +601,66 @@
 			isa = PBXGroup;
 			children = (
 				5E6AB049244B60A800F162EB /* BackgroundView.swift */,
+				5E28F849249E20F300930097 /* ImagePickerView.swift */,
+				5E28F847249E190100930097 /* KeyboardResponder.swift */,
 				5E8EECE42456B65900398832 /* PageView.swift */,
 				5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		5E86A150249BA53C00AFDCD7 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				5E86A151249BA55200AFDCD7 /* LocalFileManager.swift */,
+			);
+			path = FileManager;
+			sourceTree = "<group>";
+		};
+		5E86A153249BA5BF00AFDCD7 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				5E86A15B249BAFDF00AFDCD7 /* ConfigurationManager.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		5E86A156249BA91800AFDCD7 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				5E86A15D249BB01700AFDCD7 /* UTConfigurationManager.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		5E86A157249BA95D00AFDCD7 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				5E4473C4246EF7E000D997A6 /* DBManager */,
+				5E86A150249BA53C00AFDCD7 /* FileManager */,
+				5E86A153249BA5BF00AFDCD7 /* Persistence */,
+				5ED44B4B2454158500081B36 /* DataManager.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		5E86A158249BA97800AFDCD7 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				5E86A15F249BB64700AFDCD7 /* FileManager */,
+				5E4473D7246EFF5000D997A6 /* DBManager */,
+				5EFE81082454CF6D00D44F53 /* UTDataManager.swift */,
+				5E86A156249BA91800AFDCD7 /* Persistence */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		5E86A15F249BB64700AFDCD7 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				5E86A160249BB65F00AFDCD7 /* UTLocalFileManager.swift */,
+			);
+			path = FileManager;
 			sourceTree = "<group>";
 		};
 		5E8EECE12456256500398832 /* Model */ = {
@@ -596,7 +668,7 @@
 			children = (
 				5E8EECE22456258600398832 /* PrescriptionTests.swift */,
 				5E4473D3246EF9FF00D997A6 /* CycleTests.swift */,
-				5E4473D4246EF9FF00D997A6 /* MedicineTests.swift */,
+				5E4473D4246EF9FF00D997A6 /* UTMedicine.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -628,8 +700,7 @@
 		5ED44B4A2454154F00081B36 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				5ED44B4B2454158500081B36 /* DataManager.swift */,
-				5E4473C4246EF7E000D997A6 /* DBManager */,
+				5E86A157249BA95D00AFDCD7 /* DataManager */,
 				5EFE810A2454D11B00D44F53 /* Protocols */,
 				5ED44B4D245415C100081B36 /* Models */,
 			);
@@ -651,6 +722,7 @@
 		5ED44B51245416A900081B36 /* PrescriptionFormView */ = {
 			isa = PBXGroup;
 			children = (
+				5E28F845249DF8E500930097 /* PictureCell.swift */,
 				5E6AB046244B4F5E00F162EB /* PrescriptionFormView.swift */,
 				5ED44B332452061D00081B36 /* TextFieldWithValidatorCell.swift */,
 				5ED44B3724532EAE00081B36 /* AcceptButtonCell.swift */,
@@ -735,6 +807,7 @@
 			isa = PBXGroup;
 			children = (
 				5EFE81052454CDE400D44F53 /* DataManagerMock.swift */,
+				5E28F84D249E5EBB00930097 /* LocalFileManagerMock.swift */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -742,8 +815,7 @@
 		5EFE81072454CEB200D44F53 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				5EFE81082454CF6D00D44F53 /* DataManagerTests.swift */,
-				5E4473D7246EFF5000D997A6 /* DBManager */,
+				5E86A158249BA97800AFDCD7 /* DataManager */,
 				5E8EECE12456256500398832 /* Model */,
 			);
 			path = DataLayer;
@@ -1061,7 +1133,9 @@
 				5E55149A2464A5EF00E97DF4 /* LocalNotificationManager.swift in Sources */,
 				5EFE810E2454F0AF00D44F53 /* BundleExtension.swift in Sources */,
 				5E4473D2246EF85100D997A6 /* MedicineDB.swift in Sources */,
+				5E86A152249BA55200AFDCD7 /* LocalFileManager.swift in Sources */,
 				5E5514A62464AC1000E97DF4 /* MainFlowCoordinator.swift in Sources */,
+				5E28F846249DF8E500930097 /* PictureCell.swift in Sources */,
 				5E55149D2464A9FE00E97DF4 /* StartUpAppSequencer.swift in Sources */,
 				5E6AB04A244B60A800F162EB /* BackgroundView.swift in Sources */,
 				5E0E7D202486865D0086C0E8 /* DoseListVC.swift in Sources */,
@@ -1102,8 +1176,10 @@
 				5E8EECE9245741A200398832 /* HomeCoordinator.swift in Sources */,
 				5E4473C1246EF00B00D997A6 /* Cycle.swift in Sources */,
 				5E6AB03E244B245F00F162EB /* FirstPrescriptionView.swift in Sources */,
+				5E86A15C249BAFDF00AFDCD7 /* ConfigurationManager.swift in Sources */,
 				5E6AB04E244BA32200F162EB /* MessageView.swift in Sources */,
 				5EFF2160244F9ACE00B77AE9 /* DebugManager.swift in Sources */,
+				5E28F84A249E20F300930097 /* ImagePickerView.swift in Sources */,
 				5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */,
 				5ED44B3824532EAE00081B36 /* AcceptButtonCell.swift in Sources */,
 				5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */,
@@ -1116,6 +1192,7 @@
 				5EBE6DF32486AF80001285FF /* DoseCellTypeView.swift in Sources */,
 				5E685C69247A9C00008539D9 /* AppConfigurationCoordinator.swift in Sources */,
 				5E099671247F7D390069D197 /* MedicineCalendarVM.swift in Sources */,
+				5E28F848249E190100930097 /* KeyboardResponder.swift in Sources */,
 				5EFF2156244F57BE00B77AE9 /* FirstPrescriptionVC.swift in Sources */,
 				5ED44B342452061D00081B36 /* TextFieldWithValidatorCell.swift in Sources */,
 				5E312964248CFCD0002241AF /* DoseListCellView.swift in Sources */,
@@ -1134,16 +1211,19 @@
 				5E4473DA246EFFBD00D997A6 /* MedicineDBTests.swift in Sources */,
 				5E3B7ADC245A26A000541AB4 /* MedicineInteractorMock.swift in Sources */,
 				5EFE81022454C12800D44F53 /* PrescriptionFormVMTests.swift in Sources */,
+				5E28F84E249E5EBB00930097 /* LocalFileManagerMock.swift in Sources */,
 				5E4473DC246F014300D997A6 /* DBManagerTests.swift in Sources */,
 				5E4473D5246EFA0000D997A6 /* CycleTests.swift in Sources */,
-				5E4473D6246EFA0000D997A6 /* MedicineTests.swift in Sources */,
+				5E4473D6246EFA0000D997A6 /* UTMedicine.swift in Sources */,
 				5EB91A1224937B0F005A082C /* UTDoseListVM.swift in Sources */,
 				5E099674247F864B0069D197 /* MedicineCalentarUT.swift in Sources */,
-				5EFE81092454CF6D00D44F53 /* DataManagerTests.swift in Sources */,
+				5EFE81092454CF6D00D44F53 /* UTDataManager.swift in Sources */,
 				5E3B7AE2245AD7D300541AB4 /* HomeCoordinatorMock.swift in Sources */,
 				5EFE81062454CDE400D44F53 /* DataManagerMock.swift in Sources */,
+				5E86A161249BB65F00AFDCD7 /* UTLocalFileManager.swift in Sources */,
 				5EF5DDAE24925261000368F9 /* AppEnvironmentUT.swift in Sources */,
 				5E8EECE32456258600398832 /* PrescriptionTests.swift in Sources */,
+				5E86A15E249BB01700AFDCD7 /* UTConfigurationManager.swift in Sources */,
 				5E3B7AD82459FEBA00541AB4 /* MedicineInteractorUT.swift in Sources */,
 				5E3B7ADF245A327A00541AB4 /* HomePrescriptionVMTest.swift in Sources */,
 			);
@@ -1311,7 +1391,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JCa.ePills.debug;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)-Debug";
@@ -1334,7 +1414,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JCa.ePills;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

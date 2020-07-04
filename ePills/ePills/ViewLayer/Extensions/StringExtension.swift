@@ -15,14 +15,6 @@ extension String {
         return NSLocalizedString(self, comment: "\(self)_comment")
     }
 
-    func localized(_ args: [CVarArg]) -> String {
-        return localized(args)
-    }
-
-    func localized(_ args: CVarArg...) -> String {
-        return String(format: localized, args)
-    }
-
     func toDate(format: String) -> Date? {
         let dateformat = DateFormatter()
         // dateformat.timeZone = TimeZone(abbreviation: "UTC")
@@ -30,5 +22,21 @@ extension String {
         dateformat.calendar = Calendar(identifier: .gregorian)
         dateformat.dateFormat = format
         return dateformat.date(from: self)
+    }
+    
+    func randomString(length: Int) -> String {
+
+        let letters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+
+        var randomString = ""
+
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+
+        return randomString
     }
 }

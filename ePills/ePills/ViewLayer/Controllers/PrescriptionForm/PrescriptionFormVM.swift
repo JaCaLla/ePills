@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 protocol PrescriptionFormVMProtocol {
     func getIntervals() -> [Interval]
@@ -33,6 +34,7 @@ public final class PrescriptionFormVM: ObservableObject {
     // MARK: - Private attributes
     private var interactor: MedicineInteractorProtocol
     @Published var medicine: Medicine?
+    @Published var medicinePicture: UIImage?
 
     init(interactor: MedicineInteractorProtocol = MedicineInteractor(dataManager: DataManager.shared), medicine: Medicine?) {
         self.interactor = interactor
@@ -42,6 +44,12 @@ public final class PrescriptionFormVM: ObservableObject {
             self.unitsBox = "\(String(describing: updatedMedicine.unitsBox))"
             self.selectedIntervalIndex = self.getInterval(intervalSecs: updatedMedicine.intervalSecs)
             self.unitsDose = "\(String(describing: updatedMedicine.unitsDose))"
+            if updatedMedicine.pictureFilename != nil {
+                self.interactor.getMedicinePicture(medicine: updatedMedicine).sink(receiveCompletion: { _ in
+                }, receiveValue: { image in
+                    self.medicinePicture = image
+                })
+            }
         }
     }
 }
@@ -49,19 +57,29 @@ public final class PrescriptionFormVM: ObservableObject {
 extension PrescriptionFormVM: PrescriptionFormVMProtocol {
 
     func save() {
-        if let updatedCycle = self.medicine {
-            updatedCycle.name = self.name
-            updatedCycle.unitsBox = Int(self.unitsBox) ?? -1
+        if let updatedMedicine = self.medicine {
+            updatedMedicine.name = self.name
+            updatedMedicine.unitsBox = Int(self.unitsBox) ?? -1
             //updatedCycle.interval = self.selectedIntervalIndex
-            updatedCycle.intervalSecs = self.selectedIntervalIndex.secs
-            updatedCycle.unitsDose = Int(self.unitsDose) ?? -1
-            interactor.update(medicine: updatedCycle)
+            updatedMedicine.intervalSecs = self.selectedIntervalIndex.secs
+            updatedMedicine.unitsDose = Int(self.unitsDose) ?? -1
+            if let uwpMedicinePicture = self.medicinePicture {
+                if updatedMedicine.pictureFilename == nil {
+                    updatedMedicine.pictureFilename = "\(Date().timeIntervalSince1970)"
+                }
+                _ = self.interactor.setMedicinePicture(medicine: updatedMedicine, picture: uwpMedicinePicture)
+            }
+            interactor.update(medicine: updatedMedicine)
         } else {
             let medicine = Medicine(name: self.name,
-                                            unitsBox: Int(self.unitsBox) ?? -1,
-                                            intervalSecs: self.selectedIntervalIndex.secs,
-                                            unitsDose: Int(self.unitsDose) ?? -1)
-            interactor.add(medicine: medicine, timeManager: TimeManager())
+                                    unitsBox: Int(self.unitsBox) ?? -1,
+                                    intervalSecs: self.selectedIntervalIndex.secs,
+                                    unitsDose: Int(self.unitsDose) ?? -1)
+            if let uwpMedicinePicture = self.medicinePicture {
+                medicine.pictureFilename = "\(Date().timeIntervalSince1970)"
+                self.interactor.setMedicinePicture(medicine: medicine, picture: uwpMedicinePicture)
+            }
+            _ = interactor.add(medicine: medicine, timeManager: TimeManager())
         }
         onDismissSubject.send()
     }
@@ -73,17 +91,17 @@ extension PrescriptionFormVM: PrescriptionFormVMProtocol {
     func getIntervals() -> [Interval] {
         return interactor.getIntervals()
     }
-    
+
     func getInterval(intervalSecs: Int) -> Interval {
-        guard let interval = self.getIntervals().first(where:{ $0.secs == intervalSecs }) else {
-            return Interval(secs: intervalSecs, label: "\(intervalSecs/3600) _hour(s)")
+        guard let interval = self.getIntervals().first(where: { $0.secs == intervalSecs }) else {
+            return Interval(secs: intervalSecs, label: "\(intervalSecs / 3600) _hour(s)")
         }
         return interval
     }
-    
+
     func title() -> String {
-        return  self.medicine == nil ?
-                R.string.localizable.prescription_form_title.key.localized :
-        R.string.localizable.prescription_form_title_update.key.localized
+        return self.medicine == nil ?
+        R.string.localizable.prescription_form_title.key.localized:
+            R.string.localizable.prescription_form_title_update.key.localized
     }
 }

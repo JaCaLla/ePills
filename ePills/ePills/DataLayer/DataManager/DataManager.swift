@@ -8,6 +8,12 @@
 
 import Foundation
 import Combine
+import UIKit
+
+enum DataManagerError: Error {
+    case pictureNotFound
+    case pictureNotStored
+}
 
 protocol DataManagerProtocol {
 
@@ -18,14 +24,20 @@ protocol DataManagerProtocol {
     func flushMedicines()
     func getMedicinesPublisher() -> AnyPublisher<[Medicine], Never>
     func add(dose: Dose, medicine: Medicine) -> Dose?
+    func getMedicinePicture(medicine: Medicine) -> Future<UIImage, DataManagerError>
+    func setMedicinePicture(medicine: Medicine, picture: UIImage ) -> Future<Bool, DataManagerError>
 }
 
 final class DataManager {
 
     static let shared: DataManager = DataManager()
 
+    // MARK: - Private attributes
     private let subject = PassthroughSubject <[Medicine], Never>()
     private var medicines: [Medicine] = []
+
+    // MARK: - Public attributes
+    var localFileManager: LocalFileManagerProtocol = LocalFileManager.shared
 
 }
 
@@ -82,6 +94,7 @@ extension DataManager: DataManagerProtocol {
         medicines[index].intervalSecs = medicine.intervalSecs
         medicines[index].unitsDose = medicine.unitsDose
         medicines[index].creation = medicine.creation
+        medicines[index].pictureFilename = medicine.pictureFilename
         DBManager.shared.update(medicine: medicines[index], timeManager: TimeManager())
 
         let medicineCycles: [Cycle] = fetchCycles(medicineId: medicine.id)
@@ -97,10 +110,11 @@ extension DataManager: DataManagerProtocol {
     }
 
     func remove(medicine: Medicine) {
-        DBManager.shared.delete(medicine: medicine)
+        _ = DBManager.shared.delete(medicine: medicine)
         self.medicines = fetchStoredMedicines()
-        //medicines.removeAll(where: {$0.id == medicine.id})
-        // cycles.removeAll(where: {$0.id == medicine.currentCycle.id})
+        if let uwpPictureFilename = medicine.pictureFilename {
+            LocalFileManager.shared.remove(filename: uwpPictureFilename)
+        }
         subject.send(self.medicines)
     }
 
@@ -110,8 +124,7 @@ extension DataManager: DataManagerProtocol {
     }
 
     func getMedicinesPublisher() -> AnyPublisher<[Medicine], Never> {
-        self.medicines = fetchStoredMedicines()//medicines.sorted(by:{ $0.currentCycle.creation < $1.currentCycle.creation })
-        //  subject.send(self.medicines)
+        self.medicines = fetchStoredMedicines()
         return subject.eraseToAnyPublisher()
     }
 
@@ -119,18 +132,10 @@ extension DataManager: DataManagerProtocol {
         var medicines: [Medicine] = []
         DBManager.shared.getMedicines().forEach { medicine in
             var cycles = fetchCycles(medicineId: medicine.id).sorted(by: { $0.creation < $1.creation })
-//            cycles.forEach { cycle in
-//                if cycle.unitsConsumed >= medicine.unitsBox {
-//                    medicine.pastCycles.append(cycle)
-//                    medicine.pastCycles = medicine.pastCycles.sorted(by: { $0.creation > $1.creation})
-//                } else {
-//                    medicine.currentCycle = cycle
-//                }
-//            }
             if let lastCycle = cycles.last {
                 medicine.currentCycle = lastCycle
                 if cycles.count > 1 {
-                    cycles.popLast()
+                    _ = cycles.popLast()
                     medicine.pastCycles.append(contentsOf: cycles)
                 } else {
                     medicine.pastCycles = []
@@ -156,10 +161,42 @@ extension DataManager: DataManagerProtocol {
         return DBManager.shared.getDoses(cycleId: cycleId).sorted(by: { $0.real < $1.real })
     }
 
+    func getMedicinePicture(medicine: Medicine) -> Future<UIImage, DataManagerError> {
+        // guard let pictureFilename = medicine.pictureFilename else { return }
+        return Future<UIImage, DataManagerError> { [weak self] promise in
+            if let weakSelf = self,
+                let pictureFilename = medicine.pictureFilename {
+                weakSelf.localFileManager.loadImage(fileName: pictureFilename, onComplete: { image in
+                    if let storedImage = image {
+                        promise(.success(storedImage))
+                    } else {
+                        promise(.failure(.pictureNotFound))
+                    }
+                })
+            } else {
+                promise(.failure(.pictureNotFound))
+            }
+        }
+    }
+    
+    func setMedicinePicture(medicine: Medicine, picture: UIImage ) -> Future<Bool, DataManagerError> {
+        return Future<Bool, DataManagerError> { [weak self] promise in
+            guard let weakSelf = self,
+                  let pictureFilename = medicine.pictureFilename else {
+                promise(.failure(.pictureNotStored))
+                return
+            }
+            weakSelf.localFileManager.saveImage(imageName: pictureFilename, image: picture) { result in
+                result ?  promise(.success(result)) : promise(.failure(.pictureNotStored))
+            }
+        }
+    }
+
 }
 
 extension DataManager: Resetable {
     func reset() {
+        LocalFileManager.shared.reset()
         DBManager.shared.reset()
         self.medicines = []
         subject.send(self.medicines)

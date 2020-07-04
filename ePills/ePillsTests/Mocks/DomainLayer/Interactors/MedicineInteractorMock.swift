@@ -8,6 +8,7 @@
 @testable import ePills
 import Foundation
 import Combine
+import UIKit
 
 public final class MedicineInteractorMock: MedicineInteractorProtocol {
 
@@ -29,6 +30,8 @@ public final class MedicineInteractorMock: MedicineInteractorProtocol {
     var getExpirationDoseWeekdayHourMinuteCount = 0
     var timeDifference2StrCount = 0
     var getExpirationHourMinuteCount = 0
+    var getMedicinePictureCount = 0
+    var setMedicinePictureCount = 0
 
     public func getCycleDates(medicine: Medicine) -> [Date] {
         getCycleDatesCount += 1
@@ -121,5 +124,19 @@ public final class MedicineInteractorMock: MedicineInteractorProtocol {
     public func getExpirationHourMinute(medicine: Medicine) -> String {
         getExpirationHourMinuteCount += 1
         return ""
+    }
+
+    public func getMedicinePicture(medicine: Medicine) -> Future<UIImage, DataManagerError> {
+        getMedicinePictureCount += 1
+        return Future<UIImage, DataManagerError> { _ in
+
+        }
+    }
+
+    public func setMedicinePicture(medicine: Medicine, picture: UIImage) -> Future<Bool, DataManagerError> {
+        setMedicinePictureCount += 1
+        return Future<Bool, DataManagerError> { _ in
+
+        }
     }
 }
