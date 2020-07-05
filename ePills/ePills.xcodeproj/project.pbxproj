@@ -1385,7 +1385,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ePills/Preview Content\"";
-				DEVELOPMENT_TEAM = 7ZPDPWR8XU;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ePills/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1407,10 +1407,10 @@
 			baseConfigurationReference = FDFCFB3CDF1B16A340275DBD /* Pods-ePills.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ePills/Preview Content\"";
-				DEVELOPMENT_TEAM = 7ZPDPWR8XU;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ePills/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1421,7 +1421,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JCa.ePills;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = comJCaEpills;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
