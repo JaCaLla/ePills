@@ -38,6 +38,23 @@
                BlueprintName = "ePillsTests"
                ReferencedContainer = "container:ePills.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "DoseListVMUT">
+               </Test>
+               <Test
+                  Identifier = "HomePrescriptionVMTests/test_iconNameWhenNotOngoingEllapsed()">
+               </Test>
+               <Test
+                  Identifier = "HomePrescriptionVMTests/test_iconNameWhenOngoing()">
+               </Test>
+               <Test
+                  Identifier = "HomePrescriptionVMTests/test_iconNameWhenOngoingReady()">
+               </Test>
+               <Test
+                  Identifier = "MedicineInteractorUT/test_getExpirationWeekdayHourMinute()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
