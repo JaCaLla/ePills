@@ -203,6 +203,7 @@
 		5EB475CF24BE0957002D4C58 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5EB475D024BE0FEC002D4C58 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5EB475D124BE157B002D4C58 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5EB475D224BE18E5002D4C58 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionButtonView.swift; sourceTree = "<group>"; };
 		5EB5DA952461D06E0009EA75 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		5EB91A0724926027005A082C /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -968,6 +969,7 @@
 				ro,
 				cs,
 				pt,
+				fr,
 			);
 			mainGroup = 5E6AB008244B0F3F00F162EB;
 			packageReferences = (
@@ -1269,6 +1271,7 @@
 				5EB475CF24BE0957002D4C58 /* ro */,
 				5EB475D024BE0FEC002D4C58 /* cs */,
 				5EB475D124BE157B002D4C58 /* pt */,
+				5EB475D224BE18E5002D4C58 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
