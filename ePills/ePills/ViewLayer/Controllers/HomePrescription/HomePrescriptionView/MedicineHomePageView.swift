@@ -37,7 +37,7 @@ struct MedicineHomePageView: View {
                     HStack(alignment: .center) {
                         Image(uiImage: self.viewModel.medicinePicture)
                             .resizable()
-                            .aspectRatio(4 / 3, contentMode: .fit)
+                            .aspectRatio(3 / 4, contentMode: .fit)
                         Text(self.viewModel.title())
                             .font(.headline)
                             .foregroundColor(Color(R.color.colorWhite.name))

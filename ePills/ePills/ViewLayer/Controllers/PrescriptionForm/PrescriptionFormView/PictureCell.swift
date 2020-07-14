@@ -30,14 +30,14 @@ struct PictureCell: View {
                     if self.pictureMedicine != nil {
                         Image(uiImage: self.pictureMedicine ?? UIImage())
                             .resizable()
-                            .aspectRatio(4 / 3, contentMode: .fit)
+                            .aspectRatio(3 / 4, contentMode: .fit)
                             .padding(.horizontal, self.horPadding)
                             .onTapGesture {
                               self.showSheet = true
                             }
                     }
                 }
-            }.frame(height: geometry.size.height - (self.horPadding * 2) * 4 / 3)
+            }.frame(height: geometry.size.height - (self.horPadding * 2) * 3 / 4)
                 .actionSheet(isPresented: self.$showSheet, content: self.actionSheet)
                 .sheet(isPresented: self.$showModal, content: {
                     ImagePickerView(sourceType: self.sourceType) { image in

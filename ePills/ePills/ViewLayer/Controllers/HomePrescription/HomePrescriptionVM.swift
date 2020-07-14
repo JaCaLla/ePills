@@ -55,7 +55,7 @@ public final class HomePrescriptionVM: ObservableObject {
 
     var timer: Timer?
     var runCount = 0
-
+    
     init(interactor: MedicineInteractorProtocol = MedicineInteractor(),
          homeCoordinator: HomeCoordinatorProtocol,
          timeManager: TimeManagerProtocol = TimeManager()) {
@@ -67,6 +67,7 @@ public final class HomePrescriptionVM: ObservableObject {
             .sink { prescriptions in
                 self.medicines = prescriptions
                 self.refreshVM()
+                self.fetchMedicinePicture()
             }
             .store(in: &cancellables)
         self.interactor.getCurrentPrescriptionIndex()
@@ -105,19 +106,15 @@ public final class HomePrescriptionVM: ObservableObject {
             self.getRemainingTimeMessage(timeManager: timeManager)
         self.prescriptionColor = self.getMessageColor(timeManager: timeManager)
         self.medicineHasDoses = self.hasDoses()
+    }
+    
+    fileprivate func fetchMedicinePicture() {
         self.getMedicinePicture(onComplete: { [weak self] image in
             DispatchQueue.main.async {
                 guard let weakSelf = self, let uwpImage = image else { return }
                 weakSelf.medicinePicture = uwpImage
             }
-
         })
-// This code crashes.
-//        self.interactor.getMedicinePicture(medicine:  medicines[currentPage])
-//            .sink(receiveCompletion: { _ in
-//        }, receiveValue: { image in
-//            self.medicinePicture = image
-//        }).store(in: &cancellables)
     }
 }
 extension HomePrescriptionVM: HomePrescriptionVMProtocol {
