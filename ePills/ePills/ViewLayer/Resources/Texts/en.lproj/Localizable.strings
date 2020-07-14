@@ -48,7 +48,7 @@
 "home_alert_message" = "This prescription is going to be eliminated! Proceed?";
 "home_alert_ok" = "Yes";
 "home_prescription_not_started" = "Not started.\nPress icon to start";
-"home_prescription_onging" = "In course,\nnext dose:";
+"home_prescription_onging" = "Ongoing,\nnext dose:";
 "home_prescription_ongoing_ready" = "You can take your dose,\npress icon to mark";
 "home_prescription_ongoing_ellapsed" = "Dose ellapsed,\npress icon to mark";
 "home_prescription_finished" = "Presciption finished";

@@ -1,0 +1,72 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "Toevoegen";
+"first_prescription_title_msg_add" = "Druk op [+] om uw eerste recept toe te voegen";
+
+"prescription_form_title" = "Receptformulier";
+"prescription_form_title_update" = "Recept bijwerken";
+"prescription_form_section_medicine" = "Geneesmiddel";
+"prescription_form_section_medicine_name" = "Naam";
+"prescription_form_section_medicine_units_box" = "Eenheden doos";
+"prescription_form_section_administration" = "Administratie";
+"prescription_form_section_administration_units_dose" = "Eenheden dosis";
+"prescription_form_err_name_empty" = "De medicijnnaam mag niet leeg zijn";
+"prescription_form_err_name_minimum" = "De medicijnnaam moet een woord zijn met meer dan 5 tekens";
+"prescription_form_err_name_maximum" = "De medicijnnaam mag niet langer zijn dan 20 tekens";
+"prescription_form_err_units_box_empty" = "Eenheden vaknaam mag niet leeg zijn";
+"prescription_form_err_units_box_maximum" = "Het voorschrift voor eenheden mag niet groter zijn dan 99 eenheden per doos";
+"prescription_form_err_units_dose_empty" = "Eenheidsrecept mag niet leeg zijn";
+"prescription_form_err_units_dose_maximum" = "Het voorschrift voor eenheden mag niet groter zijn dan 99 eenheden per doos";
+"prescription_form_interval_list_title" ="Selecteer dosisinterval";
+"prescription_form_interval_list_hour" = "Uur";
+"prescription_form_interval_list_hours" = "Uren";
+"prescription_form_interval_list_day" = "Dag";
+"prescription_form_interval_list_1_hour" = "1 Uur";
+"prescription_form_interval_list_2_hours" = "2 Uren";
+"prescription_form_interval_list_3_hours" = "3 Uren";
+"prescription_form_interval_list_4_hours" = "4 Uren";
+"prescription_form_interval_list_6_hours" = "6 Uren";
+"prescription_form_interval_list_8_hours" = "8 Uren";
+"prescription_form_interval_list_12_hours" = "12 Uren";
+"prescription_form_interval_list_1_day" = "1 Dag";
+"prescription_form_interval_list_2_days" = "2 Dagen";
+"prescription_form_interval_pict_origin" ="Voeg een foto toe om uw recept beter te identificeren";
+"prescription_form_interval_pict_origin_desc" ="Bron afbeelding:";
+"prescription_form_interval_camera" ="Camera";
+"prescription_form_interval_roll" ="Galerij";
+
+"home_title" = "Begin";
+"home_alert_title" = "Aandacht!";
+"home_alert_message" = "Dit recept wordt afgeschaft! Doorgaan?";
+"home_alert_ok" = "Ja";
+"home_prescription_not_started" = "Niet gestart.\nDruk op het pictogram om te starten";
+"home_prescription_onging" = "Lopende,\nvolgende dosis:";
+"home_prescription_ongoing_ready" = "U kunt uw dosis innemen,\n druk op het pictogram\n om te markeren";
+"home_prescription_ongoing_ellapsed" = "Is verstreken,\n druk op het\n pictogram om te markeren";
+"home_prescription_finished" = "Recept klaar";
+"home_prescription_secs_suffix" = "t";
+"home_prescription_mins_suffix" = "m";
+"home_prescription_hours_suffix" = "u";
+"home_prescription_days_suffix" = "d";
+"home_prescription_more_than_month" = "> Maand";
+
+"setup_title" = "Opstelling";
+"setup_section_general" = "Algemeen";
+"setup_section_others" = "Anderen";
+"setup_option_version" = "Versie";
+"setup_option_reset" = "Reset";
+
+"calendar_title" = "Kalender";
+
+"dose_list_title" = "Dosislijst";
+
+"calendar_last_dose" = "Laatste dosis:";
+
+"notification_next_dose" = "Volgende dosis: ";
