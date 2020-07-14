@@ -1,0 +1,73 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "加";
+"first_prescription_title_msg_add" = "按[+]添加您的第一个处方";
+
+"prescription_form_title" = "处方表格";
+"prescription_form_title_update" = "更新处方";
+"prescription_form_section_medicine" = "药物";
+"prescription_form_section_medicine_name" = "名称";
+"prescription_form_section_medicine_units_box" = "单位框";
+"prescription_form_section_administration" = "行政";
+"prescription_form_section_administration_units_dose" = "单位剂量";
+"prescription_form_err_name_empty" = "药品名称不能为空";
+"prescription_form_err_name_minimum" = "药品名称必须是一个超过5个字符的单词";
+"prescription_form_err_name_maximum" = "药品名称不能超过20个字符";
+"prescription_form_err_units_box_empty" = "单位框名称不能为空";
+"prescription_form_err_units_box_maximum" = "每盒处方不得超过99个单位";
+"prescription_form_err_units_dose_empty" = "单位处方不能为空";
+"prescription_form_err_units_dose_maximum" = "每盒处方不得超过99个单位";
+
+"prescription_form_interval_list_title" ="选择剂量间隔";
+"prescription_form_interval_list_hour" = "小时";
+"prescription_form_interval_list_hours" = "小时";
+"prescription_form_interval_list_day" = "小时";
+"prescription_form_interval_list_1_hour" = "1小时";
+"prescription_form_interval_list_2_hours" = "2小时";
+"prescription_form_interval_list_3_hours" = "3小时";
+"prescription_form_interval_list_4_hours" = "4小时";
+"prescription_form_interval_list_6_hours" = "6小时";
+"prescription_form_interval_list_8_hours" = "8小时";
+"prescription_form_interval_list_12_hours" = "12小时";
+"prescription_form_interval_list_1_day" = "1天";
+"prescription_form_interval_list_2_days" = "2天";
+"prescription_form_interval_pict_origin" ="添加图片以更好地确定您的处方";
+"prescription_form_interval_pict_origin_desc" ="图片来源";
+"prescription_form_interval_camera" ="相机";
+"prescription_form_interval_roll" ="画廊";
+
+"home_title" = "开始";
+"home_alert_title" = "注意！";
+"home_alert_message" = "这个处方将被淘汰！ 继续？";
+"home_alert_ok" = "是";
+"home_prescription_not_started" = "尚未开始。\n按图标开始";
+"home_prescription_onging" = "进行中，\n下一次剂量：";
+"home_prescription_ongoing_ready" = "您可以服药，\n按图标进行标记";
+"home_prescription_ongoing_ellapsed" = "是否已过去，\n按图标进行标记";
+"home_prescription_finished" = "处方完成";
+"home_prescription_secs_suffix" = "第二";
+"home_prescription_mins_suffix" = "分钟";
+"home_prescription_hours_suffix" = "小时";
+"home_prescription_days_suffix" = "天";
+"home_prescription_more_than_month" = "> 月";
+
+"setup_title" = "建立";
+"setup_section_general" = "一般";
+"setup_section_others" = "其他";
+"setup_option_version" = "版";
+"setup_option_reset" = "重启";
+
+"calendar_title" = "日历";
+
+"dose_list_title" = "剂量清单";
+
+"calendar_last_dose" = "最后剂量：";
+
+"notification_next_dose" = "下一剂：";
