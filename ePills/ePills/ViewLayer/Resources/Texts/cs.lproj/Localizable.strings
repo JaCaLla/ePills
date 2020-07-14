@@ -1,0 +1,73 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "Přidat";
+"first_prescription_title_msg_add" = "Stisknutím [+] přidáte první předpis";
+
+"prescription_form_title" = "Předpisový formulář";
+"prescription_form_title_update" = "Aktualizujte předpis";
+"prescription_form_section_medicine" = "Lék";
+"prescription_form_section_medicine_name" = "Název";
+"prescription_form_section_medicine_units_box" = "Jednotky box";
+"prescription_form_section_administration" = "Správa";
+"prescription_form_section_administration_units_dose" = "Jednotková dávka";
+"prescription_form_err_name_empty" = "Název medicíny nesmí být prázdný";
+"prescription_form_err_name_minimum" = "Název medicíny musí být slovo s více než 5 znaky";
+"prescription_form_err_name_maximum" = "Název medicíny nesmí být delší než 20 znaků";
+"prescription_form_err_units_box_empty" = "Název pole jednotek nesmí být prázdný";
+"prescription_form_err_units_box_maximum" = "Předepisování jednotek nesmí být větší než 99 jednotek v krabici";
+"prescription_form_err_units_dose_empty" = "Předepisování jednotek nemůže být prázdné";
+"prescription_form_err_units_dose_maximum" = "Předepisování jednotek nesmí být větší než 99 jednotek v krabici";
+
+"prescription_form_interval_list_title" ="Vyberte interval dávky";
+"prescription_form_interval_list_hour" = "Hodina";
+"prescription_form_interval_list_hours" = "Hodiny";
+"prescription_form_interval_list_day" = "Den";
+"prescription_form_interval_list_1_hour" = "1 Hodiny";
+"prescription_form_interval_list_2_hours" = "2 Hodiny";
+"prescription_form_interval_list_3_hours" = "3 Hodiny";
+"prescription_form_interval_list_4_hours" = "4 Hodiny";
+"prescription_form_interval_list_6_hours" = "6 Hodiny";
+"prescription_form_interval_list_8_hours" = "8 Hodiny";
+"prescription_form_interval_list_12_hours" = "12 Hodiny";
+"prescription_form_interval_list_1_day" = "1 Den";
+"prescription_form_interval_list_2_days" = "2 Dny";
+"prescription_form_interval_pict_origin" ="Přidejte obrázek pro lepší identifikaci předpisu";
+"prescription_form_interval_pict_origin_desc" ="Zdroj obrázku:";
+"prescription_form_interval_camera" ="Fotoaparát";
+"prescription_form_interval_roll" ="Galerie";
+
+"home_title" = "Start";
+"home_alert_title" = "Pozornost!";
+"home_alert_message" = "Tento předpis bude odstraněn! Pokračovat?";
+"home_alert_ok" = "Ano";
+"home_prescription_not_started" = "Nezačal. \nStisknutím ikony spustíte";
+"home_prescription_onging" = "Samozřejmě \ndalší dávka:";
+"home_prescription_ongoing_ready" = "Můžete si vzít dávku,\npress ikonu označit";
+"home_prescription_ongoing_ellapsed" = "Uplynul, \n stiskněte ikonu pro označení";
+"home_prescription_finished" = "Předpis byl dokončen";
+"home_prescription_secs_suffix" = "d";
+"home_prescription_mins_suffix" = "m";
+"home_prescription_hours_suffix" = "h";
+"home_prescription_days_suffix" = "d";
+"home_prescription_more_than_month" = "> Month";
+
+"setup_title" = "Založit";
+"setup_section_general" = "Všeobecné";
+"setup_section_others" = "Ostatní";
+"setup_option_version" = "Verze";
+"setup_option_reset" = "Resetovat";
+
+"calendar_title" = "Kalendář";
+
+"dose_list_title" = "Seznam dávek";
+
+"calendar_last_dose" = "Poslední dávka:";
+
+"notification_next_dose" = "Další dávka: ";
