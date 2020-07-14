@@ -199,6 +199,7 @@
 		5E8EECE8245741A200398832 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		5E8EECEA2458D2B600398832 /* MedicineHomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineHomePageView.swift; sourceTree = "<group>"; };
 		5EB475CC24BDF7A7002D4C58 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5EB475CE24BE024A002D4C58 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionButtonView.swift; sourceTree = "<group>"; };
 		5EB5DA952461D06E0009EA75 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		5EB91A0724926027005A082C /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -960,6 +961,7 @@
 				Base,
 				es,
 				fi,
+				el,
 			);
 			mainGroup = 5E6AB008244B0F3F00F162EB;
 			packageReferences = (
@@ -1257,6 +1259,7 @@
 				5ED44B3D2453401700081B36 /* en */,
 				5EB91A192494E826005A082C /* es */,
 				5EB475CC24BDF7A7002D4C58 /* fi */,
+				5EB475CE24BE024A002D4C58 /* el */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

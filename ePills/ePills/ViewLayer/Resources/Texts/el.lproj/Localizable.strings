@@ -1,0 +1,73 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "Προσθήκη";
+"first_prescription_title_msg_add" = "Πατήστε [+] για να προσθέσετε την πρώτη σας συνταγή";
+
+"prescription_form_title" = "Έντυπο συνταγής";
+"prescription_form_title_update" = "Ενημέρωση συνταγής";
+"prescription_form_section_medicine" = "Φάρμακο";
+"prescription_form_section_medicine_name" = "Ονομα";
+"prescription_form_section_medicine_units_box" = "Κουτί μονάδων";
+"prescription_form_section_administration" = "Διαχείριση";
+"prescription_form_section_administration_units_dose" = "Μονάδες δόσης";
+"prescription_form_err_name_empty" = "Το όνομα του φαρμάκου δεν μπορεί να είναι κενό";
+"prescription_form_err_name_minimum" = "Το όνομα του φαρμάκου πρέπει να είναι μια λέξη με περισσότερους από 5 χαρακτήρες";
+"prescription_form_err_name_maximum" = "Το όνομα του φαρμάκου δεν μπορεί να υπερβαίνει τους 20 χαρακτήρες";
+"prescription_form_err_units_box_empty" = "Το όνομα του κουτιού μονάδων δεν μπορεί να είναι κενό";
+"prescription_form_err_units_box_maximum" = "Η συνταγή μονάδων δεν μπορεί να είναι μεγαλύτερη από 99 μονάδες ανά κουτί";
+"prescription_form_err_units_dose_empty" = "Η συνταγή μονάδων δεν μπορεί να είναι κενή";
+"prescription_form_err_units_dose_maximum" = "Η συνταγή μονάδων δεν μπορεί να είναι μεγαλύτερη από 99 μονάδες ανά κουτί";
+
+"prescription_form_interval_list_title" ="Επιλέξτε διάστημα δόσης";
+"prescription_form_interval_list_hour" = "Ωρα";
+"prescription_form_interval_list_hours" = "Ωρες";
+"prescription_form_interval_list_day" = "Ημέρα";
+"prescription_form_interval_list_1_hour" = "1 ώρα";
+"prescription_form_interval_list_2_hours" = "2 ώρες";
+"prescription_form_interval_list_3_hours" = "3 ώρες";
+"prescription_form_interval_list_4_hours" = "4 ώρες";
+"prescription_form_interval_list_6_hours" = "6 ώρες";
+"prescription_form_interval_list_8_hours" = "8 ώρες";
+"prescription_form_interval_list_12_hours" = "12 ώρες";
+"prescription_form_interval_list_1_day" = "1 Ημέρα";
+"prescription_form_interval_list_2_days" = "2 μέρες";
+"prescription_form_interval_pict_origin" ="Προσθέστε μια εικόνα για να προσδιορίσετε καλύτερα τη συνταγή σας";
+"prescription_form_interval_pict_origin_desc" ="Πηγή εικόνας:";
+"prescription_form_interval_camera" ="ΦΩΤΟΓΡΑΦΙΚΗ";
+"prescription_form_interval_roll" ="εκθεσιακός χώρος";
+
+"home_title" = "Αρχή";
+"home_alert_title" = "Προσοχή!";
+"home_alert_message" = "Αυτή η συνταγή θα εξαλειφθεί! Προχωρώ?";
+"home_alert_ok" = "Ναί";
+"home_prescription_not_started" = "Δεν ξεκίνησε. Πατήστε το\nεικονίδιο για να ξεκινήσετε";
+"home_prescription_onging" = "Φυσικά,\n επόμενη δόση:";
+"home_prescription_ongoing_ready" = "Μπορείτε να πάρετε τη δόση σας,\nΠατήστε το εικονίδιο για να το επισημάνετε";
+"home_prescription_ongoing_ellapsed" = "Έχει παρέλθει,\nπατήστε το εικονίδιο για να επισημάνετε";
+"home_prescription_finished" = "Η συνταγή ολοκληρώθηκε";
+"home_prescription_secs_suffix" = "δ";
+"home_prescription_mins_suffix" = "λ";
+"home_prescription_hours_suffix" = "ώ";
+"home_prescription_days_suffix" = "η";
+"home_prescription_more_than_month" = "> μήνας";
+
+"setup_title" = "Ρύθμιση";
+"setup_section_general" = "Γενικός";
+"setup_section_others" = "Οι υπολοιποι";
+"setup_option_version" = "Εκδοχή";
+"setup_option_reset" = "Επαναφορά";
+
+"calendar_title" = "Ημερολόγιο";
+
+"dose_list_title" = "Λίστα δόσεων";
+
+"calendar_last_dose" = "Τελευταία";
+
+"notification_next_dose" = "Επόμενη δόση:";
