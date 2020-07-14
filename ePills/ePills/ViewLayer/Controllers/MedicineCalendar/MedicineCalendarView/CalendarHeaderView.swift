@@ -28,7 +28,6 @@ struct CalendarHeaderView: View {
                     Text(viewModel.expirationWeekdayHourMinute).fontWeight(.light)
                 }.frame(alignment: .leading)
                     .font(Font.system(size: 30, design: .default))
-                    .padding(.trailing, 10)
                 Spacer()
             } .padding(.top, -40)
         }.frame(height: 130)
