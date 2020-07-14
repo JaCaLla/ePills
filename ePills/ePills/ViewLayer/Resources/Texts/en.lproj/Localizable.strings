@@ -44,7 +44,7 @@
 "prescription_form_interval_roll" ="Gallery";
 
 "home_title" = "Home";
-"home_alert_title" = "Atention!";
+"home_alert_title" = "Attention!";
 "home_alert_message" = "This prescription is going to be eliminated! Proceed?";
 "home_alert_ok" = "Yes";
 "home_prescription_not_started" = "Not started.\nPress icon to start";
