@@ -222,6 +222,7 @@
 		5EBBAA532450C76300CD2B5E /* PrescriptionFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVC.swift; sourceTree = "<group>"; };
 		5EBBAA552450C86500CD2B5E /* PrescriptionFormVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVM.swift; sourceTree = "<group>"; };
 		5EBE6DF22486AF80001285FF /* DoseCellTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseCellTypeView.swift; sourceTree = "<group>"; };
+		5ED1694124BEF088004FCCBA /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5ED44B332452061D00081B36 /* TextFieldWithValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithValidatorCell.swift; sourceTree = "<group>"; };
 		5ED44B352452C7A500081B36 /* SelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorCell.swift; sourceTree = "<group>"; };
 		5ED44B3724532EAE00081B36 /* AcceptButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptButtonCell.swift; sourceTree = "<group>"; };
@@ -978,6 +979,7 @@
 				nl,
 				hi,
 				"zh-Hans",
+				pl,
 			);
 			mainGroup = 5E6AB008244B0F3F00F162EB;
 			packageReferences = (
@@ -1284,6 +1286,7 @@
 				5EB475D424BE3364002D4C58 /* nl */,
 				5EB475D524BE38C3002D4C58 /* hi */,
 				5EB475D624BE3DAF002D4C58 /* zh-Hans */,
+				5ED1694124BEF088004FCCBA /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
