@@ -8,6 +8,7 @@ target 'ePills' do
   # Pods for UI
   #pod 'SVProgressHUD'
   pod 'FSCalendar'
+  pod 'Down'
   
   # Pod for persistence
    pod 'RealmSwift', '3.17.3'

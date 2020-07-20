@@ -62,6 +62,7 @@
 "setup_section_general" = "सामान्य";
 "setup_section_others" = "अन्य";
 "setup_option_version" = "संस्करण";
+"setup_option_terms_of_use" = "उपयोग की शर्तें";
 "setup_option_reset" = "रीसेट";
 
 "calendar_title" = "पंचांग";

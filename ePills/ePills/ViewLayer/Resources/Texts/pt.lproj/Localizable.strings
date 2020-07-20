@@ -62,6 +62,7 @@
 "setup_section_general" = "Geral";
 "setup_section_others" = "Outros";
 "setup_option_version" = "Versão";
+"setup_option_terms_of_use" = "Termos de uso";
 "setup_option_reset" = "Redefinir";
 
 "calendar_title" = "Calendário";

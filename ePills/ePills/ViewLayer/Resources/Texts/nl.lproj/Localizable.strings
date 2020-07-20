@@ -61,6 +61,7 @@
 "setup_section_general" = "Algemeen";
 "setup_section_others" = "Anderen";
 "setup_option_version" = "Versie";
+"setup_option_terms_of_use" = "Gebruiksvoorwaarden";
 "setup_option_reset" = "Reset";
 
 "calendar_title" = "Kalender";

@@ -331,7 +331,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.localizable` struct is generated, and contains static references to 57 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 58 localization keys.
     struct localizable {
       /// en translation: 1 Day
       ///
@@ -497,6 +497,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it
       static let setup_title = Rswift.StringResource(key: "setup_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it"], comment: nil)
+      /// en translation: Terms of use
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it
+      static let setup_option_terms_of_use = Rswift.StringResource(key: "setup_option_terms_of_use", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it"], comment: nil)
       /// en translation: This prescription is going to be eliminated! Proceed?
       ///
       /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it
@@ -1175,6 +1179,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("setup_title", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Terms of use
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it
+      static func setup_option_terms_of_use(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("setup_option_terms_of_use", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "setup_option_terms_of_use"
+        }
+
+        return NSLocalizedString("setup_option_terms_of_use", bundle: bundle, comment: "")
       }
 
       /// en translation: This prescription is going to be eliminated! Proceed?

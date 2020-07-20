@@ -11,7 +11,7 @@ import UIKit
 class TabBarController: UITabBarController {
 
     var homeCoordinator: HomeCoordinator = HomeCoordinator()
-    var appConfigurationCoordinator: AppConfigurationCoordinator = AppConfigurationCoordinator()
+    var appConfigurationCoordinator: AppSetupCoordinator = AppSetupCoordinator()
 
     override func viewDidLoad() {
         super.viewDidLoad()

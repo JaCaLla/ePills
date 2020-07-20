@@ -62,6 +62,7 @@
 "setup_section_general" = "一般";
 "setup_section_others" = "其他";
 "setup_option_version" = "版";
+"setup_option_terms_of_use" = "使用条款";
 "setup_option_reset" = "重启";
 
 "calendar_title" = "日历";

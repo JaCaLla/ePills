@@ -62,6 +62,7 @@
 "setup_section_general" = "Γενικός";
 "setup_section_others" = "Οι υπολοιποι";
 "setup_option_version" = "Εκδοχή";
+"setup_option_terms_of_use" = "Οροι χρήσης";
 "setup_option_reset" = "Επαναφορά";
 
 "calendar_title" = "Ημερολόγιο";
