@@ -23,12 +23,12 @@ struct CalendarHeaderView: View {
                     .frame(alignment: .leading)
                     .font(Font.system(size: 90, design: .default))
                     .padding()
+                Spacer()
                 VStack {
                     Text(viewModel.expirationMonthYear).fontWeight(.light)
                     Text(viewModel.expirationWeekdayHourMinute).fontWeight(.light)
                 }.frame(alignment: .leading)
                     .font(Font.system(size: 30, design: .default))
-                    .padding(.trailing, 10)
                 Spacer()
             } .padding(.top, -40)
         }.frame(height: 130)

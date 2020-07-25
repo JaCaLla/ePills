@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "Adăuga";
+"first_prescription_title_msg_add" = "Apăsați [+] pentru a adăuga prima rețetă";
+
+"prescription_form_title" = "Formular de prescripție";
+"prescription_form_title_update" = "Actualizați prescripția";
+"prescription_form_section_medicine" = "Medicament";
+"prescription_form_section_medicine_name" = "Nume";
+"prescription_form_section_medicine_units_box" = "Caseta de unități";
+"prescription_form_section_administration" = "Administrare";
+"prescription_form_section_administration_units_dose" = "Doza unităților";
+"prescription_form_err_name_empty" = "Numele medicamentului nu poate fi gol";
+"prescription_form_err_name_minimum" = "Numele medicinii trebuie să fie un cuvânt cu mai mult de 5 caractere";
+"prescription_form_err_name_maximum" = "Numele medicinii nu poate fi mai mare de 20 de caractere";
+"prescription_form_err_units_box_empty" = "Numele casetei de unități nu poate fi gol";
+"prescription_form_err_units_box_maximum" = "Unitatea de prescripție nu poate fi mai mare de 99 de unități pe cutie";
+"prescription_form_err_units_dose_empty" = "Unitatea de prescripție nu poate fi goală";
+"prescription_form_err_units_dose_maximum" = "Unitatea de prescripție nu poate fi mai mare de 99 de unități pe cutie";
+
+"prescription_form_interval_list_title" ="Selectați intervalul de doză";
+"prescription_form_interval_list_hour" = "Ora";
+"prescription_form_interval_list_hours" = "Ore";
+"prescription_form_interval_list_day" = "Zi";
+"prescription_form_interval_list_1_hour" = "1 Oră";
+"prescription_form_interval_list_2_hours" = "2 Ore";
+"prescription_form_interval_list_3_hours" = "3 Ore";
+"prescription_form_interval_list_4_hours" = "4 Ore";
+"prescription_form_interval_list_6_hours" = "6 Ore";
+"prescription_form_interval_list_8_hours" = "8 Ore";
+"prescription_form_interval_list_12_hours" = "12 Ore";
+"prescription_form_interval_list_1_day" = "1 Zi";
+"prescription_form_interval_list_2_days" = "2 Zile";
+"prescription_form_interval_pict_origin" ="Adăugați o imagine pentru a identifica mai bine rețeta";
+"prescription_form_interval_pict_origin_desc" ="Sursa fotografiei:";
+"prescription_form_interval_camera" ="Foto";
+"prescription_form_interval_roll" ="Galerie";
+
+"home_title" = "Start";
+"home_alert_title" = "Atenție!";
+"home_alert_message" = "Această rețetă va fi eliminată! Continua?";
+"home_alert_ok" = "Da";
+"home_prescription_not_started" = "Nu a început.\nApăsați pictograma\n pentru a începe";
+"home_prescription_onging" = "Desigur,\n următoarea doză:";
+"home_prescription_ongoing_ready" = "Puteți lua doza,\n pictograma press pentru a marca";
+"home_prescription_ongoing_ellapsed" = "S-a scurs, apăsați\n pictograma pentru a marca";
+"home_prescription_finished" = "Prescripția terminată";
+"home_prescription_secs_suffix" = "s";
+"home_prescription_mins_suffix" = "m";
+"home_prescription_hours_suffix" = "o";
+"home_prescription_days_suffix" = "z";
+"home_prescription_more_than_month" = "> Lună";
+
+"setup_title" = "Înființat";
+"setup_section_general" = "General";
+"setup_section_others" = "Alții";
+"setup_option_version" = "Versiune";
+"setup_option_terms_of_use" = "Termeni de utilizare";
+"setup_option_reset" = "Resetați";
+
+"calendar_title" = "Calendar";
+
+"dose_list_title" = "Lista dozelor";
+
+"calendar_last_dose" = "Ultima doză:";
+
+"notification_next_dose" = "Doza următoare: ";

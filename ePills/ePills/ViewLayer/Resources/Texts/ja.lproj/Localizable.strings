@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "追加";
+"first_prescription_title_msg_add" = "[+]を押して最初の処方箋を追加します";
+
+"prescription_form_title" = "処方箋";
+"prescription_form_title_update" = "処方箋を更新する";
+"prescription_form_section_medicine" = "薬";
+"prescription_form_section_medicine_name" = "名前";
+"prescription_form_section_medicine_units_box" = "単位ボックス";
+"prescription_form_section_administration" = "行政";
+"prescription_form_section_administration_units_dose" = "単位用量";
+"prescription_form_err_name_empty" = "薬名を入力してください";
+"prescription_form_err_name_minimum" = "薬の名前は5文字以上の単語にする必要があります";
+"prescription_form_err_name_maximum" = "薬の名前は20文字以下にする必要があります";
+"prescription_form_err_units_box_empty" = "ユニットボックス名は空白にできません";
+"prescription_form_err_units_box_maximum" = "ユニットの処方は、ボックスあたり99ユニットを超えることはできません。";
+"prescription_form_err_units_dose_empty" = "ユニット処方箋は空にできません";
+"prescription_form_err_units_dose_maximum" = "ユニットの処方は、ボックスあたり99ユニットを超えることはできません";
+
+"prescription_form_interval_list_title" ="投与間隔を選択";
+"prescription_form_interval_list_hour" = "時";
+"prescription_form_interval_list_hours" = "時間";
+"prescription_form_interval_list_day" = "日";
+"prescription_form_interval_list_1_hour" = "1時間";
+"prescription_form_interval_list_2_hours" = "2時間";
+"prescription_form_interval_list_3_hours" = "3時間";
+"prescription_form_interval_list_4_hours" = "4時間";
+"prescription_form_interval_list_6_hours" = "6時間";
+"prescription_form_interval_list_8_hours" = "8時間";
+"prescription_form_interval_list_12_hours" = "12時間";
+"prescription_form_interval_list_1_day" = "1日";
+"prescription_form_interval_list_2_days" = "2日";
+"prescription_form_interval_pict_origin" ="処方をよりよく識別するための写真を追加してください";
+"prescription_form_interval_pict_origin_desc" ="画像ソース：";
+"prescription_form_interval_camera" ="カメラ";
+"prescription_form_interval_roll" ="ギャラリー";
+
+"home_title" = "開始";
+"home_alert_title" = "注意！";
+"home_alert_message" = "この処方箋は廃止されます！ 続行しますか？";
+"home_alert_ok" = "はい";
+"home_prescription_not_started" = "開始されていません。\n開始するにはアイコンを押してください";
+"home_prescription_onging" = "継続中、\n次の投与量：";
+"home_prescription_ongoing_ready" = "服用できます。\nマークするにはアイコンを押してください";
+"home_prescription_ongoing_ellapsed" = "経過しました、\nアイコンを押してマークします";
+"home_prescription_finished" = "処方終了";
+"home_prescription_secs_suffix" = "s";
+"home_prescription_mins_suffix" = "分";
+"home_prescription_hours_suffix" = "時間";
+"home_prescription_days_suffix" = "日";
+"home_prescription_more_than_month" = "> 月";
+
+"setup_title" = "セットアップ";
+"setup_section_general" = "一般的な";
+"setup_section_others" = "その他";
+"setup_option_version" = "バージョン";
+"setup_option_terms_of_use" = "利用規約";
+"setup_option_reset" = "リセット";
+
+"calendar_title" = "Calendar";
+
+"dose_list_title" = "カレンダー";
+
+"calendar_last_dose" = "最終投与：";
+
+"notification_next_dose" = "次の投与量：";

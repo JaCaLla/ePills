@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "जोड़ना";
+"first_prescription_title_msg_add" = "अपना पहला नुस्खा जोड़ने के लिए [+] दबाएँ";
+
+"prescription_form_title" = "प्रिस्क्रिप्शन फॉर्म";
+"prescription_form_title_update" = "पर्चे अपडेट करें";
+"prescription_form_section_medicine" = "दवा";
+"prescription_form_section_medicine_name" = "नाम";
+"prescription_form_section_medicine_units_box" = "इकाइयों बॉक्स";
+"prescription_form_section_administration" = "शासन प्रबंध";
+"prescription_form_section_administration_units_dose" = "इकाइयों की खुराक";
+"prescription_form_err_name_empty" = "दवा का नाम खाली नहीं हो सकता";
+"prescription_form_err_name_minimum" = "दवा का नाम 5 से अधिक अक्षरों वाला शब्द होना चाहिए";
+"prescription_form_err_name_maximum" = "चिकित्सा का नाम 20 वर्णों से अधिक नहीं हो सकता है";
+"prescription_form_err_units_box_empty" = "इकाइयों का बॉक्स नाम खाली नहीं हो सकता";
+"prescription_form_err_units_box_maximum" = "यूनिट पर्चे प्रति बॉक्स 99 इकाइयों से अधिक नहीं हो सकते हैं";
+"prescription_form_err_units_dose_empty" = "इकाइयों के पर्चे खाली नहीं हो सकते";
+"prescription_form_err_units_dose_maximum" = "यूनिट पर्चे प्रति बॉक्स 99 इकाइयों से अधिक नहीं हो सकते हैं";
+
+"prescription_form_interval_list_title" ="खुराक अंतराल का चयन करें";
+"prescription_form_interval_list_hour" = "घंटा";
+"prescription_form_interval_list_hours" = "घंटे";
+"prescription_form_interval_list_day" = "दिन";
+"prescription_form_interval_list_1_hour" = "1 घंटा";
+"prescription_form_interval_list_2_hours" = "2 घंटे";
+"prescription_form_interval_list_3_hours" = "3 घंटे";
+"prescription_form_interval_list_4_hours" = "4 घंटे";
+"prescription_form_interval_list_6_hours" = "6 घंटे";
+"prescription_form_interval_list_8_hours" = "8 घंटे";
+"prescription_form_interval_list_12_hours" = "12 घंटे";
+"prescription_form_interval_list_1_day" = "1 दिन";
+"prescription_form_interval_list_2_days" = "2 दिन";
+"prescription_form_interval_pict_origin" ="बेहतर नुस्खे की पहचान के लिए एक तस्वीर जोड़ें";
+"prescription_form_interval_pict_origin_desc" ="चित्र स्रोत:";
+"prescription_form_interval_camera" ="कैमरा";
+"prescription_form_interval_roll" ="गेलरी";
+
+"home_title" = "शुरू";
+"home_alert_title" = "ध्यान!";
+"home_alert_message" = "इस नुस्खे को खत्म करने जा रहा है! आगे बढ़ें?";
+"home_alert_ok" = "हाँ";
+"home_prescription_not_started" = "शुरू नहीं हुआ। शुरू करने के लिए। \n आइकन";
+"home_prescription_onging" = "चल रहा है, \ n अगली खुराक:";
+"home_prescription_ongoing_ready" = "चिह्नित करने के लिए आप अपनी खुराक, \n चिह्न ले सकते हैं";
+"home_prescription_ongoing_ellapsed" = "चिह्नित करने के लिए, \n प्रेस आइकन खोदें";
+"home_prescription_finished" = "प्रिस्क्रिप्शन समाप्त हुआ";
+"home_prescription_secs_suffix" = "दू";
+"home_prescription_mins_suffix" = "मि";
+"home_prescription_hours_suffix" = "घं";
+"home_prescription_days_suffix" = "दि";
+"home_prescription_more_than_month" = "> महीना";
+
+"setup_title" = "सेट अप";
+"setup_section_general" = "सामान्य";
+"setup_section_others" = "अन्य";
+"setup_option_version" = "संस्करण";
+"setup_option_terms_of_use" = "उपयोग की शर्तें";
+"setup_option_reset" = "रीसेट";
+
+"calendar_title" = "पंचांग";
+
+"dose_list_title" = "सूची तैयार करें";
+
+"calendar_last_dose" = "अंतिम खुराक:";
+
+"notification_next_dose" = "अगली खुराक: ";
