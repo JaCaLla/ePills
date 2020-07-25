@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "Menambahkan";
+"first_prescription_title_msg_add" = "Tekan [+] untuk menambahkan resep pertama Anda";
+
+"prescription_form_title" = "Formulir resep";
+"prescription_form_title_update" = "Perbarui resep";
+"prescription_form_section_medicine" = "Obat";
+"prescription_form_section_medicine_name" = "Nama";
+"prescription_form_section_medicine_units_box" = "Kotak unit";
+"prescription_form_section_administration" = "Administrasi";
+"prescription_form_section_administration_units_dose" = "Dosis unit";
+"prescription_form_err_name_empty" = "Nama obat tidak boleh kosong";
+"prescription_form_err_name_minimum" = "Nama obat harus berupa kata dengan lebih dari 5 karakter";
+"prescription_form_err_name_maximum" = "Nama obat tidak boleh lebih dari 20 karakter";
+"prescription_form_err_units_box_empty" = "Nama kotak unit tidak boleh kosong";
+"prescription_form_err_units_box_maximum" = "Satuan resep tidak boleh lebih dari 99 unit per kotak";
+"prescription_form_err_units_dose_empty" = "Satuan resep tidak boleh kosong";
+"prescription_form_err_units_dose_maximum" = "Satuan resep tidak boleh lebih dari 99 unit per kotak";
+
+"prescription_form_interval_list_title" ="Pilih interval dosis";
+"prescription_form_interval_list_hour" = "Jam";
+"prescription_form_interval_list_hours" = "Jam";
+"prescription_form_interval_list_day" = "Hari";
+"prescription_form_interval_list_1_hour" = "1 Jam";
+"prescription_form_interval_list_2_hours" = "2 Jam";
+"prescription_form_interval_list_3_hours" = "3 Jam";
+"prescription_form_interval_list_4_hours" = "4 Jam";
+"prescription_form_interval_list_6_hours" = "6 Jam";
+"prescription_form_interval_list_8_hours" = "8 Jam";
+"prescription_form_interval_list_12_hours" = "12 Jam";
+"prescription_form_interval_list_1_day" = "1 Hari";
+"prescription_form_interval_list_2_days" = "2 Hari";
+"prescription_form_interval_pict_origin" ="Tambahkan gambar untuk mengidentifikasi resep Anda yang lebih baik";
+"prescription_form_interval_pict_origin_desc" ="Sumber gambar:";
+"prescription_form_interval_camera" ="Kamera";
+"prescription_form_interval_roll" ="Galeri";
+
+"home_title" = "Mulailah";
+"home_alert_title" = "Perhatian!";
+"home_alert_message" = "Resep ini akan dihilangkan! Memproses?";
+"home_alert_ok" = "Iya";
+"home_prescription_not_started" = "Belum dimulai.\nTekan ikon untuk memulai";
+"home_prescription_onging" = "Sedang berlangsung,\n dosis berikutnya:";
+"home_prescription_ongoing_ready" = "Anda dapat mengambil\n dosis Anda, tekan\n ikon untuk menandai";
+"home_prescription_ongoing_ellapsed" = "Sudah lewat,\n tekan ikon untuk menandai";
+"home_prescription_finished" = "Resep selesai";
+"home_prescription_secs_suffix" = "k";
+"home_prescription_mins_suffix" = "m";
+"home_prescription_hours_suffix" = "j";
+"home_prescription_days_suffix" = "h";
+"home_prescription_more_than_month" = "> Bulan";
+
+"setup_title" = "Mempersiapkan";
+"setup_section_general" = "Umum";
+"setup_section_others" = "Lainnya";
+"setup_option_version" = "Versi";
+"setup_option_terms_of_use" = "Syarat Penggunaan";
+"setup_option_reset" = "Setel ulang";
+
+"calendar_title" = "Kalender";
+
+"dose_list_title" = "Daftar dosis";
+
+"calendar_last_dose" = "Dosis terakhir:";
+
+"notification_next_dose" = "Dosis berikutnya:";

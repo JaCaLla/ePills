@@ -2,7 +2,7 @@ PODS:
   - CocoaLumberjack/Core (3.6.1)
   - CocoaLumberjack/Swift (3.6.1):
     - CocoaLumberjack/Core
-  - Down (0.9.3)
+  - Down (0.8.6)
   - Firebase/Analytics (6.28.1):
     - Firebase/Core
   - Firebase/Core (6.28.1):
@@ -90,7 +90,7 @@ PODS:
 
 DEPENDENCIES:
   - CocoaLumberjack/Swift
-  - Down
+  - Down (= 0.8.6)
   - Firebase/Analytics
   - Firebase/Crashlytics
   - FLEX
@@ -126,7 +126,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
-  Down: 4553b984236807e384fa0ef7c7e360ef9f7c425d
+  Down: 3c758f2388fa739663023f400e742a988fa1e21d
   Firebase: ed042590caa0029392257529a8003c25ee82bc18
   FirebaseAnalytics: 5fa308e1b13f838d0f6dc74719ac2a72e8c5afc4
   FirebaseCore: 687b8e6a0a4337b898a6326d68254c2f80c143af
@@ -147,6 +147,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
-PODFILE CHECKSUM: 4bebb0aee606bc4dcc7536e5780715ad905f0b1b
+PODFILE CHECKSUM: 40bcbb079e059df0179ccef4609a074e39f72cea
 
 COCOAPODS: 1.8.3

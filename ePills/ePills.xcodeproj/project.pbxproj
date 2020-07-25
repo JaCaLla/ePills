@@ -105,6 +105,9 @@
 		5ED44B532454180300081B36 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B522454180300081B36 /* Interval.swift */; };
 		5ED44B5824542F3F00081B36 /* HomePrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */; };
 		5ED44B5A2454541000081B36 /* HomePrescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED44B592454541000081B36 /* HomePrescriptionVC.swift */; };
+		5ED7A60B24C752F1005A20B7 /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED7A60A24C752F1005A20B7 /* MarkdownView.swift */; };
+		5ED7A60C24C766F1005A20B7 /* ToU.md in Resources */ = {isa = PBXBuildFile; fileRef = 5ED7A5FB24C74F9B005A20B7 /* ToU.md */; };
+		5ED7A60E24C76CF6005A20B7 /* MarkDownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED7A60D24C76CF6005A20B7 /* MarkDownParser.swift */; };
 		5EF5DDAC2491FF16000368F9 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5DDAB2491FF16000368F9 /* AppEnvironment.swift */; };
 		5EF5DDAE24925261000368F9 /* AppEnvironmentUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5DDAD24925261000368F9 /* AppEnvironmentUT.swift */; };
 		5EFE81022454C12800D44F53 /* PrescriptionFormVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE81012454C12800D44F53 /* PrescriptionFormVMTests.swift */; };
@@ -143,6 +146,12 @@
 		5E28F847249E190100930097 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		5E28F849249E20F300930097 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		5E28F84D249E5EBB00930097 /* LocalFileManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManagerMock.swift; sourceTree = "<group>"; };
+		5E309DF924C9F642006BEC92 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5E309DFA24C9F643006BEC92 /* ja */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = ja; path = ja.lproj/ToU.md; sourceTree = "<group>"; };
+		5E309DFB24CC012A006BEC92 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5E309DFC24CC012A006BEC92 /* id */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = id; path = id.lproj/ToU.md; sourceTree = "<group>"; };
+		5E309DFD24CC0468006BEC92 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5E309DFE24CC0468006BEC92 /* ru */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = ru; path = ru.lproj/ToU.md; sourceTree = "<group>"; };
 		5E312963248CFCD0002241AF /* DoseListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseListCellView.swift; sourceTree = "<group>"; };
 		5E3B7AD72459FEBA00541AB4 /* MedicineInteractorUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineInteractorUT.swift; sourceTree = "<group>"; };
 		5E3B7ADB245A26A000541AB4 /* MedicineInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineInteractorMock.swift; sourceTree = "<group>"; };
@@ -242,6 +251,23 @@
 		5ED44B522454180300081B36 /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		5ED44B5724542F3F00081B36 /* HomePrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionView.swift; sourceTree = "<group>"; };
 		5ED44B592454541000081B36 /* HomePrescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionVC.swift; sourceTree = "<group>"; };
+		5ED7A5FA24C74F9B005A20B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = Base; path = Base.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A5FC24C74FA3005A20B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = en; path = en.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A5FD24C74FA4005A20B7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "zh-Hans"; path = "zh-Hans.lproj/ToU.md"; sourceTree = "<group>"; };
+		5ED7A5FE24C74FA4005A20B7 /* cs */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = cs; path = cs.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A5FF24C74FA5005A20B7 /* nl */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = nl; path = nl.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60024C74FA6005A20B7 /* fi */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = fi; path = fi.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60124C74FA7005A20B7 /* fr */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = fr; path = fr.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60224C74FA9005A20B7 /* de */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = de; path = de.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60324C74FAA005A20B7 /* el */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = el; path = el.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60424C74FAB005A20B7 /* hi */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = hi; path = hi.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60524C74FAC005A20B7 /* it */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = it; path = it.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60624C74FAD005A20B7 /* pl */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = pl; path = pl.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60724C74FAE005A20B7 /* pt */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = pt; path = pt.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60824C74FAE005A20B7 /* ro */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = ro; path = ro.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60924C74FAF005A20B7 /* es */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = es; path = es.lproj/ToU.md; sourceTree = "<group>"; };
+		5ED7A60A24C752F1005A20B7 /* MarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
+		5ED7A60D24C76CF6005A20B7 /* MarkDownParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkDownParser.swift; sourceTree = "<group>"; };
 		5EF5DDAB2491FF16000368F9 /* AppEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		5EF5DDAD24925261000368F9 /* AppEnvironmentUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironmentUT.swift; sourceTree = "<group>"; };
 		5EFE81012454C12800D44F53 /* PrescriptionFormVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionFormVMTests.swift; sourceTree = "<group>"; };
@@ -634,6 +660,7 @@
 				5E28F847249E190100930097 /* KeyboardResponder.swift */,
 				5E8EECE42456B65900398832 /* PageView.swift */,
 				5E6AB051244BA75300F162EB /* NavigationBarModifier.swift */,
+				5ED7A60A24C752F1005A20B7 /* MarkdownView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -714,6 +741,7 @@
 			isa = PBXGroup;
 			children = (
 				5ED44B3E2453401700081B36 /* Localizable.strings */,
+				5ED7A5FB24C74F9B005A20B7 /* ToU.md */,
 			);
 			path = Texts;
 			sourceTree = "<group>";
@@ -894,6 +922,7 @@
 		5EFF215E244F9A7600B77AE9 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5ED7A60D24C76CF6005A20B7 /* MarkDownParser.swift */,
 				5EF5DDAF249253F2000368F9 /* Firebase */,
 				5EFF215F244F9ACE00B77AE9 /* DebugManager.swift */,
 				5EB91A0F24928D14005A082C /* AnalyticsManager.swift */,
@@ -999,6 +1028,9 @@
 				"zh-Hans",
 				pl,
 				it,
+				ja,
+				id,
+				ru,
 			);
 			mainGroup = 5E6AB008244B0F3F00F162EB;
 			packageReferences = (
@@ -1018,6 +1050,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ED7A60C24C766F1005A20B7 /* ToU.md in Resources */,
 				5EB91A0E24927081005A082C /* GoogleService-Info-Prod.plist in Resources */,
 				5EB91A152493A15A005A082C /* GoogleService-Info.plist in Resources */,
 				5E6AB021244B0F4200F162EB /* LaunchScreen.storyboard in Resources */,
@@ -1166,6 +1199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E4473BF246EEFE200D997A6 /* Dose.swift in Sources */,
+				5ED7A60B24C752F1005A20B7 /* MarkdownView.swift in Sources */,
 				5E4473CF246EF85100D997A6 /* CycleDB.swift in Sources */,
 				5E5514A22464AA3800E97DF4 /* PresentMainAppOperation.swift in Sources */,
 				5ED44B5824542F3F00081B36 /* HomePrescriptionView.swift in Sources */,
@@ -1227,6 +1261,7 @@
 				5ED44B3824532EAE00081B36 /* AcceptButtonCell.swift in Sources */,
 				5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */,
 				5E5514A32464AA3800E97DF4 /* RequestNotificationPermissionOp.swift in Sources */,
+				5ED7A60E24C76CF6005A20B7 /* MarkDownParser.swift in Sources */,
 				5E8EECE72456CFD600398832 /* HomePrescriptionVM.swift in Sources */,
 				5ED44B532454180300081B36 /* Interval.swift in Sources */,
 				5E685C72247B08BF008539D9 /* CalendarView.swift in Sources */,
@@ -1310,8 +1345,36 @@
 				5EB475D624BE3DAF002D4C58 /* zh-Hans */,
 				5ED1694124BEF088004FCCBA /* pl */,
 				5ED1694224BEF72B004FCCBA /* it */,
+				5E309DF924C9F642006BEC92 /* ja */,
+				5E309DFB24CC012A006BEC92 /* id */,
+				5E309DFD24CC0468006BEC92 /* ru */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5ED7A5FB24C74F9B005A20B7 /* ToU.md */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5ED7A5FA24C74F9B005A20B7 /* Base */,
+				5ED7A5FC24C74FA3005A20B7 /* en */,
+				5ED7A5FD24C74FA4005A20B7 /* zh-Hans */,
+				5ED7A5FE24C74FA4005A20B7 /* cs */,
+				5ED7A5FF24C74FA5005A20B7 /* nl */,
+				5ED7A60024C74FA6005A20B7 /* fi */,
+				5ED7A60124C74FA7005A20B7 /* fr */,
+				5ED7A60224C74FA9005A20B7 /* de */,
+				5ED7A60324C74FAA005A20B7 /* el */,
+				5ED7A60424C74FAB005A20B7 /* hi */,
+				5ED7A60524C74FAC005A20B7 /* it */,
+				5ED7A60624C74FAD005A20B7 /* pl */,
+				5ED7A60724C74FAE005A20B7 /* pt */,
+				5ED7A60824C74FAE005A20B7 /* ro */,
+				5ED7A60924C74FAF005A20B7 /* es */,
+				5E309DFA24C9F643006BEC92 /* ja */,
+				5E309DFC24CC012A006BEC92 /* id */,
+				5E309DFE24CC0468006BEC92 /* ru */,
+			);
+			name = ToU.md;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
