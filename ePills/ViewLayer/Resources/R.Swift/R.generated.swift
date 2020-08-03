@@ -332,8 +332,33 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 2 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 3 localization tables.
   struct string {
+    /// This `R.string.infoPlist` struct is generated, and contains static references to 1 localization keys.
+    struct infoPlist {
+      /// en translation: You can add a pictuture to your recipes.
+      ///
+      /// Locales: en, zh-Hans, cs, nl, fi, fr, de, el, hi, id, it, ja, pl, pt, ro, ru, es
+      static let nsCameraUsageDescription = Rswift.StringResource(key: "NSCameraUsageDescription", tableName: "InfoPlist", bundle: R.hostingBundle, locales: ["en", "zh-Hans", "cs", "nl", "fi", "fr", "de", "el", "hi", "id", "it", "ja", "pl", "pt", "ro", "ru", "es"], comment: nil)
+
+      /// en translation: You can add a pictuture to your recipes.
+      ///
+      /// Locales: en, zh-Hans, cs, nl, fi, fr, de, el, hi, id, it, ja, pl, pt, ro, ru, es
+      static func nsCameraUsageDescription(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("NSCameraUsageDescription", tableName: "InfoPlist", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "InfoPlist", preferredLanguages: preferredLanguages) else {
+          return "NSCameraUsageDescription"
+        }
+
+        return NSLocalizedString("NSCameraUsageDescription", tableName: "InfoPlist", bundle: bundle, comment: "")
+      }
+
+      fileprivate init() {}
+    }
+
     /// This `R.string.launchScreen` struct is generated, and contains static references to 0 localization keys.
     struct launchScreen {
       fileprivate init() {}
