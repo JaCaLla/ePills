@@ -8,9 +8,11 @@ target 'ePills' do
   # Pods for UI
   #pod 'SVProgressHUD'
   pod 'FSCalendar'
+  pod 'Down', '0.8.6'
   
   # Pod for persistence
    pod 'RealmSwift', '3.17.3'
+  pod 'SwiftKeychainWrapper', '~> 3.0.1'
   
   # Pods for resources
   pod 'R.swift'#, '~> 5.0.3'
@@ -25,7 +27,13 @@ target 'ePills' do
   pod 'Firebase/Analytics'
   
   # Pods for tracking crashes in prod
-pod 'Firebase/Crashlytics'
+  pod 'Firebase/Crashlytics'
+
+  # Pods Security
+  #pod 'CryptoSwift'
+
+  # Logging
+  pod 'CocoaLumberjack/Swift'
   
   pod 'FLEX', :configuration => :debug
 

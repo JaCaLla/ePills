@@ -230,7 +230,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 3 files.
+  /// This `R.file` struct is generated, and contains static references to 4 files.
   struct file {
     /// Resource file `GoogleService-Info-Debug.plist`.
     static let googleServiceInfoDebugPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info-Debug", pathExtension: "plist")
@@ -238,6 +238,8 @@ struct R: Rswift.Validatable {
     static let googleServiceInfoProdPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info-Prod", pathExtension: "plist")
     /// Resource file `GoogleService-Info.plist`.
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
+    /// Resource file `ToU.md`.
+    static let toUMd = Rswift.FileResource(bundle: R.hostingBundle, name: "ToU", pathExtension: "md")
 
     /// `bundle.url(forResource: "GoogleService-Info", withExtension: "plist")`
     static func googleServiceInfoPlist(_: Void = ()) -> Foundation.URL? {
@@ -257,15 +259,23 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
+    /// `bundle.url(forResource: "ToU", withExtension: "md")`
+    static func toUMd(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.toUMd
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 2 images.
+  /// This `R.image` struct is generated, and contains static references to 3 images.
   struct image {
     /// Image `background`.
     static let background = Rswift.ImageResource(bundle: R.hostingBundle, name: "background")
     /// Image `glass`.
     static let glass = Rswift.ImageResource(bundle: R.hostingBundle, name: "glass")
+    /// Image `testImage`.
+    static let testImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "testImage")
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "background", bundle: ..., traitCollection: ...)`
@@ -278,6 +288,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "glass", bundle: ..., traitCollection: ...)`
     static func glass(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.glass, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "testImage", bundle: ..., traitCollection: ...)`
+    static func testImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.testImage, compatibleWith: traitCollection)
     }
     #endif
 
@@ -315,231 +332,276 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 2 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 3 localization tables.
   struct string {
+    /// This `R.string.infoPlist` struct is generated, and contains static references to 1 localization keys.
+    struct infoPlist {
+      /// en translation: You can add a pictuture to your recipes.
+      ///
+      /// Locales: en, zh-Hans, cs, nl, fi, fr, de, el, hi, id, it, ja, pl, pt, ro, ru, es
+      static let nsCameraUsageDescription = Rswift.StringResource(key: "NSCameraUsageDescription", tableName: "InfoPlist", bundle: R.hostingBundle, locales: ["en", "zh-Hans", "cs", "nl", "fi", "fr", "de", "el", "hi", "id", "it", "ja", "pl", "pt", "ro", "ru", "es"], comment: nil)
+
+      /// en translation: You can add a pictuture to your recipes.
+      ///
+      /// Locales: en, zh-Hans, cs, nl, fi, fr, de, el, hi, id, it, ja, pl, pt, ro, ru, es
+      static func nsCameraUsageDescription(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("NSCameraUsageDescription", tableName: "InfoPlist", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "InfoPlist", preferredLanguages: preferredLanguages) else {
+          return "NSCameraUsageDescription"
+        }
+
+        return NSLocalizedString("NSCameraUsageDescription", tableName: "InfoPlist", bundle: bundle, comment: "")
+      }
+
+      fileprivate init() {}
+    }
+
     /// This `R.string.launchScreen` struct is generated, and contains static references to 0 localization keys.
     struct launchScreen {
       fileprivate init() {}
     }
 
-    /// This `R.string.localizable` struct is generated, and contains static references to 53 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 58 localization keys.
     struct localizable {
       /// en translation: 1 Day
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_1_day = Rswift.StringResource(key: "prescription_form_interval_list_1_day", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_1_day = Rswift.StringResource(key: "prescription_form_interval_list_1_day", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: 1 Hour
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_1_hour = Rswift.StringResource(key: "prescription_form_interval_list_1_hour", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_1_hour = Rswift.StringResource(key: "prescription_form_interval_list_1_hour", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: 12 Hours
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_12_hours = Rswift.StringResource(key: "prescription_form_interval_list_12_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_12_hours = Rswift.StringResource(key: "prescription_form_interval_list_12_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: 2 Days
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_2_days = Rswift.StringResource(key: "prescription_form_interval_list_2_days", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_2_days = Rswift.StringResource(key: "prescription_form_interval_list_2_days", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: 2 Hours
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_2_hours = Rswift.StringResource(key: "prescription_form_interval_list_2_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_2_hours = Rswift.StringResource(key: "prescription_form_interval_list_2_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: 3 Hours
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_3_hours = Rswift.StringResource(key: "prescription_form_interval_list_3_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_3_hours = Rswift.StringResource(key: "prescription_form_interval_list_3_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: 4 Hours
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_4_hours = Rswift.StringResource(key: "prescription_form_interval_list_4_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_4_hours = Rswift.StringResource(key: "prescription_form_interval_list_4_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: 6 Hours
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_6_hours = Rswift.StringResource(key: "prescription_form_interval_list_6_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_6_hours = Rswift.StringResource(key: "prescription_form_interval_list_6_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: 8 Hours
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_8_hours = Rswift.StringResource(key: "prescription_form_interval_list_8_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_8_hours = Rswift.StringResource(key: "prescription_form_interval_list_8_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: > Month
       ///
-      /// Locales: en, es
-      static let home_prescription_more_than_month = Rswift.StringResource(key: "home_prescription_more_than_month", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_more_than_month = Rswift.StringResource(key: "home_prescription_more_than_month", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Add
       ///
-      /// Locales: en, es
-      static let first_prescription_title = Rswift.StringResource(key: "first_prescription_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let first_prescription_title = Rswift.StringResource(key: "first_prescription_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
+      /// en translation: Add a picture for identify better your prescription
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_pict_origin = Rswift.StringResource(key: "prescription_form_interval_pict_origin", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Administration
       ///
-      /// Locales: en, es
-      static let prescription_form_section_administration = Rswift.StringResource(key: "prescription_form_section_administration", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
-      /// en translation: Atention!
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_section_administration = Rswift.StringResource(key: "prescription_form_section_administration", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
+      /// en translation: Attention!
       ///
-      /// Locales: en, es
-      static let home_alert_title = Rswift.StringResource(key: "home_alert_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_alert_title = Rswift.StringResource(key: "home_alert_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Calendar
       ///
-      /// Locales: en, es
-      static let calendar_title = Rswift.StringResource(key: "calendar_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let calendar_title = Rswift.StringResource(key: "calendar_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
+      /// en translation: Camera
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_camera = Rswift.StringResource(key: "prescription_form_interval_camera", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Day
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_day = Rswift.StringResource(key: "prescription_form_interval_list_day", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_day = Rswift.StringResource(key: "prescription_form_interval_list_day", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Dose ellapsed, press icon to mark
       ///
-      /// Locales: en, es
-      static let home_prescription_ongoing_ellapsed = Rswift.StringResource(key: "home_prescription_ongoing_ellapsed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_ongoing_ellapsed = Rswift.StringResource(key: "home_prescription_ongoing_ellapsed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Dose list
       ///
-      /// Locales: en, es
-      static let dose_list_title = Rswift.StringResource(key: "dose_list_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let dose_list_title = Rswift.StringResource(key: "dose_list_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
+      /// en translation: Gallery
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_roll = Rswift.StringResource(key: "prescription_form_interval_roll", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: General
       ///
-      /// Locales: en, es
-      static let setup_section_general = Rswift.StringResource(key: "setup_section_general", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let setup_section_general = Rswift.StringResource(key: "setup_section_general", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Home
       ///
-      /// Locales: en, es
-      static let home_title = Rswift.StringResource(key: "home_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_title = Rswift.StringResource(key: "home_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Hour
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_hour = Rswift.StringResource(key: "prescription_form_interval_list_hour", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_hour = Rswift.StringResource(key: "prescription_form_interval_list_hour", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Hours
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_hours = Rswift.StringResource(key: "prescription_form_interval_list_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
-      /// en translation: In course, next dose:
-      ///
-      /// Locales: en, es
-      static let home_prescription_onging = Rswift.StringResource(key: "home_prescription_onging", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_hours = Rswift.StringResource(key: "prescription_form_interval_list_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Last dose:
       ///
-      /// Locales: en, es
-      static let calendar_last_dose = Rswift.StringResource(key: "calendar_last_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let calendar_last_dose = Rswift.StringResource(key: "calendar_last_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Medicine
       ///
-      /// Locales: en, es
-      static let prescription_form_section_medicine = Rswift.StringResource(key: "prescription_form_section_medicine", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_section_medicine = Rswift.StringResource(key: "prescription_form_section_medicine", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Medicine name can not be longer than 20 characters
       ///
-      /// Locales: en, es
-      static let prescription_form_err_name_maximum = Rswift.StringResource(key: "prescription_form_err_name_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_err_name_maximum = Rswift.StringResource(key: "prescription_form_err_name_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Medicine name cannot be empty
       ///
-      /// Locales: en, es
-      static let prescription_form_err_name_empty = Rswift.StringResource(key: "prescription_form_err_name_empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_err_name_empty = Rswift.StringResource(key: "prescription_form_err_name_empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Medicine name must be a word with more than 5 characters
       ///
-      /// Locales: en, es
-      static let prescription_form_err_name_minimum = Rswift.StringResource(key: "prescription_form_err_name_minimum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_err_name_minimum = Rswift.StringResource(key: "prescription_form_err_name_minimum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Name
       ///
-      /// Locales: en, es
-      static let prescription_form_section_medicine_name = Rswift.StringResource(key: "prescription_form_section_medicine_name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_section_medicine_name = Rswift.StringResource(key: "prescription_form_section_medicine_name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Next dose: 
       ///
-      /// Locales: en, es
-      static let notification_next_dose = Rswift.StringResource(key: "notification_next_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let notification_next_dose = Rswift.StringResource(key: "notification_next_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Not started. Press icon to start
       ///
-      /// Locales: en, es
-      static let home_prescription_not_started = Rswift.StringResource(key: "home_prescription_not_started", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
-      /// en translation: Otros
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_not_started = Rswift.StringResource(key: "home_prescription_not_started", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
+      /// en translation: Ongoing, next dose:
       ///
-      /// Locales: en, es
-      static let setup_section_others = Rswift.StringResource(key: "setup_section_others", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_onging = Rswift.StringResource(key: "home_prescription_onging", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
+      /// en translation: Others
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let setup_section_others = Rswift.StringResource(key: "setup_section_others", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
+      /// en translation: Picture source:
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_pict_origin_desc = Rswift.StringResource(key: "prescription_form_interval_pict_origin_desc", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Presciption finished
       ///
-      /// Locales: en, es
-      static let home_prescription_finished = Rswift.StringResource(key: "home_prescription_finished", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_finished = Rswift.StringResource(key: "home_prescription_finished", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Prescription form
       ///
-      /// Locales: en, es
-      static let prescription_form_title = Rswift.StringResource(key: "prescription_form_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_title = Rswift.StringResource(key: "prescription_form_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Press + for adding your first prescription
       ///
-      /// Locales: en, es
-      static let first_prescription_title_msg_add = Rswift.StringResource(key: "first_prescription_title_msg_add", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let first_prescription_title_msg_add = Rswift.StringResource(key: "first_prescription_title_msg_add", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Reset
       ///
-      /// Locales: en, es
-      static let setup_option_reset = Rswift.StringResource(key: "setup_option_reset", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let setup_option_reset = Rswift.StringResource(key: "setup_option_reset", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Select dose interval
       ///
-      /// Locales: en, es
-      static let prescription_form_interval_list_title = Rswift.StringResource(key: "prescription_form_interval_list_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_interval_list_title = Rswift.StringResource(key: "prescription_form_interval_list_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Setup
       ///
-      /// Locales: en, es
-      static let setup_title = Rswift.StringResource(key: "setup_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let setup_title = Rswift.StringResource(key: "setup_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
+      /// en translation: Terms of use
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let setup_option_terms_of_use = Rswift.StringResource(key: "setup_option_terms_of_use", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: This prescription is going to be eliminated! Proceed?
       ///
-      /// Locales: en, es
-      static let home_alert_message = Rswift.StringResource(key: "home_alert_message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_alert_message = Rswift.StringResource(key: "home_alert_message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Units box
       ///
-      /// Locales: en, es
-      static let prescription_form_section_medicine_units_box = Rswift.StringResource(key: "prescription_form_section_medicine_units_box", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_section_medicine_units_box = Rswift.StringResource(key: "prescription_form_section_medicine_units_box", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Units box name cannot be empty
       ///
-      /// Locales: en, es
-      static let prescription_form_err_units_box_empty = Rswift.StringResource(key: "prescription_form_err_units_box_empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_err_units_box_empty = Rswift.StringResource(key: "prescription_form_err_units_box_empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Units dose
       ///
-      /// Locales: en, es
-      static let prescription_form_section_administration_units_dose = Rswift.StringResource(key: "prescription_form_section_administration_units_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_section_administration_units_dose = Rswift.StringResource(key: "prescription_form_section_administration_units_dose", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Units prescription can not be empty
       ///
-      /// Locales: en, es
-      static let prescription_form_err_units_dose_empty = Rswift.StringResource(key: "prescription_form_err_units_dose_empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_err_units_dose_empty = Rswift.StringResource(key: "prescription_form_err_units_dose_empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Units prescription can not be greater than 99 units per box
       ///
-      /// Locales: en, es
-      static let prescription_form_err_units_box_maximum = Rswift.StringResource(key: "prescription_form_err_units_box_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_err_units_box_maximum = Rswift.StringResource(key: "prescription_form_err_units_box_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Units prescription can not be greater than 99 units per box
       ///
-      /// Locales: en, es
-      static let prescription_form_err_units_dose_maximum = Rswift.StringResource(key: "prescription_form_err_units_dose_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_err_units_dose_maximum = Rswift.StringResource(key: "prescription_form_err_units_dose_maximum", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Update prescription
       ///
-      /// Locales: en, es
-      static let prescription_form_title_update = Rswift.StringResource(key: "prescription_form_title_update", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let prescription_form_title_update = Rswift.StringResource(key: "prescription_form_title_update", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Version
       ///
-      /// Locales: en, es
-      static let setup_option_version = Rswift.StringResource(key: "setup_option_version", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let setup_option_version = Rswift.StringResource(key: "setup_option_version", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Yes
       ///
-      /// Locales: en, es
-      static let home_alert_ok = Rswift.StringResource(key: "home_alert_ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_alert_ok = Rswift.StringResource(key: "home_alert_ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: You can take your dose, press icon to mark
       ///
-      /// Locales: en, es
-      static let home_prescription_ongoing_ready = Rswift.StringResource(key: "home_prescription_ongoing_ready", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_ongoing_ready = Rswift.StringResource(key: "home_prescription_ongoing_ready", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: d
       ///
-      /// Locales: en, es
-      static let home_prescription_days_suffix = Rswift.StringResource(key: "home_prescription_days_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_days_suffix = Rswift.StringResource(key: "home_prescription_days_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: ePills
       ///
-      /// Locales: en, es
-      static let app_name = Rswift.StringResource(key: "app_name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let app_name = Rswift.StringResource(key: "app_name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: h
       ///
-      /// Locales: en, es
-      static let home_prescription_hours_suffix = Rswift.StringResource(key: "home_prescription_hours_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_hours_suffix = Rswift.StringResource(key: "home_prescription_hours_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: m
       ///
-      /// Locales: en, es
-      static let home_prescription_mins_suffix = Rswift.StringResource(key: "home_prescription_mins_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_mins_suffix = Rswift.StringResource(key: "home_prescription_mins_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: s
       ///
-      /// Locales: en, es
-      static let home_prescription_secs_suffix = Rswift.StringResource(key: "home_prescription_secs_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_prescription_secs_suffix = Rswift.StringResource(key: "home_prescription_secs_suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
 
       /// en translation: 1 Day
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_1_day(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_1_day", bundle: hostingBundle, comment: "")
@@ -554,7 +616,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 1 Hour
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_1_hour(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_1_hour", bundle: hostingBundle, comment: "")
@@ -569,7 +631,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 12 Hours
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_12_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_12_hours", bundle: hostingBundle, comment: "")
@@ -584,7 +646,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 2 Days
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_2_days(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_2_days", bundle: hostingBundle, comment: "")
@@ -599,7 +661,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 2 Hours
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_2_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_2_hours", bundle: hostingBundle, comment: "")
@@ -614,7 +676,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 3 Hours
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_3_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_3_hours", bundle: hostingBundle, comment: "")
@@ -629,7 +691,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 4 Hours
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_4_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_4_hours", bundle: hostingBundle, comment: "")
@@ -644,7 +706,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 6 Hours
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_6_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_6_hours", bundle: hostingBundle, comment: "")
@@ -659,7 +721,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: 8 Hours
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_8_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_8_hours", bundle: hostingBundle, comment: "")
@@ -674,7 +736,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: > Month
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_prescription_more_than_month(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_prescription_more_than_month", bundle: hostingBundle, comment: "")
@@ -689,7 +751,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Add
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func first_prescription_title(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("first_prescription_title", bundle: hostingBundle, comment: "")
@@ -702,9 +764,24 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("first_prescription_title", bundle: bundle, comment: "")
       }
 
+      /// en translation: Add a picture for identify better your prescription
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static func prescription_form_interval_pict_origin(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_pict_origin", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_pict_origin"
+        }
+
+        return NSLocalizedString("prescription_form_interval_pict_origin", bundle: bundle, comment: "")
+      }
+
       /// en translation: Administration
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_section_administration(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_section_administration", bundle: hostingBundle, comment: "")
@@ -717,9 +794,9 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("prescription_form_section_administration", bundle: bundle, comment: "")
       }
 
-      /// en translation: Atention!
+      /// en translation: Attention!
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_alert_title(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_alert_title", bundle: hostingBundle, comment: "")
@@ -734,7 +811,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Calendar
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func calendar_title(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("calendar_title", bundle: hostingBundle, comment: "")
@@ -747,9 +824,24 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("calendar_title", bundle: bundle, comment: "")
       }
 
+      /// en translation: Camera
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static func prescription_form_interval_camera(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_camera", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_camera"
+        }
+
+        return NSLocalizedString("prescription_form_interval_camera", bundle: bundle, comment: "")
+      }
+
       /// en translation: Day
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_day(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_day", bundle: hostingBundle, comment: "")
@@ -764,7 +856,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Dose ellapsed, press icon to mark
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_prescription_ongoing_ellapsed(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_prescription_ongoing_ellapsed", bundle: hostingBundle, comment: "")
@@ -779,7 +871,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Dose list
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func dose_list_title(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("dose_list_title", bundle: hostingBundle, comment: "")
@@ -792,9 +884,24 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("dose_list_title", bundle: bundle, comment: "")
       }
 
+      /// en translation: Gallery
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static func prescription_form_interval_roll(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_roll", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_roll"
+        }
+
+        return NSLocalizedString("prescription_form_interval_roll", bundle: bundle, comment: "")
+      }
+
       /// en translation: General
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func setup_section_general(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("setup_section_general", bundle: hostingBundle, comment: "")
@@ -809,7 +916,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Home
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_title(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_title", bundle: hostingBundle, comment: "")
@@ -824,7 +931,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Hour
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_hour(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_hour", bundle: hostingBundle, comment: "")
@@ -839,7 +946,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Hours
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_hours(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_hours", bundle: hostingBundle, comment: "")
@@ -852,24 +959,9 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("prescription_form_interval_list_hours", bundle: bundle, comment: "")
       }
 
-      /// en translation: In course, next dose:
-      ///
-      /// Locales: en, es
-      static func home_prescription_onging(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("home_prescription_onging", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
-          return "home_prescription_onging"
-        }
-
-        return NSLocalizedString("home_prescription_onging", bundle: bundle, comment: "")
-      }
-
       /// en translation: Last dose:
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func calendar_last_dose(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("calendar_last_dose", bundle: hostingBundle, comment: "")
@@ -884,7 +976,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Medicine
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_section_medicine(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_section_medicine", bundle: hostingBundle, comment: "")
@@ -899,7 +991,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Medicine name can not be longer than 20 characters
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_err_name_maximum(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_err_name_maximum", bundle: hostingBundle, comment: "")
@@ -914,7 +1006,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Medicine name cannot be empty
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_err_name_empty(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_err_name_empty", bundle: hostingBundle, comment: "")
@@ -929,7 +1021,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Medicine name must be a word with more than 5 characters
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_err_name_minimum(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_err_name_minimum", bundle: hostingBundle, comment: "")
@@ -944,7 +1036,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Name
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_section_medicine_name(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_section_medicine_name", bundle: hostingBundle, comment: "")
@@ -959,7 +1051,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Next dose: 
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func notification_next_dose(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("notification_next_dose", bundle: hostingBundle, comment: "")
@@ -974,7 +1066,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Not started. Press icon to start
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_prescription_not_started(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_prescription_not_started", bundle: hostingBundle, comment: "")
@@ -987,9 +1079,24 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("home_prescription_not_started", bundle: bundle, comment: "")
       }
 
-      /// en translation: Otros
+      /// en translation: Ongoing, next dose:
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static func home_prescription_onging(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_prescription_onging", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_prescription_onging"
+        }
+
+        return NSLocalizedString("home_prescription_onging", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Others
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func setup_section_others(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("setup_section_others", bundle: hostingBundle, comment: "")
@@ -1002,9 +1109,24 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("setup_section_others", bundle: bundle, comment: "")
       }
 
+      /// en translation: Picture source:
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static func prescription_form_interval_pict_origin_desc(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("prescription_form_interval_pict_origin_desc", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "prescription_form_interval_pict_origin_desc"
+        }
+
+        return NSLocalizedString("prescription_form_interval_pict_origin_desc", bundle: bundle, comment: "")
+      }
+
       /// en translation: Presciption finished
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_prescription_finished(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_prescription_finished", bundle: hostingBundle, comment: "")
@@ -1019,7 +1141,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Prescription form
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_title(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_title", bundle: hostingBundle, comment: "")
@@ -1034,7 +1156,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Press + for adding your first prescription
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func first_prescription_title_msg_add(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("first_prescription_title_msg_add", bundle: hostingBundle, comment: "")
@@ -1049,7 +1171,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Reset
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func setup_option_reset(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("setup_option_reset", bundle: hostingBundle, comment: "")
@@ -1064,7 +1186,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Select dose interval
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_interval_list_title(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_interval_list_title", bundle: hostingBundle, comment: "")
@@ -1079,7 +1201,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Setup
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func setup_title(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("setup_title", bundle: hostingBundle, comment: "")
@@ -1092,9 +1214,24 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("setup_title", bundle: bundle, comment: "")
       }
 
+      /// en translation: Terms of use
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static func setup_option_terms_of_use(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("setup_option_terms_of_use", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "setup_option_terms_of_use"
+        }
+
+        return NSLocalizedString("setup_option_terms_of_use", bundle: bundle, comment: "")
+      }
+
       /// en translation: This prescription is going to be eliminated! Proceed?
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_alert_message(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_alert_message", bundle: hostingBundle, comment: "")
@@ -1109,7 +1246,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Units box
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_section_medicine_units_box(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_section_medicine_units_box", bundle: hostingBundle, comment: "")
@@ -1124,7 +1261,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Units box name cannot be empty
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_err_units_box_empty(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_err_units_box_empty", bundle: hostingBundle, comment: "")
@@ -1139,7 +1276,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Units dose
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_section_administration_units_dose(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_section_administration_units_dose", bundle: hostingBundle, comment: "")
@@ -1154,7 +1291,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Units prescription can not be empty
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_err_units_dose_empty(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_err_units_dose_empty", bundle: hostingBundle, comment: "")
@@ -1169,7 +1306,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Units prescription can not be greater than 99 units per box
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_err_units_box_maximum(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_err_units_box_maximum", bundle: hostingBundle, comment: "")
@@ -1184,7 +1321,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Units prescription can not be greater than 99 units per box
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_err_units_dose_maximum(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_err_units_dose_maximum", bundle: hostingBundle, comment: "")
@@ -1199,7 +1336,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Update prescription
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func prescription_form_title_update(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("prescription_form_title_update", bundle: hostingBundle, comment: "")
@@ -1214,7 +1351,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Version
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func setup_option_version(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("setup_option_version", bundle: hostingBundle, comment: "")
@@ -1229,7 +1366,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Yes
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_alert_ok(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_alert_ok", bundle: hostingBundle, comment: "")
@@ -1244,7 +1381,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: You can take your dose, press icon to mark
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_prescription_ongoing_ready(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_prescription_ongoing_ready", bundle: hostingBundle, comment: "")
@@ -1259,7 +1396,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: d
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_prescription_days_suffix(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_prescription_days_suffix", bundle: hostingBundle, comment: "")
@@ -1274,7 +1411,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: ePills
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func app_name(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("app_name", bundle: hostingBundle, comment: "")
@@ -1289,7 +1426,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: h
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_prescription_hours_suffix(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_prescription_hours_suffix", bundle: hostingBundle, comment: "")
@@ -1304,7 +1441,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: m
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_prescription_mins_suffix(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_prescription_mins_suffix", bundle: hostingBundle, comment: "")
@@ -1319,7 +1456,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: s
       ///
-      /// Locales: en, es
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static func home_prescription_secs_suffix(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("home_prescription_secs_suffix", bundle: hostingBundle, comment: "")

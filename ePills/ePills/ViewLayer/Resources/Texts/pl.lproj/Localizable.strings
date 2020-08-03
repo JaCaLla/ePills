@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "Dodaj";
+"first_prescription_title_msg_add" = "Naciśnij [+], aby dodać swoją pierwszą receptę";
+
+"prescription_form_title" = "Formularz recepty";
+"prescription_form_title_update" = "Zaktualizuj receptę";
+"prescription_form_section_medicine" = "Medycyna";
+"prescription_form_section_medicine_name" = "Imię";
+"prescription_form_section_medicine_units_box" = "Pole jednostek";
+"prescription_form_section_administration" = "Administracja";
+"prescription_form_section_administration_units_dose" = "Dawka jednostek";
+"prescription_form_err_name_empty" = "Nazwa leku nie może być pusta";
+"prescription_form_err_name_minimum" = "Nazwa leku musi być słowem zawierającym więcej niż 5 znaków";
+"prescription_form_err_name_maximum" = "Nazwa leku nie może być dłuższa niż 20 znaków";
+"prescription_form_err_units_box_empty" = "Nazwa pola Jednostki nie może być pusta";
+"prescription_form_err_units_box_maximum" = "Recepta jednostek nie może być większa niż 99 jednostek na pudełko";
+"prescription_form_err_units_dose_empty" = "Recepta jednostek nie może być pusta";
+"prescription_form_err_units_dose_maximum" = "Recepta jednostek nie może być większa niż 99 jednostek na pudełko";
+
+"prescription_form_interval_list_title" ="Wybierz przedział dawki";
+"prescription_form_interval_list_hour" = "Godzina";
+"prescription_form_interval_list_hours" = "Godziny";
+"prescription_form_interval_list_day" = "Dzień";
+"prescription_form_interval_list_1_hour" = "1 Godzina";
+"prescription_form_interval_list_2_hours" = "2 Godzina";
+"prescription_form_interval_list_3_hours" = "3 Godzina";
+"prescription_form_interval_list_4_hours" = "4 Godzina";
+"prescription_form_interval_list_6_hours" = "6 Godzina";
+"prescription_form_interval_list_8_hours" = "8 Godzina";
+"prescription_form_interval_list_12_hours" = "12 Godzina";
+"prescription_form_interval_list_1_day" = "1 Dzień";
+"prescription_form_interval_list_2_days" = "2 Dni";
+"prescription_form_interval_pict_origin" ="Dodaj zdjęcie, aby lepiej zidentyfikować swoją receptę";
+"prescription_form_interval_pict_origin_desc" ="Źródło zdjęcia:";
+"prescription_form_interval_camera" ="Aparat fotograficzny";
+"prescription_form_interval_roll" ="Galeria";
+
+"home_title" = "Początek";
+"home_alert_title" = "Uwaga!";
+"home_alert_message" = "Ta recepta zostanie wyeliminowana! Kontynuować?";
+"home_alert_ok" = "Tak";
+"home_prescription_not_started" = "Nie rozpoczęto.\n Naciśnij ikonę, aby rozpocząć";
+"home_prescription_onging" = "W toku,\n następna dawka:";
+"home_prescription_ongoing_ready" = "Możesz wziąć swoją dawkę,\n naciśnij ikonę, aby zaznaczyć";
+"home_prescription_ongoing_ellapsed" = "Upłynęło,\n naciśnij ikonę, aby zaznaczyć";
+"home_prescription_finished" = "Recepta zakończona";
+"home_prescription_secs_suffix" = "s";
+"home_prescription_mins_suffix" = "m";
+"home_prescription_hours_suffix" = "g";
+"home_prescription_days_suffix" = "d";
+"home_prescription_more_than_month" = "> Miesiąc";
+
+"setup_title" = "Ustawiać";
+"setup_section_general" = "Generał";
+"setup_section_others" = "Inne";
+"setup_option_version" = "Wersja";
+"setup_option_terms_of_use" = "Warunki korzystania";
+"setup_option_reset" = "Resetowanie";
+
+"calendar_title" = "Kalendarz";
+
+"dose_list_title" = "Lista dawek";
+
+"calendar_last_dose" = "Ostatnia dawka:";
+
+"notification_next_dose" = "Następna dawka: ";

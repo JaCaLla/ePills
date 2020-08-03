@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  ePills
+
+  Created by Javier Calatrava on 27/07/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+
+NSCameraUsageDescription = "You can add a pictuture to your recipes.";

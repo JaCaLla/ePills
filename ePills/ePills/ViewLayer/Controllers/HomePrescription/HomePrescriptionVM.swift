@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 protocol HomePrescriptionVMProtocol {
     func addPrescription()
@@ -49,10 +50,12 @@ public final class HomePrescriptionVM: ObservableObject {
     @Published var prescriptionTime: String = ""
     @Published var progressPercentage: Double = 0
     @Published var medicineHasDoses: Bool = false
+    @Published var medicine: Medicine?
+    @Published var medicinePicture: UIImage = UIImage()
 
     var timer: Timer?
     var runCount = 0
-
+    
     init(interactor: MedicineInteractorProtocol = MedicineInteractor(),
          homeCoordinator: HomeCoordinatorProtocol,
          timeManager: TimeManagerProtocol = TimeManager()) {
@@ -64,7 +67,9 @@ public final class HomePrescriptionVM: ObservableObject {
             .sink { prescriptions in
                 self.medicines = prescriptions
                 self.refreshVM()
-            }.store(in: &cancellables)
+                self.fetchMedicinePicture()
+            }
+            .store(in: &cancellables)
         self.interactor.getCurrentPrescriptionIndex()
             .sink { currentPrescriptionIndex in
                 self.currentPage = currentPrescriptionIndex
@@ -102,8 +107,16 @@ public final class HomePrescriptionVM: ObservableObject {
         self.prescriptionColor = self.getMessageColor(timeManager: timeManager)
         self.medicineHasDoses = self.hasDoses()
     }
+    
+    fileprivate func fetchMedicinePicture() {
+        self.getMedicinePicture(onComplete: { [weak self] image in
+            DispatchQueue.main.async {
+                guard let weakSelf = self, let uwpImage = image else { return }
+                weakSelf.medicinePicture = uwpImage
+            }
+        })
+    }
 }
-
 extension HomePrescriptionVM: HomePrescriptionVMProtocol {
     func addPrescription() {
         self.homeCoordinator.presentPrescriptionForm(interactor: self.interactor,
@@ -230,7 +243,6 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         let prescriptionState = prescription.getState()
         return prescriptionState == CyclesState.notStarted ||
             prescriptionState == CyclesState.finished
-
     }
 
     func getMessageColor(timeManager: TimeManagerProtocol?) -> String {
@@ -244,5 +256,19 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
         case .ongoingEllapsed: return R.color.colorRed.name
         case .finished: return R.color.colorWhite.name
         }
+    }
+
+    func getMedicinePicture(onComplete: @escaping (UIImage?) -> Void) {
+        guard medicines.count > currentPage,
+            medicines[currentPage].pictureFilename != nil else {
+                onComplete(UIImage())
+                return
+        }
+        self.interactor.getMedicinePicture(medicine: medicines[currentPage])
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { image in
+                onComplete(image)
+            }).store(in: &cancellables)
+
     }
 }

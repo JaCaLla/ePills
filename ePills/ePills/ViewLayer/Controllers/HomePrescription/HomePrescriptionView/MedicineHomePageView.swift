@@ -14,6 +14,7 @@ struct MedicineHomePageView: View {
     var medicine: Medicine
     @Binding var isRemovingPrescription: Bool
     @Binding var currentMedicine: Medicine
+    @Binding var medicinePicture: UIImage
     var viewModel: HomePrescriptionVM
 
     // MARK: - Private attributes
@@ -34,6 +35,9 @@ struct MedicineHomePageView: View {
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 VStack(spacing: 0) {
                     HStack(alignment: .center) {
+                        Image(uiImage: self.viewModel.medicinePicture)
+                            .resizable()
+                            .aspectRatio(3 / 4, contentMode: .fit)
                         Text(self.viewModel.title())
                             .font(.headline)
                             .foregroundColor(Color(R.color.colorWhite.name))
@@ -46,7 +50,7 @@ struct MedicineHomePageView: View {
                             .onTapGesture {
                                 self.isRemovingPrescription = true
                                 self.currentMedicine = self.medicine
-                        }
+                            }
                     }.frame(height: geometry.size.height * 0.125)
                         .background(Color(R.color.colorGray50Semi.name))
                     VStack {
@@ -72,7 +76,7 @@ struct MedicineHomePageView: View {
                                 .foregroundColor(Color(self.viewModel.prescriptionColor))
                                 .onTapGesture {
                                     self.viewModel.takeDose()
-                            }
+                                }
                             Text(self.viewModel.prescriptionMessage)
                                 .multilineTextAlignment(.center)
                                 .font(.body)
@@ -81,16 +85,16 @@ struct MedicineHomePageView: View {
                             HStack(alignment: .firstTextBaseline) {
                                 Spacer()
                                 Text(self.viewModel.remainingMessageMajor)
-                                    .font(Font.system(size: 48).bold())//.font(.largeTitle)//.padding()
+                                    .font(Font.system(size: 48).bold())
                                 .foregroundColor(Color(self.viewModel.prescriptionColor))
                                 Text(self.viewModel.remainingMessageMinor)
-                                    .font(Font.system(size: 15).bold())// .font(.headline)
+                                    .font(Font.system(size: 15).bold())
                                 .foregroundColor(Color(self.viewModel.prescriptionColor))
                                     .padding(.leading, -5)
                                 Spacer()
                             }
                             Spacer()
-                        }
+                        }.padding(.top, 10)
                     }.frame(height: geometry.size.height * 0.475)
                     HStack {
                         VStack {
@@ -105,7 +109,7 @@ struct MedicineHomePageView: View {
                             if self.viewModel.isUpdatable {
                                 PrescriptionButtonView(iconName: "square.and.pencil", action: {
                                     self.viewModel.update()
-                                }).padding(.top, -40)
+                                }).padding(.top, -20)
                             }
                         }.frame(width: geometry.size.width * 0.333)
                         VStack {
@@ -127,10 +131,12 @@ struct MedicineHomePageView: View {
     init(medicine: Medicine,
          isRemovingPrescription: Binding<Bool>,
          curentPrescription: Binding<Medicine>,
+         medicinePicture: Binding<UIImage>,
          viewModel: HomePrescriptionVM) {
         self.medicine = medicine
         self._isRemovingPrescription = isRemovingPrescription
         self._currentMedicine = curentPrescription
+        self._medicinePicture = medicinePicture
         self.viewModel = viewModel
     }
 }
@@ -146,7 +152,9 @@ struct PrescriptionHomePageView_Previews: PreviewProvider {
         return ZStack {
             MedicineHomePageView(medicine: prescription,
                                  isRemovingPrescription: .constant(false),
-                                 curentPrescription: .constant(prescription), viewModel: viewModel)
+                                 curentPrescription: .constant(prescription),
+                                 medicinePicture: .constant(UIImage()),
+                                 viewModel: viewModel)
         }
 
     }

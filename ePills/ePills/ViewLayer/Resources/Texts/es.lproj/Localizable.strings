@@ -38,6 +38,10 @@
 "prescription_form_interval_list_12_hours" = "12 Horas";
 "prescription_form_interval_list_1_day" = "1 Día";
 "prescription_form_interval_list_2_days" = "2 Días";
+"prescription_form_interval_pict_origin" ="Añade una foto, para identificar tu prescripción";
+"prescription_form_interval_pict_origin_desc" ="Origen de la foto:";
+"prescription_form_interval_camera" ="Cámara";
+"prescription_form_interval_roll" ="Galería";
 
 "home_title" = "Inicio";
 "home_alert_title" = "Atención!";
@@ -58,12 +62,13 @@
 "setup_section_general" = "General";
 "setup_section_others" = "Otros";
 "setup_option_version" = "Version";
-"setup_option_reset" = "Reset";
+"setup_option_terms_of_use" = "Terminos de uso";
+"setup_option_reset" = "Inicializar";
 
 "calendar_title" = "Calendario";
 
 "dose_list_title" = "Listado de tomas";
 
-"calendar_last_dose" = "Última tomaa:";
+"calendar_last_dose" = "Última toma:";
 
 "notification_next_dose" = "Siguiente toma: ";

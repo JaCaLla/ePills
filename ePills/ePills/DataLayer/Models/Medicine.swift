@@ -15,17 +15,19 @@ class Medicine: Identifiable {
 	var unitsBox: Int
 	var unitsDose: Int
 	var intervalSecs: Int = 0
+    var pictureFilename: String?
 	var currentCycle: Cycle
 	var pastCycles: [Cycle] = []
 
 	var creation: Int = -1
 
-	init(name: String, unitsBox: Int, intervalSecs: Int, unitsDose: Int) {
+	init(name: String, unitsBox: Int, intervalSecs: Int, unitsDose: Int, medicinePictureFilename: String? = nil) {
 		self.name = name
 		self.unitsBox = unitsBox
 		self.intervalSecs = intervalSecs
 		self.unitsDose = unitsDose
 		self.currentCycle = Cycle(unitsConsumed: 0, nextDose: nil)
+        self.pictureFilename = medicinePictureFilename
 	}
 
 	func getState(timeManager: TimeManagerProtocol = TimeManager()) -> CyclesState {

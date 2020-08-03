@@ -28,14 +28,14 @@ extension UIApplication {
                 }
             }
 
-            topController.present(viewController, animated: animated, completion:completion)
+            topController.present(viewController, animated: animated, completion: completion)
         }
     }
 
     func hasNotch() -> Bool {
-        if #available(iOS 11.0,  *) {
+        if #available(iOS 11.0, *) {
             guard let uwpDelegate = UIApplication.shared.delegate,
-                let uwpWindow = uwpDelegate.window  as? UIWindow else {
+                let uwpWindow = uwpDelegate.window as? UIWindow else {
                     return false
             }
             return uwpWindow.safeAreaInsets.top > 20
@@ -43,4 +43,7 @@ extension UIApplication {
         return false
     }
 
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }

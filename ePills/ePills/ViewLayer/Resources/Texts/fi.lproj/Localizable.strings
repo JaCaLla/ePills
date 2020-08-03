@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "Lisätä";
+"first_prescription_title_msg_add" = "Lisää ensimmäinen resepti painamalla [+]";
+
+"prescription_form_title" = "Reseptilomake";
+"prescription_form_title_update" = "Update prescription";
+"prescription_form_section_medicine" = "Päivitä resepti";
+"prescription_form_section_medicine_name" = "Nimi";
+"prescription_form_section_medicine_units_box" = "Yksiköt-ruutu";
+"prescription_form_section_administration" = "Antaminen";
+"prescription_form_section_administration_units_dose" = "Yksikköannos";
+"prescription_form_err_name_empty" = "Lääkkeen nimi ei voi olla tyhjä";
+"prescription_form_err_name_minimum" = "Lääkkeen nimen on oltava sana, jossa on enemmän kuin 5 merkkiä";
+"prescription_form_err_name_maximum" = "Lääkkeen nimi ei saa olla pidempi kuin 20 merkkiä";
+"prescription_form_err_units_box_empty" = "Yksiköt-ruudun nimi ei voi olla tyhjä";
+"prescription_form_err_units_box_maximum" = "Yksikkömääräys ei saa olla suurempi kuin 99 yksikköä laatikkoa kohti";
+"prescription_form_err_units_dose_empty" = "Yksikkömääräys ei voi olla tyhjä";
+"prescription_form_err_units_dose_maximum" = "Yksikkömääräys ei saa olla suurempi kuin 99 yksikköä laatikkoa kohti";
+
+"prescription_form_interval_list_title" ="Valitse annosväli";
+"prescription_form_interval_list_hour" = "Tunnin";
+"prescription_form_interval_list_hours" = "Tuntia";
+"prescription_form_interval_list_day" = "Päivä";
+"prescription_form_interval_list_1_hour" = "1 Tunti";
+"prescription_form_interval_list_2_hours" = "2 Tuntia";
+"prescription_form_interval_list_3_hours" = "3 Tuntia";
+"prescription_form_interval_list_4_hours" = "4 Tuntia";
+"prescription_form_interval_list_6_hours" = "6 Tuntia";
+"prescription_form_interval_list_8_hours" = "8 Tuntia";
+"prescription_form_interval_list_12_hours" = "12 Tuntia";
+"prescription_form_interval_list_1_day" = "1 Päivä";
+"prescription_form_interval_list_2_days" = "2 Päivää";
+"prescription_form_interval_pict_origin" ="Lisää kuva reseptin tunnistamiseksi";
+"prescription_form_interval_pict_origin_desc" ="Kuvalähde:";
+"prescription_form_interval_camera" ="Kamera";
+"prescription_form_interval_roll" ="Galleria";
+
+"home_title" = "Alkaa";
+"home_alert_title" = "Atention!";
+"home_alert_message" = "Tämä resepti poistetaan! Edetä?";
+"home_alert_ok" = "Joo";
+"home_prescription_not_started" = "Ei käynnistetty.\nPaina kuvaketta aloittaaksesi";
+"home_prescription_onging" = "Tietenkin,\n seuraava annos:";
+"home_prescription_ongoing_ready" = "Voit ottaa annoksesi,\n paina kuvaketta merkitäksesi";
+"home_prescription_ongoing_ellapsed" = "Ei kulunut,\n merkitse painamalla kuvaketta";
+"home_prescription_finished" = "Resepti valmis";
+"home_prescription_secs_suffix" = "t";
+"home_prescription_mins_suffix" = "m";
+"home_prescription_hours_suffix" = "t";
+"home_prescription_days_suffix" = "p";
+"home_prescription_more_than_month" = ">Kuukausi";
+
+"setup_title" = "Perustaa";
+"setup_section_general" = "Yleinen";
+"setup_section_others" = "Toiset";
+"setup_option_version" = "Versio";
+"setup_option_terms_of_use" = "Käyttöehdot";
+"setup_option_reset" = "Nollaa";
+
+"calendar_title" = "Kalenteri";
+
+"dose_list_title" = "Dose list";
+
+"calendar_last_dose" = "Viimeinen annos:";
+
+"notification_next_dose" = "Seuraava annos: ";

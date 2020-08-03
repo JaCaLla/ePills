@@ -26,6 +26,7 @@ struct HomePrescriptionView: View {
                         MedicineHomePageView(medicine: $0,
                                              isRemovingPrescription: self.$isRemovingPrescription,
                                              curentPrescription: self.$viewModel.currentPrescription,
+                                             medicinePicture: self.$viewModel.medicinePicture,
                                              viewModel: self.viewModel)
                     }, currentPage: self.$viewModel.currentPage)
                         .background(Color(R.color.colorGray50Semi.name))

@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  ePills
+
+  Created by Javier Calatrava on 24/04/2020.
+  Copyright © 2020 Javier Calatrava. All rights reserved.
+*/
+"app_name" = "ePills";
+
+"first_prescription_title" = "Добавить";
+"first_prescription_title_msg_add" = "Нажмите [+] для добавления вашего первого рецепта";
+
+"prescription_form_title" = "Форма рецепта";
+"prescription_form_title_update" = "Обновить рецепт";
+"prescription_form_section_medicine" = "Лекарство";
+"prescription_form_section_medicine_name" = "название";
+"prescription_form_section_medicine_units_box" = "Коробка единиц";
+"prescription_form_section_administration" = "администрация";
+"prescription_form_section_administration_units_dose" = "Единицы дозы";
+"prescription_form_err_name_empty" = "Название лекарства не может быть пустым";
+"prescription_form_err_name_minimum" = "Название лекарства должно состоять из более 5 символов";
+"prescription_form_err_name_maximum" = "Название лекарства не может быть длиннее 20 символов";
+"prescription_form_err_units_box_empty" = "Имя блока не может быть пустым";
+"prescription_form_err_units_box_maximum" = "Единица рецепта не может превышать 99 единиц на коробку";
+"prescription_form_err_units_dose_empty" = "Единицы рецепта не могут быть пустыми";
+"prescription_form_err_units_dose_maximum" = "Единица рецепта не может превышать 99 единиц на коробку";
+
+"prescription_form_interval_list_title" ="Выберите интервал доз";
+"prescription_form_interval_list_hour" = "Час";
+"prescription_form_interval_list_hours" = "часов";
+"prescription_form_interval_list_day" = "День";
+"prescription_form_interval_list_1_hour" = "1 Час";
+"prescription_form_interval_list_2_hours" = "2 Часa";
+"prescription_form_interval_list_3_hours" = "3 Часa";
+"prescription_form_interval_list_4_hours" = "4 Часa";
+"prescription_form_interval_list_6_hours" = "6 Часa";
+"prescription_form_interval_list_8_hours" = "8 Часa";
+"prescription_form_interval_list_12_hours" = "12 Часa";
+"prescription_form_interval_list_1_day" = "1 день";
+"prescription_form_interval_list_2_days" = "2 дня";
+"prescription_form_interval_pict_origin" ="Добавьте картинку для лучшего определения вашего рецепта";
+"prescription_form_interval_pict_origin_desc" ="Источник изображения:";
+"prescription_form_interval_camera" ="камера";
+"prescription_form_interval_roll" ="Галерея";
+
+"home_title" = "Начало";
+"home_alert_title" = "Внимание!";
+"home_alert_message" = "Этот рецепт будет отменен! Продолжить?";
+"home_alert_ok" = "да";
+"home_prescription_not_started" = "Не запущен.\nНажмите значок,\n чтобы начать";
+"home_prescription_onging" = "Продолжается,\n следующая доза:";
+"home_prescription_ongoing_ready" = "Вы можете принять свою\n дозу, нажмите значок,\n чтобы отметить";
+"home_prescription_ongoing_ellapsed" = "Прошло,\n нажмите значок,\n чтобы отметить";
+"home_prescription_finished" = "Рецепт закончен";
+"home_prescription_secs_suffix" = "";
+"home_prescription_mins_suffix" = "M";
+"home_prescription_hours_suffix" = "Ч";
+"home_prescription_days_suffix" = "д";
+"home_prescription_more_than_month" = "> Месяц";
+
+"setup_title" = "Настроить";
+"setup_section_general" = "Общее";
+"setup_section_others" = "другие";
+"setup_option_version" = "Версия";
+"setup_option_terms_of_use" = "Условия эксплуатации";
+"setup_option_reset" = "Сброс";
+
+"calendar_title" = "Календарь";
+
+"dose_list_title" = "Список доз";
+
+"calendar_last_dose" = "Последняя доза:";
+
+"notification_next_dose" = "Следующая доза:";
