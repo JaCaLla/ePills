@@ -261,6 +261,8 @@
 		5EB475D624BE3DAF002D4C58 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionButtonView.swift; sourceTree = "<group>"; };
 		5EB5DA952461D06E0009EA75 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
+		5EB81DEA24E81FB200E7B461 /* ePills-Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ePills-Debug.entitlements"; sourceTree = "<group>"; };
+		5EB81DEB24E81FC700E7B461 /* PrescriptionWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrescriptionWidgetExtension.entitlements; sourceTree = "<group>"; };
 		5EB91A0724926027005A082C /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		5EB91A0B24926E36005A082C /* GoogleService-Info-Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Debug.plist"; sourceTree = "<group>"; };
 		5EB91A0D24927080005A082C /* GoogleService-Info-Prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Prod.plist"; sourceTree = "<group>"; };
@@ -623,6 +625,7 @@
 		5E6AB008244B0F3F00F162EB = {
 			isa = PBXGroup;
 			children = (
+				5EB81DEB24E81FC700E7B461 /* PrescriptionWidgetExtension.entitlements */,
 				5E6AB013244B0F3F00F162EB /* ePills */,
 				5E6AB02A244B0F4200F162EB /* ePillsTests */,
 				5E3FCDF624E7E4AA00D4423E /* PrescriptionWidget */,
@@ -645,6 +648,7 @@
 		5E6AB013244B0F3F00F162EB /* ePills */ = {
 			isa = PBXGroup;
 			children = (
+				5EB81DEA24E81FB200E7B461 /* ePills-Debug.entitlements */,
 				5EF5DDAB2491FF16000368F9 /* AppEnvironment.swift */,
 				5E6AB037244B139500F162EB /* ViewLayer */,
 				5EFF2157244F5CE100B77AE9 /* DomainLayer */,
@@ -1535,6 +1539,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = PrescriptionWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7ZPDPWR8XU;
@@ -1560,6 +1565,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = PrescriptionWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7ZPDPWR8XU;
@@ -1701,6 +1707,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "ePills/ePills-Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"ePills/Preview Content\"";
@@ -1727,6 +1734,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "ePills/ePills-Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"ePills/Preview Content\"";
