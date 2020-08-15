@@ -29,6 +29,13 @@
 		5E3B7ADC245A26A000541AB4 /* MedicineInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7ADB245A26A000541AB4 /* MedicineInteractorMock.swift */; };
 		5E3B7ADF245A327A00541AB4 /* HomePrescriptionVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7ADE245A327A00541AB4 /* HomePrescriptionVMTest.swift */; };
 		5E3B7AE2245AD7D300541AB4 /* HomeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3B7AE1245AD7D300541AB4 /* HomeCoordinatorMock.swift */; };
+		5E3FCDF324E7E4AA00D4423E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3FCDF224E7E4AA00D4423E /* WidgetKit.framework */; };
+		5E3FCDF524E7E4AA00D4423E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3FCDF424E7E4AA00D4423E /* SwiftUI.framework */; };
+		5E3FCDF824E7E4AA00D4423E /* PrescriptionWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3FCDF724E7E4AA00D4423E /* PrescriptionWidget.swift */; };
+		5E3FCDFB24E7E4AC00D4423E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E3FCDFA24E7E4AC00D4423E /* Assets.xcassets */; };
+		5E3FCDFD24E7E4AC00D4423E /* PrescriptionWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 5E3FCDF924E7E4AA00D4423E /* PrescriptionWidget.intentdefinition */; };
+		5E3FCDFE24E7E4AC00D4423E /* PrescriptionWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 5E3FCDF924E7E4AA00D4423E /* PrescriptionWidget.intentdefinition */; };
+		5E3FCE0124E7E4AC00D4423E /* PrescriptionWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5E3FCDF124E7E4AA00D4423E /* PrescriptionWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5E4473BF246EEFE200D997A6 /* Dose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473BE246EEFE200D997A6 /* Dose.swift */; };
 		5E4473C1246EF00B00D997A6 /* Cycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473C0246EF00B00D997A6 /* Cycle.swift */; };
 		5E4473C3246EF2EF00D997A6 /* Medicine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4473C2246EF2EF00D997A6 /* Medicine.swift */; };
@@ -122,6 +129,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5E3FCDFF24E7E4AC00D4423E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5E6AB009244B0F3F00F162EB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E3FCDF024E7E4AA00D4423E;
+			remoteInfo = PrescriptionWidgetExtension;
+		};
 		5E6AB028244B0F4200F162EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5E6AB009244B0F3F00F162EB /* Project object */;
@@ -130,6 +144,20 @@
 			remoteInfo = ePills;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5E3FCE0224E7E4AC00D4423E /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5E3FCE0124E7E4AC00D4423E /* PrescriptionWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5E09966D247CEEF80069D197 /* CalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
@@ -158,6 +186,13 @@
 		5E3B7ADB245A26A000541AB4 /* MedicineInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineInteractorMock.swift; sourceTree = "<group>"; };
 		5E3B7ADE245A327A00541AB4 /* HomePrescriptionVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePrescriptionVMTest.swift; sourceTree = "<group>"; };
 		5E3B7AE1245AD7D300541AB4 /* HomeCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorMock.swift; sourceTree = "<group>"; };
+		5E3FCDF124E7E4AA00D4423E /* PrescriptionWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PrescriptionWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E3FCDF224E7E4AA00D4423E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		5E3FCDF424E7E4AA00D4423E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		5E3FCDF724E7E4AA00D4423E /* PrescriptionWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionWidget.swift; sourceTree = "<group>"; };
+		5E3FCDF924E7E4AA00D4423E /* PrescriptionWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = PrescriptionWidget.intentdefinition; sourceTree = "<group>"; };
+		5E3FCDFA24E7E4AC00D4423E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5E3FCDFC24E7E4AC00D4423E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E4473BE246EEFE200D997A6 /* Dose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dose.swift; sourceTree = "<group>"; };
 		5E4473C0246EF00B00D997A6 /* Cycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cycle.swift; sourceTree = "<group>"; };
 		5E4473C2246EF2EF00D997A6 /* Medicine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Medicine.swift; sourceTree = "<group>"; };
@@ -305,6 +340,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5E3FCDEE24E7E4AA00D4423E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E3FCDF524E7E4AA00D4423E /* SwiftUI.framework in Frameworks */,
+				5E3FCDF324E7E4AA00D4423E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5E6AB00E244B0F3F00F162EB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -329,6 +373,8 @@
 			children = (
 				7AD86EE5D26121AE773DBB92 /* Pods_ePills.framework */,
 				E35F4D39E48EFB14C6CC183B /* Pods_ePillsTests.framework */,
+				5E3FCDF224E7E4AA00D4423E /* WidgetKit.framework */,
+				5E3FCDF424E7E4AA00D4423E /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -444,6 +490,17 @@
 				5EB5DA83245DC41E0009EA75 /* PrescriptionButtonView.swift */,
 			);
 			path = HomePrescriptionView;
+			sourceTree = "<group>";
+		};
+		5E3FCDF624E7E4AA00D4423E /* PrescriptionWidget */ = {
+			isa = PBXGroup;
+			children = (
+				5E3FCDF724E7E4AA00D4423E /* PrescriptionWidget.swift */,
+				5E3FCDF924E7E4AA00D4423E /* PrescriptionWidget.intentdefinition */,
+				5E3FCDFA24E7E4AC00D4423E /* Assets.xcassets */,
+				5E3FCDFC24E7E4AC00D4423E /* Info.plist */,
+			);
+			path = PrescriptionWidget;
 			sourceTree = "<group>";
 		};
 		5E4473C4246EF7E000D997A6 /* DBManager */ = {
@@ -568,6 +625,7 @@
 			children = (
 				5E6AB013244B0F3F00F162EB /* ePills */,
 				5E6AB02A244B0F4200F162EB /* ePillsTests */,
+				5E3FCDF624E7E4AA00D4423E /* PrescriptionWidget */,
 				5E6AB012244B0F3F00F162EB /* Products */,
 				A8DE4281F0637BB071D32214 /* Pods */,
 				50A2FA9D58719841D71C977C /* Frameworks */,
@@ -579,6 +637,7 @@
 			children = (
 				5E6AB011244B0F3F00F162EB /* ePills-Debug.app */,
 				5E6AB027244B0F4200F162EB /* ePillsTests.xctest */,
+				5E3FCDF124E7E4AA00D4423E /* PrescriptionWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -965,6 +1024,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5E3FCDF024E7E4AA00D4423E /* PrescriptionWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E3FCE0524E7E4AC00D4423E /* Build configuration list for PBXNativeTarget "PrescriptionWidgetExtension" */;
+			buildPhases = (
+				5E3FCDED24E7E4AA00D4423E /* Sources */,
+				5E3FCDEE24E7E4AA00D4423E /* Frameworks */,
+				5E3FCDEF24E7E4AA00D4423E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrescriptionWidgetExtension;
+			productName = PrescriptionWidgetExtension;
+			productReference = 5E3FCDF124E7E4AA00D4423E /* PrescriptionWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		5E6AB010244B0F3F00F162EB /* ePills */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5E6AB030244B0F4200F162EB /* Build configuration list for PBXNativeTarget "ePills" */;
@@ -977,10 +1053,12 @@
 				34D4CFE3C0F2A9BEE8FC4F50 /* [CP] Embed Pods Frameworks */,
 				5E2C5274248CEDC4003DDD89 /* SwiftLint */,
 				5EB91A1324939970005A082C /* Firebase Crashlytics */,
+				5E3FCE0224E7E4AC00D4423E /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5E3FCE0024E7E4AC00D4423E /* PBXTargetDependency */,
 			);
 			name = ePills;
 			packageProductDependencies = (
@@ -1014,10 +1092,13 @@
 		5E6AB009244B0F3F00F162EB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Javier Calatrava";
 				TargetAttributes = {
+					5E3FCDF024E7E4AA00D4423E = {
+						CreatedOnToolsVersion = 12.0;
+					};
 					5E6AB010244B0F3F00F162EB = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -1060,11 +1141,20 @@
 			targets = (
 				5E6AB010244B0F3F00F162EB /* ePills */,
 				5E6AB026244B0F4200F162EB /* ePillsTests */,
+				5E3FCDF024E7E4AA00D4423E /* PrescriptionWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5E3FCDEF24E7E4AA00D4423E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E3FCDFB24E7E4AC00D4423E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5E6AB00F244B0F3F00F162EB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1214,6 +1304,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5E3FCDED24E7E4AA00D4423E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E3FCDFD24E7E4AC00D4423E /* PrescriptionWidget.intentdefinition in Sources */,
+				5E3FCDF824E7E4AA00D4423E /* PrescriptionWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5E6AB00D244B0F3F00F162EB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1279,6 +1378,7 @@
 				5E28F84A249E20F300930097 /* ImagePickerView.swift in Sources */,
 				5E6AB017244B0F3F00F162EB /* SceneDelegate.swift in Sources */,
 				5ED44B3824532EAE00081B36 /* AcceptButtonCell.swift in Sources */,
+				5E3FCDFE24E7E4AC00D4423E /* PrescriptionWidget.intentdefinition in Sources */,
 				5E6AB050244BA35D00F162EB /* AddPrescriptionView.swift in Sources */,
 				5E5514A32464AA3800E97DF4 /* RequestNotificationPermissionOp.swift in Sources */,
 				5ED7A60E24C76CF6005A20B7 /* MarkDownParser.swift in Sources */,
@@ -1331,6 +1431,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5E3FCE0024E7E4AC00D4423E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5E3FCDF024E7E4AA00D4423E /* PrescriptionWidgetExtension */;
+			targetProxy = 5E3FCDFF24E7E4AC00D4423E /* PBXContainerItemProxy */;
+		};
 		5E6AB029244B0F4200F162EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5E6AB010244B0F3F00F162EB /* ePills */;
@@ -1424,6 +1529,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5E3FCE0324E7E4AC00D4423E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 7ZPDPWR8XU;
+				INFOPLIST_FILE = PrescriptionWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JCa.ePills.debug.PrescriptionWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "ePills debug Widget";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5E3FCE0424E7E4AC00D4423E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 7ZPDPWR8XU;
+				INFOPLIST_FILE = PrescriptionWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JCa.ePills.PrescriptionWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "ePills PrescriptionWidget";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		5E6AB02E244B0F4200F162EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1544,6 +1699,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8EC7044343D9321A4692F525 /* Pods-ePills.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1569,6 +1725,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FDFCFB3CDF1B16A340275DBD /* Pods-ePills.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -1640,6 +1797,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5E3FCE0524E7E4AC00D4423E /* Build configuration list for PBXNativeTarget "PrescriptionWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E3FCE0324E7E4AC00D4423E /* Debug */,
+				5E3FCE0424E7E4AC00D4423E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5E6AB00C244B0F3F00F162EB /* Build configuration list for PBXProject "ePills" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
