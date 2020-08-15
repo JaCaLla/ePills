@@ -35,6 +35,7 @@ final class DataManager {
     // MARK: - Private attributes
     private let subject = PassthroughSubject <[Medicine], Never>()
     private var medicines: [Medicine] = []
+    private var medicinePictureCache: [String: UIImage] = [:]
 
     // MARK: - Public attributes
     var localFileManager: LocalFileManagerProtocol = LocalFileManager.shared
@@ -160,14 +161,19 @@ extension DataManager: DataManagerProtocol {
     func fetchDoses(cycleId: String) -> [Dose] {
         return DBManager.shared.getDoses(cycleId: cycleId).sorted(by: { $0.real < $1.real })
     }
-
+    
     func getMedicinePicture(medicine: Medicine) -> Future<UIImage, DataManagerError> {
         // guard let pictureFilename = medicine.pictureFilename else { return }
         return Future<UIImage, DataManagerError> { [weak self] promise in
             if let weakSelf = self,
                 let pictureFilename = medicine.pictureFilename {
+                if let storedImage = weakSelf.medicinePictureCache[pictureFilename] {
+                    promise(.success(storedImage))
+                    return
+                }
                 weakSelf.localFileManager.loadImage(fileName: pictureFilename, onComplete: { image in
                     if let storedImage = image {
+                        weakSelf.medicinePictureCache[pictureFilename] = storedImage
                         promise(.success(storedImage))
                     } else {
                         promise(.failure(.pictureNotFound))
