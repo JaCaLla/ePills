@@ -270,15 +270,15 @@ struct R: Rswift.Validatable {
 
   /// This `R.image` struct is generated, and contains static references to 3 images.
   struct image {
-    /// Image `background`.
-    static let background = Rswift.ImageResource(bundle: R.hostingBundle, name: "background")
+    /// Image `Background`.
+    static let background = Rswift.ImageResource(bundle: R.hostingBundle, name: "Background")
     /// Image `glass`.
     static let glass = Rswift.ImageResource(bundle: R.hostingBundle, name: "glass")
     /// Image `testImage`.
     static let testImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "testImage")
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "background", bundle: ..., traitCollection: ...)`
+    /// `UIImage(named: "Background", bundle: ..., traitCollection: ...)`
     static func background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.background, compatibleWith: traitCollection)
     }

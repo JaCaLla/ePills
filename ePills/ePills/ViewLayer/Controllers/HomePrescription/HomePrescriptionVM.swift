@@ -34,6 +34,7 @@ public final class HomePrescriptionVM: ObservableObject {
     private var interactor: MedicineInteractorProtocol
     private var homeCoordinator: HomeCoordinatorProtocol
     internal var timeManager: TimeManagerProtocol
+    private var currentPictureFilename: String?
 
     // MARK: - Publishers
     private var cancellables = Set<AnyCancellable>()
@@ -55,7 +56,7 @@ public final class HomePrescriptionVM: ObservableObject {
 
     var timer: Timer?
     var runCount = 0
-    
+
     init(interactor: MedicineInteractorProtocol = MedicineInteractor(),
          homeCoordinator: HomeCoordinatorProtocol,
          timeManager: TimeManagerProtocol = TimeManager()) {
@@ -106,8 +107,9 @@ public final class HomePrescriptionVM: ObservableObject {
             self.getRemainingTimeMessage(timeManager: timeManager)
         self.prescriptionColor = self.getMessageColor(timeManager: timeManager)
         self.medicineHasDoses = self.hasDoses()
+        self.fetchMedicinePicture()
     }
-    
+
     fileprivate func fetchMedicinePicture() {
         self.getMedicinePicture(onComplete: { [weak self] image in
             DispatchQueue.main.async {
@@ -264,9 +266,18 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
                 onComplete(UIImage())
                 return
         }
+
+        if let medicinePictureFilename = medicines[currentPage].pictureFilename,
+            let uwpCurrentPictureFilename = self.currentPictureFilename,
+            medicinePictureFilename == currentPictureFilename {
+            return
+        }
+
         self.interactor.getMedicinePicture(medicine: medicines[currentPage])
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { image in
+            }, receiveValue: { [weak self] image in
+                guard let weakSelf = self else { return }
+                weakSelf.currentPictureFilename = weakSelf.medicines[weakSelf.currentPage].pictureFilename
                 onComplete(image)
             }).store(in: &cancellables)
 
