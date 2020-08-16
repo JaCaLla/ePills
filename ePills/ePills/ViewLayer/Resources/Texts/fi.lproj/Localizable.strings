@@ -46,6 +46,7 @@
 "home_title" = "Alkaa";
 "home_alert_title" = "Atention!";
 "home_alert_message" = "Tämä resepti poistetaan! Edetä?";
+"home_alert_message_dose_forced" = "Ei ole vielä aika ottaa annosta. Oletko varma?";
 "home_alert_ok" = "Joo";
 "home_prescription_not_started" = "Ei käynnistetty.\nPaina kuvaketta aloittaaksesi";
 "home_prescription_onging" = "Tietenkin,\n seuraava annos:";

@@ -25,7 +25,7 @@ class UTConfigurationManager: XCTestCase {
 
         ConfigurationManager.shared.setLastExecutedToBundleVersion()
 
-        XCTAssertEqual(ConfigurationManager.shared.getAppVersion(), "3.0.0")
+        XCTAssertEqual(ConfigurationManager.shared.getAppVersion(), "3.1.1")
     }
 
     func test_getLastExecutedVersion () {
@@ -39,7 +39,7 @@ class UTConfigurationManager: XCTestCase {
         ConfigurationManager.shared.setLastExecutedToBundleVersion()
 
         if let version = ConfigurationManager.shared.getLastExecutedVersion() {
-            XCTAssertEqual(version, "3.0.0")
+            XCTAssertEqual(version, "3.1.1")
         }
     }
 

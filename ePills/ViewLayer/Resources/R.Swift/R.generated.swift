@@ -376,7 +376,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.localizable` struct is generated, and contains static references to 58 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 59 localization keys.
     struct localizable {
       /// en translation: 1 Day
       ///
@@ -474,6 +474,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
       static let prescription_form_interval_list_hours = Rswift.StringResource(key: "prescription_form_interval_list_hours", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
+      /// en translation: It is not yet time to take the dose. Are you sure?
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static let home_alert_message_dose_forced = Rswift.StringResource(key: "home_alert_message_dose_forced", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es", "fi", "el", "ro", "cs", "pt", "fr", "de", "nl", "hi", "zh-Hans", "pl", "it", "ja", "id", "ru"], comment: nil)
       /// en translation: Last dose:
       ///
       /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
@@ -969,6 +973,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("prescription_form_interval_list_hours", bundle: bundle, comment: "")
+      }
+
+      /// en translation: It is not yet time to take the dose. Are you sure?
+      ///
+      /// Locales: en, es, fi, el, ro, cs, pt, fr, de, nl, hi, zh-Hans, pl, it, ja, id, ru
+      static func home_alert_message_dose_forced(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home_alert_message_dose_forced", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home_alert_message_dose_forced"
+        }
+
+        return NSLocalizedString("home_alert_message_dose_forced", bundle: bundle, comment: "")
       }
 
       /// en translation: Last dose:

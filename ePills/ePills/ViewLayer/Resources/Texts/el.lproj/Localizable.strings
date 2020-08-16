@@ -46,6 +46,7 @@
 "home_title" = "Αρχή";
 "home_alert_title" = "Προσοχή!";
 "home_alert_message" = "Αυτή η συνταγή θα εξαλειφθεί! Προχωρώ?";
+"home_alert_message_dose_forced" = "Δεν είναι ακόμη ώρα να πάρετε τη δόση. Είσαι σίγουρος?";
 "home_alert_ok" = "Ναί";
 "home_prescription_not_started" = "Δεν ξεκίνησε. Πατήστε το\nεικονίδιο για να ξεκινήσετε";
 "home_prescription_onging" = "Φυσικά,\n επόμενη δόση:";

@@ -46,6 +46,7 @@
 "home_title" = "开始";
 "home_alert_title" = "注意！";
 "home_alert_message" = "这个处方将被淘汰！ 继续？";
+"home_alert_message_dose_forced" = "现在还没有时间服用。 你确定吗？";
 "home_alert_ok" = "是";
 "home_prescription_not_started" = "尚未开始。\n按图标开始";
 "home_prescription_onging" = "进行中，\n下一次剂量：";

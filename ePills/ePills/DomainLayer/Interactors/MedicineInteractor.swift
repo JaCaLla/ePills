@@ -206,7 +206,7 @@ extension MedicineInteractor: MedicineInteractorProtocol {
 
         var invervals: [Interval] = []
         #if DEBUG
-            invervals.append(Interval(secs: 30, label: "_30 Secs"))
+            invervals.append(Interval(secs: 60, label: "_60 Secs"))
         #endif
         invervals.append(Interval(secs: 1 * secsPerHour,
                                   label: R.string.localizable.prescription_form_interval_list_1_hour.key.localized))

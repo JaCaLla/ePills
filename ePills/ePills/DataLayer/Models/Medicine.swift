@@ -49,7 +49,8 @@ class Medicine: Identifiable {
 	func takeDose(timeManager: TimeManagerProtocol = TimeManager()) {
 		let state = getState()
 		if (state == .notStarted ||
-				state == .ongoingReady ||
+			state == .ongoing ||
+            state == .ongoingReady ||
 				state == .ongoingEllapsed) {
 			self.currentCycle.unitsConsumed += self.unitsDose
 			guard currentCycle.unitsConsumed < unitsBox else {

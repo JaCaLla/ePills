@@ -43,6 +43,7 @@ struct MedicineHomePageView: View {
                             .foregroundColor(Color(R.color.colorWhite.name))
                             .padding(.leading)
                         Spacer()
+                        ZStack {
                         Image(systemName: "minus.rectangle")
                             .font(Font.system(size: 20).bold())
                             .foregroundColor(Color(R.color.colorWhite.name))
@@ -51,6 +52,15 @@ struct MedicineHomePageView: View {
                                 self.isRemovingPrescription = true
                                 self.currentMedicine = self.medicine
                             }
+                        }.alert(isPresented: self.$isRemovingPrescription) {
+                           Alert(title: Text(R.string.localizable.home_alert_title.key.localized),
+                                 message: Text(R.string.localizable.home_alert_message.key.localized),
+                                 primaryButton: .default (Text(R.string.localizable.home_alert_ok.key.localized)) {
+                                     self.viewModel.remove()
+                                 },
+                                 secondaryButton: .cancel()
+                           )
+                        }
                     }.frame(height: geometry.size.height * 0.125)
                         .background(Color(R.color.colorGray50Semi.name))
                     VStack {

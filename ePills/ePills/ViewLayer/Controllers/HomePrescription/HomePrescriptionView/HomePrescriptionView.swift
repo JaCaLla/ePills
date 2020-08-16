@@ -13,7 +13,7 @@ struct HomePrescriptionView: View {
     private var subscription = Set<AnyCancellable>()
 
     // MARK: - Public Attributes
-    @ObservedObject var viewModel = HomePrescriptionVM(interactor: MedicineInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
+    @ObservedObject var viewModel:HomePrescriptionVM// = HomePrescriptionVM(interactor: MedicineInteractor(dataManager: DataManager.shared), homeCoordinator: HomeCoordinator())
 
     @State var isRemovingPrescription: Bool = false
 
@@ -35,15 +35,24 @@ struct HomePrescriptionView: View {
                     Spacer()
                 }
             }.padding(.top, 20)
-                .alert(isPresented: self.$isRemovingPrescription) {
-                    Alert(title: Text(R.string.localizable.home_alert_title.key.localized),
-                          message: Text(R.string.localizable.home_alert_message.key.localized),
-                          primaryButton: .default (Text(R.string.localizable.home_alert_ok.key.localized)) {
-                              self.viewModel.remove()
-                          },
-                          secondaryButton: .cancel()
-                    )
-            }
+//                .alert(isPresented: self.$isRemovingPrescription) {
+//                    Alert(title: Text(R.string.localizable.home_alert_title.key.localized),
+//                          message: Text(R.string.localizable.home_alert_message.key.localized),
+//                          primaryButton: .default (Text(R.string.localizable.home_alert_ok.key.localized)) {
+//                              self.viewModel.remove()
+//                          },
+//                          secondaryButton: .cancel()
+//                    )
+//            }
+            .alert(isPresented: self.$viewModel.presentAlertToTakeDoseBeforeTime) {
+                               Alert(title: Text(R.string.localizable.home_alert_title.key.localized),
+                                     message: Text(R.string.localizable.home_alert_message_dose_forced.key.localized),
+                                     primaryButton: .default (Text(R.string.localizable.home_alert_ok.key.localized)) {
+                                        self.viewModel.takeDose()
+                                     },
+                                     secondaryButton: .cancel()
+                               )
+                       }
         }.navigationBarItems(trailing:
             Button(action: {
                 self.viewModel.addPrescription()

@@ -45,6 +45,7 @@
 "home_title" = "Begin";
 "home_alert_title" = "Aandacht!";
 "home_alert_message" = "Dit recept wordt afgeschaft! Doorgaan?";
+"home_alert_message_dose_forced" = "Het is nog geen tijd om de dosis in te nemen. Weet je het zeker?";
 "home_alert_ok" = "Ja";
 "home_prescription_not_started" = "Niet gestart.\nDruk op het pictogram om te starten";
 "home_prescription_onging" = "Lopende,\nvolgende dosis:";

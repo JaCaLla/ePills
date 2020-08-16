@@ -46,6 +46,7 @@
 "home_title" = "Inizio";
 "home_alert_title" = "Attenzione!";
 "home_alert_message" = "Questa prescrizione verrà eliminata! Procedere?";
+"home_alert_message_dose_forced" = "Non è ancora il momento di prendere la dose. Sei sicuro?";
 "home_alert_ok" = "Sì";
 "home_prescription_not_started" = "Non avviato.\n Premere l'icona per iniziare";
 "home_prescription_onging" = "In corso,\n dose successiva:";

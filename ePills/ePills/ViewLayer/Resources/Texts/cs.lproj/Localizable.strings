@@ -46,6 +46,7 @@
 "home_title" = "Start";
 "home_alert_title" = "Pozornost!";
 "home_alert_message" = "Tento předpis bude odstraněn! Pokračovat?";
+"home_alert_message_dose_forced" = "Ještě není čas vzít dávku. Jsi si jistá?";
 "home_alert_ok" = "Ano";
 "home_prescription_not_started" = "Nezačal. \nStisknutím ikony spustíte";
 "home_prescription_onging" = "Samozřejmě \ndalší dávka:";

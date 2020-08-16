@@ -46,6 +46,7 @@
 "home_title" = "Start";
 "home_alert_title" = "Atenție!";
 "home_alert_message" = "Această rețetă va fi eliminată! Continua?";
+"home_alert_message_dose_forced" = "Nu este încă timpul să luați doza. Esti sigur?";
 "home_alert_ok" = "Da";
 "home_prescription_not_started" = "Nu a început.\nApăsați pictograma\n pentru a începe";
 "home_prescription_onging" = "Desigur,\n următoarea doză:";

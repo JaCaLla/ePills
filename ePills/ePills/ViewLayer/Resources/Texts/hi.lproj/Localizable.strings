@@ -46,6 +46,7 @@
 "home_title" = "शुरू";
 "home_alert_title" = "ध्यान!";
 "home_alert_message" = "इस नुस्खे को खत्म करने जा रहा है! आगे बढ़ें?";
+"home_alert_message_dose_forced" = "अभी खुराक लेने का समय नहीं आया है। क्या आपको यकीन है?";
 "home_alert_ok" = "हाँ";
 "home_prescription_not_started" = "शुरू नहीं हुआ। शुरू करने के लिए। \n आइकन";
 "home_prescription_onging" = "चल रहा है, \ n अगली खुराक:";

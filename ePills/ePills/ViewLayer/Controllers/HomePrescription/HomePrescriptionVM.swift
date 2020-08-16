@@ -53,9 +53,10 @@ public final class HomePrescriptionVM: ObservableObject {
     @Published var medicineHasDoses: Bool = false
     @Published var medicine: Medicine?
     @Published var medicinePicture: UIImage = UIImage()
+    @Published var presentAlertToTakeDoseBeforeTime: Bool = false
 
     var timer: Timer?
-    var runCount = 0
+    private var isAskingUserToTakeDoseBeforeTimePending: Bool = false
 
     init(interactor: MedicineInteractorProtocol = MedicineInteractor(),
          homeCoordinator: HomeCoordinatorProtocol,
@@ -68,7 +69,11 @@ public final class HomePrescriptionVM: ObservableObject {
             .sink { prescriptions in
                 self.medicines = prescriptions
                 self.refreshVM()
-                self.fetchMedicinePicture()
+                if self.medicines.isEmpty {
+                    self.homeCoordinator.replaceByFirstPrescription(interactor: self.interactor)
+                } else {
+                    self.fetchMedicinePicture()
+                }
             }
             .store(in: &cancellables)
         self.interactor.getCurrentPrescriptionIndex()
@@ -77,14 +82,14 @@ public final class HomePrescriptionVM: ObservableObject {
                 self.refreshVM()
             }
             .store(in: &cancellables)
-        self.$medicines
-            .sink { medicines in
-                AnalyticsManager.shared.setUser(property: UserProperties.medicines, value: String(medicines.count))
-                guard medicines.isEmpty else { return }
-                self.homeCoordinator.replaceByFirstPrescription(interactor: self.interactor)
-                self.refreshVM()
-            }
-            .store(in: &cancellables)
+//        self.$medicines
+//            .sink { medicines in
+//                AnalyticsManager.shared.setUser(property: UserProperties.medicines, value: String(medicines.count))
+//                guard medicines.isEmpty else { return }
+//                self.homeCoordinator.replaceByFirstPrescription(interactor: self.interactor)
+//                self.refreshVM()
+//            }
+//            .store(in: &cancellables)
         self.interactor.flushMedicines()
         timer = Timer.scheduledTimer(timeInterval: 1.0,
                                      target: self,
@@ -160,6 +165,16 @@ extension HomePrescriptionVM: HomePrescriptionVMProtocol {
     func takeDose() {
         guard medicines.count > currentPage else { return }
         let medicine = self.medicines[currentPage]
+        if isAskingUserToTakeDoseBeforeTimePending {
+            self.presentAlertToTakeDoseBeforeTime = false
+            isAskingUserToTakeDoseBeforeTimePending = false
+        } else {
+            if medicine.getState(timeManager: timeManager ) == .ongoing {
+                self.presentAlertToTakeDoseBeforeTime = true
+                isAskingUserToTakeDoseBeforeTimePending = true
+                return
+            }
+        }
         self.interactor.takeDose(medicine: medicine, timeManager: TimeManager())
         self.refreshVM()
     }

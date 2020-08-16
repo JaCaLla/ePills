@@ -46,6 +46,7 @@
 "home_title" = "開始";
 "home_alert_title" = "注意！";
 "home_alert_message" = "この処方箋は廃止されます！ 続行しますか？";
+"home_alert_message_dose_forced" = "まだ服用する時間ではありません。 本気ですか？";
 "home_alert_ok" = "はい";
 "home_prescription_not_started" = "開始されていません。\n開始するにはアイコンを押してください";
 "home_prescription_onging" = "継続中、\n次の投与量：";

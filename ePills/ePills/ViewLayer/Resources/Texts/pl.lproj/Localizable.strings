@@ -46,6 +46,7 @@
 "home_title" = "Początek";
 "home_alert_title" = "Uwaga!";
 "home_alert_message" = "Ta recepta zostanie wyeliminowana! Kontynuować?";
+"home_alert_message_dose_forced" = "Nie nadszedł jeszcze czas na przyjęcie dawki. Jesteś pewny?";
 "home_alert_ok" = "Tak";
 "home_prescription_not_started" = "Nie rozpoczęto.\n Naciśnij ikonę, aby rozpocząć";
 "home_prescription_onging" = "W toku,\n następna dawka:";

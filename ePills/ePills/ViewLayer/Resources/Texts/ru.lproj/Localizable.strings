@@ -46,6 +46,7 @@
 "home_title" = "Начало";
 "home_alert_title" = "Внимание!";
 "home_alert_message" = "Этот рецепт будет отменен! Продолжить?";
+"home_alert_message_dose_forced" = "Еще не время принимать дозу. Ты уверен?";
 "home_alert_ok" = "да";
 "home_prescription_not_started" = "Не запущен.\nНажмите значок,\n чтобы начать";
 "home_prescription_onging" = "Продолжается,\n следующая доза:";

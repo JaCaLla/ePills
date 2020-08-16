@@ -445,8 +445,8 @@ class MedicineInteractorUT: XCTestCase {
             XCTFail("test_getIntervals_en")
             return
         }
-        XCTAssertEqual(intervals[0].secs, 30)
-        XCTAssertEqual(intervals[0].label, "_30 Secs")
+        XCTAssertEqual(intervals[0].secs, 60)
+        XCTAssertEqual(intervals[0].label, "_60 Secs")
         XCTAssertEqual(intervals[1].secs, 3600)
         XCTAssertEqual(intervals[1].label, "1 Hour")
         XCTAssertEqual(intervals[2].secs, 7200)

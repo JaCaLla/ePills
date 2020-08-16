@@ -46,6 +46,7 @@
 "home_title" = "Mulailah";
 "home_alert_title" = "Perhatian!";
 "home_alert_message" = "Resep ini akan dihilangkan! Memproses?";
+"home_alert_message_dose_forced" = "Ini belum waktunya untuk mengambil dosis. Apakah kamu yakin";
 "home_alert_ok" = "Iya";
 "home_prescription_not_started" = "Belum dimulai.\nTekan ikon untuk memulai";
 "home_prescription_onging" = "Sedang berlangsung,\n dosis berikutnya:";
