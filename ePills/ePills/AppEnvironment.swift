@@ -20,6 +20,14 @@ enum Environment: String {
         default: return ""
         }
     }
+    
+    var appGroup: String {
+        switch self {
+        case .debug: return "group.com.JCa.ePills.debug"
+        case .production: return "group.com.JCa.ePills.debug"
+        default: return ""
+        }
+    }
 
     var toString: String {
         switch self {

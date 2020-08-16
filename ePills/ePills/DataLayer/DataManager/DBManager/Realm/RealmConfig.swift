@@ -16,7 +16,11 @@ struct DBFilename {
 enum RealmConfig {
 
     // MARK: - private configurations
+
     private static let mainConfig = Realm.Configuration(
+        fileURL: FileManager.default
+            .containerURL(forSecurityApplicationGroupIdentifier: AppEnvironment.shared.environment.appGroup   )!
+            .appendingPathComponent("default.realm"),
         // Set the new schema version. This must be greater than the previously used
         // version (if you've never set a schema version before, the version is 0).
         schemaVersion: 1,
